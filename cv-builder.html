@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CV Builder | CareerCraft</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+
+        /* NAVIGATION */
+
+        nav {
+            height: 75px;
+            padding: 0 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+
+        .logo {
+            color: #2563eb;
+            font-size: 27px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+
+        .nav-links a {
+            color: #374151;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+
+        /* HEADER */
+
+        .page-header {
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #1e40af
+                );
+
+            color: white;
+            text-align: center;
+
+            padding: 55px 20px;
+        }
+
+
+        .page-header h1 {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+
+        .page-header p {
+            font-size: 17px;
+            opacity: 0.95;
+        }
+
+
+        /* MAIN */
+
+        .container {
+            width: 92%;
+            max-width: 900px;
+
+            margin: 35px auto 70px;
+        }
+
+
+        .section {
+            background: white;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            border-radius: 14px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,0.04);
+        }
+
+
+        .section h2 {
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+
+
+        .description {
+            color: #64748b;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+
+        /* FORM */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 18px;
+        }
+
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+
+        label {
+            display: block;
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            margin-bottom: 7px;
+        }
+
+
+        input,
+        textarea {
+            width: 100%;
+
+            padding: 13px;
+
+            border:
+                1px solid #cbd5e1;
+
+            border-radius: 7px;
+
+            font-family: inherit;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+
+        input:focus,
+        textarea:focus {
+            border-color: #2563eb;
+        }
+
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+
+        /* EXPERIENCE / EDUCATION */
+
+        .entry {
+            position: relative;
+
+            background: #f8fafc;
+
+            border:
+                1px solid #e2e8f0;
+
+            padding: 22px;
+
+            border-radius: 10px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .entry-title {
+            color: #2563eb;
+
+            font-weight: bold;
+
+            margin-bottom: 18px;
+        }
+
+
+        .remove-button {
+            position: absolute;
+
+            right: 15px;
+            top: 15px;
+
+            background: #fee2e2;
+
+            color: #b91c1c;
+
+            border: none;
+
+            padding: 7px 10px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .add-button {
+            background: white;
+
+            color: #2563eb;
+
+            border:
+                2px dashed #2563eb;
+
+            padding: 11px 17px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .add-button:hover {
+            background: #eff6ff;
+        }
+
+
+        /* REVIEW BUTTON */
+
+        .review-button {
+            width: 100%;
+
+            padding: 17px;
+
+            background: #2563eb;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 9px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .review-button:hover {
+            background: #1d4ed8;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            background: #111827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 30px 20px;
+        }
+
+
+        footer p {
+            color: #cbd5e1;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .nav-links {
+                display: none;
+            }
+
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .full {
+                grid-column: auto;
+            }
+
+
+            .section {
+                padding: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVIGATION -->
+
+<nav>
+
+    <a
+        href="Index.html"
+        class="logo">
+
+        CareerCraft
+
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="Index.html">
+            Home
+        </a>
+
+        <a href="Cv-builder.html">
+            CV Builder
+        </a>
+
+        <a href="job-finder.html">
+            Job Finder
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- HEADER -->
+
+<header class="page-header">
+
+    <h1>
+        Build Your Professional CV
+    </h1>
+
+    <p>
+        Enter your information below to create your CV.
+    </p>
+
+</header>
+
+
+
+<!-- MAIN -->
+
+<main class="container">
+
+
+<form id="cvForm">
+
+
+    <!-- PERSONAL INFORMATION -->
+
+    <section class="section">
+
+        <h2>
+            Personal Information
+        </h2>
+
+        <p class="description">
+            Start with your basic information.
+        </p>
+
+
+        <div class="form-grid">
+
+
+            <div>
+
+                <label for="fullName">
+                    Full Name *
+                </label>
+
+                <input
+                    id="fullName"
+                    type="text"
+                    placeholder="Your full name"
+                    required>
+
+            </div>
+
+
+            <div>
+
+                <label for="professionalTitle">
+                    Professional Title
+                </label>
+
+                <input
+                    id="professionalTitle"
+                    type="text"
+                    placeholder="e.g. Software Developer">
+
+            </div>
+
+
+            <div>
+
+                <label for="email">
+                    Email *
+                </label>
+
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="you@example.com"
+                    required>
+
+            </div>
+
+
+            <div>
+
+                <label for="phone">
+                    Phone
+                </label>
+
+                <input
+                    id="phone"
+                    type="tel"
+                    placeholder="+44 7000 000000">
+
+            </div>
+
+
+            <div class="full">
+
+                <label for="location">
+                    Location
+                </label>
+
+                <input
+                    id="location"
+                    type="text"
+                    placeholder="London, United Kingdom">
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- SUMMARY -->
+
+    <section class="section">
+
+        <h2>
+            Professional Summary
+        </h2>
+
+        <p class="description">
+            Write a short introduction about yourself.
+        </p>
+
+
+        <textarea
+            id="summary"
+            placeholder="Example: Motivated professional with experience in..."></textarea>
+
+    </section>
+
+
+
+    <!-- EXPERIENCE -->
+
+    <section class="section">
+
+        <h2>
+            Work Experience
+        </h2>
+
+        <p class="description">
+            Add your previous work experience.
+        </p>
+
+
+        <div id="experienceContainer">
+
+
+            <div class="entry experience-entry">
+
+                <div class="entry-title">
+                    Work Experience 1
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <div>
+
+                        <label>
+                            Job Title
+                        </label>
+
+                        <input
+                            class="experience-job"
+                            type="text"
+                            placeholder="Job title">
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Company
+                        </label>
+
+                        <input
+                            class="experience-company"
+                            type="text"
+                            placeholder="Company name">
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Start Date
+                        </label>
+
+                        <input
+                            class="experience-start"
+                            type="month">
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            End Date
+                        </label>
+
+                        <input
+                            class="experience-end"
+                            type="month">
+
+                    </div>
+
+
+                    <div class="full">
+
+                        <label>
+                            Responsibilities & Achievements
+                        </label>
+
+                        <textarea
+                            class="experience-description"
+                            placeholder="Describe your responsibilities and achievements..."></textarea>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            type="button"
+            class="add-button"
+            onclick="addExperience()">
+
+            + Add Work Experience
+
+        </button>
+
+    </section>
+
+
+
+    <!-- EDUCATION -->
+
+    <section class="section">
+
+        <h2>
+            Education
+        </h2>
+
+        <p class="description">
+            Add your education and qualifications.
+        </p>
+
+
+        <div id="educationContainer">
+
+
+            <div class="entry education-entry">
+
+                <div class="entry-title">
+                    Education 1
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <div>
+
+                        <label>
+                            School / University
+                        </label>
+
+                        <input
+                            class="education-school"
+                            type="text"
+                            placeholder="School or university">
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Degree / Qualification
+                        </label>
+
+                        <input
+                            class="education-degree"
+                            type="text"
+                            placeholder="Degree or qualification">
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Start Year
+                        </label>
+
+                        <input
+                            class="education-start"
+                            type="number"
+                            placeholder="2022">
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            End Year
+                        </label>
+
+                        <input
+                            class="education-end"
+                            type="number"
+                            placeholder="2026">
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            type="button"
+            class="add-button"
+            onclick="addEducation()">
+
+            + Add Education
+
+        </button>
+
+    </section>
+
+
+
+    <!-- SKILLS -->
+
+    <section class="section">
+
+        <h2>
+            Skills
+        </h2>
+
+        <p class="description">
+            Add skills that you want employers to see.
+        </p>
+
+
+        <div id="skillsContainer">
+
+
+            <div class="entry skill-entry">
+
+                <div class="entry-title">
+                    Skill 1
+                </div>
+
+
+                <label>
+                    Skill
+                </label>
+
+                <input
+                    class="skill-name"
+                    type="text"
+                    placeholder="e.g. Microsoft Excel">
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            type="button"
+            class="add-button"
+            onclick="addSkill()">
+
+            + Add Skill
+
+        </button>
+
+    </section>
+
+
+
+    <!-- CERTIFICATIONS -->
+
+    <section class="section">
+
+        <h2>
+            Certifications
+        </h2>
+
+        <p class="description">
+            Add certificates or professional qualifications.
+        </p>
+
+
+        <textarea
+            id="certifications"
+            placeholder="Example: Google Digital Marketing Certificate"></textarea>
+
+    </section>
+
+
+
+    <!-- REVIEW -->
+
+    <section class="section">
+
+        <button
+            type="submit"
+            class="review-button">
+
+            Review My CV →
+
+        </button>
+
+    </section>
+
+
+</form>
+
+
+</main>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        © 2026 CareerCraft. All rights reserved.
+    </p>
+
+</footer>
+
+
+
+<script>
+
+
+/* =========================
+   ADD EXPERIENCE
+========================= */
+
+function addExperience() {
+
+    const container =
+        document.getElementById(
+            "experienceContainer"
+        );
+
+
+    const entry =
+        document.createElement("div");
+
+
+    entry.className =
+        "entry experience-entry";
+
+
+    entry.innerHTML = `
+
+        <button
+            type="button"
+            class="remove-button"
+            onclick="removeEntry(this)">
+
+            Remove
+
+        </button>
+
+
+        <div class="entry-title">
+            Work Experience
+        </div>
+
+
+        <div class="form-grid">
+
+
+            <div>
+
+                <label>
+                    Job Title
+                </label>
+
+                <input
+                    class="experience-job"
+                    type="text"
+                    placeholder="Job title">
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Company
+                </label>
+
+                <input
+                    class="experience-company"
+                    type="text"
+                    placeholder="Company name">
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Start Date
+                </label>
+
+                <input
+                    class="experience-start"
+                    type="month">
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    End Date
+                </label>
+
+                <input
+                    class="experience-end"
+                    type="month">
+
+            </div>
+
+
+            <div class="full">
+
+                <label>
+                    Responsibilities & Achievements
+                </label>
+
+                <textarea
+                    class="experience-description"
+                    placeholder="Describe your responsibilities and achievements..."></textarea>
+
+            </div>
+
+
+        </div>
+
+    `;
+
+
+    container.appendChild(entry);
+
+    updateNumbers();
+
+}
+
+
+
+/* =========================
+   ADD EDUCATION
+========================= */
+
+function addEducation() {
+
+    const container =
+        document.getElementById(
+            "educationContainer"
+        );
+
+
+    const entry =
+        document.createElement("div");
+
+
+    entry.className =
+        "entry education-entry";
+
+
+    entry.innerHTML = `
+
+        <button
+            type="button"
+            class="remove-button"
+            onclick="removeEntry(this)">
+
+            Remove
+
+        </button>
+
+
+        <div class="entry-title">
+            Education
+        </div>
+
+
+        <div class="form-grid">
+
+
+            <div>
+
+                <label>
+                    School / University
+                </label>
+
+                <input
+                    class="education-school"
+                    type="text"
+                    placeholder="School or university">
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Degree / Qualification
+                </label>
+
+                <input
+                    class="education-degree"
+                    type="text"
+                    placeholder="Degree or qualification">
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Start Year
+                </label>
+
+                <input
+                    class="education-start"
+                    type="number">
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    End Year
+                </label>
+
+                <input
+                    class="education-end"
+                    type="number">
+
+            </div>
+
+
+        </div>
+
+    `;
+
+
+    container.appendChild(entry);
+
+    updateNumbers();
+
+}
+
+
+
+/* =========================
+   ADD SKILL
+========================= */
+
+function addSkill() {
+
+    const container =
+        document.getElementById(
+            "skillsContainer"
+        );
+
+
+    const entry =
+        document.createElement("div");
+
+
+    entry.className =
+        "entry skill-entry";
+
+
+    entry.innerHTML = `
+
+        <button
+            type="button"
+            class="remove-button"
+            onclick="removeEntry(this)">
+
+            Remove
+
+        </button>
+
+
+        <div class="entry-title">
+            Skill
+        </div>
+
+
+        <label>
+            Skill
+        </label>
+
+        <input
+            class="skill-name"
+            type="text"
+            placeholder="e.g. Communication">
+
+    `;
+
+
+    container.appendChild(entry);
+
+    updateNumbers();
+
+}
+
+
+
+/* =========================
+   REMOVE
+========================= */
+
+function removeEntry(button) {
+
+    const entry =
+        button.parentElement;
+
+
+    const container =
+        entry.parentElement;
+
+
+    if (container.children.length <= 1) {
+
+        alert(
+            "At least one entry must remain."
+        );
+
+        return;
+
+    }
+
+
+    entry.remove();
+
+    updateNumbers();
+
+}
+
+
+
+/* =========================
+   NUMBER ENTRIES
+========================= */
+
+function updateNumbers() {
+
+
+    document
+        .querySelectorAll(
+            ".experience-entry"
+        )
+        .forEach(
+            function(entry, index) {
+
+                entry
+                    .querySelector(
+                        ".entry-title"
+                    )
+                    .textContent =
+                    "Work Experience " +
+                    (index + 1);
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            ".education-entry"
+        )
+        .forEach(
+            function(entry, index) {
+
+                entry
+                    .querySelector(
+                        ".entry-title"
+                    )
+                    .textContent =
+                    "Education " +
+                    (index + 1);
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            ".skill-entry"
+        )
+        .forEach(
+            function(entry, index) {
+
+                entry
+                    .querySelector(
+                        ".entry-title"
+                    )
+                    .textContent =
+                    "Skill " +
+                    (index + 1);
+
+            }
+        );
+
+}
+
+
+
+/* =========================
+   SAVE CV
+========================= */
+
+document
+    .getElementById("cvForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const cv = {
+
+                fullName:
+                    document
+                    .getElementById(
+                        "fullName"
+                    )
+                    .value
+                    .trim(),
+
+
+                professionalTitle:
+                    document
+                    .getElementById(
+                        "professionalTitle"
+                    )
+                    .value
+                    .trim(),
+
+
+                email:
+                    document
+                    .getElementById(
+                        "email"
+                    )
+                    .value
+                    .trim(),
+
+
+                phone:
+                    document
+                    .getElementById(
+                        "phone"
+                    )
+                    .value
+                    .trim(),
+
+
+                location:
+                    document
+                    .getElementById(
+                        "location"
+                    )
+                    .value
+                    .trim(),
+
+
+                summary:
+                    document
+                    .getElementById(
+                        "summary"
+                    )
+                    .value
+                    .trim(),
+
+
+                certifications:
+                    document
+                    .getElementById(
+                        "certifications"
+                    )
+                    .value
+                    .trim(),
+
+
+                experience: [],
+
+                education: [],
+
+                skills: []
+
+            };
+
+
+
+            /* EXPERIENCE */
+
+            document
+                .querySelectorAll(
+                    ".experience-entry"
+                )
+                .forEach(
+                    function(entry) {
+
+                        const job =
+                            entry
+                            .querySelector(
+                                ".experience-job"
+                            )
+                            .value
+                            .trim();
+
+
+                        const company =
+                            entry
+                            .querySelector(
+                                ".experience-company"
+                            )
+                            .value
+                            .trim();
+
+
+                        const start =
+                            entry
+                            .querySelector(
+                                ".experience-start"
+                            )
+                            .value;
+
+
+                        const end =
+                            entry
+                            .querySelector(
+                                ".experience-end"
+                            )
+                            .value;
+
+
+                        const description =
+                            entry
+                            .querySelector(
+                                ".experience-description"
+                            )
+                            .value
+                            .trim();
+
+
+                        if (
+                            job ||
+                            company ||
+                            start ||
+                            end ||
+                            description
+                        ) {
+
+                            cv.experience.push({
+
+                                job: job,
+
+                                company: company,
+
+                                start: start,
+
+                                end: end,
+
+                                description:
+                                    description
+
+                            });
+
+                        }
+
+                    }
+                );
+
+
+
+            /* EDUCATION */
+
+            document
+                .querySelectorAll(
+                    ".education-entry"
+                )
+                .forEach(
+                    function(entry) {
+
+                        const school =
+                            entry
+                            .querySelector(
+                                ".education-school"
+                            )
+                            .value
+                            .trim();
+
+
+                        const degree =
+                            entry
+                            .querySelector(
+                                ".education-degree"
+                            )
+                            .value
+                            .trim();
+
+
+                        const start =
+                            entry
+                            .querySelector(
+                                ".education-start"
+                            )
+                            .value;
+
+
+                        const end =
+                            entry
+                            .querySelector(
+                                ".education-end"
+                            )
+                            .value;
+
+
+                        if (
+                            school ||
+                            degree ||
+                            start ||
+                            end
+                        ) {
+
+                            cv.education.push({
+
+                                school: school,
+
+                                degree: degree,
+
+                                start: start,
+
+                                end: end
+
+                            });
+
+                        }
+
+                    }
+                );
+
+
+
+            /* SKILLS */
+
+            document
+                .querySelectorAll(
+                    ".skill-entry"
+                )
+                .forEach(
+                    function(entry) {
+
+                        const skill =
+                            entry
+                            .querySelector(
+                                ".skill-name"
+                            )
+                            .value
+                            .trim();
+
+
+                        if (skill) {
+
+                            cv.skills.push(
+                                skill
+                            );
+
+                        }
+
+                    }
+                );
+
+
+
+            /* SAVE INFORMATION */
+
+            localStorage.setItem(
+                "careerCraftCV",
+                JSON.stringify(cv)
+            );
+
+
+
+            /* OPEN REVIEW PAGE */
+
+            window.location.href =
+                "cv-review.html";
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>
