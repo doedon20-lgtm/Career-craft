@@ -3,555 +3,505 @@
 
 <head>
 
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Job Finder | CareerCraft</title>
-
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            color: #172033;
-        }
-
-        /* NAVIGATION */
-
-        nav {
-            height: 75px;
-            padding: 0 7%;
-
-            background: white;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .logo {
-            color: #2563eb;
-            font-size: 27px;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-
-        .nav-links a {
-            color: #374151;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .nav-links a:hover {
-            color: #2563eb;
-        }
-
-        /* HERO */
-
-        .hero {
-            background:
-                linear-gradient(
-                    135deg,
-                    #2563eb,
-                    #1e40af
-                );
-
-            color: white;
-
-            text-align: center;
-
-            padding: 65px 20px;
-        }
-
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 15px;
-        }
-
-        .hero p {
-            font-size: 17px;
-            opacity: 0.92;
-        }
-
-        #cvWelcome {
-            display: none;
-            margin-bottom: 15px;
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        /* SEARCH */
-
-        .search-container {
-            width: 94%;
-            max-width: 950px;
-
-            margin: -35px auto 40px;
-
-            background: white;
-
-            padding: 20px;
-
-            border-radius: 14px;
-
-            box-shadow:
-                0 10px 35px
-                rgba(0,0,0,0.12);
-        }
-
-        .search-grid {
-            display: grid;
-
-            grid-template-columns:
-                1fr 1fr auto;
-
-            gap: 12px;
-        }
-
-        .search-input {
-            width: 100%;
-
-            padding: 15px;
-
-            border:
-                1px solid #cbd5e1;
-
-            border-radius: 8px;
-
-            font-size: 15px;
-
-            outline: none;
-        }
-
-        .search-input:focus {
-            border-color: #2563eb;
-        }
-
-        .search-button {
-            padding: 15px 25px;
-
-            background: #2563eb;
-
-            color: white;
-
-            border: none;
-
-            border-radius: 8px;
-
-            font-size: 15px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-        }
-
-        .search-button:hover {
-            background: #1d4ed8;
-        }
-
-        /* MAIN */
-
-        .container {
-            width: 94%;
-            max-width: 1100px;
-
-            margin: 0 auto 70px;
-        }
-
-        .top-row {
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-bottom: 20px;
-        }
-
-        .top-row h2 {
-            font-size: 25px;
-        }
-
-        #resultCount {
-            color: #64748b;
-            font-size: 14px;
-        }
-
-        /* JOBS */
-
-        .jobs {
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 20px;
-        }
-
-        .job-card {
-            background: white;
-
-            border:
-                1px solid #e5e7eb;
-
-            border-radius: 14px;
-
-            padding: 25px;
-
-            transition: 0.2s;
-
-            box-shadow:
-                0 4px 15px
-                rgba(0,0,0,0.04);
-        }
-
-        .job-card:hover {
-            transform: translateY(-3px);
-
-            box-shadow:
-                0 10px 25px
-                rgba(0,0,0,0.08);
-        }
-
-        .company-icon {
-            width: 50px;
-            height: 50px;
-
-            background: #eff6ff;
-
-            color: #2563eb;
-
-            border-radius: 10px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 22px;
-
-            font-weight: bold;
-
-            margin-bottom: 17px;
-        }
-
-        .job-card h3 {
-            font-size: 20px;
-
-            margin-bottom: 7px;
-
-            color: #111827;
-        }
-
-        .company {
-            color: #475569;
-
-            font-weight: bold;
-
-            margin-bottom: 12px;
-        }
-
-        .job-details {
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 8px;
-
-            margin-bottom: 15px;
-        }
-
-        .tag {
-            background: #f1f5f9;
-
-            color: #475569;
-
-            padding: 6px 9px;
-
-            border-radius: 5px;
-
-            font-size: 12px;
-        }
-
-        .job-description {
-            color: #64748b;
-
-            line-height: 1.6;
-
-            font-size: 14px;
-
-            margin-bottom: 20px;
-        }
-
-        .job-footer {
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            gap: 10px;
-        }
-
-        .salary {
-            color: #16a34a;
-
-            font-weight: bold;
-
-            font-size: 14px;
-        }
-
-        .apply-button {
-            display: inline-block;
-
-            background: #2563eb;
-
-            color: white;
-
-            text-decoration: none;
-
-            padding: 10px 16px;
-
-            border-radius: 7px;
-
-            font-size: 14px;
-
-            font-weight: bold;
-        }
-
-        .apply-button:hover {
-            background: #1d4ed8;
-        }
-
-        /* NO RESULTS */
-
-        .no-results {
-            display: none;
-
-            background: white;
-
-            text-align: center;
-
-            padding: 60px 20px;
-
-            border-radius: 14px;
-        }
-
-        .no-results h2 {
-            margin-bottom: 10px;
-        }
-
-        .no-results p {
-            color: #64748b;
-        }
-
-        /* CV CTA */
-
-        .cv-cta {
-            margin-top: 50px;
-
-            padding: 45px 25px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #2563eb,
-                    #1e40af
-                );
-
-            color: white;
-
-            text-align: center;
-
-            border-radius: 15px;
-        }
-
-        .cv-cta h2 {
-            font-size: 30px;
-
-            margin-bottom: 10px;
-        }
-
-        .cv-cta p {
-            opacity: 0.9;
-
-            margin-bottom: 25px;
-        }
-
-        .cv-button {
-            display: inline-block;
-
-            background: white;
-
-            color: #2563eb;
-
-            text-decoration: none;
-
-            padding: 13px 22px;
-
-            border-radius: 8px;
-
-            font-weight: bold;
-        }
-
-        /* FOOTER */
-
-        footer {
-            background: #111827;
-
-            color: white;
-
-            text-align: center;
-
-            padding: 30px 20px;
-        }
-
-        footer p {
-            color: #cbd5e1;
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 750px) {
-
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 34px;
-            }
-
-            .search-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .jobs {
-                grid-template-columns: 1fr;
-            }
-
-            .top-row {
-                flex-direction: column;
-
-                align-items: flex-start;
-
-                gap: 7px;
-            }
-
-        }
-
-    </style>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="description"
+content="CareerCraft Job Finder - Search for your next career opportunity">
+
+<title>CareerCraft | Job Finder</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#f4f7fb;
+color:#172033;
+}
+
+/* NAVIGATION */
+
+.navbar{
+background:white;
+border-bottom:1px solid #e2e8f0;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.nav-inner{
+width:92%;
+max-width:1200px;
+height:70px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.logo{
+text-decoration:none;
+font-size:25px;
+font-weight:800;
+color:#2563eb;
+}
+
+.logo span{
+color:#0f172a;
+}
+
+.nav-links{
+display:flex;
+gap:22px;
+align-items:center;
+}
+
+.nav-links a{
+text-decoration:none;
+color:#475569;
+font-size:14px;
+font-weight:600;
+}
+
+.nav-links a:hover{
+color:#2563eb;
+}
+
+.active{
+color:#2563eb!important;
+}
+
+.builder-link{
+background:#2563eb;
+color:white!important;
+padding:10px 15px;
+border-radius:7px;
+}
+
+/* HERO */
+
+.hero{
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1d4ed8
+);
+
+color:white;
+padding:60px 20px 90px;
+text-align:center;
+}
+
+.hero h1{
+font-size:40px;
+margin-bottom:12px;
+}
+
+.hero p{
+color:#dbeafe;
+font-size:16px;
+line-height:1.6;
+max-width:650px;
+margin:auto;
+}
+
+/* SEARCH */
+
+.search-box{
+width:92%;
+max-width:1000px;
+background:white;
+margin:-45px auto 40px;
+padding:20px;
+border-radius:15px;
+box-shadow:0 12px 35px rgba(0,0,0,.12);
+position:relative;
+}
+
+.search-grid{
+display:grid;
+grid-template-columns:1fr 1fr auto;
+gap:10px;
+}
+
+.input{
+width:100%;
+padding:15px;
+border:1px solid #cbd5e1;
+border-radius:8px;
+font-size:14px;
+outline:none;
+}
+
+.input:focus{
+border-color:#2563eb;
+}
+
+.search-button{
+padding:15px 22px;
+border:none;
+border-radius:8px;
+background:#2563eb;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.search-button:hover{
+background:#1d4ed8;
+}
+
+/* MAIN */
+
+.container{
+width:92%;
+max-width:1100px;
+margin:auto;
+padding-bottom:70px;
+}
+
+.top-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.top-row h2{
+font-size:25px;
+}
+
+#resultCount{
+font-size:13px;
+color:#64748b;
+}
+
+/* JOB CARDS */
+
+.jobs{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+}
+
+.job-card{
+background:white;
+border:1px solid #e2e8f0;
+border-radius:14px;
+padding:24px;
+transition:.2s;
+}
+
+.job-card:hover{
+transform:translateY(-4px);
+box-shadow:0 12px 30px rgba(0,0,0,.08);
+}
+
+.job-top{
+display:flex;
+justify-content:space-between;
+gap:15px;
+margin-bottom:15px;
+}
+
+.company-icon{
+width:48px;
+height:48px;
+border-radius:10px;
+background:#eff6ff;
+color:#2563eb;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+font-size:20px;
+}
+
+.save-job{
+border:none;
+background:#f8fafc;
+width:38px;
+height:38px;
+border-radius:8px;
+cursor:pointer;
+font-size:17px;
+}
+
+.save-job:hover{
+background:#eff6ff;
+}
+
+.job-card h3{
+font-size:19px;
+margin-bottom:6px;
+color:#111827;
+}
+
+.company{
+font-size:14px;
+font-weight:bold;
+color:#475569;
+margin-bottom:12px;
+}
+
+.tags{
+display:flex;
+flex-wrap:wrap;
+gap:7px;
+margin-bottom:15px;
+}
+
+.tag{
+background:#f1f5f9;
+color:#475569;
+padding:6px 9px;
+border-radius:5px;
+font-size:11px;
+}
+
+.description{
+font-size:13px;
+color:#64748b;
+line-height:1.7;
+margin-bottom:18px;
+}
+
+.job-footer{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+}
+
+.salary{
+font-size:13px;
+font-weight:bold;
+color:#16a34a;
+}
+
+.apply{
+text-decoration:none;
+background:#2563eb;
+color:white;
+padding:10px 15px;
+border-radius:7px;
+font-size:12px;
+font-weight:bold;
+}
+
+.apply:hover{
+background:#1d4ed8;
+}
+
+/* NO RESULTS */
+
+.no-results{
+display:none;
+background:white;
+padding:55px 20px;
+border-radius:14px;
+text-align:center;
+}
+
+.no-results h2{
+margin-bottom:8px;
+}
+
+.no-results p{
+color:#64748b;
+font-size:14px;
+}
+
+/* CV SECTION */
+
+.cv-section{
+margin-top:50px;
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#1e3a8a
+);
+color:white;
+padding:42px 25px;
+border-radius:15px;
+text-align:center;
+}
+
+.cv-section h2{
+font-size:27px;
+margin-bottom:10px;
+}
+
+.cv-section p{
+color:#dbeafe;
+font-size:14px;
+margin-bottom:22px;
+}
+
+.cv-button{
+display:inline-block;
+background:white;
+color:#2563eb;
+text-decoration:none;
+padding:13px 20px;
+border-radius:8px;
+font-weight:bold;
+font-size:13px;
+}
+
+/* FOOTER */
+
+footer{
+background:#0f172a;
+color:#94a3b8;
+text-align:center;
+padding:28px 20px;
+font-size:13px;
+}
+
+/* MOBILE */
+
+@media(max-width:750px){
+
+.nav-links{
+display:none;
+}
+
+.hero h1{
+font-size:31px;
+}
+
+.search-grid{
+grid-template-columns:1fr;
+}
+
+.jobs{
+grid-template-columns:1fr;
+}
+
+.top-row{
+flex-direction:column;
+align-items:flex-start;
+gap:7px;
+}
+
+.job-footer{
+align-items:flex-start;
+flex-direction:column;
+}
+
+.apply{
+width:100%;
+text-align:center;
+}
+
+}
+
+</style>
 
 </head>
-
 
 <body>
 
 
 <!-- NAVIGATION -->
 
-<nav>
+<header class="navbar">
 
-    <a
-        href="Index.html"
-        class="logo">
+<div class="nav-inner">
 
-        CareerCraft
+<a href="index.html"
+class="logo">
 
-    </a>
+Career<span>Craft</span>
 
+</a>
 
-    <div class="nav-links">
+<nav class="nav-links">
 
-        <a href="Index.html">
-            Home
-        </a>
+<a href="index.html">
+Home
+</a>
 
-        <a href="Cv-builder.html">
-            CV Builder
-        </a>
+<a href="cv-builder.html">
+CV Builder
+</a>
 
-        <a href="cv-review.html">
-            CV Review
-        </a>
+<a href="cv-preview.html">
+CV Preview
+</a>
 
-        <a href="job-finder.html">
-            Job Finder
-        </a>
+<a href="cv-review.html">
+CV Review
+</a>
 
-    </div>
+<a href="job-finder.html"
+class="active">
+Job Finder
+</a>
 
 </nav>
 
+</div>
+
+</header>
 
 
 <!-- HERO -->
 
 <section class="hero">
 
-    <div id="cvWelcome"></div>
+<h1>
+Find Your Next Job
+</h1>
 
-    <h1>
-        Find Your Next Opportunity
-    </h1>
-
-    <p>
-        Search for jobs that match your
-        skills, experience and career goals.
-    </p>
+<p>
+Discover opportunities that match your
+skills, experience and career goals.
+</p>
 
 </section>
 
 
-
 <!-- SEARCH -->
 
-<div class="search-container">
+<section class="search-box">
 
-    <div class="search-grid">
+<div class="search-grid">
 
-        <input
-            id="keywordInput"
-            class="search-input"
-            type="text"
-            placeholder="Job title or keyword">
+<input
+id="keywordInput"
+class="input"
+type="text"
+placeholder="Job title, skill or keyword">
 
+<input
+id="locationInput"
+class="input"
+type="text"
+placeholder="Location e.g. London">
 
-        <input
-            id="locationInput"
-            class="search-input"
-            type="text"
-            placeholder="Location">
+<button
+class="search-button"
+onclick="searchJobs()">
 
+Search Jobs
 
-        <button
-            onclick="searchJobs()"
-            class="search-button">
-
-            Search Jobs
-
-        </button>
-
-    </div>
+</button>
 
 </div>
 
+</section>
 
 
 <!-- MAIN -->
@@ -559,710 +509,663 @@
 <main class="container">
 
 
-    <div class="top-row">
+<div class="top-row">
 
-        <h2>
-            Available Jobs
-        </h2>
+<h2>
+Job Opportunities
+</h2>
 
-        <span id="resultCount">
-            6 jobs found
-        </span>
+<span id="resultCount">
+6 jobs found
+</span>
 
-    </div>
+</div>
 
 
+<!-- JOBS -->
 
-    <div
-        id="jobsContainer"
-        class="jobs">
+<div
+id="jobsContainer"
+class="jobs">
 
 
-        <!-- JOB 1 -->
+<!-- JOB 1 -->
 
-        <div
-            class="job-card"
-            data-title="Software Developer"
-            data-location="London">
+<article
+class="job-card"
+data-title="software developer"
+data-location="london">
 
-            <div class="company-icon">
-                S
-            </div>
+<div class="job-top">
 
-            <h3>
-                Software Developer
-            </h3>
+<div class="company-icon">
+S
+</div>
 
-            <div class="company">
-                Technology Company
-            </div>
+<button
+class="save-job"
+onclick="saveJob(this)"
+title="Save job">
 
-            <div class="job-details">
+♡
+</button>
 
-                <span class="tag">
-                    London
-                </span>
+</div>
 
-                <span class="tag">
-                    Full-time
-                </span>
+<h3>
+Software Developer
+</h3>
 
-                <span class="tag">
-                    Technology
-                </span>
+<div class="company">
+Technology Company
+</div>
 
-            </div>
+<div class="tags">
 
-            <p class="job-description">
-                Join a growing technology team
-                and help build modern web
-                applications and digital products.
-            </p>
+<span class="tag">
+London
+</span>
 
-            <div class="job-footer">
+<span class="tag">
+Full-time
+</span>
 
-                <span class="salary">
-                    £35,000 - £50,000
-                </span>
+<span class="tag">
+Technology
+</span>
 
-                <a
-                    href="https://www.google.com/search?q=software+developer+jobs+london"
-                    target="_blank"
-                    class="apply-button">
+</div>
 
-                    View Job
+<p class="description">
+Build modern web applications,
+develop new features and work with
+a professional technology team.
+</p>
 
-                </a>
+<div class="job-footer">
 
-            </div>
+<span class="salary">
+£35,000 - £50,000
+</span>
 
-        </div>
+<a
+href="https://www.google.com/search?q=software+developer+jobs+london"
+target="_blank"
+class="apply">
 
+View Jobs
 
+</a>
 
-        <!-- JOB 2 -->
+</div>
 
-        <div
-            class="job-card"
-            data-title="Virtual Assistant"
-            data-location="Remote">
+</article>
 
-            <div class="company-icon">
-                V
-            </div>
 
-            <h3>
-                Virtual Assistant
-            </h3>
+<!-- JOB 2 -->
 
-            <div class="company">
-                Business Services Company
-            </div>
+<article
+class="job-card"
+data-title="virtual assistant"
+data-location="remote">
 
-            <div class="job-details">
+<div class="job-top">
 
-                <span class="tag">
-                    Remote
-                </span>
+<div class="company-icon">
+V
+</div>
 
-                <span class="tag">
-                    Full-time
-                </span>
+<button
+class="save-job"
+onclick="saveJob(this)"
+title="Save job">
 
-                <span class="tag">
-                    Administration
-                </span>
+♡
+</button>
 
-            </div>
+</div>
 
-            <p class="job-description">
-                Support a busy team with scheduling,
-                communication, documents and
-                administrative tasks.
-            </p>
+<h3>
+Virtual Assistant
+</h3>
 
-            <div class="job-footer">
+<div class="company">
+Business Services Company
+</div>
 
-                <span class="salary">
-                    £25,000 - £32,000
-                </span>
+<div class="tags">
 
-                <a
-                    href="https://www.google.com/search?q=virtual+assistant+jobs+UK"
-                    target="_blank"
-                    class="apply-button">
+<span class="tag">
+Remote
+</span>
 
-                    View Job
+<span class="tag">
+Full-time
+</span>
 
-                </a>
+<span class="tag">
+Administration
+</span>
 
-            </div>
+</div>
 
-        </div>
+<p class="description">
+Support businesses with scheduling,
+documents, communication, research
+and administrative responsibilities.
+</p>
 
+<div class="job-footer">
 
+<span class="salary">
+£25,000 - £32,000
+</span>
 
-        <!-- JOB 3 -->
+<a
+href="https://www.google.com/search?q=virtual+assistant+jobs+UK"
+target="_blank"
+class="apply">
 
-        <div
-            class="job-card"
-            data-title="Marketing Assistant"
-            data-location="Manchester">
+View Jobs
 
-            <div class="company-icon">
-                M
-            </div>
+</a>
 
-            <h3>
-                Marketing Assistant
-            </h3>
+</div>
 
-            <div class="company">
-                Digital Marketing Company
-            </div>
+</article>
 
-            <div class="job-details">
 
-                <span class="tag">
-                    Manchester
-                </span>
+<!-- JOB 3 -->
 
-                <span class="tag">
-                    Full-time
-                </span>
+<article
+class="job-card"
+data-title="marketing assistant"
+data-location="manchester">
 
-                <span class="tag">
-                    Marketing
-                </span>
+<div class="job-top">
 
-            </div>
+<div class="company-icon">
+M
+</div>
 
-            <p class="job-description">
-                Assist with digital campaigns,
-                social media content and marketing
-                activities.
-            </p>
+<button
+class="save-job"
+onclick="saveJob(this)"
+title="Save job">
 
-            <div class="job-footer">
+♡
+</button>
 
-                <span class="salary">
-                    £27,000 - £34,000
-                </span>
+</div>
 
-                <a
-                    href="https://www.google.com/search?q=marketing+assistant+jobs+Manchester"
-                    target="_blank"
-                    class="apply-button">
+<h3>
+Marketing Assistant
+</h3>
 
-                    View Job
+<div class="company">
+Digital Marketing Company
+</div>
 
-                </a>
+<div class="tags">
 
-            </div>
+<span class="tag">
+Manchester
+</span>
 
-        </div>
+<span class="tag">
+Full-time
+</span>
 
+<span class="tag">
+Marketing
+</span>
 
+</div>
 
-        <!-- JOB 4 -->
+<p class="description">
+Help create campaigns, manage social
+media content and support digital
+marketing activities.
+</p>
 
-        <div
-            class="job-card"
-            data-title="Customer Service Representative"
-            data-location="Birmingham">
+<div class="job-footer">
 
-            <div class="company-icon">
-                C
-            </div>
+<span class="salary">
+£27,000 - £34,000
+</span>
 
-            <h3>
-                Customer Service Representative
-            </h3>
+<a
+href="https://www.google.com/search?q=marketing+assistant+jobs+Manchester"
+target="_blank"
+class="apply">
 
-            <div class="company">
-                Customer Support Company
-            </div>
+View Jobs
 
-            <div class="job-details">
+</a>
 
-                <span class="tag">
-                    Birmingham
-                </span>
+</div>
 
-                <span class="tag">
-                    Full-time
-                </span>
+</article>
 
-                <span class="tag">
-                    Customer Service
-                </span>
 
-            </div>
+<!-- JOB 4 -->
 
-            <p class="job-description">
-                Help customers, answer questions
-                and provide excellent support through
-                different communication channels.
-            </p>
+<article
+class="job-card"
+data-title="customer service representative"
+data-location="birmingham">
 
-            <div class="job-footer">
+<div class="job-top">
 
-                <span class="salary">
-                    £24,000 - £30,000
-                </span>
+<div class="company-icon">
+C
+</div>
 
-                <a
-                    href="https://www.google.com/search?q=customer+service+jobs+Birmingham"
-                    target="_blank"
-                    class="apply-button">
+<button
+class="save-job"
+onclick="saveJob(this)"
+title="Save job">
 
-                    View Job
+♡
+</button>
 
-                </a>
+</div>
 
-            </div>
+<h3>
+Customer Service Representative
+</h3>
 
-        </div>
+<div class="company">
+Customer Support Company
+</div>
 
+<div class="tags">
 
+<span class="tag">
+Birmingham
+</span>
 
-        <!-- JOB 5 -->
+<span class="tag">
+Full-time
+</span>
 
-        <div
-            class="job-card"
-            data-title="Data Analyst"
-            data-location="London">
+<span class="tag">
+Customer Service
+</span>
 
-            <div class="company-icon">
-                D
-            </div>
+</div>
 
-            <h3>
-                Data Analyst
-            </h3>
+<p class="description">
+Help customers, answer questions and
+provide excellent support through
+different communication channels.
+</p>
 
-            <div class="company">
-                Data & Technology Company
-            </div>
+<div class="job-footer">
 
-            <div class="job-details">
+<span class="salary">
+£24,000 - £30,000
+</span>
 
-                <span class="tag">
-                    London
-                </span>
+<a
+href="https://www.google.com/search?q=customer+service+jobs+Birmingham"
+target="_blank"
+class="apply">
 
-                <span class="tag">
-                    Full-time
-                </span>
+View Jobs
 
-                <span class="tag">
-                    Data
-                </span>
+</a>
 
-            </div>
+</div>
 
-            <p class="job-description">
-                Analyse business data and create
-                reports that help organisations
-                make better decisions.
-            </p>
+</article>
 
-            <div class="job-footer">
 
-                <span class="salary">
-                    £38,000 - £55,000
-                </span>
+<!-- JOB 5 -->
 
-                <a
-                    href="https://www.google.com/search?q=data+analyst+jobs+london"
-                    target="_blank"
-                    class="apply-button">
+<article
+class="job-card"
+data-title="data analyst"
+data-location="london">
 
-                    View Job
+<div class="job-top">
 
-                </a>
+<div class="company-icon">
+D
+</div>
 
-            </div>
+<button
+class="save-job"
+onclick="saveJob(this)"
+title="Save job">
 
-        </div>
+♡
+</button>
 
+</div>
 
+<h3>
+Data Analyst
+</h3>
 
-        <!-- JOB 6 -->
+<div class="company">
+Data & Technology Company
+</div>
 
-        <div
-            class="job-card"
-            data-title="Graphic Designer"
-            data-location="Remote">
+<div class="tags">
 
-            <div class="company-icon">
-                G
-            </div>
+<span class="tag">
+London
+</span>
 
-            <h3>
-                Graphic Designer
-            </h3>
+<span class="tag">
+Full-time
+</span>
 
-            <div class="company">
-                Creative Agency
-            </div>
+<span class="tag">
+Data
+</span>
 
-            <div class="job-details">
+</div>
 
-                <span class="tag">
-                    Remote
-                </span>
+<p class="description">
+Analyse data, create reports and
+provide useful insights that help
+businesses make better decisions.
+</p>
 
-                <span class="tag">
-                    Freelance
-                </span>
+<div class="job-footer">
 
-                <span class="tag">
-                    Design
-                </span>
+<span class="salary">
+£38,000 - £55,000
+</span>
 
-            </div>
+<a
+href="https://www.google.com/search?q=data+analyst+jobs+london"
+target="_blank"
+class="apply">
 
-            <p class="job-description">
-                Create engaging visual designs
-                for websites, social media,
-                marketing campaigns and digital products.
-            </p>
+View Jobs
 
-            <div class="job-footer">
+</a>
 
-                <span class="salary">
-                    £28,000 - £42,000
-                </span>
+</div>
 
-                <a
-                    href="https://www.google.com/search?q=remote+graphic+designer+jobs+UK"
-                    target="_blank"
-                    class="apply-button">
+</article>
 
-                    View Job
 
-                </a>
+<!-- JOB 6 -->
 
-            </div>
+<article
+class="job-card"
+data-title="graphic designer"
+data-location="remote">
 
-        </div>
+<div class="job-top">
 
+<div class="company-icon">
+G
+</div>
 
-    </div>
+<button
+class="save-job"
+onclick="saveJob(this)"
+title="Save job">
 
+♡
+</button>
 
+</div>
 
-    <!-- NO RESULTS -->
+<h3>
+Graphic Designer
+</h3>
 
-    <div
-        id="noResults"
-        class="no-results">
+<div class="company">
+Creative Agency
+</div>
 
-        <h2>
-            No jobs found
-        </h2>
+<div class="tags">
 
-        <p>
-            Try another job title or location.
-        </p>
+<span class="tag">
+Remote
+</span>
 
-    </div>
+<span class="tag">
+Freelance
+</span>
 
+<span class="tag">
+Design
+</span>
 
+</div>
 
-    <!-- CV CTA -->
+<p class="description">
+Create visual designs for websites,
+social media, advertising campaigns
+and digital products.
+</p>
 
-    <section class="cv-cta">
+<div class="job-footer">
 
-        <h2>
-            Don't have a professional CV yet?
-        </h2>
+<span class="salary">
+£28,000 - £42,000
+</span>
 
-        <p>
-            Create one with CareerCraft before applying.
-        </p>
+<a
+href="https://www.google.com/search?q=remote+graphic+designer+jobs+UK"
+target="_blank"
+class="apply">
 
-        <a
-            href="Cv-builder.html"
-            class="cv-button">
+View Jobs
 
-            Build My CV →
+</a>
 
-        </a>
+</div>
 
-    </section>
+</article>
+
+
+</div>
+
+
+<!-- NO RESULTS -->
+
+<div
+id="noResults"
+class="no-results">
+
+<h2>
+No jobs found
+</h2>
+
+<p>
+Try a different job title, keyword
+or location.
+</p>
+
+</div>
+
+
+<!-- CV CTA -->
+
+<section class="cv-section">
+
+<h2>
+Stand Out to Employers
+</h2>
+
+<p>
+Create a professional CV before
+applying for your next opportunity.
+</p>
+
+<a
+href="cv-builder.html"
+class="cv-button">
+
+Build My CV →
+
+</a>
+
+</section>
 
 
 </main>
-
 
 
 <!-- FOOTER -->
 
 <footer>
 
-    <p>
-        © 2026 CareerCraft.
-        All rights reserved.
-    </p>
+CareerCraft © 2026 —
+Build a better career.
 
 </footer>
 
 
-
 <script>
 
+/* SEARCH JOBS */
 
-/* =================================
-   CONNECT CV TO JOB FINDER
-================================= */
+function searchJobs(){
 
-const savedCV =
-    localStorage.getItem(
-        "careerCraftCV"
-    );
+const keyword =
+document
+.getElementById("keywordInput")
+.value
+.toLowerCase()
+.trim();
 
+const location =
+document
+.getElementById("locationInput")
+.value
+.toLowerCase()
+.trim();
 
-if (savedCV) {
+const jobs =
+document
+.querySelectorAll(".job-card");
 
-    try {
+let count = 0;
 
-        const cv =
-            JSON.parse(savedCV);
+jobs.forEach(function(job){
 
+const title =
+job.dataset.title;
 
-        const welcome =
-            document.getElementById(
-                "cvWelcome"
-            );
+const jobLocation =
+job.dataset.location;
 
+const keywordMatch =
+keyword === "" ||
+title.includes(keyword);
 
-        /*
-         * Show the user's name
-         * and professional title.
-         */
+const locationMatch =
+location === "" ||
+jobLocation.includes(location);
 
-        if (
-            cv.fullName &&
-            cv.professionalTitle
-        ) {
+if(
+keywordMatch &&
+locationMatch
+){
 
-            welcome.textContent =
-                "Welcome, " +
-                cv.fullName +
-                " — finding jobs for " +
-                cv.professionalTitle;
+job.style.display="block";
 
-            welcome.style.display =
-                "block";
+count++;
 
-        }
+}else{
 
+job.style.display="none";
 
-        /*
-         * Automatically put the
-         * professional title into
-         * the search box.
-         */
+}
 
-        const keywordInput =
-            document.getElementById(
-                "keywordInput"
-            );
+});
 
 
-        if (
-            keywordInput &&
-            cv.professionalTitle
-        ) {
+document
+.getElementById("resultCount")
+.textContent =
+count +
+(count === 1
+? " job found"
+: " jobs found");
 
-            keywordInput.value =
-                cv.professionalTitle;
 
-        }
+const noResults =
+document
+.getElementById("noResults");
 
-    }
+if(count === 0){
 
-    catch (error) {
+noResults.style.display="block";
 
-        console.log(
-            "Could not load CV information."
-        );
+}else{
 
-    }
+noResults.style.display="none";
+
+}
 
 }
 
 
+/* ENTER KEY */
 
-/* =================================
-   SEARCH JOBS
-================================= */
+document
+.getElementById("keywordInput")
+.addEventListener(
+"keydown",
+function(event){
 
-function searchJobs() {
+if(event.key==="Enter"){
 
-
-    const keyword =
-        document
-        .getElementById(
-            "keywordInput"
-        )
-        .value
-        .toLowerCase()
-        .trim();
-
-
-    const location =
-        document
-        .getElementById(
-            "locationInput"
-        )
-        .value
-        .toLowerCase()
-        .trim();
-
-
-    const jobs =
-        document.querySelectorAll(
-            ".job-card"
-        );
-
-
-    let count = 0;
-
-
-    jobs.forEach(
-        function(job) {
-
-
-            const title =
-                job.dataset.title
-                .toLowerCase();
-
-
-            const jobLocation =
-                job.dataset.location
-                .toLowerCase();
-
-
-            const matchesKeyword =
-                keyword === "" ||
-                title.includes(keyword);
-
-
-            const matchesLocation =
-                location === "" ||
-                jobLocation.includes(location);
-
-
-            if (
-                matchesKeyword &&
-                matchesLocation
-            ) {
-
-                job.style.display =
-                    "block";
-
-                count++;
-
-            }
-
-            else {
-
-                job.style.display =
-                    "none";
-
-            }
-
-        }
-    );
-
-
-    document
-        .getElementById(
-            "resultCount"
-        )
-        .textContent =
-        count +
-        (
-            count === 1
-            ? " job found"
-            : " jobs found"
-        );
-
-
-    const noResults =
-        document.getElementById(
-            "noResults"
-        );
-
-
-    if (count === 0) {
-
-        noResults.style.display =
-            "block";
-
-    }
-
-    else {
-
-        noResults.style.display =
-            "none";
-
-    }
+searchJobs();
 
 }
 
-
-
-/* =================================
-   ENTER KEY
-================================= */
-
-document
-    .getElementById(
-        "keywordInput"
-    )
-    .addEventListener(
-        "keydown",
-        function(event) {
-
-            if (
-                event.key === "Enter"
-            ) {
-
-                searchJobs();
-
-            }
-
-        }
-    );
+});
 
 
 document
-    .getElementById(
-        "locationInput"
-    )
-    .addEventListener(
-        "keydown",
-        function(event) {
+.getElementById("locationInput")
+.addEventListener(
+"keydown",
+function(event){
 
-            if (
-                event.key === "Enter"
-            ) {
+if(event.key==="Enter"){
 
-                searchJobs();
+searchJobs();
 
-            }
+}
 
-        }
-    );
+});
 
+
+/* SAVE JOB */
+
+function saveJob(button){
+
+if(button.textContent.trim()==="♡"){
+
+button.textContent="♥";
+
+button.style.color="#2563eb";
+
+}else{
+
+button.textContent="♡";
+
+button.style.color="";
+
+}
+
+}
 
 </script>
 
 
 </body>
 
-</html>
+    </html>
