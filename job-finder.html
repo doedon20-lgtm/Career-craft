@@ -5,405 +5,394 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<meta name="description"
-content="CareerCraft Job Finder - Search for your next career opportunity">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>CareerCraft | Job Finder</title>
 
 <style>
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body{
-font-family:Arial,Helvetica,sans-serif;
-background:#f4f7fb;
-color:#172033;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f7fb;
+    color:#172033;
 }
 
 /* NAVIGATION */
 
-.navbar{
-background:white;
-border-bottom:1px solid #e2e8f0;
-position:sticky;
-top:0;
-z-index:1000;
-}
-
-.nav-inner{
-width:92%;
-max-width:1200px;
-height:70px;
-margin:auto;
-display:flex;
-align-items:center;
-justify-content:space-between;
+nav{
+    height:72px;
+    background:white;
+    border-bottom:1px solid #e5e7eb;
+    padding:0 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
 .logo{
-text-decoration:none;
-font-size:25px;
-font-weight:800;
-color:#2563eb;
-}
-
-.logo span{
-color:#0f172a;
+    color:#2563eb;
+    font-size:26px;
+    font-weight:bold;
+    text-decoration:none;
 }
 
 .nav-links{
-display:flex;
-gap:22px;
-align-items:center;
+    display:flex;
+    gap:22px;
 }
 
 .nav-links a{
-text-decoration:none;
-color:#475569;
-font-size:14px;
-font-weight:600;
+    color:#475569;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
 }
 
-.nav-links a:hover{
-color:#2563eb;
-}
-
-.active{
-color:#2563eb!important;
-}
-
-.builder-link{
-background:#2563eb;
-color:white!important;
-padding:10px 15px;
-border-radius:7px;
+.nav-links a:hover,
+.nav-links .active{
+    color:#2563eb;
 }
 
 /* HERO */
 
 .hero{
-background:
-linear-gradient(
-135deg,
-#0f172a,
-#1d4ed8
-);
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #1e40af
+    );
 
-color:white;
-padding:60px 20px 90px;
-text-align:center;
+    color:white;
+    text-align:center;
+    padding:60px 20px 85px;
 }
 
 .hero h1{
-font-size:40px;
-margin-bottom:12px;
+    font-size:42px;
+    margin-bottom:14px;
 }
 
 .hero p{
-color:#dbeafe;
-font-size:16px;
-line-height:1.6;
-max-width:650px;
-margin:auto;
+    font-size:16px;
+    opacity:.92;
+}
+
+#cvWelcome{
+    display:none;
+    margin-bottom:15px;
+    font-size:14px;
+    font-weight:bold;
 }
 
 /* SEARCH */
 
-.search-box{
-width:92%;
-max-width:1000px;
-background:white;
-margin:-45px auto 40px;
-padding:20px;
-border-radius:15px;
-box-shadow:0 12px 35px rgba(0,0,0,.12);
-position:relative;
+.search-container{
+    width:92%;
+    max-width:950px;
+    margin:-40px auto 40px;
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 10px 35px rgba(0,0,0,.12);
+    position:relative;
 }
 
 .search-grid{
-display:grid;
-grid-template-columns:1fr 1fr auto;
-gap:10px;
+    display:grid;
+    grid-template-columns:1fr 1fr auto;
+    gap:12px;
 }
 
-.input{
-width:100%;
-padding:15px;
-border:1px solid #cbd5e1;
-border-radius:8px;
-font-size:14px;
-outline:none;
+.search-input{
+    width:100%;
+    padding:15px;
+    border:1px solid #cbd5e1;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
 }
 
-.input:focus{
-border-color:#2563eb;
+.search-input:focus{
+    border-color:#2563eb;
 }
 
 .search-button{
-padding:15px 22px;
-border:none;
-border-radius:8px;
-background:#2563eb;
-color:white;
-font-weight:bold;
-cursor:pointer;
+    border:none;
+    border-radius:8px;
+    padding:15px 25px;
+    background:#2563eb;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
 }
 
 .search-button:hover{
-background:#1d4ed8;
+    background:#1d4ed8;
 }
 
 /* MAIN */
 
 .container{
-width:92%;
-max-width:1100px;
-margin:auto;
-padding-bottom:70px;
+    width:92%;
+    max-width:1100px;
+    margin:0 auto 70px;
 }
 
 .top-row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
 }
 
 .top-row h2{
-font-size:25px;
+    font-size:25px;
 }
 
 #resultCount{
-font-size:13px;
-color:#64748b;
+    color:#64748b;
+    font-size:14px;
 }
 
-/* JOB CARDS */
+/* JOBS */
 
 .jobs{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:20px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
 }
 
 .job-card{
-background:white;
-border:1px solid #e2e8f0;
-border-radius:14px;
-padding:24px;
-transition:.2s;
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:24px;
+    box-shadow:0 4px 15px rgba(0,0,0,.04);
+    transition:.2s;
 }
 
 .job-card:hover{
-transform:translateY(-4px);
-box-shadow:0 12px 30px rgba(0,0,0,.08);
-}
-
-.job-top{
-display:flex;
-justify-content:space-between;
-gap:15px;
-margin-bottom:15px;
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
 .company-icon{
-width:48px;
-height:48px;
-border-radius:10px;
-background:#eff6ff;
-color:#2563eb;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:bold;
-font-size:20px;
-}
-
-.save-job{
-border:none;
-background:#f8fafc;
-width:38px;
-height:38px;
-border-radius:8px;
-cursor:pointer;
-font-size:17px;
-}
-
-.save-job:hover{
-background:#eff6ff;
+    width:50px;
+    height:50px;
+    background:#eff6ff;
+    color:#2563eb;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+    font-weight:bold;
+    margin-bottom:16px;
 }
 
 .job-card h3{
-font-size:19px;
-margin-bottom:6px;
-color:#111827;
+    font-size:20px;
+    margin-bottom:7px;
+    color:#111827;
 }
 
 .company{
-font-size:14px;
-font-weight:bold;
-color:#475569;
-margin-bottom:12px;
+    color:#475569;
+    font-weight:bold;
+    margin-bottom:12px;
 }
 
-.tags{
-display:flex;
-flex-wrap:wrap;
-gap:7px;
-margin-bottom:15px;
+.job-details{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-bottom:15px;
 }
 
 .tag{
-background:#f1f5f9;
-color:#475569;
-padding:6px 9px;
-border-radius:5px;
-font-size:11px;
+    background:#f1f5f9;
+    color:#475569;
+    padding:6px 9px;
+    border-radius:5px;
+    font-size:12px;
 }
 
-.description{
-font-size:13px;
-color:#64748b;
-line-height:1.7;
-margin-bottom:18px;
+.job-description{
+    color:#64748b;
+    line-height:1.6;
+    font-size:14px;
+    margin-bottom:20px;
 }
 
 .job-footer{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
 }
 
 .salary{
-font-size:13px;
-font-weight:bold;
-color:#16a34a;
+    color:#16a34a;
+    font-weight:bold;
+    font-size:14px;
 }
 
-.apply{
-text-decoration:none;
-background:#2563eb;
-color:white;
-padding:10px 15px;
-border-radius:7px;
-font-size:12px;
-font-weight:bold;
+.apply-button{
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:10px 15px;
+    border-radius:7px;
+    font-size:13px;
+    font-weight:bold;
 }
 
-.apply:hover{
-background:#1d4ed8;
+.apply-button:hover{
+    background:#1d4ed8;
+}
+
+/* LOADING */
+
+.loading{
+    background:white;
+    border-radius:14px;
+    padding:50px 20px;
+    text-align:center;
+    color:#64748b;
+    display:none;
+}
+
+.loading-spinner{
+    width:35px;
+    height:35px;
+    border:4px solid #e2e8f0;
+    border-top:4px solid #2563eb;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin:0 auto 15px;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
 }
 
 /* NO RESULTS */
 
 .no-results{
-display:none;
-background:white;
-padding:55px 20px;
-border-radius:14px;
-text-align:center;
+    display:none;
+    background:white;
+    text-align:center;
+    padding:55px 20px;
+    border-radius:14px;
 }
 
 .no-results h2{
-margin-bottom:8px;
+    margin-bottom:10px;
 }
 
 .no-results p{
-color:#64748b;
-font-size:14px;
+    color:#64748b;
 }
 
-/* CV SECTION */
+/* ERROR */
 
-.cv-section{
-margin-top:50px;
-background:
-linear-gradient(
-135deg,
-#2563eb,
-#1e3a8a
-);
-color:white;
-padding:42px 25px;
-border-radius:15px;
-text-align:center;
+.error-box{
+    display:none;
+    background:#fff7ed;
+    color:#9a3412;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+    text-align:center;
 }
 
-.cv-section h2{
-font-size:27px;
-margin-bottom:10px;
+/* CV CTA */
+
+.cv-cta{
+    margin-top:50px;
+    padding:45px 25px;
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #1e40af
+    );
+    color:white;
+    text-align:center;
+    border-radius:15px;
 }
 
-.cv-section p{
-color:#dbeafe;
-font-size:14px;
-margin-bottom:22px;
+.cv-cta h2{
+    font-size:29px;
+    margin-bottom:10px;
+}
+
+.cv-cta p{
+    opacity:.9;
+    margin-bottom:23px;
 }
 
 .cv-button{
-display:inline-block;
-background:white;
-color:#2563eb;
-text-decoration:none;
-padding:13px 20px;
-border-radius:8px;
-font-weight:bold;
-font-size:13px;
+    display:inline-block;
+    background:white;
+    color:#2563eb;
+    text-decoration:none;
+    padding:13px 22px;
+    border-radius:8px;
+    font-weight:bold;
 }
 
 /* FOOTER */
 
 footer{
-background:#0f172a;
-color:#94a3b8;
-text-align:center;
-padding:28px 20px;
-font-size:13px;
+    background:#111827;
+    color:#cbd5e1;
+    text-align:center;
+    padding:30px 20px;
 }
 
 /* MOBILE */
 
 @media(max-width:750px){
 
-.nav-links{
-display:none;
-}
+    .nav-links{
+        display:none;
+    }
 
-.hero h1{
-font-size:31px;
-}
+    .hero h1{
+        font-size:32px;
+    }
 
-.search-grid{
-grid-template-columns:1fr;
-}
+    .search-grid{
+        grid-template-columns:1fr;
+    }
 
-.jobs{
-grid-template-columns:1fr;
-}
+    .jobs{
+        grid-template-columns:1fr;
+    }
 
-.top-row{
-flex-direction:column;
-align-items:flex-start;
-gap:7px;
-}
+    .top-row{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:7px;
+    }
 
-.job-footer{
-align-items:flex-start;
-flex-direction:column;
-}
+    .job-footer{
+        flex-direction:column;
+        align-items:flex-start;
+    }
 
-.apply{
-width:100%;
-text-align:center;
-}
+    .apply-button{
+        width:100%;
+        text-align:center;
+    }
 
 }
 
@@ -411,23 +400,19 @@ text-align:center;
 
 </head>
 
+
 <body>
 
 
 <!-- NAVIGATION -->
 
-<header class="navbar">
+<nav>
 
-<div class="nav-inner">
-
-<a href="index.html"
-class="logo">
-
-Career<span>Craft</span>
-
+<a href="index.html" class="logo">
+CareerCraft
 </a>
 
-<nav class="nav-links">
+<div class="nav-links">
 
 <a href="index.html">
 Home
@@ -445,29 +430,27 @@ CV Preview
 CV Review
 </a>
 
-<a href="job-finder.html"
-class="active">
+<a href="job-finder.html" class="active">
 Job Finder
 </a>
 
-</nav>
-
 </div>
 
-</header>
+</nav>
 
 
 <!-- HERO -->
 
 <section class="hero">
 
+<div id="cvWelcome"></div>
+
 <h1>
-Find Your Next Job
+Find Your Next Opportunity
 </h1>
 
 <p>
-Discover opportunities that match your
-skills, experience and career goals.
+Search thousands of jobs by title, skill or location.
 </p>
 
 </section>
@@ -475,25 +458,29 @@ skills, experience and career goals.
 
 <!-- SEARCH -->
 
-<section class="search-box">
+<div class="search-container">
 
 <div class="search-grid">
 
 <input
 id="keywordInput"
-class="input"
+class="search-input"
 type="text"
-placeholder="Job title, skill or keyword">
+placeholder="Job title, skill or keyword"
+>
 
 <input
 id="locationInput"
-class="input"
+class="search-input"
 type="text"
-placeholder="Location e.g. London">
+placeholder="Location e.g. London"
+>
 
 <button
+id="searchButton"
 class="search-button"
-onclick="searchJobs()">
+onclick="searchJobs()"
+>
 
 Search Jobs
 
@@ -501,7 +488,7 @@ Search Jobs
 
 </div>
 
-</section>
+</div>
 
 
 <!-- MAIN -->
@@ -512,12 +499,35 @@ Search Jobs
 <div class="top-row">
 
 <h2>
-Job Opportunities
+Available Jobs
 </h2>
 
 <span id="resultCount">
-6 jobs found
+Search for jobs
 </span>
+
+</div>
+
+
+<!-- ERROR -->
+
+<div
+id="errorBox"
+class="error-box">
+</div>
+
+
+<!-- LOADING -->
+
+<div
+id="loading"
+class="loading">
+
+<div class="loading-spinner"></div>
+
+<p>
+Finding the latest jobs...
+</p>
 
 </div>
 
@@ -527,446 +537,6 @@ Job Opportunities
 <div
 id="jobsContainer"
 class="jobs">
-
-
-<!-- JOB 1 -->
-
-<article
-class="job-card"
-data-title="software developer"
-data-location="london">
-
-<div class="job-top">
-
-<div class="company-icon">
-S
-</div>
-
-<button
-class="save-job"
-onclick="saveJob(this)"
-title="Save job">
-
-♡
-</button>
-
-</div>
-
-<h3>
-Software Developer
-</h3>
-
-<div class="company">
-Technology Company
-</div>
-
-<div class="tags">
-
-<span class="tag">
-London
-</span>
-
-<span class="tag">
-Full-time
-</span>
-
-<span class="tag">
-Technology
-</span>
-
-</div>
-
-<p class="description">
-Build modern web applications,
-develop new features and work with
-a professional technology team.
-</p>
-
-<div class="job-footer">
-
-<span class="salary">
-£35,000 - £50,000
-</span>
-
-<a
-href="https://www.google.com/search?q=software+developer+jobs+london"
-target="_blank"
-class="apply">
-
-View Jobs
-
-</a>
-
-</div>
-
-</article>
-
-
-<!-- JOB 2 -->
-
-<article
-class="job-card"
-data-title="virtual assistant"
-data-location="remote">
-
-<div class="job-top">
-
-<div class="company-icon">
-V
-</div>
-
-<button
-class="save-job"
-onclick="saveJob(this)"
-title="Save job">
-
-♡
-</button>
-
-</div>
-
-<h3>
-Virtual Assistant
-</h3>
-
-<div class="company">
-Business Services Company
-</div>
-
-<div class="tags">
-
-<span class="tag">
-Remote
-</span>
-
-<span class="tag">
-Full-time
-</span>
-
-<span class="tag">
-Administration
-</span>
-
-</div>
-
-<p class="description">
-Support businesses with scheduling,
-documents, communication, research
-and administrative responsibilities.
-</p>
-
-<div class="job-footer">
-
-<span class="salary">
-£25,000 - £32,000
-</span>
-
-<a
-href="https://www.google.com/search?q=virtual+assistant+jobs+UK"
-target="_blank"
-class="apply">
-
-View Jobs
-
-</a>
-
-</div>
-
-</article>
-
-
-<!-- JOB 3 -->
-
-<article
-class="job-card"
-data-title="marketing assistant"
-data-location="manchester">
-
-<div class="job-top">
-
-<div class="company-icon">
-M
-</div>
-
-<button
-class="save-job"
-onclick="saveJob(this)"
-title="Save job">
-
-♡
-</button>
-
-</div>
-
-<h3>
-Marketing Assistant
-</h3>
-
-<div class="company">
-Digital Marketing Company
-</div>
-
-<div class="tags">
-
-<span class="tag">
-Manchester
-</span>
-
-<span class="tag">
-Full-time
-</span>
-
-<span class="tag">
-Marketing
-</span>
-
-</div>
-
-<p class="description">
-Help create campaigns, manage social
-media content and support digital
-marketing activities.
-</p>
-
-<div class="job-footer">
-
-<span class="salary">
-£27,000 - £34,000
-</span>
-
-<a
-href="https://www.google.com/search?q=marketing+assistant+jobs+Manchester"
-target="_blank"
-class="apply">
-
-View Jobs
-
-</a>
-
-</div>
-
-</article>
-
-
-<!-- JOB 4 -->
-
-<article
-class="job-card"
-data-title="customer service representative"
-data-location="birmingham">
-
-<div class="job-top">
-
-<div class="company-icon">
-C
-</div>
-
-<button
-class="save-job"
-onclick="saveJob(this)"
-title="Save job">
-
-♡
-</button>
-
-</div>
-
-<h3>
-Customer Service Representative
-</h3>
-
-<div class="company">
-Customer Support Company
-</div>
-
-<div class="tags">
-
-<span class="tag">
-Birmingham
-</span>
-
-<span class="tag">
-Full-time
-</span>
-
-<span class="tag">
-Customer Service
-</span>
-
-</div>
-
-<p class="description">
-Help customers, answer questions and
-provide excellent support through
-different communication channels.
-</p>
-
-<div class="job-footer">
-
-<span class="salary">
-£24,000 - £30,000
-</span>
-
-<a
-href="https://www.google.com/search?q=customer+service+jobs+Birmingham"
-target="_blank"
-class="apply">
-
-View Jobs
-
-</a>
-
-</div>
-
-</article>
-
-
-<!-- JOB 5 -->
-
-<article
-class="job-card"
-data-title="data analyst"
-data-location="london">
-
-<div class="job-top">
-
-<div class="company-icon">
-D
-</div>
-
-<button
-class="save-job"
-onclick="saveJob(this)"
-title="Save job">
-
-♡
-</button>
-
-</div>
-
-<h3>
-Data Analyst
-</h3>
-
-<div class="company">
-Data & Technology Company
-</div>
-
-<div class="tags">
-
-<span class="tag">
-London
-</span>
-
-<span class="tag">
-Full-time
-</span>
-
-<span class="tag">
-Data
-</span>
-
-</div>
-
-<p class="description">
-Analyse data, create reports and
-provide useful insights that help
-businesses make better decisions.
-</p>
-
-<div class="job-footer">
-
-<span class="salary">
-£38,000 - £55,000
-</span>
-
-<a
-href="https://www.google.com/search?q=data+analyst+jobs+london"
-target="_blank"
-class="apply">
-
-View Jobs
-
-</a>
-
-</div>
-
-</article>
-
-
-<!-- JOB 6 -->
-
-<article
-class="job-card"
-data-title="graphic designer"
-data-location="remote">
-
-<div class="job-top">
-
-<div class="company-icon">
-G
-</div>
-
-<button
-class="save-job"
-onclick="saveJob(this)"
-title="Save job">
-
-♡
-</button>
-
-</div>
-
-<h3>
-Graphic Designer
-</h3>
-
-<div class="company">
-Creative Agency
-</div>
-
-<div class="tags">
-
-<span class="tag">
-Remote
-</span>
-
-<span class="tag">
-Freelance
-</span>
-
-<span class="tag">
-Design
-</span>
-
-</div>
-
-<p class="description">
-Create visual designs for websites,
-social media, advertising campaigns
-and digital products.
-</p>
-
-<div class="job-footer">
-
-<span class="salary">
-£28,000 - £42,000
-</span>
-
-<a
-href="https://www.google.com/search?q=remote+graphic+designer+jobs+UK"
-target="_blank"
-class="apply">
-
-View Jobs
-
-</a>
-
-</div>
-
-</article>
-
-
 </div>
 
 
@@ -981,8 +551,7 @@ No jobs found
 </h2>
 
 <p>
-Try a different job title, keyword
-or location.
+Try a different job title or location.
 </p>
 
 </div>
@@ -990,15 +559,14 @@ or location.
 
 <!-- CV CTA -->
 
-<section class="cv-section">
+<section class="cv-cta">
 
 <h2>
-Stand Out to Employers
+Ready to apply?
 </h2>
 
 <p>
-Create a professional CV before
-applying for your next opportunity.
+Create a professional CV before applying for your next job.
 </p>
 
 <a
@@ -1019,149 +587,492 @@ Build My CV →
 
 <footer>
 
-CareerCraft © 2026 —
-Build a better career.
+<p>
+© 2026 CareerCraft. All rights reserved.
+</p>
 
 </footer>
 
 
 <script>
 
-/* SEARCH JOBS */
+/* =========================================
+   LOAD CV INFORMATION
+========================================= */
 
-function searchJobs(){
+const savedCV =
+localStorage.getItem("careerCraftCV");
 
-const keyword =
-document
-.getElementById("keywordInput")
-.value
-.toLowerCase()
-.trim();
+if(savedCV){
 
-const location =
-document
-.getElementById("locationInput")
-.value
-.toLowerCase()
-.trim();
+    try{
 
-const jobs =
-document
-.querySelectorAll(".job-card");
+        const cv =
+        JSON.parse(savedCV);
 
-let count = 0;
+        const welcome =
+        document.getElementById("cvWelcome");
 
-jobs.forEach(function(job){
+        if(
+            cv.fullName &&
+            cv.professionalTitle
+        ){
 
-const title =
-job.dataset.title;
+            welcome.textContent =
+            "Welcome, " +
+            cv.fullName +
+            " — finding jobs for " +
+            cv.professionalTitle;
 
-const jobLocation =
-job.dataset.location;
+            welcome.style.display =
+            "block";
 
-const keywordMatch =
-keyword === "" ||
-title.includes(keyword);
+            document.getElementById(
+                "keywordInput"
+            ).value =
+            cv.professionalTitle;
 
-const locationMatch =
-location === "" ||
-jobLocation.includes(location);
+        }
 
-if(
-keywordMatch &&
-locationMatch
-){
+    }
 
-job.style.display="block";
+    catch(error){
 
-count++;
+        console.log(
+            "CV information could not be loaded."
+        );
 
-}else{
-
-job.style.display="none";
-
-}
-
-});
-
-
-document
-.getElementById("resultCount")
-.textContent =
-count +
-(count === 1
-? " job found"
-: " jobs found");
-
-
-const noResults =
-document
-.getElementById("noResults");
-
-if(count === 0){
-
-noResults.style.display="block";
-
-}else{
-
-noResults.style.display="none";
-
-}
+    }
 
 }
 
 
-/* ENTER KEY */
+/* =========================================
+   SEARCH JOBS FROM ADZUNA
+========================================= */
+
+async function searchJobs(){
+
+    const keyword =
+    document
+    .getElementById("keywordInput")
+    .value
+    .trim();
+
+    const location =
+    document
+    .getElementById("locationInput")
+    .value
+    .trim();
+
+    const jobsContainer =
+    document.getElementById(
+        "jobsContainer"
+    );
+
+    const loading =
+    document.getElementById(
+        "loading"
+    );
+
+    const noResults =
+    document.getElementById(
+        "noResults"
+    );
+
+    const errorBox =
+    document.getElementById(
+        "errorBox"
+    );
+
+    const resultCount =
+    document.getElementById(
+        "resultCount"
+    );
+
+
+    /* CLEAR OLD RESULTS */
+
+    jobsContainer.innerHTML = "";
+
+    noResults.style.display =
+    "none";
+
+    errorBox.style.display =
+    "none";
+
+    loading.style.display =
+    "block";
+
+
+    try{
+
+        const params =
+        new URLSearchParams();
+
+        if(keyword){
+
+            params.append(
+                "keyword",
+                keyword
+            );
+
+        }
+
+        if(location){
+
+            params.append(
+                "location",
+                location
+            );
+
+        }
+
+
+        const response =
+        await fetch(
+            "/api/jobs?" +
+            params.toString()
+        );
+
+
+        const data =
+        await response.json();
+
+
+        if(!response.ok){
+
+            throw new Error(
+                data.error ||
+                "Unable to load jobs."
+            );
+
+        }
+
+
+        const jobs =
+        data.results || [];
+
+
+        loading.style.display =
+        "none";
+
+
+        if(jobs.length === 0){
+
+            resultCount.textContent =
+            "0 jobs found";
+
+            noResults.style.display =
+            "block";
+
+            return;
+
+        }
+
+
+        resultCount.textContent =
+        jobs.length +
+        (
+            jobs.length === 1
+            ? " job found"
+            : " jobs found"
+        );
+
+
+        jobs.forEach(
+            function(job){
+
+                const card =
+                createJobCard(job);
+
+                jobsContainer.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+
+    catch(error){
+
+        loading.style.display =
+        "none";
+
+        resultCount.textContent =
+        "Search failed";
+
+        errorBox.textContent =
+        error.message ||
+        "Something went wrong while searching for jobs.";
+
+        errorBox.style.display =
+        "block";
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =========================================
+   CREATE JOB CARD
+========================================= */
+
+function createJobCard(job){
+
+    const card =
+    document.createElement("div");
+
+    card.className =
+    "job-card";
+
+
+    const title =
+    job.title ||
+    "Job Opportunity";
+
+
+    const company =
+    job.company &&
+    job.company.display_name
+    ? job.company.display_name
+    : "Company";
+
+
+    const location =
+    job.location &&
+    job.location.display_name
+    ? job.location.display_name
+    : "Location not specified";
+
+
+    const description =
+    job.description
+    ? cleanDescription(job.description)
+    : "View this job for more information.";
+
+
+    let salary =
+    "Salary not specified";
+
+
+    if(
+        job.salary_min &&
+        job.salary_max
+    ){
+
+        salary =
+        formatSalary(
+            job.salary_min,
+            job.salary_max
+        );
+
+    }
+
+    else if(job.salary_min){
+
+        salary =
+        "From £" +
+        Number(
+            job.salary_min
+        ).toLocaleString();
+
+    }
+
+
+    const firstLetter =
+    company
+    .charAt(0)
+    .toUpperCase();
+
+
+    card.innerHTML = `
+
+        <div class="company-icon">
+            ${escapeHTML(firstLetter)}
+        </div>
+
+        <h3>
+            ${escapeHTML(title)}
+        </h3>
+
+        <div class="company">
+            ${escapeHTML(company)}
+        </div>
+
+        <div class="job-details">
+
+            <span class="tag">
+                ${escapeHTML(location)}
+            </span>
+
+            <span class="tag">
+                ${escapeHTML(
+                    job.contract_time ||
+                    "Full-time"
+                )}
+            </span>
+
+        </div>
+
+        <p class="job-description">
+            ${escapeHTML(description)}
+        </p>
+
+        <div class="job-footer">
+
+            <span class="salary">
+                ${escapeHTML(salary)}
+            </span>
+
+            <a
+                href="${safeURL(job.redirect_url)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="apply-button">
+
+                View Job →
+
+            </a>
+
+        </div>
+
+    `;
+
+
+    return card;
+
+}
+
+
+/* =========================================
+   FORMAT SALARY
+========================================= */
+
+function formatSalary(min,max){
+
+    return (
+        "£" +
+        Number(min).toLocaleString() +
+        " - £" +
+        Number(max).toLocaleString()
+    );
+
+}
+
+
+/* =========================================
+   CLEAN DESCRIPTION
+========================================= */
+
+function cleanDescription(text){
+
+    return text
+    .replace(/<[^>]*>/g,"")
+    .replace(/\s+/g," ")
+    .trim()
+    .substring(0,220) +
+    "...";
+
+}
+
+
+/* =========================================
+   SECURITY HELPERS
+========================================= */
+
+function escapeHTML(text){
+
+    return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function safeURL(url){
+
+    if(!url){
+        return "#";
+    }
+
+    try{
+
+        const parsed =
+        new URL(url);
+
+        if(
+            parsed.protocol === "http:" ||
+            parsed.protocol === "https:"
+        ){
+
+            return parsed.href;
+
+        }
+
+    }
+
+    catch(error){}
+
+    return "#";
+
+}
+
+
+/* =========================================
+   ENTER KEY SEARCH
+========================================= */
 
 document
 .getElementById("keywordInput")
 .addEventListener(
-"keydown",
-function(event){
+    "keydown",
+    function(event){
 
-if(event.key==="Enter"){
+        if(event.key === "Enter"){
 
-searchJobs();
+            searchJobs();
 
-}
+        }
 
-});
+    }
+);
 
 
 document
 .getElementById("locationInput")
 .addEventListener(
-"keydown",
-function(event){
+    "keydown",
+    function(event){
 
-if(event.key==="Enter"){
+        if(event.key === "Enter"){
 
-searchJobs();
+            searchJobs();
 
-}
+        }
 
-});
+    }
+);
 
 
-/* SAVE JOB */
+/* =========================================
+   INITIAL SEARCH
+========================================= */
 
-function saveJob(button){
+window.addEventListener(
+    "DOMContentLoaded",
+    function(){
 
-if(button.textContent.trim()==="♡"){
+        searchJobs();
 
-button.textContent="♥";
-
-button.style.color="#2563eb";
-
-}else{
-
-button.textContent="♡";
-
-button.style.color="";
-
-}
-
-}
+    }
+);
 
 </script>
 
