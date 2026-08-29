@@ -1,682 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Log In | CareerCraft</title>
-
+    <title>Log In - CareerCraft</title>
 
     <style>
-
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
-
 
         body {
-
             font-family: Arial, sans-serif;
-
+            background: #f7f9fc;
             min-height: 100vh;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #eef4ff,
-                    #ffffff
-                );
-
-            color: #111827;
-        }
-
-
-        /* =========================
-           NAVIGATION
-        ========================= */
-
-        nav {
-
-            width: 100%;
-
-            height: 70px;
-
-            background: #ffffff;
-
             display: flex;
-
             align-items: center;
-
-            justify-content: space-between;
-
-            padding: 0 7%;
-
-            box-shadow:
-                0 2px 10px
-                rgba(0, 0, 0, 0.06);
+            justify-content: center;
         }
 
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+        }
 
         .logo {
-
-            text-decoration: none;
-
-            color: #2563eb;
-
-            font-size: 25px;
-
-            font-weight: bold;
-        }
-
-
-        .home-link {
-
-            text-decoration: none;
-
-            color: #333;
-
-            font-size: 15px;
-        }
-
-
-        .home-link:hover {
-
-            color: #2563eb;
-        }
-
-
-        /* =========================
-           LOGIN AREA
-        ========================= */
-
-        .login-section {
-
-            min-height:
-                calc(100vh - 70px);
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            padding: 40px 20px;
-        }
-
-
-        .login-card {
-
-            width: 100%;
-
-            max-width: 430px;
-
-            background: #ffffff;
-
-            padding: 35px 30px;
-
-            border-radius: 18px;
-
-            box-shadow:
-                0 10px 35px
-                rgba(0, 0, 0, 0.10);
-        }
-
-
-        .login-card h1 {
-
             text-align: center;
-
-            font-size: 30px;
-
-            color: #111827;
-
+            font-size: 28px;
+            font-weight: bold;
+            color: #2563eb;
             margin-bottom: 10px;
         }
 
-
         .subtitle {
-
             text-align: center;
-
-            color: #6b7280;
-
-            font-size: 14px;
-
-            line-height: 1.5;
-
-            margin-bottom: 28px;
+            color: #666;
+            margin-bottom: 30px;
         }
-
-
-        /* =========================
-           FORM
-        ========================= */
-
-        .form-group {
-
-            margin-bottom: 18px;
-        }
-
 
         label {
-
             display: block;
-
             margin-bottom: 7px;
-
-            color: #374151;
-
-            font-size: 14px;
-
             font-weight: 600;
+            color: #333;
         }
-
 
         input {
-
             width: 100%;
-
-            padding: 13px 14px;
-
-            border:
-                1px solid #d1d5db;
-
-            border-radius: 9px;
-
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 18px;
             outline: none;
-
-            font-size: 15px;
-
-            transition: 0.2s;
         }
-
 
         input:focus {
-
             border-color: #2563eb;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(37, 99, 235, 0.10);
         }
 
-
-        /* =========================
-           LOGIN BUTTON
-        ========================= */
-
-        .login-btn {
-
+        button {
             width: 100%;
-
             padding: 14px;
-
             border: none;
-
-            border-radius: 9px;
-
+            border-radius: 8px;
             background: #2563eb;
-
             color: white;
-
             font-size: 16px;
-
             font-weight: bold;
-
             cursor: pointer;
-
-            margin-top: 5px;
         }
 
-
-        .login-btn:hover {
-
-            background: #1d4ed8;
+        button:active {
+            transform: scale(0.98);
         }
 
-
-        .login-btn:active {
-
-            transform: scale(0.99);
-        }
-
-
-        /* =========================
-           MESSAGE
-        ========================= */
-
-        #message {
-
-            text-align: center;
-
+        .message {
             margin-top: 15px;
-
-            font-size: 14px;
-
-            font-weight: 600;
-
-            min-height: 20px;
-        }
-
-
-        /* =========================
-           SIGN UP LINK
-        ========================= */
-
-        .signup-text {
-
             text-align: center;
-
-            margin-top: 22px;
-
-            color: #6b7280;
-
             font-size: 14px;
         }
 
+        .signup {
+            text-align: center;
+            margin-top: 22px;
+            color: #666;
+        }
 
-        .signup-text a {
-
+        .signup a {
             color: #2563eb;
-
-            font-weight: bold;
-
             text-decoration: none;
+            font-weight: bold;
         }
-
-
-        .signup-text a:hover {
-
-            text-decoration: underline;
-        }
-
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 500px) {
-
-            nav {
-
-                padding: 0 20px;
-            }
-
-
-            .logo {
-
-                font-size: 22px;
-            }
-
-
-            .login-card {
-
-                padding:
-                    30px 22px;
-            }
-
-
-            .login-card h1 {
-
-                font-size: 26px;
-            }
-
-        }
-
     </style>
-
 </head>
-
 
 <body>
 
+    <div class="login-container">
 
-    <!-- =========================
-         NAVIGATION
-    ========================= -->
+        <div class="logo">CareerCraft</div>
 
-    <nav>
+        <p class="subtitle">Log in to your account</p>
 
-        <a
-            href="index.html"
-            class="logo">
+        <form id="loginForm">
 
-            CareerCraft
+            <label for="email">Email</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
 
-        </a>
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+            >
 
+            <button type="button" id="loginButton">
+                Log In
+            </button>
 
-        <a
-            href="index.html"
-            class="home-link">
+        </form>
 
-            Home
+        <div id="message" class="message"></div>
 
-        </a>
-
-    </nav>
-
-
-
-    <!-- =========================
-         LOGIN
-    ========================= -->
-
-    <section class="login-section">
-
-        <div class="login-card">
-
-
-            <h1>
-                Welcome Back
-            </h1>
-
-
-            <p class="subtitle">
-
-                Log in to your CareerCraft
-                account and continue your
-                career journey.
-
-            </p>
-
-
-
-            <form id="loginForm">
-
-
-                <!-- EMAIL -->
-
-                <div class="form-group">
-
-                    <label for="email">
-
-                        Email Address
-
-                    </label>
-
-
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Enter your email"
-                        autocomplete="email"
-                        required
-                    >
-
-                </div>
-
-
-
-                <!-- PASSWORD -->
-
-                <div class="form-group">
-
-                    <label for="password">
-
-                        Password
-
-                    </label>
-
-
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Enter your password"
-                        autocomplete="current-password"
-                        required
-                    >
-
-                </div>
-
-
-
-                <!-- LOGIN BUTTON -->
-
-                <button
-                    type="submit"
-                    class="login-btn">
-
-                    Log In
-
-                </button>
-
-
-                <!-- MESSAGE -->
-
-                <div id="message"></div>
-
-
-            </form>
-
-
-
-            <!-- CREATE ACCOUNT -->
-
-            <p class="signup-text">
-
-                Don't have an account?
-
-                <a
-                    href="create-account.html">
-
-                    Create Account
-
-                </a>
-
-            </p>
-
-
+        <div class="signup">
+            Don't have an account?
+            <a href="signup.html">Create an account</a>
         </div>
 
-    </section>
-
-
-
-    <!-- =========================
-         LOGIN SCRIPT
-    ========================= -->
+    </div>
 
     <script>
+        document.getElementById("loginButton").addEventListener("click", function () {
 
-        document.addEventListener(
-            "DOMContentLoaded",
-            function () {
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const message = document.getElementById("message");
 
-
-                const loginForm =
-                    document.getElementById(
-                        "loginForm"
-                    );
-
-
-                const message =
-                    document.getElementById(
-                        "message"
-                    );
-
-
-                loginForm.addEventListener(
-                    "submit",
-                    function (event) {
-
-                        event.preventDefault();
-
-
-                        const email =
-                            document
-                                .getElementById(
-                                    "email"
-                                )
-                                .value
-                                .trim()
-                                .toLowerCase();
-
-
-                        const password =
-                            document
-                                .getElementById(
-                                    "password"
-                                )
-                                .value;
-
-
-                        /*
-                         * GET THE ACCOUNT
-                         * CREATED ON
-                         * create-account.html
-                         */
-
-                        const savedUser =
-                            localStorage.getItem(
-                                "careerCraftUser"
-                            );
-
-
-                        /* NO ACCOUNT */
-
-                        if (!savedUser) {
-
-                            message.textContent =
-                                "No account found. Please create an account first.";
-
-                            message.style.color =
-                                "#dc2626";
-
-                            return;
-                        }
-
-
-                        let user;
-
-
-                        /*
-                         * READ SAVED ACCOUNT
-                         */
-
-                        try {
-
-                            user =
-                                JSON.parse(
-                                    savedUser
-                                );
-
-                        } catch (error) {
-
-                            message.textContent =
-                                "There was a problem reading your account.";
-
-                            message.style.color =
-                                "#dc2626";
-
-                            return;
-                        }
-
-
-                        const savedEmail =
-                            String(
-                                user.email || ""
-                            )
-                            .trim()
-                            .toLowerCase();
-
-
-                        const savedPassword =
-                            String(
-                                user.password || ""
-                            );
-
-
-                        /*
-                         * CHECK EMAIL
-                         */
-
-                        if (
-                            email !==
-                            savedEmail
-                        ) {
-
-                            message.textContent =
-                                "Incorrect email or password.";
-
-                            message.style.color =
-                                "#dc2626";
-
-                            return;
-                        }
-
-
-                        /*
-                         * CHECK PASSWORD
-                         */
-
-                        if (
-                            password !==
-                            savedPassword
-                        ) {
-
-                            message.textContent =
-                                "Incorrect email or password.";
-
-                            message.style.color =
-                                "#dc2626";
-
-                            return;
-                        }
-
-
-                        /*
-                         * LOGIN SUCCESSFUL
-                         */
-
-                        localStorage.setItem(
-                            "careerCraftLoggedIn",
-                            "true"
-                        );
-
-
-                        localStorage.setItem(
-                            "careerCraftCurrentUser",
-                            JSON.stringify(user)
-                        );
-
-
-                        message.textContent =
-                            "Login successful!";
-
-                        message.style.color =
-                            "#16a34a";
-
-
-                        /*
-                         * GO TO INDEX.HTML
-                         */
-
-                        setTimeout(
-                            function () {
-
-                                window.location.href =
-                                    "index.html";
-
-                            },
-                            500
-                        );
-
-                    }
-                );
-
+            if (email === "" || password === "") {
+                message.textContent = "Please enter your email and password.";
+                message.style.color = "red";
+                return;
             }
-        );
 
+            message.textContent = "Logging in...";
+            message.style.color = "#2563eb";
+
+            /*
+             * Temporary login test.
+             * Once the button is confirmed to work,
+             * we will connect this to your real login system.
+             */
+
+            setTimeout(function () {
+                message.textContent = "Login button is working!";
+                message.style.color = "green";
+            }, 800);
+
+        });
     </script>
 
-
 </body>
-
-    </html>
+</html>
