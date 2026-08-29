@@ -13,7 +13,6 @@
 
     <title>CareerCraft | Build Your Career</title>
 
-
     <style>
 
         * {
@@ -22,915 +21,560 @@
             box-sizing: border-box;
         }
 
-
         html {
             scroll-behavior: smooth;
         }
 
-
         body {
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-
+            font-family: Arial, Helvetica, sans-serif;
             background: #f8fafc;
-
             color: #172033;
-
             line-height: 1.6;
         }
-
 
         /* =========================
            NAVIGATION
         ========================= */
 
         .navbar {
-
             position: sticky;
-
             top: 0;
-
             z-index: 1000;
-
             background: rgba(255,255,255,0.96);
-
             backdrop-filter: blur(12px);
-
-            border-bottom:
-                1px solid #e5e7eb;
-
+            border-bottom: 1px solid #e5e7eb;
         }
-
 
         .nav-container {
-
             width: 92%;
-
             max-width: 1200px;
-
             margin: auto;
-
-            height: 72px;
-
+            min-height: 72px;
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
+            gap: 20px;
         }
-
 
         .logo {
-
             text-decoration: none;
-
             font-size: 25px;
-
             font-weight: 800;
-
             color: #2563eb;
-
             letter-spacing: -0.5px;
-
+            white-space: nowrap;
         }
-
 
         .logo span {
-
             color: #0f172a;
-
         }
-
 
         .nav-links {
-
             display: flex;
-
             align-items: center;
-
-            gap: 24px;
-
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
-
 
         .nav-links a {
-
             text-decoration: none;
-
             color: #475569;
-
             font-size: 14px;
-
             font-weight: 600;
-
             transition: 0.2s;
-
+            padding: 9px 8px;
         }
-
 
         .nav-links a:hover {
-
             color: #2563eb;
-
         }
 
-
-        .nav-button {
-
-            background: #2563eb;
-
-            color: white !important;
-
-            padding: 10px 16px;
-
+        .login-button {
+            border: 1px solid #2563eb;
+            color: #2563eb !important;
             border-radius: 8px;
-
+            padding: 9px 14px !important;
         }
 
+        .login-button:hover {
+            background: #eff6ff;
+        }
 
-        .nav-button:hover {
+        .signup-button {
+            background: #2563eb;
+            color: white !important;
+            border-radius: 8px;
+            padding: 10px 15px !important;
+        }
 
+        .signup-button:hover {
             background: #1d4ed8;
-
         }
 
+        .jobs-button {
+            background: #0f172a;
+            color: white !important;
+            border-radius: 8px;
+            padding: 10px 15px !important;
+        }
+
+        .jobs-button:hover {
+            background: #1e293b;
+        }
 
         /* =========================
            HERO
         ========================= */
 
         .hero {
-
             position: relative;
-
             overflow: hidden;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #0f172a 0%,
-                    #172554 50%,
-                    #2563eb 100%
-                );
-
+            background: linear-gradient(
+                135deg,
+                #0f172a 0%,
+                #172554 50%,
+                #2563eb 100%
+            );
             color: white;
-
-            padding:
-                95px 20px
-                105px;
-
+            padding: 95px 20px 105px;
             text-align: center;
-
         }
-
 
         .hero::before {
-
             content: "";
-
             position: absolute;
-
             width: 300px;
-
             height: 300px;
-
             border-radius: 50%;
-
-            background:
-                rgba(255,255,255,0.06);
-
+            background: rgba(255,255,255,0.06);
             top: -120px;
-
             left: -80px;
-
         }
-
 
         .hero::after {
-
             content: "";
-
             position: absolute;
-
             width: 350px;
-
             height: 350px;
-
             border-radius: 50%;
-
-            background:
-                rgba(255,255,255,0.05);
-
+            background: rgba(255,255,255,0.05);
             right: -100px;
-
             bottom: -160px;
-
         }
-
 
         .hero-content {
-
             position: relative;
-
             z-index: 2;
-
             max-width: 850px;
-
             margin: auto;
-
         }
-
 
         .hero-badge {
-
             display: inline-block;
-
             padding: 8px 14px;
-
             border-radius: 30px;
-
-            background:
-                rgba(255,255,255,0.12);
-
-            border:
-                1px solid
-                rgba(255,255,255,0.18);
-
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.18);
             font-size: 13px;
-
             margin-bottom: 22px;
-
         }
-
 
         .hero h1 {
-
             font-size: 54px;
-
             line-height: 1.08;
-
             letter-spacing: -1.5px;
-
             margin-bottom: 22px;
-
         }
-
 
         .hero h1 span {
-
             color: #93c5fd;
-
         }
-
 
         .hero p {
-
             max-width: 680px;
-
             margin: auto;
-
             color: #dbeafe;
-
             font-size: 18px;
-
         }
-
 
         .hero-buttons {
-
             margin-top: 34px;
-
             display: flex;
-
             justify-content: center;
-
             flex-wrap: wrap;
-
             gap: 12px;
-
         }
-
 
         .button {
-
             display: inline-block;
-
             text-decoration: none;
-
             padding: 14px 22px;
-
             border-radius: 9px;
-
             font-weight: 700;
-
             font-size: 15px;
-
             transition: 0.2s;
-
         }
-
 
         .primary-button {
-
             background: white;
-
             color: #1d4ed8;
-
         }
-
 
         .primary-button:hover {
-
             transform: translateY(-2px);
-
         }
-
 
         .outline-button {
-
-            border:
-                1px solid
-                rgba(255,255,255,0.35);
-
+            border: 1px solid rgba(255,255,255,0.35);
             color: white;
-
-            background:
-                rgba(255,255,255,0.08);
-
+            background: rgba(255,255,255,0.08);
         }
-
 
         .outline-button:hover {
-
-            background:
-                rgba(255,255,255,0.15);
-
+            background: rgba(255,255,255,0.15);
         }
-
 
         /* =========================
            STATS
         ========================= */
 
         .stats {
-
             width: 92%;
-
             max-width: 1050px;
-
             margin: -35px auto 0;
-
             position: relative;
-
             z-index: 5;
-
             background: white;
-
             border-radius: 16px;
-
             padding: 25px;
-
             display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            box-shadow:
-                0 12px 35px
-                rgba(15,23,42,0.12);
-
+            grid-template-columns: repeat(3, 1fr);
+            box-shadow: 0 12px 35px rgba(15,23,42,0.12);
         }
-
 
         .stat {
-
             text-align: center;
-
             padding: 10px;
-
-            border-right:
-                1px solid #e5e7eb;
-
+            border-right: 1px solid #e5e7eb;
         }
-
 
         .stat:last-child {
-
             border-right: none;
-
         }
-
 
         .stat strong {
-
             display: block;
-
             font-size: 27px;
-
             color: #2563eb;
-
         }
-
 
         .stat span {
-
             color: #64748b;
-
             font-size: 13px;
-
         }
-
 
         /* =========================
            GENERAL SECTIONS
         ========================= */
 
         .section {
-
             width: 92%;
-
             max-width: 1100px;
-
             margin: auto;
-
             padding: 90px 0;
-
         }
-
 
         .section-heading {
-
             text-align: center;
-
             max-width: 700px;
-
-            margin:
-                0 auto 45px;
-
+            margin: 0 auto 45px;
         }
-
 
         .section-heading h2 {
-
             font-size: 34px;
-
             color: #0f172a;
-
             margin-bottom: 12px;
-
         }
-
 
         .section-heading p {
-
             color: #64748b;
-
         }
-
 
         /* =========================
            TOOLS
         ========================= */
 
         .tools {
-
             display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
+            grid-template-columns: repeat(3, 1fr);
             gap: 22px;
-
         }
-
 
         .tool-card {
-
             background: white;
-
             padding: 30px;
-
-            border:
-                1px solid #e5e7eb;
-
+            border: 1px solid #e5e7eb;
             border-radius: 16px;
-
             transition: 0.25s;
-
         }
-
 
         .tool-card:hover {
-
-            transform:
-                translateY(-5px);
-
-            box-shadow:
-                0 15px 35px
-                rgba(15,23,42,0.08);
-
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(15,23,42,0.08);
         }
-
 
         .tool-icon {
-
             width: 52px;
-
             height: 52px;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             background: #eff6ff;
-
             border-radius: 12px;
-
             font-size: 25px;
-
             margin-bottom: 20px;
-
         }
-
 
         .tool-card h3 {
-
             font-size: 20px;
-
             margin-bottom: 9px;
-
         }
-
 
         .tool-card p {
-
             color: #64748b;
-
             font-size: 14px;
-
             margin-bottom: 20px;
-
         }
-
 
         .tool-link {
-
             text-decoration: none;
-
             color: #2563eb;
-
             font-weight: bold;
-
             font-size: 14px;
-
         }
-
 
         /* =========================
            HOW IT WORKS
         ========================= */
 
         .steps-section {
-
             background: white;
-
             width: 100%;
-
         }
-
 
         .steps {
-
             width: 92%;
-
             max-width: 1050px;
-
             margin: auto;
-
             display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
+            grid-template-columns: repeat(3, 1fr);
             gap: 25px;
-
         }
-
 
         .step {
-
             text-align: center;
-
             padding: 25px;
-
         }
-
 
         .step-number {
-
             width: 50px;
-
             height: 50px;
-
-            margin:
-                0 auto 18px;
-
+            margin: 0 auto 18px;
             border-radius: 50%;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             background: #2563eb;
-
             color: white;
-
             font-weight: bold;
-
             font-size: 18px;
-
         }
-
 
         .step h3 {
-
             margin-bottom: 8px;
-
         }
-
 
         .step p {
-
             color: #64748b;
-
             font-size: 14px;
-
         }
-
 
         /* =========================
            CTA
         ========================= */
 
         .cta {
-
             width: 92%;
-
             max-width: 1100px;
-
             margin: 80px auto;
-
             padding: 55px 25px;
-
             border-radius: 20px;
-
             text-align: center;
-
             color: white;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #2563eb,
-                    #1e3a8a
-                );
-
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #1e3a8a
+            );
         }
-
 
         .cta h2 {
-
             font-size: 32px;
-
             margin-bottom: 10px;
-
         }
-
 
         .cta p {
-
             color: #dbeafe;
-
             max-width: 600px;
-
-            margin:
-                0 auto 25px;
-
+            margin: 0 auto 25px;
         }
-
 
         .cta-button {
-
             display: inline-block;
-
             background: white;
-
             color: #2563eb;
-
             text-decoration: none;
-
             padding: 13px 22px;
-
             border-radius: 8px;
-
             font-weight: bold;
-
         }
-
 
         /* =========================
            FOOTER
         ========================= */
 
         footer {
-
             background: #0f172a;
-
             color: white;
-
             padding: 45px 20px 25px;
-
         }
-
 
         .footer-content {
-
             width: 92%;
-
             max-width: 1100px;
-
             margin: auto;
-
             display: grid;
-
-            grid-template-columns:
-                2fr 1fr 1fr;
-
+            grid-template-columns: 2fr 1fr 1fr;
             gap: 40px;
-
         }
-
 
         .footer-brand p {
-
             color: #94a3b8;
-
             max-width: 400px;
-
             margin-top: 12px;
-
             font-size: 14px;
-
         }
-
 
         .footer-column h4 {
-
             margin-bottom: 15px;
-
         }
-
 
         .footer-column a {
-
             display: block;
-
             color: #94a3b8;
-
             text-decoration: none;
-
             font-size: 14px;
-
             margin-bottom: 9px;
-
         }
-
 
         .footer-column a:hover {
-
             color: white;
-
         }
-
 
         .copyright {
-
             width: 92%;
-
             max-width: 1100px;
-
-            margin:
-                35px auto 0;
-
+            margin: 35px auto 0;
             padding-top: 20px;
-
-            border-top:
-                1px solid #1e293b;
-
+            border-top: 1px solid #1e293b;
             color: #64748b;
-
             font-size: 13px;
-
             text-align: center;
-
         }
-
 
         /* =========================
            MOBILE
         ========================= */
 
-        @media(max-width: 800px) {
+        @media(max-width: 900px) {
+
+            .nav-container {
+                padding: 14px 0;
+                flex-direction: column;
+            }
 
             .nav-links {
-
-                display: none;
-
+                justify-content: center;
             }
-
-
-            .hero {
-
-                padding:
-                    75px 20px
-                    85px;
-
-            }
-
 
             .hero h1 {
-
-                font-size: 39px;
-
+                font-size: 43px;
             }
-
-
-            .hero p {
-
-                font-size: 16px;
-
-            }
-
-
-            .stats {
-
-                grid-template-columns: 1fr;
-
-            }
-
-
-            .stat {
-
-                border-right: none;
-
-                border-bottom:
-                    1px solid #e5e7eb;
-
-                padding: 15px;
-
-            }
-
-
-            .stat:last-child {
-
-                border-bottom: none;
-
-            }
-
 
             .tools {
-
                 grid-template-columns: 1fr;
-
             }
-
 
             .steps {
-
                 grid-template-columns: 1fr;
-
             }
-
 
             .footer-content {
-
                 grid-template-columns: 1fr;
+            }
+        }
 
+        @media(max-width: 600px) {
+
+            .nav-links {
+                width: 100%;
+                gap: 5px;
             }
 
+            .nav-links a {
+                font-size: 12px;
+                padding: 8px 6px;
+            }
+
+            .hero {
+                padding: 70px 20px 85px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .stat {
+                border-right: none;
+                border-bottom: 1px solid #e5e7eb;
+                padding: 15px;
+            }
+
+            .stat:last-child {
+                border-bottom: none;
+            }
+
+            .section-heading h2 {
+                font-size: 29px;
+            }
+
+            .cta h2 {
+                font-size: 27px;
+            }
         }
 
     </style>
 
 </head>
-
 
 <body>
 
@@ -951,7 +595,6 @@
 
         </a>
 
-
         <nav class="nav-links">
 
             <a href="index.html">
@@ -971,8 +614,24 @@
             </a>
 
             <a
+                href="login.html"
+                class="login-button">
+
+                Log In
+
+            </a>
+
+            <a
+                href="signup.html"
+                class="signup-button">
+
+                Sign Up
+
+            </a>
+
+            <a
                 href="job-finder.html"
-                class="nav-button">
+                class="jobs-button">
 
                 Find Jobs
 
@@ -999,14 +658,12 @@
 
         </div>
 
-
         <h1>
 
             Build a CV that gets you
             <span>noticed.</span>
 
         </h1>
-
 
         <p>
 
@@ -1017,7 +674,6 @@
 
         </p>
 
-
         <div class="hero-buttons">
 
             <a
@@ -1027,7 +683,6 @@
                 Build My CV →
 
             </a>
-
 
             <a
                 href="job-finder.html"
@@ -1060,7 +715,6 @@
 
     </div>
 
-
     <div class="stat">
 
         <strong>AI</strong>
@@ -1070,7 +724,6 @@
         </span>
 
     </div>
-
 
     <div class="stat">
 
@@ -1109,8 +762,6 @@
     <div class="tools">
 
 
-        <!-- CV BUILDER -->
-
         <article class="tool-card">
 
             <div class="tool-icon">
@@ -1138,8 +789,6 @@
 
         </article>
 
-
-        <!-- CV REVIEW -->
 
         <article class="tool-card">
 
@@ -1169,8 +818,6 @@
         </article>
 
 
-        <!-- JOB FINDER -->
-
         <article class="tool-card">
 
             <div class="tool-icon">
@@ -1196,7 +843,6 @@
             </a>
 
         </article>
-
 
     </div>
 
@@ -1226,7 +872,6 @@
 
 
         <div class="steps">
-
 
             <div class="step">
 
@@ -1283,7 +928,6 @@
                 </p>
 
             </div>
-
 
         </div>
 
@@ -1382,6 +1026,14 @@
                 Home
             </a>
 
+            <a href="login.html">
+                Log In
+            </a>
+
+            <a href="signup.html">
+                Sign Up
+            </a>
+
             <a href="cv-builder.html">
                 Create a CV
             </a>
@@ -1391,7 +1043,6 @@
             </a>
 
         </div>
-
 
     </div>
 
@@ -1408,4 +1059,4 @@
 
 </body>
 
-        </html>
+    </html>
