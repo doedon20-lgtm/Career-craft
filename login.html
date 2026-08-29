@@ -1,335 +1,309 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In | CareerCraft</title><style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    <title>Log In | CareerCraft</title>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #eef4ff, #ffffff);
+}
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+nav {
+    width: 100%;
+    height: 70px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #eef4ff, #ffffff);
-        }
+.logo {
+    text-decoration: none;
+    color: #2563eb;
+    font-size: 25px;
+    font-weight: bold;
+}
 
-        nav {
-            width: 100%;
-            height: 70px;
-            background: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 7%;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-        }
+.home-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+}
 
-        .logo {
-            text-decoration: none;
-            color: #2563eb;
-            font-size: 25px;
-            font-weight: bold;
-        }
+.home-link:hover {
+    color: #2563eb;
+}
 
-        .home-link {
-            text-decoration: none;
-            color: #333;
-            font-size: 15px;
-        }
+.login-section {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
 
-        .home-link:hover {
-            color: #2563eb;
-        }
+.login-card {
+    width: 100%;
+    max-width: 430px;
+    background: #ffffff;
+    padding: 35px 30px;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
+}
 
-        .login-section {
-            min-height: calc(100vh - 70px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-        }
+.login-card h1 {
+    text-align: center;
+    font-size: 30px;
+    color: #111827;
+    margin-bottom: 10px;
+}
 
-        .login-card {
-            width: 100%;
-            max-width: 430px;
-            background: #ffffff;
-            padding: 35px 30px;
-            border-radius: 18px;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
-        }
+.subtitle {
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 28px;
+}
 
-        .login-card h1 {
-            text-align: center;
-            font-size: 30px;
-            color: #111827;
-            margin-bottom: 10px;
-        }
+.form-group {
+    margin-bottom: 18px;
+}
 
-        .subtitle {
-            text-align: center;
-            color: #6b7280;
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 28px;
-        }
+label {
+    display: block;
+    margin-bottom: 7px;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+}
 
-        .form-group {
-            margin-bottom: 18px;
-        }
+input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    outline: none;
+    font-size: 15px;
+}
 
-        label {
-            display: block;
-            margin-bottom: 7px;
-            color: #374151;
-            font-size: 14px;
-            font-weight: 600;
-        }
+input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
 
-        input {
-            width: 100%;
-            padding: 13px 14px;
-            border: 1px solid #d1d5db;
-            border-radius: 9px;
-            outline: none;
-            font-size: 15px;
-        }
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 9px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-        input:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
-        }
+.login-btn:hover {
+    background: #1d4ed8;
+}
 
-        .login-btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 9px;
-            background: #2563eb;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 5px;
-        }
+#message {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 600;
+}
 
-        .login-btn:hover {
-            background: #1d4ed8;
-        }
+.signup-text {
+    text-align: center;
+    margin-top: 22px;
+    color: #6b7280;
+    font-size: 14px;
+}
 
-        #message {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-            font-weight: 600;
-        }
+.signup-text a {
+    color: #2563eb;
+    font-weight: bold;
+    text-decoration: none;
+}
 
-        .signup-text {
-            text-align: center;
-            margin-top: 22px;
-            color: #6b7280;
-            font-size: 14px;
-        }
+.signup-text a:hover {
+    text-decoration: underline;
+}
 
-        .signup-text a {
-            color: #2563eb;
-            font-weight: bold;
-            text-decoration: none;
-        }
+@media (max-width: 500px) {
+    nav {
+        padding: 0 20px;
+    }
 
-        .signup-text a:hover {
-            text-decoration: underline;
-        }
+    .logo {
+        font-size: 22px;
+    }
 
-        @media (max-width: 500px) {
-            nav {
-                padding: 0 20px;
-            }
+    .login-card {
+        padding: 30px 22px;
+    }
 
-            .logo {
-                font-size: 22px;
-            }
+    .login-card h1 {
+        font-size: 26px;
+    }
+}
+</style></head><body><nav>
+    <a href="index.html" class="logo">
+        CareerCraft
+    </a><a href="index.html" class="home-link">
+    Home
+</a>
 
-            .login-card {
-                padding: 30px 22px;
-            }
+</nav><section class="login-section"><div class="login-card">
 
-            .login-card h1 {
-                font-size: 26px;
-            }
-        }
-    </style>
-</head>
+    <h1>Welcome Back</h1>
 
-<body>
+    <p class="subtitle">
+        Log in to your CareerCraft account.
+    </p>
 
-    <nav>
-        <a href="index.html" class="logo">
-            CareerCraft
-        </a>
+    <form id="loginForm">
 
-        <a href="index.html" class="home-link">
-            Home
-        </a>
-    </nav>
+        <div class="form-group">
 
-    <section class="login-section">
+            <label for="email">
+                Email Address
+            </label>
 
-        <div class="login-card">
-
-            <h1>Welcome Back</h1>
-
-            <p class="subtitle">
-                Log in to your CareerCraft account.
-            </p>
-
-            <form id="loginForm">
-
-                <div class="form-group">
-
-                    <label for="email">
-                        Email Address
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Enter your email"
-                        required
-                    >
-
-                </div>
-
-                <div class="form-group">
-
-                    <label for="password">
-                        Password
-                    </label>
-
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Enter your password"
-                        required
-                    >
-
-                </div>
-
-                <button
-                    type="submit"
-                    class="login-btn"
-                >
-                    Log In
-                </button>
-
-                <div id="message"></div>
-
-            </form>
-
-            <p class="signup-text">
-                Don't have an account?
-                <a href="signup.html">
-                    Create an account
-                </a>
-            </p>
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
 
         </div>
 
-    </section>
+        <div class="form-group">
 
-    <script>
+            <label for="password">
+                Password
+            </label>
 
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+            >
 
-            event.preventDefault();
+        </div>
 
-            const email = document.getElementById("email")
-                .value
-                .trim()
-                .toLowerCase();
+        <button
+            type="submit"
+            class="login-btn"
+        >
+            Log In
+        </button>
 
-            const password = document.getElementById("password").value;
+        <div id="message"></div>
 
-            const message = document.getElementById("message");
+    </form>
 
-            /* GET SAVED ACCOUNT */
+    <p class="signup-text">
+        Don't have an account?
+        <a href="create-account.html">
+            Create an account
+        </a>
+    </p>
 
-            const savedUser = localStorage.getItem("careerCraftUser");
+</div>
 
-            if (!savedUser) {
+</section><script>
+document.getElementById("loginForm").addEventListener("submit", function(event) {
 
-                message.textContent =
-                    "No account found. Please create an account first.";
+    event.preventDefault();
 
-                message.style.color = "red";
+    const email = document.getElementById("email")
+        .value
+        .trim()
+        .toLowerCase();
 
-                return;
-            }
+    const password =
+        document.getElementById("password").value;
 
-            let user;
+    const message =
+        document.getElementById("message");
 
-            try {
+    const savedUser =
+        localStorage.getItem("careerCraftUser");
 
-                user = JSON.parse(savedUser);
+    if (!savedUser) {
 
-            } catch (error) {
+        message.textContent =
+            "No account found. Please create an account first.";
 
-                message.textContent =
-                    "Account data is invalid. Please create your account again.";
+        message.style.color = "red";
 
-                message.style.color = "red";
+        return;
+    }
 
-                return;
-            }
+    let user;
 
-            /* CHECK LOGIN */
+    try {
 
-            if (
-                email !== user.email ||
-                password !== user.password
-            ) {
+        user = JSON.parse(savedUser);
 
-                message.textContent =
-                    "Incorrect email or password.";
+    } catch (error) {
 
-                message.style.color = "red";
+        message.textContent =
+            "Account data is invalid. Please create your account again.";
 
-                return;
-            }
+        message.style.color = "red";
 
-            /* LOGIN SUCCESS */
+        return;
+    }
 
-            localStorage.setItem(
-                "careerCraftLoggedIn",
-                "true"
-            );
+    if (
+        email !== user.email ||
+        password !== user.password
+    ) {
 
-            localStorage.setItem(
-                "careerCraftName",
-                user.name
-            );
+        message.textContent =
+            "Incorrect email or password.";
 
-            message.textContent =
-                "Login successful!";
+        message.style.color = "red";
 
-            message.style.color = "green";
+        return;
+    }
 
-            /* GO TO HOME PAGE */
+    localStorage.setItem(
+        "careerCraftLoggedIn",
+        "true"
+    );
 
-            setTimeout(function() {
+    localStorage.setItem(
+        "careerCraftName",
+        user.name
+    );
 
-                window.location.href = "index.html";
+    message.textContent =
+        "Login successful!";
 
-            }, 700);
+    message.style.color = "green";
 
-        });
+    setTimeout(function() {
 
-    </script>
+        window.location.href = "index.html";
 
-</body>
-        </html>
+    }, 700);
+
+});
+</script></body>
+</html>
