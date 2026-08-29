@@ -1,417 +1,305 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Sign Up| CareerCraft</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #eef4ff, #ffffff);
-        }
-
-        /* NAVBAR */
-
-        nav {
-            width: 100%;
-            height: 70px;
-            background: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 7%;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-        }
-
-        .logo {
-            text-decoration: none;
-            color: #2563eb;
-            font-size: 25px;
-            font-weight: bold;
-        }
-
-        .home-link {
-            text-decoration: none;
-            color: #333;
-            font-size: 15px;
-        }
-
-        .home-link:hover {
-            color: #2563eb;
-        }
-
-        /* SIGN UP AREA */
-
-        .signup-section {
-            min-height: calc(100vh - 70px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-        }
-
-        /* ONE SIGN UP CARD */
-
-        .signup-card {
-            width: 100%;
-            max-width: 430px;
-            background: #ffffff;
-            padding: 35px 30px;
-            border-radius: 18px;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
-        }
-
-        .signup-card h1 {
-            text-align: center;
-            font-size: 30px;
-            color: #111827;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #6b7280;
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 28px;
-        }
-
-        /* INPUTS */
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 7px;
-            color: #374151;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        input {
-            width: 100%;
-            padding: 13px 14px;
-            border: 1px solid #d1d5db;
-            border-radius: 9px;
-            outline: none;
-            font-size: 15px;
-            transition: 0.2s;
-        }
-
-        input:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
-        }
-
-        .password-note {
-            margin-top: 5px;
-            font-size: 12px;
-            color: #6b7280;
-        }
-
-        /* BUTTON */
-
-        .signup-btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 9px;
-            background: #2563eb;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 5px;
-        }
-
-        .signup-btn:hover {
-            background: #1d4ed8;
-        }
-
-        /* MESSAGE */
-
-        #message {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        /* LOGIN LINK */
-
-        .login-text {
-            text-align: center;
-            margin-top: 22px;
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        .login-text a {
-            color: #2563eb;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .login-text a:hover {
-            text-decoration: underline;
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 500px) {
-
-            nav {
-                padding: 0 20px;
-            }
-
-            .logo {
-                font-size: 22px;
-            }
-
-            .signup-card {
-                padding: 30px 22px;
-            }
-
-            .signup-card h1 {
-                font-size: 26px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <!-- NAVIGATION -->
-
-    <nav>
-
-        <a href="index.html" class="logo">
-            CareerCraft
-        </a>
-
-        <a href="index.html" class="home-link">
-            Home
-        </a>
-
-    </nav>
-
-
-    <!-- ONLY ONE SIGN UP SIDE -->
-
-    <section class="signup-section">
-
-        <div class="signup-card">
-
-            <h1>Create Account</h1>
-
-            <p class="subtitle">
-                Create your CareerCraft account and start building your career.
-            </p>
-
-
-            <form id="signupForm">
-
-                <div class="form-group">
-
-                    <label for="name">
-                        Full Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="name"
-                        placeholder="Enter your full name"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="email">
-                        Email Address
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Enter your email"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="password">
-                        Password
-                    </label>
-
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Create a password"
-                        minlength="6"
-                        required
-                    >
-
-                    <p class="password-note">
-                        Password must be at least 6 characters.
-                    </p>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="confirmPassword">
-                        Confirm Password
-                    </label>
-
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        placeholder="Confirm your password"
-                        required
-                    >
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="signup-btn"
-                >
-                    Create Account
-                </button>
-
-
-                <div id="message"></div>
-
-            </form>
-
-
-            <p class="login-text">
-
-                Already have an account?
-
-                <a href="login.html">
-                    Log In
-                </a>
-
-            </p>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account | CareerCraft</title><style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #eef4ff, #ffffff);
+}
+
+nav {
+    width: 100%;
+    height: 70px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.logo {
+    text-decoration: none;
+    color: #2563eb;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.home-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+}
+
+.home-link:hover {
+    color: #2563eb;
+}
+
+.signup-section {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.signup-card {
+    width: 100%;
+    max-width: 430px;
+    background: #ffffff;
+    padding: 35px 30px;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
+}
+
+.signup-card h1 {
+    text-align: center;
+    font-size: 30px;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 28px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    outline: none;
+    font-size: 15px;
+}
+
+input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+.password-note {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.signup-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 9px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.signup-btn:hover {
+    background: #1d4ed8;
+}
+
+#message {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.login-text {
+    text-align: center;
+    margin-top: 22px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.login-text a {
+    color: #2563eb;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-text a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 500px) {
+    nav {
+        padding: 0 20px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .signup-card {
+        padding: 30px 22px;
+    }
+
+    .signup-card h1 {
+        font-size: 26px;
+    }
+}
+</style></head><body><nav>
+    <a href="index.html" class="logo">
+        CareerCraft
+    </a><a href="index.html" class="home-link">
+    Home
+</a>
+
+</nav><section class="signup-section"><div class="signup-card">
+
+    <h1>Create Account</h1>
+
+    <p class="subtitle">
+        Create your CareerCraft account and start your career journey.
+    </p>
+
+    <form id="signupForm">
+
+        <div class="form-group">
+            <label for="name">Full Name</label>
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Enter your full name"
+                required
+            >
         </div>
 
-    </section>
+        <div class="form-group">
+            <label for="email">Email Address</label>
 
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
+        </div>
 
-    <!-- SIGN UP SCRIPT -->
+        <div class="form-group">
+            <label for="password">Password</label>
 
-    <script>
+            <input
+                type="password"
+                id="password"
+                placeholder="Create a password"
+                minlength="6"
+                required
+            >
 
-        const form =
-            document.getElementById("signupForm");
+            <p class="password-note">
+                Password must be at least 6 characters.
+            </p>
+        </div>
 
-        const message =
-            document.getElementById("message");
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
 
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm your password"
+                required
+            >
+        </div>
 
-        form.addEventListener("submit", function(event) {
+        <button type="submit" class="signup-btn">
+            Create Account
+        </button>
 
-            event.preventDefault();
+        <div id="message"></div>
 
+    </form>
 
-            const name =
-                document.getElementById("name").value.trim();
+    <p class="login-text">
+        Already have an account?
+        <a href="login.html">Log In</a>
+    </p>
 
-            const email =
-                document.getElementById("email")
-                .value.trim()
-                .toLowerCase();
+</div>
 
-            const password =
-                document.getElementById("password").value;
+</section><script>
+document.getElementById("signupForm").addEventListener("submit", function(event) {
 
-            const confirmPassword =
-                document.getElementById("confirmPassword").value;
+    event.preventDefault();
 
+    const name = document.getElementById("name").value.trim();
 
-            /* PASSWORD CHECK */
+    const email = document.getElementById("email")
+        .value
+        .trim()
+        .toLowerCase();
 
-            if (password !== confirmPassword) {
+    const password = document.getElementById("password").value;
 
-                message.textContent =
-                    "Passwords do not match.";
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
 
-                message.style.color = "red";
+    const message = document.getElementById("message");
 
-                return;
-            }
+    if (password.length < 6) {
+        message.textContent =
+            "Password must be at least 6 characters.";
 
+        message.style.color = "red";
+        return;
+    }
 
-            if (password.length < 6) {
+    if (password !== confirmPassword) {
+        message.textContent =
+            "Passwords do not match.";
 
-                message.textContent =
-                    "Password must be at least 6 characters.";
+        message.style.color = "red";
+        return;
+    }
 
-                message.style.color = "red";
+    const user = {
+        name: name,
+        email: email,
+        password: password
+    };
 
-                return;
-            }
+    localStorage.setItem(
+        "careerCraftUser",
+        JSON.stringify(user)
+    );
 
+    message.textContent =
+        "Account created successfully!";
 
-            /* SAVE ACCOUNT */
+    message.style.color = "green";
 
-            const user = {
+    setTimeout(function() {
+        window.location.href = "login.html";
+    }, 800);
 
-                name: name,
-
-                email: email,
-
-                password: password
-
-            };
-
-
-            localStorage.setItem(
-                "careerCraftUser",
-                JSON.stringify(user)
-            );
-
-
-            /* SHOW SUCCESS */
-
-            message.textContent =
-                "Account created successfully!";
-
-            message.style.color = "green";
-
-
-            /* GO TO LOGIN */
-
-            setTimeout(function() {
-
-                window.location.href = "login.html";
-
-            }, 1000);
-
-        });
-
-    </script>
-
-</body>
+});
+</script></body>
 </html>
