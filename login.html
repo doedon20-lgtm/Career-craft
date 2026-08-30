@@ -1,227 +1,475 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In | CareerCraft</title><style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
 
-    body {
-        font-family: Arial, sans-serif;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #eef4ff, #ffffff);
-    }
+<meta charset="UTF-8">
 
-    nav {
-        height: 70px;
-        background: white;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 7%;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    .logo {
-        text-decoration: none;
-        color: #2563eb;
-        font-size: 25px;
-        font-weight: bold;
-    }
+<title>Log In | CareerCraft</title>
 
-    .home-link {
-        text-decoration: none;
-        color: #333;
-    }
+<style>
 
-    .container {
-        min-height: calc(100vh - 70px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 30px 20px;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    .card {
-        width: 100%;
-        max-width: 430px;
-        background: white;
-        padding: 35px 30px;
-        border-radius: 18px;
-        box-shadow: 0 10px 35px rgba(0,0,0,0.10);
-    }
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #eef4ff, #ffffff);
+}
 
-    h1 {
-        text-align: center;
-        color: #111827;
-        margin-bottom: 10px;
-    }
+nav {
+    height: 70px;
+    background: white;
 
-    .subtitle {
-        text-align: center;
-        color: #6b7280;
-        font-size: 14px;
-        margin-bottom: 28px;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    .form-group {
-        margin-bottom: 18px;
-    }
+    padding: 0 7%;
 
-    label {
-        display: block;
-        margin-bottom: 7px;
-        color: #374151;
-        font-size: 14px;
-        font-weight: bold;
-    }
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
 
-    input {
-        width: 100%;
-        padding: 13px;
-        border: 1px solid #d1d5db;
-        border-radius: 9px;
-        font-size: 15px;
-        outline: none;
-    }
+.logo {
+    text-decoration: none;
+    color: #2563eb;
+    font-size: 25px;
+    font-weight: bold;
+}
 
-    input:focus {
-        border-color: #2563eb;
-    }
+.home-link {
+    text-decoration: none;
+    color: #333;
+}
 
-    button {
-        width: 100%;
-        padding: 14px;
-        border: none;
-        border-radius: 9px;
-        background: #2563eb;
-        color: white;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-    }
+.container {
+    min-height: calc(100vh - 70px);
 
-    button:hover {
-        background: #1d4ed8;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    #message {
-        text-align: center;
-        margin-top: 15px;
-        font-size: 14px;
-        font-weight: bold;
-    }
+    padding: 30px 20px;
+}
 
-    .create-text {
-        text-align: center;
-        margin-top: 22px;
-        color: #6b7280;
-        font-size: 14px;
-    }
+.card {
+    width: 100%;
+    max-width: 430px;
 
-    .create-text a {
-        color: #2563eb;
-        font-weight: bold;
-        text-decoration: none;
-    }
+    background: white;
+
+    padding: 35px 30px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,0.10);
+}
+
+h1 {
+    text-align: center;
+
+    color: #111827;
+
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+    margin-bottom: 28px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #374151;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+
+    padding: 13px;
+
+    border:
+        1px solid #d1d5db;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+input:focus {
+    border-color: #2563eb;
+}
+
+button {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+button:disabled {
+    opacity: 0.7;
+
+    cursor: not-allowed;
+}
+
+#message {
+    text-align: center;
+
+    margin-top: 15px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+.create-text {
+    text-align: center;
+
+    margin-top: 22px;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+.create-text a {
+    color: #2563eb;
+
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+.create-text a:hover {
+    text-decoration: underline;
+}
+
 </style>
 
-</head><body><nav>
-    <a href="index.html" class="logo">CareerCraft</a>
-    <a href="index.html" class="home-link">Home</a>
-</nav><div class="container"><div class="card">
+</head>
 
-    <h1>Welcome Back</h1>
 
-    <p class="subtitle">
-        Log in to your CareerCraft account.
-    </p>
+<body>
 
-    <form id="loginForm">
 
-        <div class="form-group">
-            <label for="email">Email Address</label>
+<!-- =========================
+     NAVIGATION
+========================= -->
 
-            <input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                required
-            >
-        </div>
+<nav>
 
-        <div class="form-group">
-            <label for="password">Password</label>
+<a href="index.html" class="logo">
+    CareerCraft
+</a>
 
-            <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-                required
-            >
-        </div>
+<a href="index.html" class="home-link">
+    Home
+</a>
 
-        <button type="submit">
-            Log In
-        </button>
+</nav>
 
-        <div id="message"></div>
 
-    </form>
+<!-- =========================
+     LOGIN
+========================= -->
 
-    <p class="create-text">
-        Don't have an account?
-        <a href="create-account.html">Create an account</a>
-    </p>
+<div class="container">
+
+<div class="card">
+
+<h1>
+    Welcome Back
+</h1>
+
+<p class="subtitle">
+    Log in to your CareerCraft account.
+</p>
+
+
+<form id="loginForm">
+
+
+<div class="form-group">
+
+<label for="email">
+    Email Address
+</label>
+
+<input
+    type="email"
+    id="email"
+    placeholder="Enter your email"
+    required
+>
 
 </div>
 
-</div><script>
-document.getElementById("loginForm").addEventListener("submit", function(event) {
 
-    event.preventDefault();
+<div class="form-group">
 
-    const email = document.getElementById("email").value.trim().toLowerCase();
-    const password = document.getElementById("password").value;
-    const message = document.getElementById("message");
+<label for="password">
+    Password
+</label>
 
-    const savedUser = localStorage.getItem("careerCraftUser");
+<input
+    type="password"
+    id="password"
+    placeholder="Enter your password"
+    required
+>
 
-    if (!savedUser) {
-        message.textContent = "No account found. Create an account first.";
-        message.style.color = "red";
-        return;
+</div>
+
+
+<button
+    type="submit"
+    id="loginButton">
+
+    Log In
+
+</button>
+
+
+<div id="message"></div>
+
+
+</form>
+
+
+<p class="create-text">
+
+Don't have an account?
+
+<a href="create-account.html">
+    Create an account
+</a>
+
+</p>
+
+
+</div>
+
+</div>
+
+
+<!-- ==================================================
+     SUPABASE LIBRARY
+================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+/* ==================================================
+   SUPABASE CONNECTION
+================================================== */
+
+const SUPABASE_URL =
+    "https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+
+const { createClient } = supabase;
+
+
+const supabaseClient =
+    createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* ==================================================
+   LOGIN FORM
+================================================== */
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const message =
+    document.getElementById("message");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+
+loginForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        /* GET VALUES */
+
+        const email =
+            document
+            .getElementById("email")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+        const password =
+            document
+            .getElementById("password")
+            .value;
+
+
+        /* LOADING */
+
+        loginButton.disabled = true;
+
+        loginButton.textContent =
+            "Logging In...";
+
+        message.textContent = "";
+
+
+        /* ==================================================
+           SUPABASE LOGIN
+        ================================================== */
+
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.signInWithPassword({
+
+            email: email,
+
+            password: password
+
+        });
+
+
+        /* ==================================================
+           LOGIN ERROR
+        ================================================== */
+
+        if (error) {
+
+            console.error(
+                "Supabase login error:",
+                error
+            );
+
+
+            message.textContent =
+                error.message;
+
+            message.style.color =
+                "red";
+
+
+            loginButton.disabled = false;
+
+            loginButton.textContent =
+                "Log In";
+
+
+            return;
+        }
+
+
+        /* ==================================================
+           SUCCESS
+        ================================================== */
+
+        message.textContent =
+            "Login successful!";
+
+        message.style.color =
+            "green";
+
+
+        /* ==================================================
+           SAVE USER INFORMATION
+        ================================================== */
+
+        if (data.user) {
+
+            const name =
+                data.user.user_metadata?.full_name;
+
+
+            if (name) {
+
+                localStorage.setItem(
+                    "careerCraftName",
+                    name
+                );
+
+            }
+
+        }
+
+
+        /* ==================================================
+           GO TO HOMEPAGE
+        ================================================== */
+
+        setTimeout(
+            function() {
+
+                window.location.href =
+                    "index.html";
+
+            },
+            800
+        );
+
     }
+);
 
-    let user;
+</script>
 
-    try {
-        user = JSON.parse(savedUser);
-    } catch (error) {
-        message.textContent = "Account data is invalid. Create the account again.";
-        message.style.color = "red";
-        return;
-    }
 
-    if (email !== user.email || password !== user.password) {
-        message.textContent = "Incorrect email or password.";
-        message.style.color = "red";
-        return;
-    }
+</body>
 
-    localStorage.setItem("careerCraftLoggedIn", "true");
-    localStorage.setItem("careerCraftName", user.name);
-
-    message.textContent = "Login successful!";
-    message.style.color = "green";
-
-    setTimeout(function() {
-        window.location.href = "index.html";
-    }, 800);
-
-});
-</script></body>
 </html>
