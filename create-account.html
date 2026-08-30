@@ -1,241 +1,1183 @@
-<!DOCTYPE html><html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account | CareerCraft</title><style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Create Account | CareerCraft</title><style>
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #eef4ff, #ffffff);
+    color: #172033;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+nav {
+    height: 70px;
+    width: 100%;
+
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 7%;
+
+    box-shadow:
+        0 2px 10px rgba(0,0,0,0.06);
+
+    position: relative;
+    z-index: 20;
+}
+
+.logo {
+    text-decoration: none;
+
+    color: #2563eb;
+
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.home-link {
+    text-decoration: none;
+
+    color: #374151;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.home-link:hover {
+    color: #2563eb;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.signup-section {
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 45px 20px;
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.signup-wrapper {
+    width: 100%;
+    max-width: 1050px;
+
+    background: white;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 55px rgba(15,23,42,0.14);
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+}
+
+
+/* =========================
+   ANIMATION SIDE
+========================= */
+
+.animation-side {
+
+    min-height: 620px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dbeafe,
+            #eff6ff
+        );
+
+    padding: 55px 40px;
+}
+
+
+/* =========================
+   HEADLINE
+========================= */
+
+.animation-side h1 {
+
+    font-size: 38px;
+
+    line-height: 1.12;
+
+    color: #0f172a;
+
+    max-width: 400px;
+
+    margin-bottom: 15px;
+}
+
+.animation-side h1 span {
+    color: #2563eb;
+}
+
+.animation-side > p {
+
+    color: #64748b;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+    margin-bottom: 50px;
+}
+
+
+/* =========================
+   TRACK
+========================= */
+
+.track {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    position: relative;
+
+    margin: 0 auto;
+
+    padding-top: 30px;
+}
+
+
+/* CONNECTING LINE */
+
+.track-line {
+
+    position: absolute;
+
+    top: 49px;
+
+    left: 9%;
+
+    width: 82%;
+
+    height: 7px;
+
+    background: #dbe2ea;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+/* BLUE PROGRESS */
+
+.progress-line {
+
+    width: 0%;
+
+    height: 100%;
+
+    background: #2563eb;
+
+    border-radius: 10px;
+
+    animation:
+        progressMove 12s
+        linear forwards;
+}
+
+
+/* =========================
+   CIRCLES
+========================= */
+
+.circles {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    position: relative;
+
+    z-index: 3;
+}
+
+.circle {
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+
+    background: #e5e7eb;
+
+    color: #64748b;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+
+    font-size: 17px;
+
+    border: 4px solid white;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.08);
+
+    transition:
+        background 0.5s,
+        color 0.5s,
+        transform 0.5s;
+}
+
+
+/* CIRCLE ACTIVATION */
+
+.circle:nth-child(1) {
+    animation:
+        circle1 12s linear forwards;
+}
+
+.circle:nth-child(2) {
+    animation:
+        circle2 12s linear forwards;
+}
+
+.circle:nth-child(3) {
+    animation:
+        circle3 12s linear forwards;
+}
+
+.circle:nth-child(4) {
+    animation:
+        circle4 12s linear forwards;
+}
+
+.circle:nth-child(5) {
+    animation:
+        circle5 12s linear forwards;
+}
+
+
+/* =========================
+   CYCLIST
+========================= */
+
+.cyclist {
+
+    position: absolute;
+
+    top: 22px;
+
+    left: 5%;
+
+    font-size: 39px;
+
+    z-index: 5;
+
+    transform: translateX(0);
+
+    animation:
+        cyclistMove 12s
+        cubic-bezier(.45,0,.55,1)
+        forwards;
+}
+
+
+/* =========================
+   FINISHED MESSAGE
+========================= */
+
+.finished {
+
+    text-align: center;
+
+    margin-top: 45px;
+
+    opacity: 0;
+
+    transform: scale(0.7);
+
+    animation:
+        finishedPop 0.8s
+        ease-out 12s forwards;
+}
+
+.finished strong {
+
+    display: block;
+
+    font-size: 25px;
+
+    color: #2563eb;
+
+    margin-bottom: 5px;
+}
+
+.finished span {
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   GENERATED IMAGE
+========================= */
+
+.signup-image {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    opacity: 0;
+
+    transform: scale(0.7);
+
+    pointer-events: none;
+
+    z-index: 10;
+
+    animation:
+        imagePop 1s
+        cubic-bezier(.17,.89,.32,1.49)
+        12.8s forwards;
+}
+
+
+/* =========================
+   CREATE ACCOUNT CARD
+========================= */
+
+.signup-card {
+
+    padding: 50px 40px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    opacity: 0;
+
+    transform:
+        translateY(100px)
+        scale(0.85);
+
+    animation:
+        cardPop 1s
+        cubic-bezier(.17,.89,.32,1.49)
+        14s forwards;
+}
+
+.signup-card h2 {
+
+    text-align: center;
+
+    font-size: 30px;
+
+    color: #111827;
+
+    margin-bottom: 10px;
+}
+
+.subtitle {
+
+    text-align: center;
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    margin-bottom: 28px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-group {
+
+    margin-bottom: 17px;
+}
+
+label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #374151;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+input {
+
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border:
+        1px solid #d1d5db;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    transition: 0.2s;
+}
+
+input:focus {
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,0.10);
+}
+
+.password-note {
+
+    margin-top: 5px;
+
+    color: #6b7280;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.signup-btn {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    margin-top: 5px;
+
+    transition: 0.2s;
+}
+
+.signup-btn:hover {
+
+    background: #1d4ed8;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+#message {
+
+    text-align: center;
+
+    margin-top: 14px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-text {
+
+    text-align: center;
+
+    margin-top: 22px;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+.login-text a {
+
+    color: #2563eb;
+
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+.login-text a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes progressMove {
+
+    0% {
+        width: 0%;
     }
 
-    body {
-        font-family: Arial, sans-serif;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #eef4ff, #ffffff);
+    20% {
+        width: 20%;
     }
+
+    40% {
+        width: 40%;
+    }
+
+    60% {
+        width: 60%;
+    }
+
+    80% {
+        width: 80%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+
+@keyframes cyclistMove {
+
+    0% {
+        left: 5%;
+    }
+
+    20% {
+        left: 23%;
+    }
+
+    40% {
+        left: 43%;
+    }
+
+    60% {
+        left: 62%;
+    }
+
+    80% {
+        left: 80%;
+    }
+
+    100% {
+        left: 91%;
+    }
+}
+
+
+@keyframes circle1 {
+
+    0%, 8% {
+        background: #2563eb;
+        color: white;
+        transform: scale(1.12);
+    }
+
+    9%, 100% {
+        background: #2563eb;
+        color: white;
+    }
+}
+
+
+@keyframes circle2 {
+
+    0%, 19% {
+        background: #e5e7eb;
+        color: #64748b;
+    }
+
+    20%, 100% {
+        background: #2563eb;
+        color: white;
+        transform: scale(1.08);
+    }
+}
+
+
+@keyframes circle3 {
+
+    0%, 39% {
+        background: #e5e7eb;
+        color: #64748b;
+    }
+
+    40%, 100% {
+        background: #2563eb;
+        color: white;
+        transform: scale(1.08);
+    }
+}
+
+
+@keyframes circle4 {
+
+    0%, 59% {
+        background: #e5e7eb;
+        color: #64748b;
+    }
+
+    60%, 100% {
+        background: #2563eb;
+        color: white;
+        transform: scale(1.08);
+    }
+}
+
+
+@keyframes circle5 {
+
+    0%, 79% {
+        background: #e5e7eb;
+        color: #64748b;
+    }
+
+    80%, 100% {
+        background: #2563eb;
+        color: white;
+        transform: scale(1.12);
+    }
+}
+
+
+@keyframes finishedPop {
+
+    0%, 82% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    88% {
+        opacity: 1;
+        transform: scale(1.12);
+    }
+
+    92%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+@keyframes imagePop {
+
+    0%, 84% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    92% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+@keyframes cardPop {
+
+    0%, 1% {
+        opacity: 0;
+        transform:
+            translateY(100px)
+            scale(0.85);
+    }
+
+    70% {
+        opacity: 0;
+    }
+
+    90% {
+        opacity: 1;
+        transform:
+            translateY(-12px)
+            scale(1.03);
+    }
+
+    100% {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    .signup-wrapper {
+
+        grid-template-columns: 1fr;
+
+        max-width: 500px;
+    }
+
+    .animation-side {
+
+        min-height: 470px;
+
+        padding:
+            40px 25px;
+    }
+
+    .animation-side h1 {
+
+        font-size: 30px;
+    }
+
+    .signup-card {
+
+        padding:
+            40px 25px;
+    }
+}
+
+
+@media (max-width: 500px) {
 
     nav {
-        height: 70px;
-        background: white;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 7%;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+
+        padding: 0 20px;
     }
 
     .logo {
-        text-decoration: none;
-        color: #2563eb;
-        font-size: 25px;
-        font-weight: bold;
+
+        font-size: 22px;
     }
 
-    .home-link {
-        text-decoration: none;
-        color: #333;
+    .signup-section {
+
+        padding: 25px 12px;
     }
 
-    .container {
-        min-height: calc(100vh - 70px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 30px 20px;
+    .animation-side {
+
+        min-height: 430px;
     }
 
-    .card {
-        width: 100%;
-        max-width: 430px;
-        background: white;
-        padding: 35px 30px;
-        border-radius: 18px;
-        box-shadow: 0 10px 35px rgba(0,0,0,0.10);
+    .track {
+
+        transform: scale(0.9);
     }
 
-    h1 {
-        text-align: center;
-        color: #111827;
-        margin-bottom: 10px;
+    .cyclist {
+
+        font-size: 34px;
     }
+}
 
-    .subtitle {
-        text-align: center;
-        color: #6b7280;
-        font-size: 14px;
-        margin-bottom: 28px;
-    }
+</style></head><body><!-- =========================
+     NAVIGATION
+========================= --><nav><a href="index.html" class="logo">
+    CareerCraft
+</a>
 
-    .form-group {
-        margin-bottom: 18px;
-    }
+<a href="index.html" class="home-link">
+    Home
+</a>
 
-    label {
-        display: block;
-        margin-bottom: 7px;
-        color: #374151;
-        font-size: 14px;
-        font-weight: bold;
-    }
+</nav><!-- =========================
+     SIGNUP
+========================= --><section class="signup-section"><div class="signup-wrapper"><!-- =========================
+     CYCLIST ANIMATION
+========================= --><div class="animation-side"><h1>
+    Pedal towards
+    <span>your future.</span>
+</h1>
 
-    input {
-        width: 100%;
-        padding: 13px;
-        border: 1px solid #d1d5db;
-        border-radius: 9px;
-        font-size: 15px;
-        outline: none;
-    }
+<p>
+    Get ready to build your professional
+    future with CareerCraft.
+</p>
 
-    input:focus {
-        border-color: #2563eb;
-    }
 
-    button {
-        width: 100%;
-        padding: 14px;
-        border: none;
-        border-radius: 9px;
-        background: #2563eb;
-        color: white;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-    }
+<div class="track">
 
-    button:hover {
-        background: #1d4ed8;
-    }
+    <div class="track-line">
 
-    #message {
-        text-align: center;
-        margin-top: 15px;
-        font-size: 14px;
-        font-weight: bold;
-    }
+        <div class="progress-line"></div>
 
-    .login-text {
-        text-align: center;
-        margin-top: 22px;
-        color: #6b7280;
-        font-size: 14px;
-    }
+    </div>
 
-    .login-text a {
-        color: #2563eb;
-        font-weight: bold;
-        text-decoration: none;
-    }
-</style>
 
-</head><body><nav>
-    <a href="index.html" class="logo">CareerCraft</a>
-    <a href="index.html" class="home-link">Home</a>
-</nav><div class="container"><div class="card">
+    <div class="cyclist">
+        🚴‍♂️
+    </div>
 
-    <h1>Create Account</h1>
 
-    <p class="subtitle">
-        Create your CareerCraft account to continue.
-    </p>
+    <div class="circles">
 
-    <form id="createAccountForm">
-
-        <div class="form-group">
-            <label for="name">Full Name</label>
-            <input
-                type="text"
-                id="name"
-                placeholder="Enter your full name"
-                required
-            >
+        <div class="circle">
+            1
         </div>
 
-        <div class="form-group">
-            <label for="email">Email Address</label>
-            <input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                required
-            >
+        <div class="circle">
+            2
         </div>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input
-                type="password"
-                id="password"
-                placeholder="Create a password"
-                minlength="6"
-                required
-            >
+        <div class="circle">
+            3
         </div>
 
-        <div class="form-group">
-            <label for="confirmPassword">Confirm Password</label>
-            <input
-                type="password"
-                id="confirmPassword"
-                placeholder="Confirm your password"
-                required
-            >
+        <div class="circle">
+            4
         </div>
 
-        <button type="submit">
-            Create Account
-        </button>
+        <div class="circle">
+            5
+        </div>
 
-        <div id="message"></div>
-
-    </form>
-
-    <p class="login-text">
-        Already have an account?
-        <a href="login.html">Log In</a>
-    </p>
+    </div>
 
 </div>
 
-</div><script>
-document.getElementById("createAccountForm").addEventListener("submit", function(event) {
 
-    event.preventDefault();
+<div class="finished">
 
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim().toLowerCase();
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-    const message = document.getElementById("message");
+    <strong>
+        Finished! 🎉
+    </strong>
 
-    if (password.length < 6) {
-        message.textContent = "Password must be at least 6 characters.";
-        message.style.color = "red";
-        return;
+    <span>
+        Your CareerCraft journey starts here.
+    </span>
+
+</div>
+
+
+<!-- GENERATED SIGNUP IMAGE -->
+
+<img
+    src="signup-image.png"
+    class="signup-image"
+    alt="CareerCraft cyclist"
+>
+
+</div><!-- =========================
+     CREATE ACCOUNT
+========================= --><div class="signup-card"><h2>
+    Create Account
+</h2>
+
+<p class="subtitle">
+    Create your CareerCraft account and
+    start building your career.
+</p>
+
+
+<form id="signupForm">
+
+
+    <!-- NAME -->
+
+    <div class="form-group">
+
+        <label for="name">
+            Full Name
+        </label>
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter your full name"
+            required
+        >
+
+    </div>
+
+
+    <!-- EMAIL -->
+
+    <div class="form-group">
+
+        <label for="email">
+            Email Address
+        </label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+        >
+
+    </div>
+
+
+    <!-- PASSWORD -->
+
+    <div class="form-group">
+
+        <label for="password">
+            Password
+        </label>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Create a password"
+            minlength="6"
+            required
+        >
+
+        <p class="password-note">
+            Password must be at least 6 characters.
+        </p>
+
+    </div>
+
+
+    <!-- CONFIRM PASSWORD -->
+
+    <div class="form-group">
+
+        <label for="confirmPassword">
+            Confirm Password
+        </label>
+
+        <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm your password"
+            required
+        >
+
+    </div>
+
+
+    <!-- BUTTON -->
+
+    <button
+        type="submit"
+        class="signup-btn">
+
+        Create Account
+
+    </button>
+
+
+    <div id="message"></div>
+
+
+</form>
+
+
+<!-- LOGIN -->
+
+<p class="login-text">
+
+    Already have an account?
+
+    <a href="login.html">
+        Log In
+    </a>
+
+</p>
+
+</div></div></section><!-- =========================
+     JAVASCRIPT
+========================= --><script>
+
+const form =
+    document.getElementById("signupForm");
+
+const message =
+    document.getElementById("message");
+
+
+form.addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+
+        const name =
+            document
+            .getElementById("name")
+            .value
+            .trim();
+
+
+        const email =
+            document
+            .getElementById("email")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+        const password =
+            document
+            .getElementById("password")
+            .value;
+
+
+        const confirmPassword =
+            document
+            .getElementById("confirmPassword")
+            .value;
+
+
+        /* PASSWORD MATCH */
+
+        if (
+            password !==
+            confirmPassword
+        ) {
+
+            message.textContent =
+                "Passwords do not match.";
+
+            message.style.color =
+                "red";
+
+            return;
+        }
+
+
+        /* PASSWORD LENGTH */
+
+        if (
+            password.length < 6
+        ) {
+
+            message.textContent =
+                "Password must be at least 6 characters.";
+
+            message.style.color =
+                "red";
+
+            return;
+        }
+
+
+        /* SAVE ACCOUNT */
+
+        const user = {
+
+            name: name,
+
+            email: email,
+
+            password: password
+
+        };
+
+
+        localStorage.setItem(
+            "careerCraftUser",
+            JSON.stringify(user)
+        );
+
+
+        /* SUCCESS */
+
+        message.textContent =
+            "Account created successfully!";
+
+        message.style.color =
+            "green";
+
+
+        /* GO TO LOGIN */
+
+        setTimeout(
+            function() {
+
+                window.location.href =
+                    "login.html";
+
+            },
+            1000
+        );
+
     }
+);
 
-    if (password !== confirmPassword) {
-        message.textContent = "Passwords do not match.";
-        message.style.color = "red";
-        return;
-    }
-
-    const user = {
-        name: name,
-        email: email,
-        password: password
-    };
-
-    localStorage.setItem("careerCraftUser", JSON.stringify(user));
-
-    message.textContent = "Account created successfully!";
-    message.style.color = "green";
-
-    setTimeout(function() {
-        window.location.href = "login.html";
-    }, 800);
-
-});
-</script></body>
-</html>
+</script></body></html>
