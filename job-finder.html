@@ -1,76 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CareerCraft | Job Finder</title>
+<title>CareerCraft — Job Finder</title>
 
 <style>
-
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
 }
 
 body{
     font-family:Arial, Helvetica, sans-serif;
-    background:#f4f7fb;
+    background:#f5f7fb;
     color:#172033;
+    min-height:100vh;
 }
 
-/* NAVIGATION */
-
 nav{
-    height:72px;
-    background:white;
+    background:#ffffff;
     border-bottom:1px solid #e5e7eb;
-    padding:0 6%;
+    padding:16px 6%;
     display:flex;
     align-items:center;
     justify-content:space-between;
+    gap:20px;
 }
 
 .logo{
+    font-size:24px;
+    font-weight:800;
     color:#2563eb;
-    font-size:26px;
-    font-weight:bold;
     text-decoration:none;
 }
 
 .nav-links{
     display:flex;
     gap:22px;
+    align-items:center;
+    flex-wrap:wrap;
 }
 
 .nav-links a{
-    color:#475569;
+    color:#4b5563;
     text-decoration:none;
     font-size:14px;
     font-weight:600;
 }
 
-.nav-links a:hover,
+.nav-links a:hover{
+    color:#2563eb;
+}
+
 .nav-links .active{
     color:#2563eb;
 }
 
-/* HERO */
-
 .hero{
-    background:linear-gradient(
-        135deg,
-        #2563eb,
-        #1e40af
-    );
-
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
     color:white;
+    padding:65px 20px;
     text-align:center;
-    padding:60px 20px 85px;
 }
 
 .hero h1{
@@ -79,202 +72,122 @@ nav{
 }
 
 .hero p{
-    font-size:16px;
+    font-size:18px;
     opacity:.92;
+    max-width:650px;
+    margin:auto;
 }
 
-#cvWelcome{
-    display:none;
-    margin-bottom:15px;
-    font-size:14px;
-    font-weight:bold;
+.welcome{
+    margin-top:22px;
+    font-size:15px;
+    font-weight:600;
 }
 
-/* SEARCH */
-
-.search-container{
-    width:92%;
-    max-width:950px;
-    margin:-40px auto 40px;
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 10px 35px rgba(0,0,0,.12);
+.search-section{
+    max-width:1050px;
+    margin:-30px auto 40px;
+    padding:0 20px;
     position:relative;
 }
 
-.search-grid{
+.search-box{
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 10px 35px rgba(0,0,0,.10);
+}
+
+.search-row{
     display:grid;
     grid-template-columns:1fr 1fr auto;
     gap:12px;
 }
 
-.search-input{
+.input-group{
+    position:relative;
+}
+
+.input-group input{
     width:100%;
-    padding:15px;
-    border:1px solid #cbd5e1;
-    border-radius:8px;
+    padding:15px 16px;
+    border:1px solid #d8dee9;
+    border-radius:10px;
     font-size:15px;
     outline:none;
 }
 
-.search-input:focus{
+.input-group input:focus{
     border-color:#2563eb;
 }
 
-.search-button{
+.search-btn{
     border:none;
-    border-radius:8px;
-    padding:15px 25px;
     background:#2563eb;
     color:white;
-    font-weight:bold;
+    padding:0 25px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:700;
     cursor:pointer;
 }
 
-.search-button:hover{
+.search-btn:hover{
     background:#1d4ed8;
 }
 
-/* MAIN */
-
-.container{
-    width:92%;
-    max-width:1100px;
-    margin:0 auto 70px;
+.search-btn:disabled{
+    opacity:.65;
+    cursor:not-allowed;
 }
 
-.top-row{
+.main{
+    max-width:1050px;
+    margin:auto;
+    padding:0 20px 60px;
+}
+
+.results-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:20px;
+    margin-bottom:18px;
+    gap:15px;
 }
 
-.top-row h2{
-    font-size:25px;
+.results-header h2{
+    font-size:22px;
 }
 
 #resultCount{
-    color:#64748b;
+    color:#6b7280;
     font-size:14px;
 }
 
-/* JOBS */
-
-.jobs{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:20px;
-}
-
-.job-card{
-    background:white;
-    border:1px solid #e5e7eb;
-    border-radius:14px;
-    padding:24px;
-    box-shadow:0 4px 15px rgba(0,0,0,.04);
-    transition:.2s;
-}
-
-.job-card:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-}
-
-.company-icon{
-    width:50px;
-    height:50px;
-    background:#eff6ff;
-    color:#2563eb;
+.error{
+    display:none;
+    background:#fee2e2;
+    color:#991b1b;
+    padding:15px;
     border-radius:10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:21px;
-    font-weight:bold;
-    margin-bottom:16px;
-}
-
-.job-card h3{
-    font-size:20px;
-    margin-bottom:7px;
-    color:#111827;
-}
-
-.company{
-    color:#475569;
-    font-weight:bold;
-    margin-bottom:12px;
-}
-
-.job-details{
-    display:flex;
-    flex-wrap:wrap;
-    gap:7px;
-    margin-bottom:15px;
-}
-
-.tag{
-    background:#f1f5f9;
-    color:#475569;
-    padding:6px 9px;
-    border-radius:5px;
-    font-size:12px;
-}
-
-.job-description{
-    color:#64748b;
-    line-height:1.6;
-    font-size:14px;
     margin-bottom:20px;
+    line-height:1.5;
 }
-
-.job-footer{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-}
-
-.salary{
-    color:#16a34a;
-    font-weight:bold;
-    font-size:14px;
-}
-
-.apply-button{
-    background:#2563eb;
-    color:white;
-    text-decoration:none;
-    padding:10px 15px;
-    border-radius:7px;
-    font-size:13px;
-    font-weight:bold;
-}
-
-.apply-button:hover{
-    background:#1d4ed8;
-}
-
-/* LOADING */
 
 .loading{
-    background:white;
-    border-radius:14px;
-    padding:50px 20px;
-    text-align:center;
-    color:#64748b;
     display:none;
+    text-align:center;
+    padding:50px 20px;
+    color:#6b7280;
 }
 
-.loading-spinner{
+.spinner{
     width:35px;
     height:35px;
-    border:4px solid #e2e8f0;
-    border-top:4px solid #2563eb;
+    border:4px solid #e5e7eb;
+    border-top-color:#2563eb;
     border-radius:50%;
-    animation:spin 1s linear infinite;
+    animation:spin .8s linear infinite;
     margin:0 auto 15px;
 }
 
@@ -284,799 +197,735 @@ nav{
     }
 }
 
-/* NO RESULTS */
+.jobs{
+    display:grid;
+    gap:16px;
+}
+
+.job-card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:15px;
+    padding:22px;
+    display:flex;
+    gap:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.04);
+}
+
+.company-logo{
+    width:50px;
+    height:50px;
+    min-width:50px;
+    border-radius:12px;
+    background:#eef2ff;
+    color:#4f46e5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    font-weight:800;
+}
+
+.job-content{
+    flex:1;
+}
+
+.job-title{
+    font-size:19px;
+    font-weight:750;
+    color:#111827;
+    margin-bottom:7px;
+}
+
+.company{
+    color:#2563eb;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.job-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.badge{
+    background:#f3f4f6;
+    color:#4b5563;
+    padding:6px 9px;
+    border-radius:7px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.description{
+    color:#6b7280;
+    line-height:1.6;
+    font-size:14px;
+    margin-bottom:15px;
+}
+
+.salary{
+    font-weight:700;
+    color:#059669;
+    font-size:14px;
+    margin-bottom:15px;
+}
+
+.view-job{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:10px 15px;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:700;
+}
+
+.view-job:hover{
+    background:#1d4ed8;
+}
 
 .no-results{
     display:none;
-    background:white;
     text-align:center;
-    padding:55px 20px;
-    border-radius:14px;
+    background:white;
+    padding:45px 20px;
+    border-radius:15px;
+    border:1px solid #e5e7eb;
 }
 
-.no-results h2{
-    margin-bottom:10px;
+.no-results h3{
+    margin-bottom:8px;
 }
 
 .no-results p{
-    color:#64748b;
+    color:#6b7280;
 }
-
-/* ERROR */
-
-.error-box{
-    display:none;
-    background:#fff7ed;
-    color:#9a3412;
-    padding:20px;
-    border-radius:12px;
-    margin-bottom:20px;
-    text-align:center;
-}
-
-/* CV CTA */
 
 .cv-cta{
-    margin-top:50px;
-    padding:45px 25px;
-    background:linear-gradient(
-        135deg,
-        #2563eb,
-        #1e40af
-    );
+    margin-top:35px;
+    background:#111827;
     color:white;
-    text-align:center;
     border-radius:15px;
+    padding:28px;
+    text-align:center;
 }
 
-.cv-cta h2{
-    font-size:29px;
-    margin-bottom:10px;
+.cv-cta h3{
+    margin-bottom:8px;
 }
 
 .cv-cta p{
-    opacity:.9;
-    margin-bottom:23px;
+    color:#d1d5db;
+    margin-bottom:18px;
 }
 
-.cv-button{
+.cv-cta a{
     display:inline-block;
     background:white;
-    color:#2563eb;
+    color:#111827;
     text-decoration:none;
-    padding:13px 22px;
+    padding:11px 18px;
     border-radius:8px;
-    font-weight:bold;
+    font-weight:700;
 }
-
-/* FOOTER */
 
 footer{
-    background:#111827;
-    color:#cbd5e1;
     text-align:center;
-    padding:30px 20px;
+    padding:25px;
+    background:#ffffff;
+    border-top:1px solid #e5e7eb;
+    color:#6b7280;
+    font-size:13px;
 }
-
-/* MOBILE */
 
 @media(max-width:750px){
 
+    nav{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
     .nav-links{
-        display:none;
+        width:100%;
+        gap:12px;
+    }
+
+    .nav-links a{
+        font-size:13px;
+    }
+
+    .hero{
+        padding:50px 18px;
     }
 
     .hero h1{
         font-size:32px;
     }
 
-    .search-grid{
+    .hero p{
+        font-size:16px;
+    }
+
+    .search-row{
         grid-template-columns:1fr;
     }
 
-    .jobs{
-        grid-template-columns:1fr;
+    .search-btn{
+        padding:14px;
     }
 
-    .top-row{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:7px;
+    .job-card{
+        padding:17px;
     }
 
-    .job-footer{
-        flex-direction:column;
-        align-items:flex-start;
+    .company-logo{
+        width:42px;
+        height:42px;
+        min-width:42px;
     }
 
-    .apply-button{
-        width:100%;
-        text-align:center;
+    .job-title{
+        font-size:17px;
     }
-
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- NAVIGATION -->
-
 <nav>
+    <a href="index.html" class="logo">CareerCraft</a>
 
-<a href="index.html" class="logo">
-CareerCraft
-</a>
-
-<div class="nav-links">
-
-<a href="index.html">
-Home
-</a>
-
-<a href="cv-builder.html">
-CV Builder
-</a>
-
-<a href="cv-preview.html">
-CV Preview
-</a>
-
-<a href="cv-review.html">
-CV Review
-</a>
-
-<a href="job-finder.html" class="active">
-Job Finder
-</a>
-
-</div>
-
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="cv-builder.html">CV Builder</a>
+        <a href="cv-preview.html">CV Preview</a>
+        <a href="cv-review.html">CV Review</a>
+        <a href="job-finder.html" class="active">Job Finder</a>
+    </div>
 </nav>
-
-
-<!-- HERO -->
 
 <section class="hero">
 
-<div id="cvWelcome"></div>
+    <h1>Find Your Next Opportunity</h1>
 
-<h1>
-Find Your Next Opportunity
-</h1>
+    <p>
+        Search thousands of jobs by title, skill or location
+        and discover opportunities that match your career goals.
+    </p>
 
-<p>
-Search thousands of jobs by title, skill or location.
-</p>
-
-</section>
-
-
-<!-- SEARCH -->
-
-<div class="search-container">
-
-<div class="search-grid">
-
-<input
-id="keywordInput"
-class="search-input"
-type="text"
-placeholder="Job title, skill or keyword"
->
-
-<input
-id="locationInput"
-class="search-input"
-type="text"
-placeholder="Location e.g. London"
->
-
-<button
-id="searchButton"
-class="search-button"
-onclick="searchJobs()"
->
-
-Search Jobs
-
-</button>
-
-</div>
-
-</div>
-
-
-<!-- MAIN -->
-
-<main class="container">
-
-
-<div class="top-row">
-
-<h2>
-Available Jobs
-</h2>
-
-<span id="resultCount">
-Search for jobs
-</span>
-
-</div>
-
-
-<!-- ERROR -->
-
-<div
-id="errorBox"
-class="error-box">
-</div>
-
-
-<!-- LOADING -->
-
-<div
-id="loading"
-class="loading">
-
-<div class="loading-spinner"></div>
-
-<p>
-Finding the latest jobs...
-</p>
-
-</div>
-
-
-<!-- JOBS -->
-
-<div
-id="jobsContainer"
-class="jobs">
-</div>
-
-
-<!-- NO RESULTS -->
-
-<div
-id="noResults"
-class="no-results">
-
-<h2>
-No jobs found
-</h2>
-
-<p>
-Try a different job title or location.
-</p>
-
-</div>
-
-
-<!-- CV CTA -->
-
-<section class="cv-cta">
-
-<h2>
-Ready to apply?
-</h2>
-
-<p>
-Create a professional CV before applying for your next job.
-</p>
-
-<a
-href="cv-builder.html"
-class="cv-button">
-
-Build My CV →
-
-</a>
+    <div class="welcome" id="welcomeMessage"></div>
 
 </section>
 
+<section class="search-section">
+
+    <div class="search-box">
+
+        <div class="search-row">
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="keywordInput"
+                    placeholder="Job title, skill or keyword"
+                    autocomplete="off"
+                >
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="locationInput"
+                    placeholder="Location e.g. London"
+                    autocomplete="off"
+                >
+            </div>
+
+            <button
+                class="search-btn"
+                id="searchButton"
+                onclick="searchJobs()"
+            >
+                Search Jobs
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<main class="main">
+
+    <div class="results-header">
+
+        <h2>Job Opportunities</h2>
+
+        <span id="resultCount"></span>
+
+    </div>
+
+    <div class="error" id="errorBox"></div>
+
+    <div class="loading" id="loading">
+
+        <div class="spinner"></div>
+
+        <p>Searching for jobs...</p>
+
+    </div>
+
+    <div class="jobs" id="jobsContainer"></div>
+
+    <div class="no-results" id="noResults">
+
+        <h3>No jobs found</h3>
+
+        <p>
+            Try another job title, skill or location.
+        </p>
+
+    </div>
+
+    <div class="cv-cta">
+
+        <h3>Need a better CV?</h3>
+
+        <p>
+            Create a professional CV with CareerCraft before applying.
+        </p>
+
+        <a href="cv-builder.html">Build My CV</a>
+
+    </div>
 
 </main>
 
-
-<!-- FOOTER -->
-
 <footer>
-
-<p>
-© 2026 CareerCraft. All rights reserved.
-</p>
-
+    © 2026 CareerCraft. Build your CV. Find your opportunity.
 </footer>
-
 
 <script>
 
-/* =========================================
-   LOAD CV INFORMATION
-========================================= */
+const keywordInput = document.getElementById("keywordInput");
+const locationInput = document.getElementById("locationInput");
+const searchButton = document.getElementById("searchButton");
+const jobsContainer = document.getElementById("jobsContainer");
+const loading = document.getElementById("loading");
+const noResults = document.getElementById("noResults");
+const errorBox = document.getElementById("errorBox");
+const resultCount = document.getElementById("resultCount");
+const welcomeMessage = document.getElementById("welcomeMessage");
 
-const savedCV =
-localStorage.getItem("careerCraftCV");
 
-if(savedCV){
+// Load saved CV
+let savedCV = null;
 
-    try{
+try {
+    savedCV = JSON.parse(localStorage.getItem("careerCraftCV"));
+} catch(error) {
+    savedCV = null;
+}
 
-        const cv =
-        JSON.parse(savedCV);
 
-        const welcome =
-        document.getElementById("cvWelcome");
+// Personalise Job Finder from CV
+if (
+    savedCV &&
+    savedCV.fullName &&
+    savedCV.professionalTitle
+) {
 
-        if(
-            cv.fullName &&
-            cv.professionalTitle
-        ){
+    welcomeMessage.textContent =
+        "Welcome, " +
+        savedCV.fullName +
+        " — finding jobs for " +
+        savedCV.professionalTitle;
 
-            welcome.textContent =
-            "Welcome, " +
-            cv.fullName +
-            " — finding jobs for " +
-            cv.professionalTitle;
-
-            welcome.style.display =
-            "block";
-
-            document.getElementById(
-                "keywordInput"
-            ).value =
-            cv.professionalTitle;
-
-        }
-
-    }
-
-    catch(error){
-
-        console.log(
-            "CV information could not be loaded."
-        );
-
-    }
+    keywordInput.value = savedCV.professionalTitle;
 
 }
 
 
-/* =========================================
-   SEARCH JOBS FROM ADZUNA
-========================================= */
-
+// Search jobs
 async function searchJobs(){
 
-    const keyword =
-    document
-    .getElementById("keywordInput")
-    .value
-    .trim();
+    const keyword = keywordInput.value.trim();
+    const location = locationInput.value.trim();
 
-    const location =
-    document
-    .getElementById("locationInput")
-    .value
-    .trim();
-
-    const jobsContainer =
-    document.getElementById(
-        "jobsContainer"
-    );
-
-    const loading =
-    document.getElementById(
-        "loading"
-    );
-
-    const noResults =
-    document.getElementById(
-        "noResults"
-    );
-
-    const errorBox =
-    document.getElementById(
-        "errorBox"
-    );
-
-    const resultCount =
-    document.getElementById(
-        "resultCount"
-    );
-
-
-    /* CLEAR OLD RESULTS */
-
+    errorBox.style.display = "none";
+    noResults.style.display = "none";
     jobsContainer.innerHTML = "";
+    resultCount.textContent = "";
 
-    noResults.style.display =
-    "none";
+    if(!keyword && !location){
 
-    errorBox.style.display =
-    "none";
+        errorBox.textContent =
+            "Please enter a job title, skill or location before searching.";
 
-    loading.style.display =
-    "block";
+        errorBox.style.display = "block";
+
+        return;
+    }
+
+
+    loading.style.display = "block";
+    searchButton.disabled = true;
+    searchButton.textContent = "Searching...";
 
 
     try{
 
-        const params =
-        new URLSearchParams();
+        const params = new URLSearchParams();
 
         if(keyword){
-
-            params.append(
-                "keyword",
-                keyword
-            );
-
+            params.set("keyword", keyword);
         }
 
         if(location){
-
-            params.append(
-                "location",
-                location
-            );
-
+            params.set("location", location);
         }
 
 
-        const response =
-        await fetch(
-            "/api/jobs?" +
-            params.toString()
+        const response = await fetch(
+            "/api/jobs?" + params.toString()
         );
 
 
-        const data =
-        await response.json();
+        let data;
+
+        try{
+            data = await response.json();
+        }catch(jsonError){
+            throw new Error(
+                "The server returned an invalid response."
+            );
+        }
 
 
         if(!response.ok){
 
             throw new Error(
                 data.error ||
-                "Unable to load jobs."
+                "Unable to search for jobs right now."
             );
 
         }
 
 
-        const jobs =
-        data.results || [];
+        const jobs = Array.isArray(data.results)
+            ? data.results
+            : [];
 
 
-        loading.style.display =
-        "none";
+        loading.style.display = "none";
 
 
         if(jobs.length === 0){
 
-            resultCount.textContent =
-            "0 jobs found";
+            noResults.style.display = "block";
 
-            noResults.style.display =
-            "block";
+            resultCount.textContent =
+                "0 jobs found";
 
             return;
-
         }
 
 
         resultCount.textContent =
-        jobs.length +
-        (
-            jobs.length === 1
-            ? " job found"
-            : " jobs found"
-        );
+            jobs.length +
+            (jobs.length === 1 ? " job found" : " jobs found");
 
 
-        jobs.forEach(
-            function(job){
+        jobs.forEach(function(job){
 
-                const card =
-                createJobCard(job);
+            jobsContainer.insertAdjacentHTML(
+                "beforeend",
+                createJobCard(job)
+            );
 
-                jobsContainer.appendChild(
-                    card
-                );
+        });
 
-            }
-        );
 
-    }
+    }catch(error){
 
-    catch(error){
-
-        loading.style.display =
-        "none";
-
-        resultCount.textContent =
-        "Search failed";
+        loading.style.display = "none";
 
         errorBox.textContent =
-        error.message ||
-        "Something went wrong while searching for jobs.";
+            error.message ||
+            "Something went wrong while searching for jobs.";
 
-        errorBox.style.display =
-        "block";
+        errorBox.style.display = "block";
 
-        console.error(error);
+    }finally{
+
+        searchButton.disabled = false;
+        searchButton.textContent = "Search Jobs";
 
     }
 
 }
 
 
-/* =========================================
-   CREATE JOB CARD
-========================================= */
-
+// Create job card
 function createJobCard(job){
 
-    const card =
-    document.createElement("div");
-
-    card.className =
-    "job-card";
-
-
     const title =
-    job.title ||
-    "Job Opportunity";
-
+        escapeHTML(job.title || "Untitled Job");
 
     const company =
-    job.company &&
-    job.company.display_name
-    ? job.company.display_name
-    : "Company";
-
+        escapeHTML(
+            job.company && job.company.display_name
+                ? job.company.display_name
+                : "Company not specified"
+        );
 
     const location =
-    job.location &&
-    job.location.display_name
-    ? job.location.display_name
-    : "Location not specified";
+        escapeHTML(
+            job.location && job.location.display_name
+                ? job.location.display_name
+                : "Location not specified"
+        );
 
+    const contract =
+        escapeHTML(
+            job.contract_time ||
+            "Full-time"
+        );
 
     const description =
-    job.description
-    ? cleanDescription(job.description)
-    : "View this job for more information.";
+        cleanDescription(job.description || "");
 
-
-    let salary =
-    "Salary not specified";
-
-
-    if(
-        job.salary_min &&
-        job.salary_max
-    ){
-
-        salary =
+    const salary =
         formatSalary(
             job.salary_min,
             job.salary_max
         );
 
+    const redirectURL =
+        safeURL(job.redirect_url);
+
+
+    let initial = "J";
+
+    if(company !== "Company not specified"){
+        initial = company.charAt(0).toUpperCase();
     }
 
-    else if(job.salary_min){
 
-        salary =
-        "From £" +
-        Number(
-            job.salary_min
-        ).toLocaleString();
+    return `
 
-    }
+        <article class="job-card">
 
+            <div class="company-logo">
+                ${escapeHTML(initial)}
+            </div>
 
-    const firstLetter =
-    company
-    .charAt(0)
-    .toUpperCase();
+            <div class="job-content">
 
+                <div class="job-title">
+                    ${title}
+                </div>
 
-    card.innerHTML = `
+                <div class="company">
+                    ${company}
+                </div>
 
-        <div class="company-icon">
-            ${escapeHTML(firstLetter)}
-        </div>
+                <div class="job-meta">
 
-        <h3>
-            ${escapeHTML(title)}
-        </h3>
+                    <span class="badge">
+                        ${location}
+                    </span>
 
-        <div class="company">
-            ${escapeHTML(company)}
-        </div>
+                    <span class="badge">
+                        ${contract}
+                    </span>
 
-        <div class="job-details">
+                </div>
 
-            <span class="tag">
-                ${escapeHTML(location)}
-            </span>
+                ${
+                    description
+                    ? `
+                    <div class="description">
+                        ${description}
+                    </div>
+                    `
+                    : ""
+                }
 
-            <span class="tag">
-                ${escapeHTML(
-                    job.contract_time ||
-                    "Full-time"
-                )}
-            </span>
+                ${
+                    salary
+                    ? `
+                    <div class="salary">
+                        ${salary}
+                    </div>
+                    `
+                    : ""
+                }
 
-        </div>
+                ${
+                    redirectURL
+                    ? `
+                    <a
+                        class="view-job"
+                        href="${redirectURL}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        View Job →
+                    </a>
+                    `
+                    : ""
+                }
 
-        <p class="job-description">
-            ${escapeHTML(description)}
-        </p>
+            </div>
 
-        <div class="job-footer">
-
-            <span class="salary">
-                ${escapeHTML(salary)}
-            </span>
-
-            <a
-                href="${safeURL(job.redirect_url)}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="apply-button">
-
-                View Job →
-
-            </a>
-
-        </div>
+        </article>
 
     `;
 
-
-    return card;
-
 }
 
 
-/* =========================================
-   FORMAT SALARY
-========================================= */
+// Format salary
+function formatSalary(min, max){
 
-function formatSalary(min,max){
+    if(!min && !max){
+        return "";
+    }
 
-    return (
-        "£" +
-        Number(min).toLocaleString() +
-        " - £" +
-        Number(max).toLocaleString()
-    );
 
+    const format = function(value){
+
+        return new Intl.NumberFormat(
+            "en-GB",
+            {
+                style:"currency",
+                currency:"GBP",
+                maximumFractionDigits:0
+            }
+        ).format(value);
+
+    };
+
+
+    if(min && max){
+        return format(min) + " – " + format(max);
+    }
+
+    if(min){
+        return "From " + format(min);
+    }
+
+    return "Up to " + format(max);
 }
 
 
-/* =========================================
-   CLEAN DESCRIPTION
-========================================= */
-
+// Clean job description
 function cleanDescription(text){
 
-    return text
-    .replace(/<[^>]*>/g,"")
-    .replace(/\s+/g," ")
-    .trim()
-    .substring(0,220) +
-    "...";
+    const temp = document.createElement("div");
 
+    temp.innerHTML = text;
+
+    let clean = temp.textContent || temp.innerText || "";
+
+    clean = clean.replace(/\s+/g," ").trim();
+
+    if(clean.length > 300){
+        clean = clean.substring(0,300) + "...";
+    }
+
+    return escapeHTML(clean);
 }
 
 
-/* =========================================
-   SECURITY HELPERS
-========================================= */
+// Escape HTML
+function escapeHTML(value){
 
-function escapeHTML(text){
-
-    return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 }
 
 
+// Protect external URL
 function safeURL(url){
 
     if(!url){
-        return "#";
+        return "";
     }
 
     try{
 
-        const parsed =
-        new URL(url);
+        const parsed = new URL(url);
 
         if(
             parsed.protocol === "http:" ||
             parsed.protocol === "https:"
         ){
 
-            return parsed.href;
+            return escapeHTML(parsed.href);
 
         }
 
+    }catch(error){
+
+        return "";
+
     }
 
-    catch(error){}
-
-    return "#";
-
+    return "";
 }
 
 
-/* =========================================
-   ENTER KEY SEARCH
-========================================= */
-
-document
-.getElementById("keywordInput")
-.addEventListener(
+// Enter key support
+keywordInput.addEventListener(
     "keydown",
     function(event){
 
         if(event.key === "Enter"){
-
             searchJobs();
-
         }
 
     }
 );
 
 
-document
-.getElementById("locationInput")
-.addEventListener(
+locationInput.addEventListener(
     "keydown",
     function(event){
 
         if(event.key === "Enter"){
-
             searchJobs();
-
         }
 
     }
 );
 
 
-/* =========================================
-   INITIAL SEARCH
-========================================= */
-
+// Automatically search using CV professional title
 window.addEventListener(
     "DOMContentLoaded",
     function(){
 
-        searchJobs();
+        if(keywordInput.value.trim()){
+
+            searchJobs();
+
+        }
 
     }
 );
 
 </script>
 
-
 </body>
-
     </html>
