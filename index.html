@@ -1,502 +1,563 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
 
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
 <meta name="description"
-      content="CareerCraft helps you build professional CVs, review your CV and find your next job opportunity.">
+      content="CareerCraft helps you build professional CVs, choose CV templates, review your CV and find your next job opportunity.">
 
 <title>CareerCraft | Build Your Career</title>
 
 <style>
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    html {
-        scroll-behavior: smooth;
-    }
+html {
+    scroll-behavior: smooth;
+}
 
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        background: #f8fafc;
-        color: #172033;
-        line-height: 1.6;
-    }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f8fafc;
+    color: #172033;
+    line-height: 1.6;
+}
 
-    /* NAVIGATION */
+/* NAVIGATION */
 
-    .navbar {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        background: rgba(255,255,255,0.96);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid #e5e7eb;
-    }
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e5e7eb;
+}
 
-    .nav-container {
-        width: 92%;
-        max-width: 1200px;
-        margin: auto;
-        height: 72px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+.nav-container {
+    width: 92%;
+    max-width: 1200px;
+    margin: auto;
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-    .logo {
-        text-decoration: none;
-        font-size: 25px;
-        font-weight: 800;
-        color: #2563eb;
-        letter-spacing: -0.5px;
-    }
+.logo {
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: 800;
+    color: #2563eb;
+    letter-spacing: -0.5px;
+}
 
-    .logo span {
-        color: #0f172a;
-    }
+.logo span {
+    color: #0f172a;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.nav-links a:hover {
+    color: #2563eb;
+}
+
+.nav-button {
+    background: #2563eb;
+    color: white !important;
+    padding: 10px 16px;
+    border-radius: 8px;
+}
+
+.nav-button:hover {
+    background: #1d4ed8;
+}
+
+.template-nav {
+    background: #eff6ff;
+    color: #2563eb !important;
+    padding: 9px 13px;
+    border-radius: 8px;
+}
+
+/* HERO */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(
+            135deg,
+            #0f172a 0%,
+            #172554 50%,
+            #2563eb 100%
+        );
+    color: white;
+    padding: 95px 20px 105px;
+    text-align: center;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    top: -120px;
+    left: -80px;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    right: -100px;
+    bottom: -160px;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+    margin: auto;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    font-size: 13px;
+    margin-bottom: 22px;
+}
+
+.hero h1 {
+    font-size: 54px;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    margin-bottom: 22px;
+}
+
+.hero h1 span {
+    color: #93c5fd;
+}
+
+.hero p {
+    max-width: 680px;
+    margin: auto;
+    color: #dbeafe;
+    font-size: 18px;
+}
+
+.hero-buttons {
+    margin-top: 34px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.button {
+    display: inline-block;
+    text-decoration: none;
+    padding: 14px 22px;
+    border-radius: 9px;
+    font-weight: 700;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.primary-button {
+    background: white;
+    color: #1d4ed8;
+}
+
+.primary-button:hover {
+    transform: translateY(-2px);
+}
+
+.outline-button {
+    border: 1px solid rgba(255,255,255,0.35);
+    color: white;
+    background: rgba(255,255,255,0.08);
+}
+
+.outline-button:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+.template-hero-button {
+    border: 1px solid rgba(255,255,255,0.35);
+    color: white;
+    background: rgba(255,255,255,0.08);
+}
+
+.template-hero-button:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* STATS */
+
+.stats {
+    width: 92%;
+    max-width: 1050px;
+    margin: -35px auto 0;
+    position: relative;
+    z-index: 5;
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    box-shadow: 0 12px 35px rgba(15,23,42,0.12);
+}
+
+.stat {
+    text-align: center;
+    padding: 10px;
+    border-right: 1px solid #e5e7eb;
+}
+
+.stat:last-child {
+    border-right: none;
+}
+
+.stat strong {
+    display: block;
+    font-size: 27px;
+    color: #2563eb;
+}
+
+.stat span {
+    color: #64748b;
+    font-size: 13px;
+}
+
+/* GENERAL SECTIONS */
+
+.section {
+    width: 92%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 90px 0;
+}
+
+.section-heading {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 45px;
+}
+
+.section-heading h2 {
+    font-size: 34px;
+    color: #0f172a;
+    margin-bottom: 12px;
+}
+
+.section-heading p {
+    color: #64748b;
+}
+
+/* TOOLS */
+
+.tools {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.tool-card {
+    background: white;
+    padding: 28px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    transition: 0.25s;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(15,23,42,0.08);
+}
+
+.tool-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eff6ff;
+    border-radius: 12px;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.tool-card h3 {
+    font-size: 20px;
+    margin-bottom: 9px;
+}
+
+.tool-card p {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.tool-link {
+    text-decoration: none;
+    color: #2563eb;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* HOW IT WORKS */
+
+.steps-section {
+    background: white;
+    width: 100%;
+}
+
+.steps {
+    width: 92%;
+    max-width: 1050px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.step {
+    text-align: center;
+    padding: 25px;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2563eb;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.step h3 {
+    margin-bottom: 8px;
+}
+
+.step p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* CTA */
+
+.cta {
+    width: 92%;
+    max-width: 1100px;
+    margin: 80px auto;
+    padding: 55px 25px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1e3a8a
+        );
+}
+
+.cta h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.cta p {
+    color: #dbeafe;
+    max-width: 600px;
+    margin: 0 auto 25px;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.cta-button {
+    display: inline-block;
+    background: white;
+    color: #2563eb;
+    text-decoration: none;
+    padding: 13px 22px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.cta-button.secondary {
+    background: rgba(255,255,255,0.12);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* FOOTER */
+
+footer {
+    background: #0f172a;
+    color: white;
+    padding: 45px 20px 25px;
+}
+
+.footer-content {
+    width: 92%;
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+}
+
+.footer-brand p {
+    color: #94a3b8;
+    max-width: 400px;
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+.footer-column h4 {
+    margin-bottom: 15px;
+}
+
+.footer-column a {
+    display: block;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 9px;
+}
+
+.footer-column a:hover {
+    color: white;
+}
+
+.copyright {
+    width: 92%;
+    max-width: 1100px;
+    margin: 35px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid #1e293b;
+    color: #64748b;
+    font-size: 13px;
+    text-align: center;
+}
+
+/* MOBILE */
+
+@media(max-width: 1050px) {
 
     .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-    }
-
-    .nav-links a {
-        text-decoration: none;
-        color: #475569;
-        font-size: 14px;
-        font-weight: 600;
-        transition: 0.2s;
-    }
-
-    .nav-links a:hover {
-        color: #2563eb;
-    }
-
-    .nav-button {
-        background: #2563eb;
-        color: white !important;
-        padding: 10px 16px;
-        border-radius: 8px;
-    }
-
-    .nav-button:hover {
-        background: #1d4ed8;
-    }
-
-    /* HERO */
-
-    .hero {
-        position: relative;
-        overflow: hidden;
-        background:
-            linear-gradient(
-                135deg,
-                #0f172a 0%,
-                #172554 50%,
-                #2563eb 100%
-            );
-        color: white;
-        padding: 95px 20px 105px;
-        text-align: center;
-    }
-
-    .hero::before {
-        content: "";
-        position: absolute;
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.06);
-        top: -120px;
-        left: -80px;
-    }
-
-    .hero::after {
-        content: "";
-        position: absolute;
-        width: 350px;
-        height: 350px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.05);
-        right: -100px;
-        bottom: -160px;
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        max-width: 850px;
-        margin: auto;
-    }
-
-    .hero-badge {
-        display: inline-block;
-        padding: 8px 14px;
-        border-radius: 30px;
-        background: rgba(255,255,255,0.12);
-        border: 1px solid rgba(255,255,255,0.18);
-        font-size: 13px;
-        margin-bottom: 22px;
-    }
-
-    .hero h1 {
-        font-size: 54px;
-        line-height: 1.08;
-        letter-spacing: -1.5px;
-        margin-bottom: 22px;
-    }
-
-    .hero h1 span {
-        color: #93c5fd;
-    }
-
-    .hero p {
-        max-width: 680px;
-        margin: auto;
-        color: #dbeafe;
-        font-size: 18px;
-    }
-
-    .hero-buttons {
-        margin-top: 34px;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
         gap: 12px;
     }
 
-    .button {
-        display: inline-block;
-        text-decoration: none;
-        padding: 14px 22px;
-        border-radius: 9px;
-        font-weight: 700;
-        font-size: 15px;
-        transition: 0.2s;
-    }
-
-    .primary-button {
-        background: white;
-        color: #1d4ed8;
-    }
-
-    .primary-button:hover {
-        transform: translateY(-2px);
-    }
-
-    .outline-button {
-        border: 1px solid rgba(255,255,255,0.35);
-        color: white;
-        background: rgba(255,255,255,0.08);
-    }
-
-    .outline-button:hover {
-        background: rgba(255,255,255,0.15);
-    }
-
-    /* STATS */
-
-    .stats {
-        width: 92%;
-        max-width: 1050px;
-        margin: -35px auto 0;
-        position: relative;
-        z-index: 5;
-        background: white;
-        border-radius: 16px;
-        padding: 25px;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        box-shadow: 0 12px 35px rgba(15,23,42,0.12);
-    }
-
-    .stat {
-        text-align: center;
-        padding: 10px;
-        border-right: 1px solid #e5e7eb;
-    }
-
-    .stat:last-child {
-        border-right: none;
-    }
-
-    .stat strong {
-        display: block;
-        font-size: 27px;
-        color: #2563eb;
-    }
-
-    .stat span {
-        color: #64748b;
-        font-size: 13px;
-    }
-
-    /* GENERAL SECTIONS */
-
-    .section {
-        width: 92%;
-        max-width: 1100px;
-        margin: auto;
-        padding: 90px 0;
-    }
-
-    .section-heading {
-        text-align: center;
-        max-width: 700px;
-        margin: 0 auto 45px;
-    }
-
-    .section-heading h2 {
-        font-size: 34px;
-        color: #0f172a;
-        margin-bottom: 12px;
-    }
-
-    .section-heading p {
-        color: #64748b;
-    }
-
-    /* TOOLS */
-
     .tools {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 22px;
-    }
-
-    .tool-card {
-        background: white;
-        padding: 30px;
-        border: 1px solid #e5e7eb;
-        border-radius: 16px;
-        transition: 0.25s;
-    }
-
-    .tool-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(15,23,42,0.08);
-    }
-
-    .tool-icon {
-        width: 52px;
-        height: 52px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #eff6ff;
-        border-radius: 12px;
-        font-size: 25px;
-        margin-bottom: 20px;
-    }
-
-    .tool-card h3 {
-        font-size: 20px;
-        margin-bottom: 9px;
-    }
-
-    .tool-card p {
-        color: #64748b;
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-
-    .tool-link {
-        text-decoration: none;
-        color: #2563eb;
-        font-weight: bold;
-        font-size: 14px;
-    }
-
-    /* HOW IT WORKS */
-
-    .steps-section {
-        background: white;
-        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .steps {
-        width: 92%;
-        max-width: 1050px;
-        margin: auto;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 25px;
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .step {
-        text-align: center;
-        padding: 25px;
+}
+
+@media(max-width: 800px) {
+
+    .nav-links {
+        display: none;
     }
 
-    .step-number {
-        width: 50px;
-        height: 50px;
-        margin: 0 auto 18px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #2563eb;
-        color: white;
-        font-weight: bold;
-        font-size: 18px;
+    .hero {
+        padding: 75px 20px 85px;
     }
 
-    .step h3 {
-        margin-bottom: 8px;
+    .hero h1 {
+        font-size: 39px;
     }
 
-    .step p {
-        color: #64748b;
-        font-size: 14px;
+    .hero p {
+        font-size: 16px;
     }
 
-    /* CTA */
-
-    .cta {
-        width: 92%;
-        max-width: 1100px;
-        margin: 80px auto;
-        padding: 55px 25px;
-        border-radius: 20px;
-        text-align: center;
-        color: white;
-        background:
-            linear-gradient(
-                135deg,
-                #2563eb,
-                #1e3a8a
-            );
+    .stats {
+        grid-template-columns: 1fr;
     }
 
-    .cta h2 {
-        font-size: 32px;
-        margin-bottom: 10px;
+    .stat {
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 15px;
     }
 
-    .cta p {
-        color: #dbeafe;
-        max-width: 600px;
-        margin: 0 auto 25px;
+    .stat:last-child {
+        border-bottom: none;
     }
 
-    .cta-button {
-        display: inline-block;
-        background: white;
-        color: #2563eb;
-        text-decoration: none;
-        padding: 13px 22px;
-        border-radius: 8px;
-        font-weight: bold;
+    .tools {
+        grid-template-columns: 1fr;
     }
 
-    /* FOOTER */
-
-    footer {
-        background: #0f172a;
-        color: white;
-        padding: 45px 20px 25px;
+    .steps {
+        grid-template-columns: 1fr;
     }
 
     .footer-content {
-        width: 92%;
-        max-width: 1100px;
-        margin: auto;
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr;
-        gap: 40px;
+        grid-template-columns: 1fr;
     }
 
-    .footer-brand p {
-        color: #94a3b8;
-        max-width: 400px;
-        margin-top: 12px;
-        font-size: 14px;
-    }
-
-    .footer-column h4 {
-        margin-bottom: 15px;
-    }
-
-    .footer-column a {
-        display: block;
-        color: #94a3b8;
-        text-decoration: none;
-        font-size: 14px;
-        margin-bottom: 9px;
-    }
-
-    .footer-column a:hover {
-        color: white;
-    }
-
-    .copyright {
-        width: 92%;
-        max-width: 1100px;
-        margin: 35px auto 0;
-        padding-top: 20px;
-        border-top: 1px solid #1e293b;
-        color: #64748b;
-        font-size: 13px;
-        text-align: center;
-    }
-
-    /* MOBILE */
-
-    @media(max-width: 800px) {
-
-        .nav-links {
-            display: none;
-        }
-
-        .hero {
-            padding: 75px 20px 85px;
-        }
-
-        .hero h1 {
-            font-size: 39px;
-        }
-
-        .hero p {
-            font-size: 16px;
-        }
-
-        .stats {
-            grid-template-columns: 1fr;
-        }
-
-        .stat {
-            border-right: none;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 15px;
-        }
-
-        .stat:last-child {
-            border-bottom: none;
-        }
-
-        .tools {
-            grid-template-columns: 1fr;
-        }
-
-        .steps {
-            grid-template-columns: 1fr;
-        }
-
-        .footer-content {
-            grid-template-columns: 1fr;
-        }
-    }
+}
 
 </style>
 
-</head><body><!-- NAVIGATION --><header class="navbar"><div class="nav-container">
+</head>
+
+<body>
+
+
+<!-- NAVIGATION -->
+
+<header class="navbar">
+
+<div class="nav-container">
 
     <a href="index.html" class="logo">
         Career<span>Craft</span>
@@ -512,6 +573,11 @@
             CV Builder
         </a>
 
+        <a href="cv-templates.html"
+           class="template-nav">
+            CV Templates
+        </a>
+
         <a href="cv-preview.html">
             CV Preview
         </a>
@@ -520,7 +586,8 @@
             CV Review
         </a>
 
-        <a href="job-finder.html" class="nav-button">
+        <a href="job-finder.html"
+           class="nav-button">
             Find Jobs
         </a>
 
@@ -528,7 +595,14 @@
 
 </div>
 
-</header><!-- HERO --><section class="hero"><div class="hero-content">
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-content">
 
     <div class="hero-badge">
         Your career. Your next opportunity.
@@ -541,6 +615,7 @@
 
     <p>
         Create a professional CV,
+        choose a beautiful template,
         review your application,
         and discover job opportunities
         — all in one place.
@@ -553,6 +628,11 @@
             Build My CV →
         </a>
 
+        <a href="cv-templates.html"
+           class="button template-hero-button">
+            Choose a Template
+        </a>
+
         <a href="job-finder.html"
            class="button outline-button">
             Find Jobs
@@ -562,28 +642,53 @@
 
 </div>
 
-</section><!-- STATS --><section class="stats"><div class="stat">
+</section>
+
+
+<!-- STATS -->
+
+<section class="stats">
+
+<div class="stat">
+
     <strong>CV</strong>
+
     <span>
         Professional CV Builder
     </span>
+
 </div>
 
+
 <div class="stat">
-    <strong>AI</strong>
+
+    <strong>Templates</strong>
+
     <span>
-        Career Review Tools
+        Professional CV Designs
     </span>
+
 </div>
 
+
 <div class="stat">
+
     <strong>Jobs</strong>
+
     <span>
         Job Search Platform
     </span>
+
 </div>
 
-</section><!-- CAREER TOOLS --><section class="section"><div class="section-heading">
+</section>
+
+
+<!-- CAREER TOOLS -->
+
+<section class="section">
+
+<div class="section-heading">
 
     <h2>
         Everything you need to move forward
@@ -600,236 +705,332 @@
 
 <div class="tools">
 
-    <article class="tool-card">
 
-        <div class="tool-icon">
-            📄
-        </div>
+<!-- CV BUILDER -->
 
-        <h3>
-            CV Builder
-        </h3>
+<article class="tool-card">
 
-        <p>
-            Create a professional,
-            structured CV using your
-            personal information,
-            experience and skills.
-        </p>
+    <div class="tool-icon">
+        📄
+    </div>
 
-        <a href="cv-builder.html"
-           class="tool-link">
-            Create your CV →
-        </a>
+    <h3>
+        CV Builder
+    </h3>
 
-    </article>
+    <p>
+        Create a professional,
+        structured CV using your
+        personal information,
+        experience and skills.
+    </p>
 
+    <a href="cv-builder.html"
+       class="tool-link">
+        Create your CV →
+    </a>
 
-    <article class="tool-card">
-
-        <div class="tool-icon">
-            🔎
-        </div>
-
-        <h3>
-            CV Review
-        </h3>
-
-        <p>
-            Check your CV for missing
-            information and receive
-            useful suggestions before
-            applying for jobs.
-        </p>
-
-        <a href="cv-review.html"
-           class="tool-link">
-            Review my CV →
-        </a>
-
-    </article>
+</article>
 
 
-    <article class="tool-card">
+<!-- CV TEMPLATES -->
 
-        <div class="tool-icon">
-            💼
-        </div>
+<article class="tool-card">
 
-        <h3>
-            Job Finder
-        </h3>
+    <div class="tool-icon">
+        🎨
+    </div>
 
-        <p>
-            Search for opportunities
-            by job title, skills and
-            location.
-        </p>
+    <h3>
+        CV Templates
+    </h3>
 
-        <a href="job-finder.html"
-           class="tool-link">
-            Explore jobs →
-        </a>
+    <p>
+        Choose from professional
+        CV designs and find a style
+        that fits your career.
+    </p>
 
-    </article>
+    <a href="cv-templates.html"
+       class="tool-link">
+        Choose a template →
+    </a>
+
+</article>
+
+
+<!-- CV REVIEW -->
+
+<article class="tool-card">
+
+    <div class="tool-icon">
+        🔎
+    </div>
+
+    <h3>
+        CV Review
+    </h3>
+
+    <p>
+        Check your CV for missing
+        information and receive
+        useful suggestions before
+        applying for jobs.
+    </p>
+
+    <a href="cv-review.html"
+       class="tool-link">
+        Review my CV →
+    </a>
+
+</article>
+
+
+<!-- JOB FINDER -->
+
+<article class="tool-card">
+
+    <div class="tool-icon">
+        💼
+    </div>
+
+    <h3>
+        Job Finder
+    </h3>
+
+    <p>
+        Search for opportunities
+        by job title, skills and
+        location.
+    </p>
+
+    <a href="job-finder.html"
+       class="tool-link">
+        Explore jobs →
+    </a>
+
+</article>
+
 
 </div>
 
-</section><!-- HOW IT WORKS --><section class="steps-section"><div class="section">
-
-    <div class="section-heading">
-
-        <h2>
-            Your career journey starts here
-        </h2>
-
-        <p>
-            Three simple steps to prepare
-            yourself for your next opportunity.
-        </p>
-
-    </div>
+</section>
 
 
-    <div class="steps">
+<!-- HOW IT WORKS -->
 
-        <div class="step">
+<section class="steps-section">
 
-            <div class="step-number">
-                1
-            </div>
+<div class="section">
 
-            <h3>
-                Build your CV
-            </h3>
+<div class="section-heading">
 
-            <p>
-                Add your experience,
-                education, skills and
-                professional information.
-            </p>
+    <h2>
+        Your career journey starts here
+    </h2>
 
-        </div>
-
-
-        <div class="step">
-
-            <div class="step-number">
-                2
-            </div>
-
-            <h3>
-                Review it
-            </h3>
-
-            <p>
-                Check your CV and
-                identify areas that
-                could be improved.
-            </p>
-
-        </div>
-
-
-        <div class="step">
-
-            <div class="step-number">
-                3
-            </div>
-
-            <h3>
-                Find opportunities
-            </h3>
-
-            <p>
-                Search for jobs that
-                match your career
-                goals and skills.
-            </p>
-
-        </div>
-
-    </div>
+    <p>
+        Four simple steps to prepare
+        yourself for your next opportunity.
+    </p>
 
 </div>
 
-</section><!-- CTA --><section class="cta"><h2>
+
+<div class="steps">
+
+
+<div class="step">
+
+    <div class="step-number">
+        1
+    </div>
+
+    <h3>
+        Build your CV
+    </h3>
+
+    <p>
+        Add your experience,
+        education, skills and
+        professional information.
+    </p>
+
+</div>
+
+
+<div class="step">
+
+    <div class="step-number">
+        2
+    </div>
+
+    <h3>
+        Choose a template
+    </h3>
+
+    <p>
+        Select a professional
+        design that makes your
+        CV stand out.
+    </p>
+
+</div>
+
+
+<div class="step">
+
+    <div class="step-number">
+        3
+    </div>
+
+    <h3>
+        Review it
+    </h3>
+
+    <p>
+        Check your CV and
+        identify areas that
+        could be improved.
+    </p>
+
+</div>
+
+
+<div class="step">
+
+    <div class="step-number">
+        4
+    </div>
+
+    <h3>
+        Find opportunities
+    </h3>
+
+    <p>
+        Search for jobs that
+        match your career
+        goals and skills.
+    </p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="cta">
+
+<h2>
     Ready to build your future?
 </h2>
 
 <p>
-    Create your professional CV and
-    start exploring opportunities today.
+    Create your professional CV,
+    choose your design and start
+    exploring opportunities today.
 </p>
 
-<a href="cv-builder.html"
-   class="cta-button">
-    Start Building My CV →
-</a>
+<div class="cta-buttons">
 
-</section><!-- FOOTER --><footer><div class="footer-content">
+    <a href="cv-builder.html"
+       class="cta-button">
+        Start Building My CV →
+    </a>
 
-    <div class="footer-brand">
+    <a href="cv-templates.html"
+       class="cta-button secondary">
+        Browse CV Templates
+    </a>
 
-        <a href="index.html"
-           class="logo">
-            Career<span>Craft</span>
-        </a>
+</div>
 
-        <p>
-            Simple career tools designed
-            to help you create a stronger
-            professional profile and find
-            your next opportunity.
-        </p>
-
-    </div>
+</section>
 
 
-    <div class="footer-column">
+<!-- FOOTER -->
 
-        <h4>
-            Career Tools
-        </h4>
+<footer>
 
-        <a href="cv-builder.html">
-            CV Builder
-        </a>
-
-        <a href="cv-preview.html">
-            CV Preview
-        </a>
-
-        <a href="cv-review.html">
-            CV Review
-        </a>
-
-        <a href="job-finder.html">
-            Job Finder
-        </a>
-
-    </div>
+<div class="footer-content">
 
 
-    <div class="footer-column">
+<div class="footer-brand">
 
-        <h4>
-            CareerCraft
-        </h4>
+    <a href="index.html"
+       class="logo">
+        Career<span>Craft</span>
+    </a>
 
-        <a href="index.html">
-            Home
-        </a>
+    <p>
+        Simple career tools designed
+        to help you create a stronger
+        professional profile and find
+        your next opportunity.
+    </p>
 
-        <a href="cv-builder.html">
-            Create a CV
-        </a>
+</div>
 
-        <a href="job-finder.html">
-            Find a Job
-        </a>
 
-    </div>
+<div class="footer-column">
+
+    <h4>
+        Career Tools
+    </h4>
+
+    <a href="cv-builder.html">
+        CV Builder
+    </a>
+
+    <a href="cv-templates.html">
+        CV Templates
+    </a>
+
+    <a href="cv-preview.html">
+        CV Preview
+    </a>
+
+    <a href="cv-review.html">
+        CV Review
+    </a>
+
+    <a href="job-finder.html">
+        Job Finder
+    </a>
+
+</div>
+
+
+<div class="footer-column">
+
+    <h4>
+        CareerCraft
+    </h4>
+
+    <a href="index.html">
+        Home
+    </a>
+
+    <a href="cv-builder.html">
+        Create a CV
+    </a>
+
+    <a href="cv-templates.html">
+        Choose a Template
+    </a>
+
+    <a href="job-finder.html">
+        Find a Job
+    </a>
+
+</div>
+
 
 </div>
 
@@ -841,4 +1042,9 @@
 
 </div>
 
-</footer></body></html>
+</footer>
+
+
+</body>
+
+      </html>
