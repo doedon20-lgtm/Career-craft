@@ -3,532 +3,397 @@
 
 <head>
 
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <meta name="description"
-          content="CareerCraft professional CV preview">
-
-    <title>CareerCraft | CV Preview</title>
-
-
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #eef2f7;
-            color: #172033;
-        }
-
-
-        /* =========================
-           NAVIGATION
-        ========================= */
-
-        .navbar {
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-inner {
-            width: 92%;
-            max-width: 1200px;
-            height: 70px;
-            margin: auto;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            text-decoration: none;
-            color: #2563eb;
-            font-size: 25px;
-            font-weight: 800;
-        }
-
-        .logo span {
-            color: #0f172a;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 22px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #475569;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .nav-links a:hover {
-            color: #2563eb;
-        }
-
-        .active {
-            color: #2563eb !important;
-        }
-
-
-        /* =========================
-           PAGE HEADER
-        ========================= */
-
-        .page-header {
-            background:
-                linear-gradient(
-                    135deg,
-                    #0f172a,
-                    #1e3a8a
-                );
-
-            color: white;
-
-            padding: 40px 20px;
-
-            text-align: center;
-        }
-
-        .page-header h1 {
-            font-size: 32px;
-            margin-bottom: 8px;
-        }
-
-        .page-header p {
-            color: #cbd5e1;
-            font-size: 14px;
-        }
-
-
-        /* =========================
-           ACTION BAR
-        ========================= */
-
-        .actions {
-
-            width: 94%;
-            max-width: 900px;
-
-            margin: 25px auto;
-
-            display: flex;
-
-            justify-content: center;
-
-            gap: 10px;
-
-            flex-wrap: wrap;
-        }
-
-        .action-button {
-
-            border: none;
-
-            text-decoration: none;
-
-            padding: 12px 18px;
-
-            border-radius: 8px;
-
-            font-size: 13px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-        }
-
-        .edit-button {
-            background: white;
-            color: #2563eb;
-            border: 1px solid #cbd5e1;
-        }
-
-        .print-button {
-            background: #2563eb;
-            color: white;
-        }
-
-        .review-button {
-            background: #0f172a;
-            color: white;
-        }
-
-        .jobs-button {
-            background: #16a34a;
-            color: white;
-        }
-
-
-        /* =========================
-           CV PAPER
-        ========================= */
-
-        .cv-wrapper {
-
-            width: 94%;
-            max-width: 900px;
-
-            margin: 0 auto 60px;
-        }
-
-        .cv-paper {
-
-            background: white;
-
-            min-height: 1100px;
-
-            padding: 55px;
-
-            box-shadow:
-                0 10px 40px
-                rgba(0,0,0,0.10);
-        }
-
-
-        /* =========================
-           CV HEADER
-        ========================= */
-
-        .cv-header {
-
-            border-bottom:
-                3px solid #2563eb;
-
-            padding-bottom: 22px;
-
-            margin-bottom: 28px;
-        }
-
-        .cv-name {
-
-            font-size: 36px;
-
-            color: #0f172a;
-
-            margin-bottom: 7px;
-
-            font-weight: 800;
-        }
-
-        .cv-title {
-
-            color: #2563eb;
-
-            font-size: 18px;
-
-            font-weight: bold;
-
-            margin-bottom: 13px;
-        }
-
-        .contact {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 8px 18px;
-
-            color: #64748b;
-
-            font-size: 13px;
-        }
-
-
-        /* =========================
-           CV SECTIONS
-        ========================= */
-
-        .cv-section {
-
-            margin-bottom: 27px;
-        }
-
-        .cv-section h2 {
-
-            color: #2563eb;
-
-            font-size: 16px;
-
-            text-transform: uppercase;
-
-            letter-spacing: 1px;
-
-            border-bottom:
-                1px solid #dbeafe;
-
-            padding-bottom: 7px;
-
-            margin-bottom: 13px;
-        }
-
-        .cv-section p {
-
-            color: #475569;
-
-            line-height: 1.7;
-
-            font-size: 14px;
-
-            white-space: pre-line;
-        }
-
-
-        /* =========================
-           SKILLS
-        ========================= */
-
-        .skills {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 8px;
-        }
-
-        .skill {
-
-            background: #eff6ff;
-
-            color: #1d4ed8;
-
-            padding: 7px 11px;
-
-            border-radius: 6px;
-
-            font-size: 12px;
-
-            font-weight: bold;
-        }
-
-
-        /* =========================
-           EXPERIENCE
-        ========================= */
-
-        .experience-item {
-
-            margin-bottom: 20px;
-        }
-
-        .experience-title {
-
-            font-size: 16px;
-
-            font-weight: bold;
-
-            color: #111827;
-
-            margin-bottom: 4px;
-        }
-
-        .experience-company {
-
-            color: #2563eb;
-
-            font-size: 14px;
-
-            font-weight: bold;
-
-            margin-bottom: 4px;
-        }
-
-        .experience-date {
-
-            color: #64748b;
-
-            font-size: 12px;
-
-            margin-bottom: 8px;
-        }
-
-
-        /* =========================
-           EDUCATION
-        ========================= */
-
-        .education-item {
-
-            margin-bottom: 15px;
-        }
-
-        .education-title {
-
-            font-weight: bold;
-
-            color: #111827;
-
-            font-size: 15px;
-
-            margin-bottom: 4px;
-        }
-
-        .education-school {
-
-            color: #475569;
-
-            font-size: 13px;
-        }
-
-
-        /* =========================
-           EMPTY STATE
-        ========================= */
-
-        .empty-state {
-
-            width: 94%;
-
-            max-width: 700px;
-
-            margin: 40px auto 70px;
-
-            background: white;
-
-            padding: 45px 25px;
-
-            border-radius: 15px;
-
-            text-align: center;
-
-            display: none;
-
-            box-shadow:
-                0 8px 25px
-                rgba(0,0,0,0.06);
-        }
-
-        .empty-state h2 {
-
-            margin-bottom: 10px;
-        }
-
-        .empty-state p {
-
-            color: #64748b;
-
-            margin-bottom: 20px;
-
-            line-height: 1.6;
-        }
-
-        .empty-state a {
-
-            display: inline-block;
-
-            background: #2563eb;
-
-            color: white;
-
-            text-decoration: none;
-
-            padding: 12px 18px;
-
-            border-radius: 8px;
-
-            font-weight: bold;
-
-            font-size: 14px;
-        }
-
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-
-            background: #0f172a;
-
-            color: #94a3b8;
-
-            text-align: center;
-
-            padding: 28px 20px;
-
-            font-size: 13px;
-        }
-
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media(max-width: 700px) {
-
-            .nav-links {
-                display: none;
-            }
-
-            .cv-paper {
-                padding: 30px 22px;
-            }
-
-            .cv-name {
-                font-size: 29px;
-            }
-
-            .cv-title {
-                font-size: 16px;
-            }
-
-            .contact {
-                flex-direction: column;
-                gap: 6px;
-            }
-
-        }
-
-
-        /* =========================
-           PRINT
-        ========================= */
-
-        @media print {
-
-            body {
-                background: white;
-            }
-
-            .navbar,
-            .page-header,
-            .actions,
-            footer {
-                display: none !important;
-            }
-
-            .cv-wrapper {
-                width: 100%;
-                max-width: none;
-                margin: 0;
-            }
-
-            .cv-paper {
-                box-shadow: none;
-                width: 100%;
-                min-height: auto;
-                padding: 35px;
-            }
-
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="CareerCraft professional CV preview">
+
+<title>CareerCraft | CV Preview</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#eef2f7;
+    color:#172033;
+}
+
+/* NAVIGATION */
+
+.navbar{
+    background:white;
+    border-bottom:1px solid #e2e8f0;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.nav-inner{
+    width:92%;
+    max-width:1200px;
+    height:70px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    text-decoration:none;
+    color:#2563eb;
+    font-size:25px;
+    font-weight:800;
+}
+
+.logo span{
+    color:#0f172a;
+}
+
+.nav-links{
+    display:flex;
+    gap:22px;
+    align-items:center;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#475569;
+    font-size:14px;
+    font-weight:600;
+}
+
+.nav-links a:hover{
+    color:#2563eb;
+}
+
+.active{
+    color:#2563eb !important;
+}
+
+
+/* PAGE HEADER */
+
+.page-header{
+    background:linear-gradient(
+        135deg,
+        #0f172a,
+        #1e3a8a
+    );
+
+    color:white;
+    padding:40px 20px;
+    text-align:center;
+}
+
+.page-header h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.page-header p{
+    color:#cbd5e1;
+    font-size:14px;
+}
+
+
+/* ACTIONS */
+
+.actions{
+    width:94%;
+    max-width:900px;
+    margin:25px auto;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.action-button{
+    border:none;
+    text-decoration:none;
+    padding:12px 18px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.edit-button{
+    background:white;
+    color:#2563eb;
+    border:1px solid #cbd5e1;
+}
+
+.print-button{
+    background:#2563eb;
+    color:white;
+}
+
+.review-button{
+    background:#0f172a;
+    color:white;
+}
+
+.jobs-button{
+    background:#16a34a;
+    color:white;
+}
+
+
+/* CV */
+
+.cv-wrapper{
+    width:94%;
+    max-width:900px;
+    margin:0 auto 60px;
+}
+
+.cv-paper{
+    background:white;
+    min-height:1100px;
+    padding:55px;
+    box-shadow:0 10px 40px rgba(0,0,0,.10);
+}
+
+
+/* CV HEADER */
+
+.cv-header{
+    border-bottom:3px solid #2563eb;
+    padding-bottom:22px;
+    margin-bottom:28px;
+}
+
+.cv-name{
+    font-size:36px;
+    color:#0f172a;
+    margin-bottom:7px;
+    font-weight:800;
+}
+
+.cv-title{
+    color:#2563eb;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:13px;
+}
+
+.contact{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 18px;
+    color:#64748b;
+    font-size:13px;
+}
+
+
+/* SECTIONS */
+
+.cv-section{
+    margin-bottom:30px;
+}
+
+.cv-section h2{
+    color:#2563eb;
+    font-size:16px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    border-bottom:1px solid #dbeafe;
+    padding-bottom:7px;
+    margin-bottom:14px;
+}
+
+.cv-section p{
+    color:#475569;
+    line-height:1.7;
+    font-size:14px;
+    white-space:pre-line;
+}
+
+
+/* SKILLS */
+
+.skills{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.skill{
+    background:#eff6ff;
+    color:#1d4ed8;
+    padding:7px 11px;
+    border-radius:6px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+
+/* EXPERIENCE */
+
+.experience-item{
+    margin-bottom:24px;
+}
+
+.experience-title{
+    font-size:17px;
+    font-weight:bold;
+    color:#111827;
+    margin-bottom:5px;
+}
+
+.experience-company{
+    color:#2563eb;
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:4px;
+}
+
+.experience-date{
+    color:#64748b;
+    font-size:12px;
+    margin-bottom:9px;
+}
+
+.experience-description{
+    color:#475569;
+    font-size:14px;
+    line-height:1.7;
+    white-space:pre-line;
+}
+
+
+/* EDUCATION */
+
+.education-item{
+    margin-bottom:15px;
+}
+
+.education-title{
+    font-weight:bold;
+    color:#111827;
+    font-size:15px;
+    margin-bottom:4px;
+}
+
+.education-school{
+    color:#475569;
+    font-size:13px;
+}
+
+
+/* EMPTY STATE */
+
+.empty-state{
+    width:94%;
+    max-width:700px;
+    margin:40px auto 70px;
+    background:white;
+    padding:45px 25px;
+    border-radius:15px;
+    text-align:center;
+    display:none;
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+}
+
+.empty-state h2{
+    margin-bottom:10px;
+}
+
+.empty-state p{
+    color:#64748b;
+    margin-bottom:20px;
+    line-height:1.6;
+}
+
+.empty-state a{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:12px 18px;
+    border-radius:8px;
+    font-weight:bold;
+    font-size:14px;
+}
+
+
+/* FOOTER */
+
+footer{
+    background:#0f172a;
+    color:#94a3b8;
+    text-align:center;
+    padding:28px 20px;
+    font-size:13px;
+}
+
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .cv-paper{
+        padding:30px 22px;
+    }
+
+    .cv-name{
+        font-size:29px;
+    }
+
+    .cv-title{
+        font-size:16px;
+    }
+
+    .contact{
+        flex-direction:column;
+        gap:6px;
+    }
+
+}
+
+
+/* PRINT */
+
+@media print{
+
+    body{
+        background:white;
+    }
+
+    .navbar,
+    .page-header,
+    .actions,
+    footer{
+        display:none !important;
+    }
+
+    .cv-wrapper{
+        width:100%;
+        max-width:none;
+        margin:0;
+    }
+
+    .cv-paper{
+        box-shadow:none;
+        width:100%;
+        min-height:auto;
+        padding:35px;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -536,320 +401,248 @@
 <body>
 
 
-<!-- =========================
-     NAVIGATION
-========================= -->
+<!-- NAVIGATION -->
 
 <header class="navbar">
 
-    <div class="nav-inner">
+<div class="nav-inner">
 
-        <a
-            href="index.html"
-            class="logo">
+<a href="index.html" class="logo">
+Career<span>Craft</span>
+</a>
 
-            Career<span>Craft</span>
+<nav class="nav-links">
 
-        </a>
+<a href="index.html">
+Home
+</a>
 
+<a href="cv-builder.html">
+CV Builder
+</a>
 
-        <nav class="nav-links">
+<a href="cv-preview.html" class="active">
+CV Preview
+</a>
 
-            <a href="index.html">
-                Home
-            </a>
+<a href="cv-review.html">
+CV Review
+</a>
 
-            <a href="cv-builder.html">
-                CV Builder
-            </a>
+<a href="job-finder.html">
+Job Finder
+</a>
 
-            <a
-                href="cv-preview.html"
-                class="active">
+</nav>
 
-                CV Preview
-
-            </a>
-
-            <a href="cv-review.html">
-                CV Review
-            </a>
-
-            <a href="job-finder.html">
-                Job Finder
-            </a>
-
-        </nav>
-
-    </div>
+</div>
 
 </header>
 
 
-<!-- =========================
-     HEADER
-========================= -->
+<!-- PAGE HEADER -->
 
 <section class="page-header">
 
-    <h1>
-        Your Professional CV
-    </h1>
+<h1>
+Your Professional CV
+</h1>
 
-    <p>
-        Review your CV before applying for jobs.
-    </p>
+<p>
+Review your CV before applying for jobs.
+</p>
 
 </section>
 
 
-<!-- =========================
-     ACTION BUTTONS
-========================= -->
+<!-- ACTION BUTTONS -->
 
 <div class="actions">
 
-    <a
-        href="cv-builder.html"
-        class="action-button edit-button">
+<a
+href="cv-builder.html"
+class="action-button edit-button">
 
-        ← Edit CV
+← Edit CV
 
-    </a>
-
-
-    <button
-        onclick="window.print()"
-        class="action-button print-button">
-
-        Print / Save PDF
-
-    </button>
+</a>
 
 
-    <a
-        href="cv-review.html"
-        class="action-button review-button">
+<button
+onclick="window.print()"
+class="action-button print-button">
 
-        Review My CV
+Print / Save PDF
 
-    </a>
+</button>
 
 
-    <a
-        href="job-finder.html"
-        class="action-button jobs-button">
+<a
+href="cv-review.html"
+class="action-button review-button">
 
-        Find Jobs
+Review My CV
 
-    </a>
+</a>
+
+
+<a
+href="job-finder.html"
+class="action-button jobs-button">
+
+Find Jobs
+
+</a>
 
 </div>
 
 
-<!-- =========================
-     EMPTY STATE
-========================= -->
+<!-- EMPTY STATE -->
 
 <section
-    id="emptyState"
-    class="empty-state">
+id="emptyState"
+class="empty-state">
 
-    <h2>
-        Your CV is not ready yet
-    </h2>
+<h2>
+Your CV is not ready yet
+</h2>
 
-    <p>
-        You haven't created or saved your CV.
-        Start with the CV Builder and your
-        information will appear here automatically.
-    </p>
+<p>
+You haven't created or saved your CV.
+Start with the CV Builder and your
+information will appear here automatically.
+</p>
 
-    <a href="cv-builder.html">
-        Create My CV
-    </a>
+<a href="cv-builder.html">
+Create My CV
+</a>
 
 </section>
 
 
-<!-- =========================
-     CV
-========================= -->
+<!-- CV -->
 
 <main
-    id="cvWrapper"
-    class="cv-wrapper">
+id="cvWrapper"
+class="cv-wrapper">
 
-    <article class="cv-paper">
-
-
-        <!-- CV HEADER -->
-
-        <header class="cv-header">
-
-            <h1
-                id="cvName"
-                class="cv-name">
-
-                Your Name
-
-            </h1>
+<article class="cv-paper">
 
 
-            <div
-                id="cvTitle"
-                class="cv-title">
+<!-- CV HEADER -->
 
-                Professional Title
+<header class="cv-header">
 
-            </div>
+<h1
+id="cvName"
+class="cv-name">
 
+Your Name
 
-            <div class="contact">
-
-                <span id="cvEmail">
-                    Email
-                </span>
-
-                <span id="cvPhone">
-                    Phone
-                </span>
-
-                <span id="cvLocation">
-                    Location
-                </span>
-
-            </div>
-
-        </header>
+</h1>
 
 
-        <!-- SUMMARY -->
+<div
+id="cvTitle"
+class="cv-title">
 
-        <section class="cv-section">
+Professional Title
 
-            <h2>
-                Professional Summary
-            </h2>
-
-            <p id="cvSummary">
-                Your professional summary will appear here.
-            </p>
-
-        </section>
+</div>
 
 
-        <!-- SKILLS -->
+<div class="contact">
 
-        <section class="cv-section">
+<span id="cvEmail">
+Email
+</span>
 
-            <h2>
-                Skills
-            </h2>
+<span id="cvPhone">
+Phone
+</span>
 
-            <div
-                id="cvSkills"
-                class="skills">
+<span id="cvLocation">
+Location
+</span>
 
-            </div>
+</div>
 
-        </section>
-
-
-        <!-- EXPERIENCE -->
-
-        <section class="cv-section">
-
-            <h2>
-                Experience
-            </h2>
-
-            <div
-                id="cvExperience">
-
-                <div class="experience-item">
-
-                    <div class="experience-title">
-                        Your Experience
-                    </div>
-
-                    <div class="experience-company">
-                        Company
-                    </div>
-
-                    <div class="experience-date">
-                        Employment dates
-                    </div>
-
-                    <p>
-                        Your work experience will appear here.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
+</header>
 
 
-        <!-- EDUCATION -->
+<!-- PROFESSIONAL SUMMARY -->
 
-        <section class="cv-section">
+<section class="cv-section">
 
-            <h2>
-                Education
-            </h2>
+<h2>
+Professional Summary
+</h2>
 
-            <div
-                id="cvEducation">
+<p id="cvSummary">
+Your professional summary will appear here.
+</p>
 
-                <div class="education-item">
-
-                    <div class="education-title">
-                        Your Qualification
-                    </div>
-
-                    <div class="education-school">
-                        Your school or institution
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
+</section>
 
 
-        <!-- ADDITIONAL INFORMATION -->
+<!-- SKILLS -->
 
-        <section
-            id="additionalSection"
-            class="cv-section">
+<section class="cv-section">
 
-            <h2>
-                Additional Information
-            </h2>
+<h2>
+Skills
+</h2>
 
-            <p id="cvAdditional">
-                Additional information will appear here.
-            </p>
+<div
+id="cvSkills"
+class="skills">
 
-        </section>
+</div>
+
+</section>
 
 
-    </article>
+<!-- EXPERIENCE -->
+
+<section class="cv-section">
+
+<h2>
+Work Experience
+</h2>
+
+<div id="cvExperience">
+
+</div>
+
+</section>
+
+
+<!-- EDUCATION -->
+
+<section class="cv-section">
+
+<h2>
+Education
+</h2>
+
+<div id="cvEducation">
+
+</div>
+
+</section>
+
+
+</article>
 
 </main>
 
 
-<!-- =========================
-     FOOTER
-========================= -->
+<!-- FOOTER -->
 
 <footer>
 
-    CareerCraft © 2026 —
-    Build a better career.
+CareerCraft © 2026 —
+Build a better career.
 
 </footer>
 
@@ -857,12 +650,11 @@
 <script>
 
 
-/* =================================
-   LOAD SAVED CV
-================================= */
+/* ==========================================
+   LOAD CV FROM LOCAL STORAGE
+========================================== */
 
-function loadCV() {
-
+function loadCV(){
 
     const savedCV =
         localStorage.getItem(
@@ -870,40 +662,34 @@ function loadCV() {
         );
 
 
-    /*
-       If there is no saved CV,
-       show the empty state.
-    */
+    if(!savedCV){
 
-    if (!savedCV) {
+        document.getElementById(
+            "cvWrapper"
+        ).style.display = "none";
 
-        document
-            .getElementById("cvWrapper")
-            .style.display = "none";
-
-        document
-            .getElementById("emptyState")
-            .style.display = "block";
+        document.getElementById(
+            "emptyState"
+        ).style.display = "block";
 
         return;
 
     }
 
 
-    try {
+    try{
 
         const cv =
             JSON.parse(savedCV);
 
 
-        /* =========================
-           BASIC INFORMATION
-        ========================= */
+        /* ==============================
+           PERSONAL INFORMATION
+        ============================== */
 
         setText(
             "cvName",
-            cv.fullName ||
-            "Your Name"
+            cv.fullName || "Your Name"
         );
 
 
@@ -916,120 +702,91 @@ function loadCV() {
 
         setText(
             "cvEmail",
-            cv.email ||
-            "Email"
+            cv.email || "Email"
         );
 
 
         setText(
             "cvPhone",
-            cv.phone ||
-            "Phone"
+            cv.phone || "Phone"
         );
 
 
         setText(
             "cvLocation",
-            cv.location ||
-            "Location"
+            cv.location || "Location"
         );
 
 
-        /* =========================
-           SUMMARY
-        ========================= */
+        /* ==============================
+           PROFESSIONAL SUMMARY
+        ============================== */
 
         setText(
             "cvSummary",
-            cv.professionalSummary ||
             cv.summary ||
-            "Add a professional summary in the CV Builder."
+            cv.professionalSummary ||
+            "No professional summary added."
         );
 
 
-        /* =========================
+        /* ==============================
            SKILLS
-        ========================= */
+        ============================== */
 
         loadSkills(
             cv.skills
         );
 
 
-        /* =========================
+        /* ==============================
            EXPERIENCE
-        ========================= */
+        ============================== */
 
         loadExperience(
-            cv.experience
+            cv
         );
 
 
-        /* =========================
+        /* ==============================
            EDUCATION
-        ========================= */
+        ============================== */
 
         loadEducation(
             cv.education
         );
 
 
-        /* =========================
-           ADDITIONAL INFORMATION
-        ========================= */
-
-        if (
-            cv.additional ||
-            cv.additionalInformation
-        ) {
-
-            setText(
-                "cvAdditional",
-                cv.additional ||
-                cv.additionalInformation
-            );
-
-        }
-
-        else {
-
-            document
-                .getElementById(
-                    "additionalSection"
-                )
-                .style.display = "none";
-
-        }
-
     }
 
-    catch (error) {
+    catch(error){
 
-        console.log(
-            "Unable to read saved CV."
+        console.error(
+            "CV loading error:",
+            error
         );
 
-        document
-            .getElementById("cvWrapper")
-            .style.display = "none";
+        document.getElementById(
+            "cvWrapper"
+        ).style.display = "none";
 
-        document
-            .getElementById("emptyState")
-            .style.display = "block";
+        document.getElementById(
+            "emptyState"
+        ).style.display = "block";
 
     }
 
 }
 
 
-/* =================================
-   SAFE TEXT
-================================= */
+/* ==========================================
+   SET TEXT
+========================================== */
 
 function setText(
     elementId,
     value
-) {
+){
 
     const element =
         document.getElementById(
@@ -1037,7 +794,7 @@ function setText(
         );
 
 
-    if (element) {
+    if(element){
 
         element.textContent =
             value;
@@ -1047,13 +804,13 @@ function setText(
 }
 
 
-/* =================================
-   LOAD SKILLS
-================================= */
+/* ==========================================
+   SKILLS
+========================================== */
 
 function loadSkills(
     skills
-) {
+){
 
     const container =
         document.getElementById(
@@ -1064,11 +821,18 @@ function loadSkills(
     container.innerHTML = "";
 
 
-    if (!skills) {
+    if(!skills){
 
-        addSkill(
-            container,
-            "Add your skills"
+        const empty =
+            document.createElement(
+                "p"
+            );
+
+        empty.textContent =
+            "No skills added.";
+
+        container.appendChild(
+            empty
         );
 
         return;
@@ -1079,36 +843,48 @@ function loadSkills(
     let skillList = [];
 
 
-    if (Array.isArray(skills)) {
+    if(Array.isArray(skills)){
 
-        skillList = skills;
+        skillList =
+            skills;
 
     }
 
-    else if (
-        typeof skills === "string"
-    ) {
+    else{
 
         skillList =
-            skills
+            String(skills)
             .split(",")
             .map(
-                skill =>
-                    skill.trim()
+                function(skill){
+
+                    return skill.trim();
+
+                }
             )
             .filter(
-                skill =>
-                    skill !== ""
+                function(skill){
+
+                    return skill.length > 0;
+
+                }
             );
 
     }
 
 
-    if (skillList.length === 0) {
+    if(skillList.length === 0){
 
-        addSkill(
-            container,
-            "Add your skills"
+        const empty =
+            document.createElement(
+                "p"
+            );
+
+        empty.textContent =
+            "No skills added.";
+
+        container.appendChild(
+            empty
         );
 
         return;
@@ -1117,11 +893,21 @@ function loadSkills(
 
 
     skillList.forEach(
-        function(skill) {
+        function(skill){
 
-            addSkill(
-                container,
-                skill
+            const span =
+                document.createElement(
+                    "span"
+                );
+
+            span.className =
+                "skill";
+
+            span.textContent =
+                skill;
+
+            container.appendChild(
+                span
             );
 
         }
@@ -1130,36 +916,13 @@ function loadSkills(
 }
 
 
-function addSkill(
-    container,
-    text
-) {
-
-    const span =
-        document.createElement(
-            "span"
-        );
-
-    span.className =
-        "skill";
-
-    span.textContent =
-        text;
-
-    container.appendChild(
-        span
-    );
-
-}
-
-
-/* =================================
-   LOAD EXPERIENCE
-================================= */
+/* ==========================================
+   EXPERIENCE
+========================================== */
 
 function loadExperience(
-    experience
-) {
+    cv
+){
 
     const container =
         document.getElementById(
@@ -1170,14 +933,57 @@ function loadExperience(
     container.innerHTML = "";
 
 
-    if (!experience) {
+    /*
+       IMPORTANT:
 
-        createExperience(
-            container,
-            "Your Experience",
-            "Company",
-            "Employment dates",
-            "Add your work experience in the CV Builder."
+       The CV Builder saves these
+       as separate fields:
+
+       jobTitle
+       company
+       experienceDates
+       experience
+    */
+
+
+    const jobTitle =
+        cv.jobTitle || "";
+
+
+    const company =
+        cv.company || "";
+
+
+    const dates =
+        cv.experienceDates || "";
+
+
+    const description =
+        cv.experience || "";
+
+
+    /*
+       If everything is empty,
+       show a simple message.
+    */
+
+    if(
+        !jobTitle &&
+        !company &&
+        !dates &&
+        !description
+    ){
+
+        const empty =
+            document.createElement(
+                "p"
+            );
+
+        empty.textContent =
+            "No work experience added.";
+
+        container.appendChild(
+            empty
         );
 
         return;
@@ -1185,83 +991,7 @@ function loadExperience(
     }
 
 
-    /*
-       Support an array of
-       experience objects.
-    */
-
-    if (Array.isArray(experience)) {
-
-        experience.forEach(
-            function(item) {
-
-                createExperience(
-
-                    container,
-
-                    item.jobTitle ||
-                    item.title ||
-                    "Job Title",
-
-                    item.company ||
-                    "Company",
-
-                    item.date ||
-                    item.dates ||
-                    item.duration ||
-                    "",
-
-                    item.description ||
-                    ""
-
-                );
-
-            }
-        );
-
-        return;
-
-    }
-
-
-    /*
-       Support plain text
-       experience.
-    */
-
-    if (
-        typeof experience ===
-        "string"
-    ) {
-
-        createExperience(
-
-            container,
-
-            "Professional Experience",
-
-            "",
-
-            "",
-
-            experience
-
-        );
-
-    }
-
-}
-
-
-function createExperience(
-
-    container,
-    title,
-    company,
-    date,
-    description
-
-) {
+    /* EXPERIENCE ITEM */
 
     const item =
         document.createElement(
@@ -1272,66 +1002,92 @@ function createExperience(
         "experience-item";
 
 
-    const titleElement =
-        document.createElement(
-            "div"
+    /* JOB TITLE */
+
+    if(jobTitle){
+
+        const title =
+            document.createElement(
+                "div"
+            );
+
+        title.className =
+            "experience-title";
+
+        title.textContent =
+            jobTitle;
+
+        item.appendChild(
+            title
         );
 
-    titleElement.className =
-        "experience-title";
-
-    titleElement.textContent =
-        title;
+    }
 
 
-    const companyElement =
-        document.createElement(
-            "div"
+    /* COMPANY */
+
+    if(company){
+
+        const companyElement =
+            document.createElement(
+                "div"
+            );
+
+        companyElement.className =
+            "experience-company";
+
+        companyElement.textContent =
+            company;
+
+        item.appendChild(
+            companyElement
         );
 
-    companyElement.className =
-        "experience-company";
-
-    companyElement.textContent =
-        company;
+    }
 
 
-    const dateElement =
-        document.createElement(
-            "div"
+    /* DATES */
+
+    if(dates){
+
+        const date =
+            document.createElement(
+                "div"
+            );
+
+        date.className =
+            "experience-date";
+
+        date.textContent =
+            dates;
+
+        item.appendChild(
+            date
         );
 
-    dateElement.className =
-        "experience-date";
-
-    dateElement.textContent =
-        date;
+    }
 
 
-    const descriptionElement =
-        document.createElement(
-            "p"
+    /* DESCRIPTION */
+
+    if(description){
+
+        const descriptionElement =
+            document.createElement(
+                "p"
+            );
+
+        descriptionElement.className =
+            "experience-description";
+
+        descriptionElement.textContent =
+            description;
+
+        item.appendChild(
+            descriptionElement
         );
 
-    descriptionElement.textContent =
-        description;
-
-
-    item.appendChild(
-        titleElement
-    );
-
-    item.appendChild(
-        companyElement
-    );
-
-    item.appendChild(
-        dateElement
-    );
-
-    item.appendChild(
-        descriptionElement
-    );
+    }
 
 
     container.appendChild(
@@ -1341,13 +1097,13 @@ function createExperience(
 }
 
 
-/* =================================
-   LOAD EDUCATION
-================================= */
+/* ==========================================
+   EDUCATION
+========================================== */
 
 function loadEducation(
     education
-) {
+){
 
     const container =
         document.getElementById(
@@ -1358,16 +1114,18 @@ function loadEducation(
     container.innerHTML = "";
 
 
-    if (!education) {
+    if(!education){
 
-        createEducation(
+        const empty =
+            document.createElement(
+                "p"
+            );
 
-            container,
+        empty.textContent =
+            "No education information added.";
 
-            "Your Qualification",
-
-            "Your school or institution"
-
+        container.appendChild(
+            empty
         );
 
         return;
@@ -1375,61 +1133,10 @@ function loadEducation(
     }
 
 
-    if (Array.isArray(education)) {
-
-        education.forEach(
-            function(item) {
-
-                createEducation(
-
-                    container,
-
-                    item.degree ||
-                    item.qualification ||
-                    item.title ||
-                    "Qualification",
-
-                    item.school ||
-                    item.institution ||
-                    "Institution"
-
-                );
-
-            }
-        );
-
-        return;
-
-    }
-
-
-    if (
-        typeof education ===
-        "string"
-    ) {
-
-        createEducation(
-
-            container,
-
-            education,
-
-            ""
-
-        );
-
-    }
-
-}
-
-
-function createEducation(
-
-    container,
-    title,
-    school
-
-) {
+    /*
+       The current CV Builder saves
+       education as one text field.
+    */
 
     const item =
         document.createElement(
@@ -1440,36 +1147,20 @@ function createEducation(
         "education-item";
 
 
-    const titleElement =
+    const title =
         document.createElement(
             "div"
         );
 
-    titleElement.className =
+    title.className =
         "education-title";
 
-    titleElement.textContent =
-        title;
-
-
-    const schoolElement =
-        document.createElement(
-            "div"
-        );
-
-    schoolElement.className =
-        "education-school";
-
-    schoolElement.textContent =
-        school;
+    title.textContent =
+        education;
 
 
     item.appendChild(
-        titleElement
-    );
-
-    item.appendChild(
-        schoolElement
+        title
     );
 
 
@@ -1480,16 +1171,15 @@ function createEducation(
 }
 
 
-/* =================================
+/* ==========================================
    START
-================================= */
+========================================== */
 
 loadCV();
-
 
 </script>
 
 
 </body>
 
-</html>
+    </html>
