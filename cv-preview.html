@@ -1,16 +1,6 @@
-    <!DOCTYPE html>
-<html lang="en">
-
-<head>
-
+<!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>CareerCraft — CV Preview</title>
-
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>CareerCraft — CV Preview</title><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script><style>
 
 * {
     box-sizing: border-box;
@@ -24,26 +14,24 @@ body {
     color: #202124;
 }
 
-/* NAVBAR */
-
 .navbar {
-    background: #ffffff;
+    background: white;
     border-bottom: 1px solid #e5e7eb;
     padding: 16px 6%;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     gap: 20px;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 10;
 }
 
 .logo {
+    text-decoration: none;
     font-size: 24px;
     font-weight: 800;
     color: #111827;
-    text-decoration: none;
 }
 
 .logo span {
@@ -52,7 +40,6 @@ body {
 
 .nav-links {
     display: flex;
-    align-items: center;
     gap: 18px;
     flex-wrap: wrap;
 }
@@ -68,8 +55,6 @@ body {
     color: #2563eb;
 }
 
-/* PAGE */
-
 .page {
     max-width: 1100px;
     margin: auto;
@@ -83,15 +68,13 @@ body {
 
 .top-area h1 {
     font-size: 34px;
-    margin-bottom: 10px;
     color: #111827;
+    margin-bottom: 8px;
 }
 
 .top-area p {
     color: #6b7280;
 }
-
-/* BUTTONS */
 
 .actions {
     display: flex;
@@ -102,7 +85,6 @@ body {
 }
 
 .btn {
-    display: inline-block;
     border: none;
     border-radius: 9px;
     padding: 12px 20px;
@@ -110,6 +92,7 @@ body {
     font-weight: 700;
     cursor: pointer;
     text-decoration: none;
+    display: inline-block;
 }
 
 .btn-primary {
@@ -131,7 +114,7 @@ body {
     background: #f9fafb;
 }
 
-/* CV PAPER */
+/* CV */
 
 .cv-wrapper {
     display: flex;
@@ -142,12 +125,9 @@ body {
     width: 794px;
     min-height: 1123px;
     background: white;
-    box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+    box-shadow: 0 10px 35px rgba(0,0,0,.12);
     overflow: hidden;
-    position: relative;
 }
-
-/* GENERAL CV */
 
 .cv-header {
     padding: 40px 48px 30px;
@@ -156,7 +136,6 @@ body {
 .name {
     font-size: 34px;
     font-weight: 800;
-    line-height: 1.1;
 }
 
 .profession {
@@ -196,9 +175,15 @@ body {
     margin-bottom: 13px;
 }
 
-.summary {
+.summary,
+.description,
+.education {
     font-size: 14px;
     line-height: 1.7;
+    white-space: pre-line;
+}
+
+.summary {
     color: #374151;
 }
 
@@ -224,16 +209,7 @@ body {
 }
 
 .description {
-    font-size: 14px;
-    line-height: 1.7;
     margin-top: 9px;
-    white-space: pre-line;
-}
-
-.education {
-    font-size: 14px;
-    line-height: 1.7;
-    white-space: pre-line;
 }
 
 .skills {
@@ -249,9 +225,7 @@ body {
     font-weight: 600;
 }
 
-/* =========================
-   CLASSIC TEMPLATE
-========================= */
+/* CLASSIC */
 
 .template-classic .cv-header {
     text-align: center;
@@ -267,23 +241,16 @@ body {
     color: #555;
 }
 
-.template-classic .section-title {
-    color: #222;
-}
-
 .template-classic .skill {
     background: #eeeeee;
     color: #333;
 }
 
-/* =========================
-   MODERN TEMPLATE
-========================= */
+/* MODERN */
 
 .template-modern .cv {
     display: grid;
     grid-template-columns: 220px 1fr;
-    min-height: 1123px;
 }
 
 .template-modern .cv-header {
@@ -331,9 +298,7 @@ body {
     color: #1d4ed8;
 }
 
-/* =========================
-   MINIMAL TEMPLATE
-========================= */
+/* MINIMAL */
 
 .template-minimal .cv-header {
     padding-bottom: 35px;
@@ -342,7 +307,6 @@ body {
 .template-minimal .name {
     font-size: 38px;
     font-weight: 500;
-    letter-spacing: -1px;
 }
 
 .template-minimal .profession {
@@ -352,10 +316,6 @@ body {
 
 .template-minimal .contact {
     color: #6b7280;
-}
-
-.template-minimal .cv-body {
-    padding-top: 5px;
 }
 
 .template-minimal .section-title {
@@ -375,9 +335,7 @@ body {
     color: #374151;
 }
 
-/* =========================
-   EXECUTIVE TEMPLATE
-========================= */
+/* EXECUTIVE */
 
 .template-executive .cv-header {
     background: #111827;
@@ -397,10 +355,6 @@ body {
     padding-top: 35px;
 }
 
-.template-executive .section-title {
-    color: #111827;
-}
-
 .template-executive .section-line {
     height: 2px;
     background: #111827;
@@ -411,7 +365,7 @@ body {
     color: white;
 }
 
-/* EMPTY CV */
+/* EMPTY */
 
 .empty {
     text-align: center;
@@ -429,12 +383,12 @@ body {
 
 /* MOBILE */
 
-@media (max-width: 800px) {
+@media(max-width:800px) {
 
     .navbar {
-        padding: 14px 20px;
         flex-direction: column;
         align-items: flex-start;
+        padding: 14px 20px;
     }
 
     .nav-links {
@@ -468,10 +422,6 @@ body {
 
     .cv-body {
         padding: 0 30px 40px;
-    }
-
-    .name {
-        font-size: 29px;
     }
 
 }
@@ -510,246 +460,162 @@ body {
         size: A4;
         margin: 0;
     }
-
 }
 
-</style>
+</style></head><body><nav class="navbar"><a href="index.html" class="logo">
+    Career<span>Craft</span>
+</a>
 
-</head>
+<div class="nav-links">
 
-<body>
+    <a href="index.html">Home</a>
+    <a href="cv-builder.html">CV Builder</a>
+    <a href="cv-templates.html">Templates</a>
+    <a href="cv-review.html">CV Review</a>
+    <a href="job-finder.html">Find Jobs</a>
+    <a href="saved-jobs.html">Saved Jobs</a>
 
-<!-- NAVBAR -->
+</div>
 
-<nav class="navbar">
+</nav><main class="page"><div class="top-area">
 
-    <a href="index.html" class="logo">
-        Career<span>Craft</span>
-    </a>
+    <h1>CV Preview</h1>
 
-    <div class="nav-links">
+    <p id="templateText">
+        Your CV is ready.
+    </p>
 
-        <a href="index.html">Home</a>
+    <div class="actions">
 
-        <a href="cv-builder.html">CV Builder</a>
+        <a
+            href="cv-templates.html"
+            class="btn btn-secondary">
+            ← Change Template
+        </a>
 
-        <a href="cv-templates.html">Templates</a>
+        <a
+            href="cv-builder.html"
+            class="btn btn-secondary">
+            ✏️ Edit CV
+        </a>
 
-        <a href="cv-review.html">CV Review</a>
+        <button
+            onclick="downloadPDF()"
+            id="downloadButton"
+            class="btn btn-primary">
+            📄 Download PDF
+        </button>
 
-        <a href="job-finder.html">Find Jobs</a>
-
-        <a href="saved-jobs.html">Saved Jobs</a>
-
-    </div>
-
-</nav>
-
-
-<!-- PAGE -->
-
-<main class="page">
-
-    <div class="top-area">
-
-        <h1>CV Preview</h1>
-
-        <p id="templateText">
-            Your CV is ready to preview.
-        </p>
-
-        <div class="actions">
-
-            <a
-                href="cv-templates.html"
-                class="btn btn-secondary">
-                ← Change Template
-            </a>
-
-            <a
-                href="cv-builder.html"
-                class="btn btn-secondary">
-                ✏️ Edit CV
-            </a>
-
-            <button
-                onclick="printCV()"
-                class="btn btn-primary">
-                🖨️ Print / Save PDF
-            </button>
-
-        </div>
+        <button
+            onclick="window.print()"
+            class="btn btn-secondary">
+            🖨️ Print
+        </button>
 
     </div>
 
+</div>
 
-    <!-- CV -->
+<div class="cv-wrapper">
 
-    <div class="cv-wrapper">
+    <div id="cv" class="cv">
 
-        <div id="cv" class="cv">
+        <header class="cv-header">
 
-            <!-- HEADER -->
+            <div id="fullName" class="name">
+                Your Name
+            </div>
 
-            <header class="cv-header">
+            <div id="professionalTitle" class="profession">
+                Professional Title
+            </div>
 
-                <div
-                    id="fullName"
-                    class="name">
-                    Your Name
-                </div>
+            <div class="contact">
 
-                <div
-                    id="professionalTitle"
-                    class="profession">
-                    Professional Title
-                </div>
-
-                <div class="contact">
-
-                    <div id="email"></div>
-
-                    <div id="phone"></div>
-
-                    <div id="location"></div>
-
-                </div>
-
-            </header>
-
-
-            <!-- BODY -->
-
-            <div class="cv-body">
-
-
-                <!-- SUMMARY -->
-
-                <section
-                    id="summarySection"
-                    class="section">
-
-                    <div class="section-title">
-                        Professional Summary
-                    </div>
-
-                    <div class="section-line"></div>
-
-                    <p
-                        id="summary"
-                        class="summary">
-                    </p>
-
-                </section>
-
-
-                <!-- EXPERIENCE -->
-
-                <section
-                    id="experienceSection"
-                    class="section">
-
-                    <div class="section-title">
-                        Experience
-                    </div>
-
-                    <div class="section-line"></div>
-
-                    <div class="experience-item">
-
-                        <div
-                            id="jobTitle"
-                            class="job-title">
-                        </div>
-
-                        <div
-                            id="company"
-                            class="company">
-                        </div>
-
-                        <div
-                            id="experienceDates"
-                            class="dates">
-                        </div>
-
-                        <div
-                            id="experience"
-                            class="description">
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                <!-- EDUCATION -->
-
-                <section
-                    id="educationSection"
-                    class="section">
-
-                    <div class="section-title">
-                        Education
-                    </div>
-
-                    <div class="section-line"></div>
-
-                    <div
-                        id="education"
-                        class="education">
-                    </div>
-
-                </section>
-
-
-                <!-- SKILLS -->
-
-                <section
-                    id="skillsSection"
-                    class="section">
-
-                    <div class="section-title">
-                        Skills
-                    </div>
-
-                    <div class="section-line"></div>
-
-                    <div
-                        id="skills"
-                        class="skills">
-                    </div>
-
-                </section>
+                <div id="email"></div>
+                <div id="phone"></div>
+                <div id="location"></div>
 
             </div>
 
+        </header>
+
+        <div class="cv-body">
+
+            <section id="summarySection" class="section">
+
+                <div class="section-title">
+                    Professional Summary
+                </div>
+
+                <div class="section-line"></div>
+
+                <p id="summary" class="summary"></p>
+
+            </section>
+
+            <section id="experienceSection" class="section">
+
+                <div class="section-title">
+                    Experience
+                </div>
+
+                <div class="section-line"></div>
+
+                <div class="experience-item">
+
+                    <div id="jobTitle" class="job-title"></div>
+
+                    <div id="company" class="company"></div>
+
+                    <div id="experienceDates" class="dates"></div>
+
+                    <div id="experience" class="description"></div>
+
+                </div>
+
+            </section>
+
+            <section id="educationSection" class="section">
+
+                <div class="section-title">
+                    Education
+                </div>
+
+                <div class="section-line"></div>
+
+                <div id="education" class="education"></div>
+
+            </section>
+
+            <section id="skillsSection" class="section">
+
+                <div class="section-title">
+                    Skills
+                </div>
+
+                <div class="section-line"></div>
+
+                <div id="skills" class="skills"></div>
+
+            </section>
+
         </div>
 
     </div>
 
-</main>
+</div>
 
-
-<script>
-
-/* =========================
-   LOAD CV
-========================= */
+</main><script>
 
 const cvData =
     JSON.parse(
         localStorage.getItem("careerCraftCV")
     );
 
-
-/* =========================
-   LOAD TEMPLATE
-========================= */
-
 const selectedTemplate =
     localStorage.getItem("careerCraftTemplate")
     || "classic";
-
 
 const templateNames = {
 
@@ -763,56 +629,38 @@ const templateNames = {
 
 };
 
-
-/* =========================
-   APPLY TEMPLATE
-========================= */
-
 document.body.classList.add(
     "template-" + selectedTemplate
 );
 
-
-document.getElementById(
-    "templateText"
-).textContent =
+document.getElementById("templateText").textContent =
     "Currently using the " +
     (templateNames[selectedTemplate] || "Classic") +
     " CV template.";
 
-
-/* =========================
-   SAFE TEXT FUNCTION
-========================= */
 
 function setText(id, value) {
 
     const element =
         document.getElementById(id);
 
-    if (!element) return;
-
-    element.textContent =
-        value || "";
+    if (element) {
+        element.textContent = value || "";
+    }
 
 }
 
 
-/* =========================
-   CHECK CV
-========================= */
-
 if (!cvData) {
 
-    document.getElementById("cv")
-        .innerHTML = `
+    document.getElementById("cv").innerHTML = `
 
         <div class="empty">
 
             <h2>No CV Found</h2>
 
             <p>
-                You haven't created your CV yet.
+                Create your CV first before previewing it.
             </p>
 
             <a
@@ -827,9 +675,6 @@ if (!cvData) {
 
 } else {
 
-
-    /* BASIC INFORMATION */
-
     setText(
         "fullName",
         cvData.fullName || "Your Name"
@@ -841,75 +686,27 @@ if (!cvData) {
         "Professional Title"
     );
 
-    setText(
-        "email",
-        cvData.email
-    );
+    setText("email", cvData.email);
+    setText("phone", cvData.phone);
+    setText("location", cvData.location);
 
-    setText(
-        "phone",
-        cvData.phone
-    );
+    setText("summary", cvData.summary);
 
-    setText(
-        "location",
-        cvData.location
-    );
+    setText("jobTitle", cvData.jobTitle);
+    setText("company", cvData.company);
+    setText("experienceDates", cvData.experienceDates);
+    setText("experience", cvData.experience);
 
-
-    /* SUMMARY */
-
-    setText(
-        "summary",
-        cvData.summary
-    );
-
-
-    /* EXPERIENCE */
-
-    setText(
-        "jobTitle",
-        cvData.jobTitle
-    );
-
-    setText(
-        "company",
-        cvData.company
-    );
-
-    setText(
-        "experienceDates",
-        cvData.experienceDates
-    );
-
-    setText(
-        "experience",
-        cvData.experience
-    );
-
-
-    /* EDUCATION */
-
-    setText(
-        "education",
-        cvData.education
-    );
-
-
-    /* SKILLS */
+    setText("education", cvData.education);
 
     const skillsContainer =
         document.getElementById("skills");
 
-    const skillsText =
-        cvData.skills || "";
-
     const skillsArray =
-        skillsText
-            .split(",")
-            .map(skill => skill.trim())
-            .filter(skill => skill.length > 0);
-
+        (cvData.skills || "")
+        .split(",")
+        .map(skill => skill.trim())
+        .filter(skill => skill);
 
     skillsArray.forEach(skill => {
 
@@ -924,9 +721,6 @@ if (!cvData) {
 
     });
 
-
-    /* HIDE EMPTY SECTIONS */
-
     if (!cvData.summary) {
 
         document.getElementById(
@@ -934,7 +728,6 @@ if (!cvData) {
         ).style.display = "none";
 
     }
-
 
     if (
         !cvData.jobTitle &&
@@ -948,7 +741,6 @@ if (!cvData) {
 
     }
 
-
     if (!cvData.education) {
 
         document.getElementById(
@@ -956,7 +748,6 @@ if (!cvData) {
         ).style.display = "none";
 
     }
-
 
     if (!skillsArray.length) {
 
@@ -969,18 +760,104 @@ if (!cvData) {
 }
 
 
-/* =========================
-   PRINT / SAVE PDF
-========================= */
+/* DOWNLOAD PDF */
 
-function printCV() {
+function downloadPDF() {
 
-    window.print();
+    const cv =
+        document.getElementById("cv");
+
+    const button =
+        document.getElementById("downloadButton");
+
+    if (!cvData) {
+
+        alert(
+            "Please create your CV before downloading it."
+        );
+
+        return;
+    }
+
+    button.textContent =
+        "⏳ Creating PDF...";
+
+    button.disabled = true;
+
+    const name =
+        (cvData.fullName || "CareerCraft-CV")
+        .replace(/[^a-z0-9]/gi, "-");
+
+    const options = {
+
+        margin: 0,
+
+        filename:
+            name + "-CV.pdf",
+
+        image: {
+            type: "jpeg",
+            quality: 0.98
+        },
+
+        html2canvas: {
+
+            scale: 2,
+
+            useCORS: true,
+
+            backgroundColor: "#ffffff"
+
+        },
+
+        jsPDF: {
+
+            unit: "mm",
+
+            format: "a4",
+
+            orientation: "portrait"
+
+        },
+
+        pagebreak: {
+
+            mode: [
+                "css",
+                "legacy"
+            ]
+
+        }
+
+    };
+
+    html2pdf()
+        .set(options)
+        .from(cv)
+        .save()
+        .then(() => {
+
+            button.textContent =
+                "📄 Download PDF";
+
+            button.disabled = false;
+
+        })
+        .catch(error => {
+
+            console.error(error);
+
+            alert(
+                "Sorry, the PDF could not be created. Please try again."
+            );
+
+            button.textContent =
+                "📄 Download PDF";
+
+            button.disabled = false;
+
+        });
 
 }
 
-</script>
-
-</body>
-
-        </html>
+</script></body></html>
