@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CareerCraft — Saved Jobs</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+    min-height:100vh;
+}
+
+/* NAVIGATION */
+nav{
+    background:#ffffff;
+    border-bottom:1px solid #e5e7eb;
+    padding:16px 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    color:#2563eb;
+    text-decoration:none;
+    font-size:24px;
+    font-weight:800;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.nav-links a{
+    color:#4b5563;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+    color:#2563eb;
+}
+
+
+/* HERO */
+.hero{
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:#ffffff;
+    text-align:center;
+    padding:55px 20px;
+}
+
+.hero h1{
+    font-size:40px;
+    margin-bottom:12px;
+}
+
+.hero p{
+    font-size:17px;
+    opacity:.92;
+}
+
+
+/* MAIN */
+.main{
+    max-width:1050px;
+    margin:0 auto;
+    padding:40px 20px 70px;
+}
+
+.top-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.top-bar h2{
+    font-size:23px;
+}
+
+.job-count{
+    color:#6b7280;
+    font-size:14px;
+}
+
+
+/* BUTTONS */
+.back-button{
+    display:inline-block;
+    text-decoration:none;
+    background:#ffffff;
+    border:1px solid #dfe3ea;
+    color:#374151;
+    padding:11px 16px;
+    border-radius:9px;
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+.back-button:hover{
+    background:#f3f4f6;
+}
+
+
+/* JOBS */
+.jobs{
+    display:grid;
+    gap:16px;
+}
+
+.job-card{
+    background:#ffffff;
+    border:1px solid #e5e7eb;
+    border-radius:15px;
+    padding:22px;
+    display:flex;
+    gap:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.04);
+}
+
+.company-logo{
+    width:50px;
+    height:50px;
+    min-width:50px;
+    border-radius:12px;
+    background:#eef2ff;
+    color:#4f46e5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    font-weight:800;
+}
+
+.job-content{
+    flex:1;
+}
+
+.job-title{
+    font-size:19px;
+    font-weight:750;
+    color:#111827;
+    margin-bottom:7px;
+}
+
+.company{
+    color:#2563eb;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.job-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.badge{
+    background:#f3f4f6;
+    color:#4b5563;
+    padding:6px 9px;
+    border-radius:7px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.description{
+    color:#6b7280;
+    line-height:1.6;
+    font-size:14px;
+    margin-bottom:15px;
+}
+
+.salary{
+    color:#059669;
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.job-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.view-job,
+.remove-job{
+    display:inline-block;
+    border:none;
+    text-decoration:none;
+    padding:10px 15px;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.view-job{
+    background:#2563eb;
+    color:#ffffff;
+}
+
+.view-job:hover{
+    background:#1d4ed8;
+}
+
+.remove-job{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.remove-job:hover{
+    background:#fecaca;
+}
+
+
+/* EMPTY STATE */
+.empty{
+    background:#ffffff;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    text-align:center;
+    padding:60px 20px;
+}
+
+.empty-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.empty h3{
+    font-size:21px;
+    margin-bottom:10px;
+}
+
+.empty p{
+    color:#6b7280;
+    line-height:1.6;
+    margin-bottom:22px;
+}
+
+.find-jobs{
+    display:inline-block;
+    background:#2563eb;
+    color:#ffffff;
+    text-decoration:none;
+    padding:12px 18px;
+    border-radius:9px;
+    font-weight:700;
+}
+
+.find-jobs:hover{
+    background:#1d4ed8;
+}
+
+
+/* CLEAR BUTTON */
+.clear-section{
+    margin-top:25px;
+    display:none;
+    text-align:right;
+}
+
+.clear-button{
+    border:none;
+    background:#ffffff;
+    border:1px solid #fecaca;
+    color:#991b1b;
+    padding:10px 15px;
+    border-radius:8px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.clear-button:hover{
+    background:#fee2e2;
+}
+
+
+/* FOOTER */
+footer{
+    background:#ffffff;
+    border-top:1px solid #e5e7eb;
+    text-align:center;
+    padding:25px;
+    color:#6b7280;
+    font-size:13px;
+}
+
+
+/* MOBILE */
+@media(max-width:750px){
+
+    nav{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .nav-links{
+        width:100%;
+        gap:12px;
+    }
+
+    .hero{
+        padding:45px 18px;
+    }
+
+    .hero h1{
+        font-size:32px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .top-bar{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .job-card{
+        padding:17px;
+    }
+
+    .company-logo{
+        width:42px;
+        height:42px;
+        min-width:42px;
+    }
+
+    .job-title{
+        font-size:17px;
+    }
+
+    .job-actions{
+        width:100%;
+    }
+
+    .view-job,
+    .remove-job{
+        text-align:center;
+        flex:1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- NAVIGATION -->
+
+<nav>
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+        CareerCraft
+    </a>
+
+    <div class="nav-links">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="cv-builder.html">
+            CV Builder
+        </a>
+
+        <a href="cv-preview.html">
+            CV Preview
+        </a>
+
+        <a href="cv-review.html">
+            CV Review
+        </a>
+
+        <a href="job-finder.html">
+            Job Finder
+        </a>
+
+        <a
+            href="saved-jobs.html"
+            class="active"
+        >
+            ⭐ Saved Jobs
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <h1>
+        Your Saved Jobs
+    </h1>
+
+    <p>
+        Keep track of the opportunities you want to apply for.
+    </p>
+
+</section>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+    <a
+        href="job-finder.html"
+        class="back-button"
+    >
+        ← Find More Jobs
+    </a>
+
+
+    <div class="top-bar">
+
+        <h2>
+            Saved Opportunities
+        </h2>
+
+        <span
+            class="job-count"
+            id="jobCount"
+        >
+        </span>
+
+    </div>
+
+
+    <div
+        class="jobs"
+        id="jobsContainer"
+    >
+    </div>
+
+
+    <div
+        class="empty"
+        id="emptyState"
+        style="display:none;"
+    >
+
+        <div class="empty-icon">
+            ⭐
+        </div>
+
+        <h3>
+            No saved jobs yet
+        </h3>
+
+        <p>
+            When you find a job you like,
+            click "☆ Save Job" and it will
+            appear here.
+        </p>
+
+        <a
+            href="job-finder.html"
+            class="find-jobs"
+        >
+            Find Jobs
+        </a>
+
+    </div>
+
+
+    <div
+        class="clear-section"
+        id="clearSection"
+    >
+
+        <button
+            class="clear-button"
+            onclick="clearAllJobs()"
+        >
+            Remove All Saved Jobs
+        </button>
+
+    </div>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    © 2026 CareerCraft.
+    Build your CV. Find your opportunity.
+
+</footer>
+
+
+<script>
+
+
+// --------------------------------
+// GET SAVED JOBS
+// --------------------------------
+
+function getSavedJobs(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "careerCraftSavedJobs"
+            )
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+// --------------------------------
+// SAVE JOBS
+// --------------------------------
+
+function saveJobs(jobs){
+
+    localStorage.setItem(
+        "careerCraftSavedJobs",
+        JSON.stringify(jobs)
+    );
+
+}
+
+
+// --------------------------------
+// JOB ID
+// --------------------------------
+
+function getJobId(job){
+
+    if(job.id){
+
+        return String(job.id);
+
+    }
+
+
+    if(job.redirect_url){
+
+        return job.redirect_url;
+
+    }
+
+
+    return (
+        (job.title || "") +
+        "|" +
+        (
+            job.company &&
+            job.company.display_name
+                ? job.company.display_name
+                : ""
+        )
+    );
+
+}
+
+
+// --------------------------------
+// ESCAPE HTML
+// --------------------------------
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+// --------------------------------
+// SAFE URL
+// --------------------------------
+
+function safeURL(url){
+
+    if(!url){
+
+        return "";
+
+    }
+
+
+    try{
+
+        const parsed =
+            new URL(url);
+
+
+        if(
+            parsed.protocol === "http:" ||
+            parsed.protocol === "https:"
+        ){
+
+            return escapeHTML(
+                parsed.href
+            );
+
+        }
+
+    }catch(error){
+
+        return "";
+
+    }
+
+
+    return "";
+
+}
+
+
+// --------------------------------
+// SALARY
+// --------------------------------
+
+function formatSalary(min,max){
+
+    if(!min && !max){
+
+        return "";
+
+    }
+
+
+    function format(value){
+
+        return new Intl.NumberFormat(
+            "en-GB",
+            {
+                style:"currency",
+                currency:"GBP",
+                maximumFractionDigits:0
+            }
+        ).format(value);
+
+    }
+
+
+    if(min && max){
+
+        return (
+            format(min) +
+            " – " +
+            format(max)
+        );
+
+    }
+
+
+    if(min){
+
+        return "From " + format(min);
+
+    }
+
+
+    return "Up to " + format(max);
+
+}
+
+
+// --------------------------------
+// DESCRIPTION
+// --------------------------------
+
+function cleanDescription(text){
+
+    const temp =
+        document.createElement("div");
+
+
+    temp.innerHTML =
+        text;
+
+
+    let clean =
+        temp.textContent ||
+        temp.innerText ||
+        "";
+
+
+    clean =
+        clean
+            .replace(/\s+/g," ")
+            .trim();
+
+
+    if(clean.length > 300){
+
+        clean =
+            clean.substring(0,300) +
+            "...";
+
+    }
+
+
+    return escapeHTML(clean);
+
+}
+
+
+// --------------------------------
+// DISPLAY JOBS
+// --------------------------------
+
+function displaySavedJobs(){
+
+    const jobs =
+        getSavedJobs();
+
+
+    const container =
+        document.getElementById(
+            "jobsContainer"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "emptyState"
+        );
+
+
+    const count =
+        document.getElementById(
+            "jobCount"
+        );
+
+
+    const clearSection =
+        document.getElementById(
+            "clearSection"
+        );
+
+
+    container.innerHTML =
+        "";
+
+
+    // No jobs
+    if(jobs.length === 0){
+
+        empty.style.display =
+            "block";
+
+        clearSection.style.display =
+            "none";
+
+        count.textContent =
+            "0 saved jobs";
+
+        return;
+
+    }
+
+
+    empty.style.display =
+        "none";
+
+    clearSection.style.display =
+        "block";
+
+
+    count.textContent =
+        jobs.length +
+        (
+            jobs.length === 1
+                ? " saved job"
+                : " saved jobs"
+        );
+
+
+    jobs.forEach(function(job,index){
+
+        container.insertAdjacentHTML(
+            "beforeend",
+            createSavedJobCard(
+                job,
+                index
+            )
+        );
+
+    });
+
+}
+
+
+// --------------------------------
+// CREATE JOB CARD
+// --------------------------------
+
+function createSavedJobCard(job,index){
+
+    const companyName =
+        job.company &&
+        job.company.display_name
+            ? job.company.display_name
+            : "Company not specified";
+
+
+    const location =
+        job.location &&
+        job.location.display_name
+            ? job.location.display_name
+            : "Location not specified";
+
+
+    const title =
+        escapeHTML(
+            job.title ||
+            "Untitled Job"
+        );
+
+
+    const company =
+        escapeHTML(
+            companyName
+        );
+
+
+    const safeLocation =
+        escapeHTML(
+            location
+        );
+
+
+    const contract =
+        escapeHTML(
+            job.contract_time ||
+            "Full-time"
+        );
+
+
+    const description =
+        cleanDescription(
+            job.description || ""
+        );
+
+
+    const salary =
+        formatSalary(
+            job.salary_min,
+            job.salary_max
+        );
+
+
+    const redirectURL =
+        safeURL(
+            job.redirect_url
+        );
+
+
+    let initial =
+        companyName
+            .charAt(0)
+            .toUpperCase();
+
+
+    if(!initial){
+
+        initial = "J";
+
+    }
+
+
+    return `
+
+        <article class="job-card">
+
+            <div class="company-logo">
+                ${escapeHTML(initial)}
+            </div>
+
+
+            <div class="job-content">
+
+                <div class="job-title">
+                    ${title}
+                </div>
+
+
+                <div class="company">
+                    ${company}
+                </div>
+
+
+                <div class="job-meta">
+
+                    <span class="badge">
+                        ${safeLocation}
+                    </span>
+
+                    <span class="badge">
+                        ${contract}
+                    </span>
+
+                </div>
+
+
+                ${
+                    description
+                    ?
+                    `
+                    <div class="description">
+                        ${description}
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+
+                ${
+                    salary
+                    ?
+                    `
+                    <div class="salary">
+                        ${salary}
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+
+                <div class="job-actions">
+
+                    ${
+                        redirectURL
+                        ?
+                        `
+                        <a
+                            href="${redirectURL}"
+                            class="view-job"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View Job →
+                        </a>
+                        `
+                        :
+                        ""
+                    }
+
+
+                    <button
+                        class="remove-job"
+                        onclick="removeJob(${index})"
+                    >
+                        Remove
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+// --------------------------------
+// REMOVE ONE JOB
+// --------------------------------
+
+function removeJob(index){
+
+    const jobs =
+        getSavedJobs();
+
+
+    if(index < 0 || index >= jobs.length){
+
+        return;
+
+    }
+
+
+    jobs.splice(index,1);
+
+
+    saveJobs(jobs);
+
+
+    displaySavedJobs();
+
+}
+
+
+// --------------------------------
+// REMOVE ALL JOBS
+// --------------------------------
+
+function clearAllJobs(){
+
+    const jobs =
+        getSavedJobs();
+
+
+    if(jobs.length === 0){
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to remove all saved jobs?"
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    localStorage.removeItem(
+        "careerCraftSavedJobs"
+    );
+
+
+    displaySavedJobs();
+
+}
+
+
+// --------------------------------
+// LOAD PAGE
+// --------------------------------
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        displaySavedJobs();
+
+    }
+);
+
+
+</script>
+
+</body>
+</html>
