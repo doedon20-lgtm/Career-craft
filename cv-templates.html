@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CV Templates | CareerCraft</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+}
+
+/* NAVBAR */
+.navbar{
+    background:#ffffff;
+    border-bottom:1px solid #e8ebf2;
+    padding:16px 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:800;
+    color:#2563eb;
+    text-decoration:none;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#475569;
+    font-size:14px;
+    font-weight:600;
+}
+
+.nav-links a:hover{
+    color:#2563eb;
+}
+
+.menu-btn{
+    display:none;
+    border:0;
+    background:none;
+    font-size:25px;
+    cursor:pointer;
+}
+
+/* HERO */
+.hero{
+    text-align:center;
+    padding:55px 20px 35px;
+}
+
+.hero h1{
+    font-size:38px;
+    margin-bottom:12px;
+}
+
+.hero h1 span{
+    color:#2563eb;
+}
+
+.hero p{
+    max-width:680px;
+    margin:auto;
+    color:#64748b;
+    font-size:16px;
+    line-height:1.7;
+}
+
+/* ACTIONS */
+.actions{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin:10px 20px 40px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-block;
+    padding:13px 22px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700;
+    font-size:14px;
+    cursor:pointer;
+    border:none;
+}
+
+.primary{
+    background:#2563eb;
+    color:white;
+}
+
+.primary:hover{
+    background:#1d4ed8;
+}
+
+.secondary{
+    background:white;
+    color:#2563eb;
+    border:1px solid #dbe3f0;
+}
+
+/* TEMPLATES */
+.templates{
+    width:92%;
+    max-width:1250px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+    padding-bottom:60px;
+}
+
+.template-card{
+    background:white;
+    border:2px solid transparent;
+    border-radius:16px;
+    padding:14px;
+    box-shadow:0 8px 30px rgba(15,23,42,.07);
+    transition:.25s;
+}
+
+.template-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 35px rgba(15,23,42,.12);
+}
+
+.template-card.selected{
+    border-color:#2563eb;
+}
+
+.preview{
+    height:380px;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    overflow:hidden;
+    position:relative;
+    padding:20px;
+}
+
+/* MINI CV */
+.cv-name{
+    font-size:19px;
+    font-weight:800;
+}
+
+.cv-title{
+    font-size:10px;
+    margin-top:4px;
+    color:#64748b;
+}
+
+.cv-line{
+    height:3px;
+    background:#2563eb;
+    margin:12px 0;
+}
+
+.cv-section{
+    font-size:9px;
+    font-weight:800;
+    margin-top:13px;
+    margin-bottom:5px;
+    text-transform:uppercase;
+}
+
+.cv-text{
+    font-size:7px;
+    color:#64748b;
+    line-height:1.5;
+}
+
+.cv-small-line{
+    height:5px;
+    width:75%;
+    background:#e5e7eb;
+    margin:4px 0;
+    border-radius:3px;
+}
+
+/* CLASSIC */
+.classic .cv-name{
+    text-align:center;
+}
+
+.classic .cv-title{
+    text-align:center;
+}
+
+.classic .cv-line{
+    background:#172033;
+}
+
+/* MODERN */
+.modern{
+    padding-left:35px;
+}
+
+.modern:before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:22px;
+    background:#2563eb;
+}
+
+.modern .cv-name{
+    color:#2563eb;
+}
+
+/* MINIMAL */
+.minimal{
+    padding:28px;
+}
+
+.minimal .cv-name{
+    font-weight:700;
+}
+
+.minimal .cv-line{
+    height:1px;
+    background:#cbd5e1;
+}
+
+/* EXECUTIVE */
+.executive{
+    background:#f8fafc;
+}
+
+.executive .cv-name{
+    background:#172033;
+    color:white;
+    padding:10px;
+    margin:-20px -20px 10px;
+}
+
+.executive .cv-line{
+    background:#64748b;
+}
+
+/* CARD INFO */
+.template-info{
+    padding:15px 3px 3px;
+}
+
+.template-info h3{
+    font-size:18px;
+    margin-bottom:5px;
+}
+
+.template-info p{
+    color:#64748b;
+    font-size:13px;
+    line-height:1.5;
+    min-height:40px;
+}
+
+.select-btn{
+    width:100%;
+    margin-top:14px;
+    padding:12px;
+    border-radius:9px;
+    border:none;
+    background:#eef4ff;
+    color:#2563eb;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.template-card.selected .select-btn{
+    background:#2563eb;
+    color:white;
+}
+
+/* CURRENT CV */
+.current-cv{
+    width:92%;
+    max-width:900px;
+    margin:0 auto 50px;
+    background:white;
+    border-radius:16px;
+    padding:25px;
+    box-shadow:0 8px 30px rgba(15,23,42,.07);
+    text-align:center;
+}
+
+.current-cv h2{
+    margin-bottom:8px;
+}
+
+.current-cv p{
+    color:#64748b;
+    font-size:14px;
+}
+
+#cvStatus{
+    margin-top:12px;
+    font-weight:700;
+    color:#2563eb;
+}
+
+/* FOOTER */
+footer{
+    background:#111827;
+    color:#94a3b8;
+    text-align:center;
+    padding:25px 15px;
+    font-size:13px;
+}
+
+/* MOBILE */
+@media(max-width:1000px){
+    .templates{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:650px){
+
+    .navbar{
+        padding:14px 5%;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .nav-links{
+        display:none;
+        position:absolute;
+        top:62px;
+        left:0;
+        right:0;
+        background:white;
+        padding:18px;
+        border-bottom:1px solid #e5e7eb;
+        flex-direction:column;
+    }
+
+    .nav-links.show{
+        display:flex;
+    }
+
+    .hero{
+        padding-top:38px;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .templates{
+        grid-template-columns:1fr;
+    }
+
+    .preview{
+        height:430px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+
+    <a href="index.html" class="logo">
+        CareerCraft
+    </a>
+
+    <button class="menu-btn" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="cv-builder.html">Build My CV</a>
+        <a href="cv-preview.html">CV Preview</a>
+        <a href="cv-review.html">CV Review</a>
+        <a href="job-finder.html">Find Jobs</a>
+        <a href="saved-jobs.html">⭐ Saved Jobs</a>
+        <a href="dashboard.html">Account</a>
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+<section class="hero">
+
+    <h1>
+        Choose Your <span>CV Template</span>
+    </h1>
+
+    <p>
+        Pick a professional design that matches your career.
+        Your existing CareerCraft CV information will be used
+        automatically.
+    </p>
+
+</section>
+
+
+<!-- ACTIONS -->
+<div class="actions">
+
+    <a href="cv-builder.html" class="btn secondary">
+        ← Build / Edit My CV
+    </a>
+
+    <button class="btn primary" onclick="openSelectedTemplate()">
+        Preview Selected Template →
+    </button>
+
+</div>
+
+
+<!-- CURRENT CV STATUS -->
+<section class="current-cv">
+
+    <h2>Your Current CV</h2>
+
+    <p id="cvStatus">
+        Checking your CV...
+    </p>
+
+</section>
+
+
+<!-- TEMPLATE GRID -->
+<section class="templates">
+
+
+    <!-- CLASSIC -->
+    <div class="template-card" id="card-classic">
+
+        <div class="preview classic">
+
+            <div class="cv-name" id="classicName">
+                YOUR NAME
+            </div>
+
+            <div class="cv-title" id="classicTitle">
+                PROFESSIONAL TITLE
+            </div>
+
+            <div class="cv-line"></div>
+
+            <div class="cv-section">
+                Professional Summary
+            </div>
+
+            <div class="cv-text">
+                Experienced professional with strong
+                communication, organizational and
+                problem-solving skills.
+            </div>
+
+            <div class="cv-section">
+                Skills
+            </div>
+
+            <div class="cv-small-line"></div>
+            <div class="cv-small-line"></div>
+            <div class="cv-small-line"></div>
+
+            <div class="cv-section">
+                Experience
+            </div>
+
+            <div class="cv-text">
+                Job Title — Company
+                <br>
+                Professional experience and achievements.
+            </div>
+
+            <div class="cv-section">
+                Education
+            </div>
+
+            <div class="cv-text">
+                Degree / Qualification
+            </div>
+
+        </div>
+
+        <div class="template-info">
+
+            <h3>Classic</h3>
+
+            <p>
+                Clean and traditional. Great for
+                corporate and professional applications.
+            </p>
+
+            <button
+                class="select-btn"
+                onclick="selectTemplate('classic')">
+                Use Classic
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODERN -->
+    <div class="template-card" id="card-modern">
+
+        <div class="preview modern">
+
+            <div class="cv-name" id="modernName">
+                YOUR NAME
+            </div>
+
+            <div class="cv-title" id="modernTitle">
+                PROFESSIONAL TITLE
+            </div>
+
+            <div class="cv-line"></div>
+
+            <div class="cv-section">
+                Profile
+            </div>
+
+            <div class="cv-text">
+                Professional profile highlighting
+                strengths, experience and career goals.
+            </div>
+
+            <div class="cv-section">
+                Core Skills
+            </div>
+
+            <div class="cv-small-line"></div>
+            <div class="cv-small-line"></div>
+            <div class="cv-small-line"></div>
+
+            <div class="cv-section">
+                Work Experience
+            </div>
+
+            <div class="cv-text">
+                Professional position
+                <br>
+                Company and key responsibilities.
+            </div>
+
+            <div class="cv-section">
+                Education
+            </div>
+
+            <div class="cv-text">
+                Degree / Qualification
+            </div>
+
+        </div>
+
+        <div class="template-info">
+
+            <h3>Modern</h3>
+
+            <p>
+                Contemporary and eye-catching while
+                remaining professional.
+            </p>
+
+            <button
+                class="select-btn"
+                onclick="selectTemplate('modern')">
+                Use Modern
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MINIMAL -->
+    <div class="template-card" id="card-minimal">
+
+        <div class="preview minimal">
+
+            <div class="cv-name" id="minimalName">
+                YOUR NAME
+            </div>
+
+            <div class="cv-title" id="minimalTitle">
+                PROFESSIONAL TITLE
+            </div>
+
+            <div class="cv-line"></div>
+
+            <div class="cv-section">
+                Summary
+            </div>
+
+            <div class="cv-text">
+                Concise professional summary showing
+                your strongest qualities.
+            </div>
+
+            <div class="cv-section">
+                Skills
+            </div>
+
+            <div class="cv-small-line"></div>
+            <div class="cv-small-line"></div>
+            <div class="cv-small-line"></div>
+
+            <div class="cv-section">
+                Experience
+            </div>
+
+            <div class="cv-text">
+                Job Title — Company
+                <br>
+                Responsibilities and achievements.
+            </div>
+
+            <div class="cv-section">
+                Education
+            </div>
+
+            <div class="cv-text">
+                Degree / Qualification
+            </div>
+
+        </div>
+
+        <div class="template-info">
+
+            <h3>Minimal</h3>
+
+            <p>
+                Simple, elegant and focused on your
+                experience and achievements.
+            </p>
+
+            <button
+                class="select-btn"
+                onclick="selectTemplate('minimal')">
+                Use Minimal
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- EXECUTIVE -->
+    <div class="template-card" id="card-executive">
+
+        <div class="preview executive">
+
+            <div class="cv-name" id="executiveName">
+                YOUR NAME
+            </div>
+
+            <div class="cv-title" id="executiveTitle">
+                PROFESSIONAL TITLE
+            </div>
+
+            <div class="cv-line"></div>
+
+            <div class="cv-section">
+                Professional Profile
+            </div>
+
+            <div class="cv-text">
+                Results-focused professional with
+                experience and strong leadership skills.
+            </div>
+
+            <div class="cv-section">
+                Expertise
+            </div>
+
+            <div class="cv-small-line"></div>
+            <div class="cv-small-line"></div>
+            <div class="cv-small-line"></div>
+
+            <div class="cv-section">
+                Career Experience
+            </div>
+
+            <div class="cv-text">
+                Job Title — Company
+                <br>
+                Key achievements and responsibilities.
+            </div>
+
+            <div class="cv-section">
+                Education
+            </div>
+
+            <div class="cv-text">
+                Degree / Qualification
+            </div>
+
+        </div>
+
+        <div class="template-info">
+
+            <h3>Executive</h3>
+
+            <p>
+                A strong leadership-focused design for
+                experienced professionals and managers.
+            </p>
+
+            <button
+                class="select-btn"
+                onclick="selectTemplate('executive')">
+                Use Executive
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+    © 2026 CareerCraft. Build a CV. Find your future.
+</footer>
+
+
+<script>
+
+function toggleMenu(){
+
+    document
+        .getElementById("navLinks")
+        .classList.toggle("show");
+
+}
+
+
+/* GET CV */
+let cv = {};
+
+try{
+
+    cv =
+        JSON.parse(
+            localStorage.getItem("careerCraftCV")
+        ) || {};
+
+}catch(error){
+
+    cv = {};
+
+}
+
+
+/* SHOW CV INFORMATION */
+const name =
+    cv.fullName ||
+    "YOUR NAME";
+
+const title =
+    cv.professionalTitle ||
+    "PROFESSIONAL TITLE";
+
+
+document.getElementById("cvStatus").textContent =
+    cv.fullName
+        ? "✓ CV found for " + cv.fullName
+        : "⚠ You haven't created a CV yet. Build your CV first.";
+
+
+/* PUT NAME/TITLE INTO ALL TEMPLATES */
+
+document.getElementById("classicName").textContent =
+    name;
+
+document.getElementById("classicTitle").textContent =
+    title;
+
+document.getElementById("modernName").textContent =
+    name;
+
+document.getElementById("modernTitle").textContent =
+    title;
+
+document.getElementById("minimalName").textContent =
+    name;
+
+document.getElementById("minimalTitle").textContent =
+    title;
+
+document.getElementById("executiveName").textContent =
+    name;
+
+document.getElementById("executiveTitle").textContent =
+    title;
+
+
+/* SELECT TEMPLATE */
+
+let selectedTemplate =
+    localStorage.getItem("careerCraftTemplate") ||
+    "classic";
+
+
+function selectTemplate(template){
+
+    selectedTemplate = template;
+
+    localStorage.setItem(
+        "careerCraftTemplate",
+        template
+    );
+
+    document
+        .querySelectorAll(".template-card")
+        .forEach(card => {
+
+            card.classList.remove("selected");
+
+        });
+
+
+    const selectedCard =
+        document.getElementById(
+            "card-" + template
+        );
+
+    if(selectedCard){
+
+        selectedCard.classList.add("selected");
+
+    }
+
+
+    const button =
+        selectedCard.querySelector(".select-btn");
+
+    if(button){
+
+        button.textContent =
+            "✓ Selected";
+
+    }
+
+}
+
+
+/* LOAD SAVED TEMPLATE */
+
+selectTemplate(selectedTemplate);
+
+
+/* OPEN CV PREVIEW */
+
+function openSelectedTemplate(){
+
+    localStorage.setItem(
+        "careerCraftTemplate",
+        selectedTemplate
+    );
+
+    window.location.href =
+        "cv-preview.html";
+
+}
+
+</script>
+
+</body>
+</html>
