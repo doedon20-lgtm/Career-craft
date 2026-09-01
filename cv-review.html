@@ -1,1090 +1,880 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <meta name="description"
-          content="CareerCraft CV Review and CV Improvement Tool">
-
-    <title>CareerCraft | CV Review</title>
-
-
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f7fb;
-            color: #172033;
-        }
-
-
-        /* =========================
-           NAVIGATION
-        ========================= */
-
-        .navbar {
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-inner {
-            width: 92%;
-            max-width: 1200px;
-            height: 70px;
-            margin: auto;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            text-decoration: none;
-            color: #2563eb;
-            font-size: 25px;
-            font-weight: 800;
-        }
-
-        .logo span {
-            color: #0f172a;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 22px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #475569;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .nav-links a:hover {
-            color: #2563eb;
-        }
-
-        .nav-links .active {
-            color: #2563eb;
-        }
-
-        .job-link {
-            background: #2563eb;
-            color: white !important;
-            padding: 10px 15px;
-            border-radius: 7px;
-        }
-
-
-        /* =========================
-           HERO
-        ========================= */
-
-        .hero {
-            background:
-                linear-gradient(
-                    135deg,
-                    #0f172a,
-                    #1e3a8a
-                );
-
-            color: white;
-            padding: 55px 20px;
-        }
-
-        .hero-inner {
-            width: 92%;
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        .hero h1 {
-            font-size: 38px;
-            margin-bottom: 10px;
-        }
-
-        .hero p {
-            max-width: 700px;
-            color: #cbd5e1;
-            line-height: 1.6;
-        }
-
-
-        /* =========================
-           MAIN
-        ========================= */
-
-        .container {
-            width: 94%;
-            max-width: 1100px;
-            margin: 35px auto 70px;
-        }
-
-
-        /* =========================
-           REVIEW CARD
-        ========================= */
-
-        .review-box {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 28px;
-            margin-bottom: 25px;
-        }
-
-        .review-box h2 {
-            font-size: 22px;
-            margin-bottom: 7px;
-        }
-
-        .review-box-intro {
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 22px;
-        }
-
-
-        /* =========================
-           TEXT AREA
-        ========================= */
-
-        textarea {
-            width: 100%;
-            min-height: 280px;
-
-            border: 1px solid #cbd5e1;
-            border-radius: 10px;
-
-            padding: 15px;
-
-            resize: vertical;
-
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-
-            font-size: 14px;
-            line-height: 1.6;
-
-            outline: none;
-        }
-
-        textarea:focus {
-            border-color: #2563eb;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(37,99,235,0.08);
-        }
-
-
-        /* =========================
-           BUTTONS
-        ========================= */
-
-        .button-row {
-            display: flex;
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .review-button,
-        .builder-button {
-
-            border: none;
-
-            padding: 14px 22px;
-
-            border-radius: 8px;
-
-            font-size: 14px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            text-decoration: none;
-
-            text-align: center;
-        }
-
-        .review-button {
-            background: #2563eb;
-            color: white;
-            flex: 1;
-        }
-
-        .review-button:hover {
-            background: #1d4ed8;
-        }
-
-        .builder-button {
-            background: #e2e8f0;
-            color: #334155;
-            flex: 1;
-        }
-
-        .builder-button:hover {
-            background: #cbd5e1;
-        }
-
-
-        /* =========================
-           SCORE
-        ========================= */
-
-        .results {
-            display: none;
-        }
-
-        .score-card {
-
-            background: white;
-
-            border:
-                1px solid #e2e8f0;
-
-            border-radius: 16px;
-
-            padding: 28px;
-
-            display: grid;
-
-            grid-template-columns:
-                180px 1fr;
-
-            gap: 30px;
-
-            align-items: center;
-
-            margin-bottom: 25px;
-        }
-
-        .score-circle {
-
-            width: 150px;
-            height: 150px;
-
-            border-radius: 50%;
-
-            background: #eff6ff;
-
-            border:
-                10px solid #2563eb;
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            justify-content: center;
-
-            margin: auto;
-        }
-
-        .score-number {
-            font-size: 38px;
-            font-weight: 800;
-            color: #2563eb;
-        }
-
-        .score-label {
-            font-size: 12px;
-            color: #64748b;
-            font-weight: bold;
-        }
-
-        .score-content h2 {
-            margin-bottom: 8px;
-        }
-
-        .score-content p {
-            color: #64748b;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-
-        /* =========================
-           CATEGORY SCORES
-        ========================= */
-
-        .categories {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 15px;
-
-            margin-bottom: 25px;
-        }
-
-        .category {
-
-            background: white;
-
-            border:
-                1px solid #e2e8f0;
-
-            border-radius: 12px;
-
-            padding: 18px;
-        }
-
-        .category-top {
-
-            display: flex;
-
-            justify-content:
-                space-between;
-
-            margin-bottom: 10px;
-
-            font-size: 13px;
-
-            font-weight: bold;
-        }
-
-        .category-score {
-            color: #2563eb;
-        }
-
-        .category-bar {
-
-            height: 7px;
-
-            background: #e2e8f0;
-
-            border-radius: 20px;
-
-            overflow: hidden;
-        }
-
-        .category-fill {
-
-            height: 100%;
-
-            width: 0%;
-
-            background: #2563eb;
-
-            transition: width 0.8s ease;
-        }
-
-
-        /* =========================
-           FEEDBACK
-        ========================= */
-
-        .feedback-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 18px;
-
-            margin-bottom: 25px;
-        }
-
-        .feedback-card {
-
-            background: white;
-
-            border:
-                1px solid #e2e8f0;
-
-            border-radius: 14px;
-
-            padding: 22px;
-        }
-
-        .feedback-card h3 {
-
-            font-size: 16px;
-
-            margin-bottom: 10px;
-        }
-
-        .feedback-card p {
-
-            color: #64748b;
-
-            font-size: 13px;
-
-            line-height: 1.7;
-        }
-
-        .good {
-            border-left: 4px solid #16a34a;
-        }
-
-        .improve {
-            border-left: 4px solid #f59e0b;
-        }
-
-
-        /* =========================
-           KEYWORDS
-        ========================= */
-
-        .keyword-box {
-
-            background: white;
-
-            border:
-                1px solid #e2e8f0;
-
-            border-radius: 14px;
-
-            padding: 22px;
-
-            margin-bottom: 25px;
-        }
-
-        .keyword-box h2 {
-            font-size: 19px;
-            margin-bottom: 7px;
-        }
-
-        .keyword-box p {
-            color: #64748b;
-            font-size: 13px;
-            margin-bottom: 15px;
-        }
-
-        .keywords {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .keyword {
-            background: #eff6ff;
-            color: #1d4ed8;
-            padding: 7px 10px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-
-        /* =========================
-           ACTION AREA
-        ========================= */
-
-        .action-box {
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #2563eb,
-                    #1e40af
-                );
-
-            color: white;
-
-            padding: 35px 25px;
-
-            border-radius: 15px;
-
-            text-align: center;
-        }
-
-        .action-box h2 {
-            font-size: 25px;
-            margin-bottom: 9px;
-        }
-
-        .action-box p {
-            color: #dbeafe;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        .action-buttons {
-
-            display: flex;
-
-            justify-content:
-                center;
-
-            gap: 10px;
-
-            flex-wrap: wrap;
-        }
-
-        .action-buttons a,
-        .action-buttons button {
-
-            border: none;
-
-            text-decoration: none;
-
-            padding: 12px 18px;
-
-            border-radius: 8px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            font-size: 13px;
-        }
-
-        .primary-action {
-            background: white;
-            color: #2563eb;
-        }
-
-        .secondary-action {
-            background: #172554;
-            color: white;
-        }
-
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-
-            background: #0f172a;
-
-            color: #94a3b8;
-
-            text-align: center;
-
-            padding: 30px 20px;
-
-            font-size: 13px;
-        }
-
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media(max-width: 800px) {
-
-            .nav-links {
-                display: none;
-            }
-
-            .score-card {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-        }
-
-
-        @media(max-width: 600px) {
-
-            .hero h1 {
-                font-size: 30px;
-            }
-
-            .categories,
-            .feedback-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .button-row {
-                flex-direction: column;
-            }
-
-            .review-box {
-                padding: 20px;
-            }
-
-        }
-
-    </style>
-
-</head>
-
-
-<body>
-
-
-<!-- =========================
-     NAVIGATION
-========================= -->
-
-<header class="navbar">
-
-    <div class="nav-inner">
-
-        <a
-            href="index.html"
-            class="logo">
-
-            Career<span>Craft</span>
-
-        </a>
-
-
-        <nav class="nav-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="cv-builder.html">
-                CV Builder
-            </a>
-
-            <a href="cv-preview.html">
-                CV Preview
-            </a>
-
-            <a
-                href="cv-review.html"
-                class="active">
-
-                CV Review
-
-            </a>
-
-            <a
-                href="job-finder.html"
-                class="job-link">
-
-                Find Jobs
-
-            </a>
-
-        </nav>
-
-    </div>
-
-</header>
-
-
-<!-- =========================
-     HERO
-========================= -->
-
-<section class="hero">
-
-    <div class="hero-inner">
-
-        <h1>
-            Make Your CV Stronger
-        </h1>
-
-        <p>
-            Get a quick professional review of
-            your CV and discover what you can
-            improve before applying for jobs.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     MAIN
-========================= -->
-
-<main class="container">
-
-
-    <!-- INPUT -->
-
-    <section class="review-box">
-
-        <h2>
-            Upload or Paste Your CV
-        </h2>
-
-        <p class="review-box-intro">
-            Paste the text from your CV below.
-            CareerCraft will analyse it and
-            give you practical suggestions.
-        </p>
-
-
-        <textarea
-            id="cvText"
-            placeholder="Paste your CV here...
-
-Example:
-
-John Smith
-Software Developer
-
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description"
+content="CareerCraft CV Review and CV Improvement Tool">
+
+<title>CareerCraft | CV Review</title><style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f7fb;
+    color:#172033;
+}
+
+/* NAVIGATION */
+
+.navbar{
+    background:white;
+    border-bottom:1px solid #e2e8f0;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.nav-inner{
+    width:92%;
+    max-width:1200px;
+    height:70px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    text-decoration:none;
+    color:#2563eb;
+    font-size:25px;
+    font-weight:800;
+}
+
+.logo span{
+    color:#0f172a;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:22px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#475569;
+    font-size:14px;
+    font-weight:600;
+}
+
+.nav-links a:hover{
+    color:#2563eb;
+}
+
+.nav-links .active{
+    color:#2563eb;
+}
+
+.job-link{
+    background:#2563eb;
+    color:white !important;
+    padding:10px 15px;
+    border-radius:7px;
+}
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(135deg,#0f172a,#1e3a8a);
+    color:white;
+    padding:55px 20px;
+}
+
+.hero-inner{
+    width:92%;
+    max-width:1100px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    max-width:700px;
+    color:#cbd5e1;
+    line-height:1.6;
+}
+
+/* MAIN */
+
+.container{
+    width:94%;
+    max-width:1100px;
+    margin:35px auto 70px;
+}
+
+/* AUTO CV NOTICE */
+
+.cv-loaded{
+    background:#ecfdf5;
+    border:1px solid #bbf7d0;
+    color:#166534;
+    padding:15px 18px;
+    border-radius:10px;
+    margin-bottom:20px;
+    font-size:14px;
+    line-height:1.5;
+}
+
+/* REVIEW CARD */
+
+.review-box{
+    background:white;
+    border:1px solid #e2e8f0;
+    border-radius:16px;
+    padding:28px;
+    margin-bottom:25px;
+}
+
+.review-box h2{
+    font-size:22px;
+    margin-bottom:7px;
+}
+
+.review-box-intro{
+    color:#64748b;
+    font-size:14px;
+    margin-bottom:22px;
+}
+
+textarea{
+    width:100%;
+    min-height:280px;
+    border:1px solid #cbd5e1;
+    border-radius:10px;
+    padding:15px;
+    resize:vertical;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+    line-height:1.6;
+    outline:none;
+}
+
+textarea:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.08);
+}
+
+/* BUTTONS */
+
+.button-row{
+    display:flex;
+    gap:12px;
+    margin-top:15px;
+}
+
+.review-button,
+.builder-button{
+    border:none;
+    padding:14px 22px;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+    text-align:center;
+}
+
+.review-button{
+    background:#2563eb;
+    color:white;
+    flex:1;
+}
+
+.review-button:hover{
+    background:#1d4ed8;
+}
+
+.builder-button{
+    background:#e2e8f0;
+    color:#334155;
+    flex:1;
+}
+
+.builder-button:hover{
+    background:#cbd5e1;
+}
+
+/* RESULTS */
+
+.results{
+    display:none;
+}
+
+/* SCORE */
+
+.score-card{
+    background:white;
+    border:1px solid #e2e8f0;
+    border-radius:16px;
+    padding:28px;
+    display:grid;
+    grid-template-columns:180px 1fr;
+    gap:30px;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.score-circle{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    background:#eff6ff;
+    border:10px solid #2563eb;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+}
+
+.score-number{
+    font-size:38px;
+    font-weight:800;
+    color:#2563eb;
+}
+
+.score-label{
+    font-size:12px;
+    color:#64748b;
+    font-weight:bold;
+}
+
+.score-content h2{
+    margin-bottom:8px;
+}
+
+.score-content p{
+    color:#64748b;
+    line-height:1.6;
+    font-size:14px;
+}
+
+/* CATEGORY SCORES */
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.category{
+    background:white;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    padding:18px;
+}
+
+.category-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.category-score{
+    color:#2563eb;
+}
+
+.category-bar{
+    height:7px;
+    background:#e2e8f0;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.category-fill{
+    height:100%;
+    width:0%;
+    background:#2563eb;
+    transition:width .8s ease;
+}
+
+/* FEEDBACK */
+
+.feedback-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.feedback-card{
+    background:white;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    padding:22px;
+}
+
+.feedback-card h3{
+    font-size:16px;
+    margin-bottom:10px;
+}
+
+.feedback-card p{
+    color:#64748b;
+    font-size:13px;
+    line-height:1.7;
+}
+
+.good{
+    border-left:4px solid #16a34a;
+}
+
+.improve{
+    border-left:4px solid #f59e0b;
+}
+
+/* KEYWORDS */
+
+.keyword-box{
+    background:white;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    padding:22px;
+    margin-bottom:25px;
+}
+
+.keyword-box h2{
+    font-size:19px;
+    margin-bottom:7px;
+}
+
+.keyword-box p{
+    color:#64748b;
+    font-size:13px;
+    margin-bottom:15px;
+}
+
+.keywords{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.keyword{
+    background:#eff6ff;
+    color:#1d4ed8;
+    padding:7px 10px;
+    border-radius:6px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+/* ACTION */
+
+.action-box{
+    background:linear-gradient(135deg,#2563eb,#1e40af);
+    color:white;
+    padding:35px 25px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.action-box h2{
+    font-size:25px;
+    margin-bottom:9px;
+}
+
+.action-box p{
+    color:#dbeafe;
+    margin-bottom:20px;
+    font-size:14px;
+}
+
+.action-buttons{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.action-buttons a,
+.action-buttons button{
+    border:none;
+    text-decoration:none;
+    padding:12px 18px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.primary-action{
+    background:white;
+    color:#2563eb;
+}
+
+.secondary-action{
+    background:#172554;
+    color:white;
+}
+
+/* EMPTY STATE */
+
+.empty-state{
+    display:none;
+    background:white;
+    border:1px solid #e2e8f0;
+    border-radius:16px;
+    padding:45px 25px;
+    text-align:center;
+}
+
+.empty-state h2{
+    margin-bottom:10px;
+}
+
+.empty-state p{
+    color:#64748b;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+.empty-state a{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:12px 18px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+/* FOOTER */
+
+footer{
+    background:#0f172a;
+    color:#94a3b8;
+    text-align:center;
+    padding:30px 20px;
+    font-size:13px;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .score-card{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+}
+
+@media(max-width:600px){
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .categories,
+    .feedback-grid{
+        grid-template-columns:1fr;
+    }
+
+    .button-row{
+        flex-direction:column;
+    }
+
+    .review-box{
+        padding:20px;
+    }
+}
+
+</style></head><body><!-- NAVIGATION --><header class="navbar"><div class="nav-inner"><a href="index.html" class="logo">
+Career<span>Craft</span>
+</a><nav class="nav-links"><a href="index.html">
+Home
+</a><a href="cv-builder.html">
+CV Builder
+</a><a href="cv-preview.html">
+CV Preview
+</a><a href="cv-review.html" class="active">
+CV Review
+</a><a href="job-finder.html" class="job-link">
+Find Jobs
+</a></nav></div></header><!-- HERO --><section class="hero"><div class="hero-inner"><h1>
+Make Your CV Stronger
+</h1><p>
+Get a professional review of your CV and discover
+what you can improve before applying for jobs.
+</p></div></section><!-- MAIN --><main class="container"><!-- AUTOMATIC CV MESSAGE --><div
+id="cvLoadedMessage"
+class="cv-loaded"
+style="display:none;">✓ Your saved CareerCraft CV has been loaded automatically.
+Review the information below and click "Review My CV".
+
+</div><!-- EMPTY STATE --><section
+id="emptyState"
+class="empty-state"><h2>
+No CV Found
+</h2><p>
+You haven't created a CV yet. Create your CV with
+CareerCraft and we'll automatically analyse it here.
+</p><a href="cv-builder.html">
+Create My CV
+</a></section><!-- REVIEW INPUT --><section
+id="reviewBox"
+class="review-box"><h2>
+Review Your CV
+</h2><p class="review-box-intro">
+Your CareerCraft CV is loaded below. You can review
+the text before starting the analysis.
+</p><textarea
+id="cvText"
+placeholder="Your CV information will appear here...">
+</textarea><div class="button-row"><button
+class="review-button"
+onclick="reviewCV()">
+
+Review My CV
+
+</button><a
+href="cv-builder.html"
+class="builder-button">
+
+Edit My CV
+
+</a></div></section><!-- RESULTS --><section
+id="results"
+class="results"><!-- SCORE --><div class="score-card"><div class="score-circle"><div
+id="overallScore"
+class="score-number">0
+
+</div><div class="score-label">
+/ 100
+</div></div><div class="score-content"><h2 id="scoreTitle">
+Your CV Score
+</h2><p id="scoreDescription">
+Your CV analysis will appear here.
+</p></div></div><!-- CATEGORY SCORES --><div class="categories"><div class="category"><div class="category-top"><span>
 Professional Summary
-Motivated software developer with experience...
+</span><span
+id="summaryScore"
+class="category-score">
 
+0%
+
+</span></div><div class="category-bar"><div
+id="summaryBar"
+class="category-fill">
+</div></div></div><div class="category"><div class="category-top"><span>
 Skills
-JavaScript, HTML, CSS, React...
+</span><span
+id="skillsScore"
+class="category-score">
 
+0%
+
+</span></div><div class="category-bar"><div
+id="skillsBar"
+class="category-fill">
+</div></div></div><div class="category"><div class="category-top"><span>
 Experience
-Software Developer — ABC Company
-2024 - 2026
+</span><span
+id="experienceScore"
+class="category-score">
 
+0%
+
+</span></div><div class="category-bar"><div
+id="experienceBar"
+class="category-fill">
+</div></div></div><div class="category"><div class="category-top"><span>
 Education
-BSc Computer Science...">
-        </textarea>
+</span><span
+id="educationScore"
+class="category-score">
 
+0%
 
-        <div class="button-row">
+</span></div><div class="category-bar"><div
+id="educationBar"
+class="category-fill">
+</div></div></div></div><!-- FEEDBACK --><div class="feedback-grid"><div class="feedback-card good"><h3>
+✓ What You're Doing Well
+</h3><p id="strengthText">
+Your strengths will appear here.
+</p></div><div class="feedback-card improve"><h3>
+! What You Should Improve
+</h3><p id="improveText">
+Improvement suggestions will appear here.
+</p></div></div><!-- KEYWORDS --><div class="keyword-box"><h2>
+Recommended CV Keywords
+</h2><p>
+Consider adding relevant professional keywords
+that match the type of work you want.
+</p><div
+id="keywords"
+class="keywords">
+</div></div><!-- ACTION --><div class="action-box"><h2>
+Ready to improve your CV?
+</h2><p>
+Make your CV stronger, then preview it again
+before applying for jobs.
+</p><div class="action-buttons"><a
+href="cv-builder.html"
+class="primary-action">
 
-            <button
-                class="review-button"
-                onclick="reviewCV()">
+Improve My CV
 
-                Review My CV
+</a><a
+href="cv-preview.html"
+class="secondary-action">
 
-            </button>
+View My CV
 
+</a><a
+href="job-finder.html"
+class="secondary-action">
 
-            <a
-                href="cv-builder.html"
-                class="builder-button">
+Find Jobs
 
-                Build a CV Instead
+</a><button
+onclick="reviewAgain()"
+class="secondary-action">
 
-            </a>
+Review Again
 
-        </div>
+</button></div></div></section></main><!-- FOOTER --><footer>CareerCraft © 2026 —
+Build a better career.
 
-    </section>
+</footer><script>
 
+/* =================================
+   LOAD SAVED CV AUTOMATICALLY
+================================= */
 
-    <!-- =========================
-         RESULTS
-    ========================= -->
+function loadSavedCV(){
 
-    <section
-        id="results"
-        class="results">
+    const saved =
+        localStorage.getItem("careerCraftCV");
 
+    const emptyState =
+        document.getElementById("emptyState");
 
-        <!-- SCORE -->
+    const reviewBox =
+        document.getElementById("reviewBox");
 
-        <div class="score-card">
+    const message =
+        document.getElementById("cvLoadedMessage");
 
-            <div class="score-circle">
+    const textarea =
+        document.getElementById("cvText");
 
-                <div
-                    id="overallScore"
-                    class="score-number">
 
-                    0
+    if(!saved){
 
-                </div>
+        reviewBox.style.display = "none";
 
-                <div class="score-label">
-                    / 100
-                </div>
+        emptyState.style.display = "block";
 
-            </div>
+        return;
 
+    }
 
-            <div class="score-content">
 
-                <h2 id="scoreTitle">
-                    Your CV Score
-                </h2>
+    try{
 
-                <p id="scoreDescription">
-                    Your CV analysis will appear here.
-                </p>
+        const cv =
+            JSON.parse(saved);
 
-            </div>
 
-        </div>
+        /*
+        Convert all information from
+        the CV Builder into readable
+        CV text.
+        */
 
+        let cvText = "";
 
-        <!-- CATEGORY SCORES -->
 
-        <div class="categories">
+        if(cv.fullName){
 
+            cvText +=
+                cv.fullName + "\n";
 
-            <div class="category">
+        }
 
-                <div class="category-top">
 
-                    <span>
-                        Professional Summary
-                    </span>
+        if(cv.professionalTitle){
 
-                    <span
-                        id="summaryScore"
-                        class="category-score">
+            cvText +=
+                cv.professionalTitle + "\n\n";
 
-                        0%
+        }
 
-                    </span>
 
-                </div>
+        if(cv.email){
 
-                <div class="category-bar">
+            cvText +=
+                "Email: " +
+                cv.email +
+                "\n";
 
-                    <div
-                        id="summaryBar"
-                        class="category-fill">
-                    </div>
+        }
 
-                </div>
 
-            </div>
+        if(cv.phone){
 
+            cvText +=
+                "Phone: " +
+                cv.phone +
+                "\n";
 
-            <div class="category">
+        }
 
-                <div class="category-top">
 
-                    <span>
-                        Skills
-                    </span>
+        if(cv.location){
 
-                    <span
-                        id="skillsScore"
-                        class="category-score">
+            cvText +=
+                "Location: " +
+                cv.location +
+                "\n";
 
-                        0%
+        }
 
-                    </span>
 
-                </div>
+        cvText += "\n";
 
-                <div class="category-bar">
 
-                    <div
-                        id="skillsBar"
-                        class="category-fill">
-                    </div>
+        if(cv.summary){
 
-                </div>
+            cvText +=
+                "Professional Summary\n" +
+                cv.summary +
+                "\n\n";
 
-            </div>
+        }
 
 
-            <div class="category">
+        if(cv.skills){
 
-                <div class="category-top">
+            cvText +=
+                "Skills\n" +
+                cv.skills +
+                "\n\n";
 
-                    <span>
-                        Experience
-                    </span>
+        }
 
-                    <span
-                        id="experienceScore"
-                        class="category-score">
 
-                        0%
+        if(
+            cv.jobTitle ||
+            cv.company ||
+            cv.experienceDates ||
+            cv.experience
+        ){
 
-                    </span>
+            cvText +=
+                "Experience\n";
 
-                </div>
 
-                <div class="category-bar">
+            if(cv.jobTitle){
 
-                    <div
-                        id="experienceBar"
-                        class="category-fill">
-                    </div>
+                cvText +=
+                    "Job Title: " +
+                    cv.jobTitle +
+                    "\n";
 
-                </div>
+            }
 
-            </div>
 
+            if(cv.company){
 
-            <div class="category">
+                cvText +=
+                    "Company: " +
+                    cv.company +
+                    "\n";
 
-                <div class="category-top">
+            }
 
-                    <span>
-                        Education
-                    </span>
 
-                    <span
-                        id="educationScore"
-                        class="category-score">
+            if(cv.experienceDates){
 
-                        0%
+                cvText +=
+                    "Dates: " +
+                    cv.experienceDates +
+                    "\n";
 
-                    </span>
+            }
 
-                </div>
 
-                <div class="category-bar">
+            if(cv.experience){
 
-                    <div
-                        id="educationBar"
-                        class="category-fill">
-                    </div>
+                cvText +=
+                    cv.experience +
+                    "\n";
 
-                </div>
+            }
 
-            </div>
 
+            cvText += "\n";
 
-        </div>
+        }
 
 
-        <!-- FEEDBACK -->
+        if(cv.education){
 
-        <div class="feedback-grid">
+            cvText +=
+                "Education\n" +
+                cv.education +
+                "\n\n";
 
+        }
 
-            <div
-                id="strengthCard"
-                class="feedback-card good">
 
-                <h3>
-                    ✓ What You're Doing Well
-                </h3>
+        if(cv.additional){
 
-                <p id="strengthText">
-                    Your strengths will appear here.
-                </p>
+            cvText +=
+                "Additional Information\n" +
+                cv.additional +
+                "\n\n";
 
-            </div>
+        }
 
 
-            <div
-                id="improveCard"
-                class="feedback-card improve">
+        textarea.value =
+            cvText.trim();
 
-                <h3>
-                    ! What You Should Improve
-                </h3>
 
-                <p id="improveText">
-                    Improvement suggestions will
-                    appear here.
-                </p>
+        message.style.display =
+            "block";
 
-            </div>
 
+    }
 
-        </div>
+    catch(error){
 
+        console.log(
+            "Unable to load saved CV."
+        );
 
-        <!-- KEYWORDS -->
+        reviewBox.style.display =
+            "none";
 
-        <div class="keyword-box">
+        emptyState.style.display =
+            "block";
 
-            <h2>
-                Recommended CV Keywords
-            </h2>
+    }
 
-            <p>
-                Consider adding relevant professional
-                keywords to make your CV clearer
-                to employers and recruitment systems.
-            </p>
-
-            <div
-                id="keywords"
-                class="keywords">
-            </div>
-
-        </div>
-
-
-        <!-- ACTION -->
-
-        <div class="action-box">
-
-            <h2>
-                Ready to improve your CV?
-            </h2>
-
-            <p>
-                Use the CareerCraft CV Builder to
-                create a cleaner and more professional
-                version.
-            </p>
-
-
-            <div class="action-buttons">
-
-                <a
-                    href="cv-builder.html"
-                    class="primary-action">
-
-                    Improve My CV
-
-                </a>
-
-
-                <a
-                    href="job-finder.html"
-                    class="secondary-action">
-
-                    Find Jobs
-
-                </a>
-
-
-                <button
-                    onclick="reviewAgain()"
-                    class="secondary-action">
-
-                    Review Again
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-    </section>
-
-</main>
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer>
-
-    CareerCraft © 2026 —
-    Build a better career.
-
-</footer>
-
-
-<script>
+}
 
 
 /* =================================
    REVIEW CV
 ================================= */
 
-function reviewCV() {
-
+function reviewCV(){
 
     const text =
         document
@@ -1093,10 +883,10 @@ function reviewCV() {
         .trim();
 
 
-    if (text.length < 30) {
+    if(text.length < 30){
 
         alert(
-            "Please paste more of your CV before starting the review."
+            "Please add more information to your CV before reviewing it."
         );
 
         return;
@@ -1108,19 +898,17 @@ function reviewCV() {
         text.toLowerCase();
 
 
-    /* =========================
-       CHECK SECTIONS
-    ========================= */
+    /* SECTION CHECKS */
 
     const hasSummary =
+        lower.includes("professional summary") ||
         lower.includes("summary") ||
         lower.includes("profile") ||
         lower.includes("about me");
 
 
     const hasSkills =
-        lower.includes("skills") ||
-        lower.includes("skill");
+        lower.includes("skills");
 
 
     const hasExperience =
@@ -1135,29 +923,35 @@ function reviewCV() {
         lower.includes("degree");
 
 
-    /* =========================
-       SCORE EACH AREA
-    ========================= */
+    /* CONTACT CHECK */
+
+    const hasEmail =
+        lower.includes("@");
+
+
+    const hasPhone =
+        /\+?\d[\d\s\-()]{7,}/.test(text);
+
+
+    /* SCORES */
 
     let summaryScore =
-        hasSummary ? 90 : 35;
+        hasSummary ? 90 : 25;
 
 
     let skillsScore =
-        hasSkills ? 90 : 30;
+        hasSkills ? 90 : 25;
 
 
     let experienceScore =
-        hasExperience ? 90 : 30;
+        hasExperience ? 90 : 25;
 
 
     let educationScore =
-        hasEducation ? 90 : 30;
+        hasEducation ? 90 : 25;
 
 
-    /* =========================
-       LENGTH CHECK
-    ========================= */
+    /* LENGTH */
 
     const words =
         text
@@ -1166,38 +960,67 @@ function reviewCV() {
         .length;
 
 
-    if (words > 150) {
+    if(words >= 150){
 
         summaryScore += 5;
 
     }
 
 
-    if (words < 80) {
+    if(words < 80){
 
         experienceScore -= 10;
 
     }
 
 
-    /* Keep scores within limits */
+    /* CONTACT BONUS */
+
+    if(hasEmail){
+
+        summaryScore += 5;
+
+    }
+
+
+    if(hasPhone){
+
+        summaryScore += 5;
+
+    }
+
+
+    /* LIMIT SCORES */
 
     summaryScore =
-        Math.max(0, Math.min(100, summaryScore));
+        Math.max(
+            0,
+            Math.min(100,summaryScore)
+        );
+
 
     skillsScore =
-        Math.max(0, Math.min(100, skillsScore));
+        Math.max(
+            0,
+            Math.min(100,skillsScore)
+        );
+
 
     experienceScore =
-        Math.max(0, Math.min(100, experienceScore));
+        Math.max(
+            0,
+            Math.min(100,experienceScore)
+        );
+
 
     educationScore =
-        Math.max(0, Math.min(100, educationScore));
+        Math.max(
+            0,
+            Math.min(100,educationScore)
+        );
 
 
-    /* =========================
-       OVERALL SCORE
-    ========================= */
+    /* OVERALL */
 
     const overall =
         Math.round(
@@ -1210,130 +1033,119 @@ function reviewCV() {
         );
 
 
-    /* =========================
-       DISPLAY SCORE
-    ========================= */
+    /* DISPLAY */
 
-    document
-        .getElementById("overallScore")
-        .textContent =
-        overall;
+    document.getElementById(
+        "overallScore"
+    ).textContent = overall;
 
 
-    document
-        .getElementById("summaryScore")
-        .textContent =
+    document.getElementById(
+        "summaryScore"
+    ).textContent =
         summaryScore + "%";
 
 
-    document
-        .getElementById("skillsScore")
-        .textContent =
+    document.getElementById(
+        "skillsScore"
+    ).textContent =
         skillsScore + "%";
 
 
-    document
-        .getElementById("experienceScore")
-        .textContent =
+    document.getElementById(
+        "experienceScore"
+    ).textContent =
         experienceScore + "%";
 
 
-    document
-        .getElementById("educationScore")
-        .textContent =
+    document.getElementById(
+        "educationScore"
+    ).textContent =
         educationScore + "%";
 
 
-    /* =========================
-       BARS
-    ========================= */
+    /* BARS */
 
-    document
-        .getElementById("summaryBar")
-        .style.width =
+    document.getElementById(
+        "summaryBar"
+    ).style.width =
         summaryScore + "%";
 
 
-    document
-        .getElementById("skillsBar")
-        .style.width =
+    document.getElementById(
+        "skillsBar"
+    ).style.width =
         skillsScore + "%";
 
 
-    document
-        .getElementById("experienceBar")
-        .style.width =
+    document.getElementById(
+        "experienceBar"
+    ).style.width =
         experienceScore + "%";
 
 
-    document
-        .getElementById("educationBar")
-        .style.width =
+    document.getElementById(
+        "educationBar"
+    ).style.width =
         educationScore + "%";
 
 
-    /* =========================
-       SCORE MESSAGE
-    ========================= */
+    /* SCORE MESSAGE */
 
     let title;
     let description;
 
 
-    if (overall >= 85) {
+    if(overall >= 85){
 
         title =
             "Excellent CV";
 
 
         description =
-            "Your CV has a strong structure and includes many of the important sections employers expect. A few refinements could make it even stronger.";
+            "Your CV has a strong structure and includes most of the important sections employers expect. Focus on tailoring it to each job.";
 
     }
 
-    else if (overall >= 65) {
+    else if(overall >= 65){
 
         title =
             "Good CV — Room to Improve";
 
 
         description =
-            "Your CV has a solid foundation, but improving a few sections could make it more competitive.";
+            "Your CV has a solid foundation. Strengthening a few areas can make it more competitive.";
 
     }
 
-    else {
+    else{
 
         title =
             "Your CV Needs Improvement";
 
 
         description =
-            "Your CV is missing some important information. Strengthening the sections below can make it much more professional.";
+            "Your CV is missing some important information. Improving the sections below can make it more professional.";
 
     }
 
 
-    document
-        .getElementById("scoreTitle")
-        .textContent =
-        title;
+    document.getElementById(
+        "scoreTitle"
+    ).textContent = title;
 
 
-    document
-        .getElementById("scoreDescription")
-        .textContent =
-        description;
+    document.getElementById(
+        "scoreDescription"
+    ).textContent = description;
 
 
-    /* =========================
-       STRENGTHS
-    ========================= */
+    /* STRENGTHS */
 
     let strengths = [];
 
 
-    if (hasSummary) {
+    if(hasSummary){
 
         strengths.push(
             "You included a professional summary."
@@ -1342,25 +1154,25 @@ function reviewCV() {
     }
 
 
-    if (hasSkills) {
+    if(hasSkills){
 
         strengths.push(
-            "Your CV includes a skills section."
+            "You included relevant skills."
         );
 
     }
 
 
-    if (hasExperience) {
+    if(hasExperience){
 
         strengths.push(
-            "You provided work experience."
+            "You included work experience."
         );
 
     }
 
 
-    if (hasEducation) {
+    if(hasEducation){
 
         strengths.push(
             "Your education information is included."
@@ -1369,38 +1181,45 @@ function reviewCV() {
     }
 
 
-    if (strengths.length === 0) {
+    if(hasEmail && hasPhone){
 
         strengths.push(
-            "You have started building your CV. Adding clear sections will give it a stronger structure."
+            "Your CV includes both email and phone contact information."
         );
 
     }
 
 
-    document
-        .getElementById("strengthText")
-        .textContent =
+    if(strengths.length === 0){
+
+        strengths.push(
+            "You have started building your CV. Adding clear professional sections will give it a stronger structure."
+        );
+
+    }
+
+
+    document.getElementById(
+        "strengthText"
+    ).textContent =
         strengths.join(" ");
 
 
-    /* =========================
-       IMPROVEMENTS
-    ========================= */
+    /* IMPROVEMENTS */
 
     let improvements = [];
 
 
-    if (!hasSummary) {
+    if(!hasSummary){
 
         improvements.push(
-            "Add a short professional summary."
+            "Add a professional summary."
         );
 
     }
 
 
-    if (!hasSkills) {
+    if(!hasSkills){
 
         improvements.push(
             "Add relevant skills."
@@ -1409,16 +1228,16 @@ function reviewCV() {
     }
 
 
-    if (!hasExperience) {
+    if(!hasExperience){
 
         improvements.push(
-            "Add your work experience or relevant projects."
+            "Add work experience, internships, projects, or relevant practical experience."
         );
 
     }
 
 
-    if (!hasEducation) {
+    if(!hasEducation){
 
         improvements.push(
             "Add your education or qualifications."
@@ -1427,46 +1246,62 @@ function reviewCV() {
     }
 
 
-    if (words < 120) {
+    if(!hasEmail){
 
         improvements.push(
-            "Consider adding more useful detail about your achievements."
+            "Add a professional email address."
         );
 
     }
 
 
-    if (improvements.length === 0) {
+    if(!hasPhone){
 
         improvements.push(
-            "Your CV contains the main sections. Focus on using measurable achievements and tailoring it to each job."
+            "Add a phone number."
         );
 
     }
 
 
-    document
-        .getElementById("improveText")
-        .textContent =
+    if(words < 120){
+
+        improvements.push(
+            "Add more useful detail, especially responsibilities and achievements."
+        );
+
+    }
+
+
+    if(improvements.length === 0){
+
+        improvements.push(
+            "Your CV contains the main sections. Next, focus on measurable achievements and tailoring your CV to each job."
+        );
+
+    }
+
+
+    document.getElementById(
+        "improveText"
+    ).textContent =
         improvements.join(" ");
 
 
-    /* =========================
-       KEYWORDS
-    ========================= */
+    /* KEYWORDS */
 
     const keywordList = [
 
-        "communication",
-        "teamwork",
-        "problem solving",
-        "organisation",
-        "leadership",
-        "customer service",
-        "time management",
+        "Communication",
+        "Teamwork",
+        "Problem Solving",
+        "Organisation",
+        "Leadership",
+        "Customer Service",
+        "Time Management",
         "Microsoft Office",
-        "adaptability",
-        "attention to detail"
+        "Adaptability",
+        "Attention to Detail"
 
     ];
 
@@ -1481,7 +1316,7 @@ function reviewCV() {
 
 
     keywordList.forEach(
-        function(word) {
+        function(word){
 
             const tag =
                 document.createElement(
@@ -1502,21 +1337,19 @@ function reviewCV() {
     );
 
 
-    /* =========================
-       SHOW RESULTS
-    ========================= */
+    /* SHOW RESULTS */
 
-    document
-        .getElementById("results")
-        .style.display =
+    document.getElementById(
+        "results"
+    ).style.display =
         "block";
 
 
-    document
-        .getElementById("results")
-        .scrollIntoView({
-            behavior: "smooth"
-        });
+    document.getElementById(
+        "results"
+    ).scrollIntoView({
+        behavior:"smooth"
+    });
 
 }
 
@@ -1525,27 +1358,28 @@ function reviewCV() {
    REVIEW AGAIN
 ================================= */
 
-function reviewAgain() {
+function reviewAgain(){
 
     document
         .getElementById("cvText")
         .focus();
 
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
+    document
+        .getElementById("results")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
 
 }
 
 
-</script>
+/* =================================
+   START
+================================= */
 
+window.addEventListener(
+    "DOMContentLoaded",
+    loadSavedCV
+);
 
-</body>
-
-    </html>
+</script></body></html>
