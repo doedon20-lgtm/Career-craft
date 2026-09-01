@@ -9,6 +9,9 @@
 
 <title>CareerCraft | CV Builder</title>
 
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 
 *{
@@ -105,8 +108,6 @@ body{
     max-width:900px;
     margin:40px auto 70px;
 }
-
-/* ONE CARD ONLY */
 
 .form-card{
     background:white;
@@ -221,16 +222,29 @@ textarea{
     background:#1d4ed8;
 }
 
+.preview-button:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
+
 /* MESSAGE */
 
 .message{
     display:none;
     margin-top:15px;
     padding:12px;
-    background:#ecfdf5;
-    color:#166534;
     border-radius:8px;
     font-size:13px;
+}
+
+.message.success{
+    background:#ecfdf5;
+    color:#166534;
+}
+
+.message.error{
+    background:#fef2f2;
+    color:#991b1b;
 }
 
 /* FOOTER */
@@ -345,17 +359,14 @@ Build a professional CV in minutes and get ready for your next opportunity.
 
 <main class="builder">
 
-
 <div class="form-card">
-
 
 <h2>
 Your CV Information
 </h2>
 
 <p class="form-intro">
-Enter your information below. Your details will be saved automatically
-and used to create your CV preview.
+Enter your information below. Your CV will be saved securely to your CareerCraft account.
 </p>
 
 
@@ -368,7 +379,6 @@ Personal Information
 </h3>
 
 <div class="form-grid">
-
 
 <div class="form-group">
 
@@ -439,7 +449,6 @@ placeholder="e.g. Virtual Assistant">
 
 </div>
 
-
 </div>
 
 </section>
@@ -500,7 +509,6 @@ Work Experience
 </h3>
 
 <div class="form-grid">
-
 
 <div class="form-group">
 
@@ -570,7 +578,6 @@ placeholder="Example: Managed daily administrative tasks, responded to customer 
 
 </div>
 
-
 </div>
 
 </section>
@@ -592,6 +599,7 @@ Clear Form
 
 <button
 type="button"
+id="saveButton"
 class="preview-button"
 onclick="saveAndPreview()">
 
@@ -605,9 +613,6 @@ Save & View My CV →
 <div
 id="message"
 class="message">
-
-Your CV has been saved. Opening your CV preview...
-
 </div>
 
 
@@ -627,150 +632,450 @@ CareerCraft © 2026 — Build a better career.
 
 <script>
 
-/* SAVE CV AND OPEN PREVIEW */
+/* ==================================================
+   SUPABASE CONFIGURATION
+   ================================================== */
 
-function saveAndPreview(){
+const SUPABASE_URL =
+"https://upcxmlbgmqhaqieldmyk.supabase.co";
 
-const cv = {
-
-fullName:
-document.getElementById("fullName").value.trim(),
-
-email:
-document.getElementById("email").value.trim(),
-
-phone:
-document.getElementById("phone").value.trim(),
-
-location:
-document.getElementById("location").value.trim(),
-
-professionalTitle:
-document.getElementById("professionalTitle").value.trim(),
-
-summary:
-document.getElementById("summary").value.trim(),
-
-skills:
-document.getElementById("skills").value.trim(),
-
-jobTitle:
-document.getElementById("jobTitle").value.trim(),
-
-company:
-document.getElementById("company").value.trim(),
-
-experienceDates:
-document.getElementById("experienceDates").value.trim(),
-
-education:
-document.getElementById("education").value.trim(),
-
-experience:
-document.getElementById("experience").value.trim()
-
-};
+const SUPABASE_ANON_KEY =
+"sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
 
 
-/* SAVE TO BROWSER */
+/* CREATE SUPABASE CLIENT */
 
-localStorage.setItem(
-"careerCraftCV",
-JSON.stringify(cv)
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
 );
 
 
-/* SHOW MESSAGE */
+/* ==================================================
+   GET FORM ELEMENTS
+   ================================================== */
 
-document.getElementById(
-"message"
-).style.display="block";
+const saveButton =
+document.getElementById("saveButton");
+
+const message =
+document.getElementById("message");
 
 
-/* OPEN CV PREVIEW */
+/* ==================================================
+   SHOW MESSAGE
+   ================================================== */
 
-setTimeout(function(){
+function showMessage(text, type){
 
-window.location.href =
-"cv-preview.html";
+    message.textContent = text;
 
-},500);
+    message.className =
+        "message " + type;
+
+    message.style.display = "block";
+}
+
+
+/* ==================================================
+   GET CV DATA
+   ================================================== */
+
+function getCVData(){
+
+    return {
+
+        fullName:
+        document.getElementById("fullName")
+        .value.trim(),
+
+        email:
+        document.getElementById("email")
+        .value.trim(),
+
+        phone:
+        document.getElementById("phone")
+        .value.trim(),
+
+        location:
+        document.getElementById("location")
+        .value.trim(),
+
+        professionalTitle:
+        document.getElementById("professionalTitle")
+        .value.trim(),
+
+        summary:
+        document.getElementById("summary")
+        .value.trim(),
+
+        skills:
+        document.getElementById("skills")
+        .value.trim(),
+
+        jobTitle:
+        document.getElementById("jobTitle")
+        .value.trim(),
+
+        company:
+        document.getElementById("company")
+        .value.trim(),
+
+        experienceDates:
+        document.getElementById("experienceDates")
+        .value.trim(),
+
+        education:
+        document.getElementById("education")
+        .value.trim(),
+
+        experience:
+        document.getElementById("experience")
+        .value.trim()
+
+    };
 
 }
 
 
-/* CLEAR FORM */
+/* ==================================================
+   SAVE CV
+   ================================================== */
+
+async function saveAndPreview(){
+
+    try{
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+            "Saving your CV...";
+
+
+        /*
+         * CHECK LOGIN SESSION
+         */
+
+        const {
+            data: {
+                session
+            },
+            error: sessionError
+        } =
+        await supabaseClient
+            .auth
+            .getSession();
+
+
+        if(
+            sessionError ||
+            !session ||
+            !session.user
+        ){
+
+            showMessage(
+                "Your login session has expired. Please log in again.",
+                "error"
+            );
+
+            setTimeout(function(){
+
+                window.location.href =
+                    "login.html";
+
+            },1500);
+
+            return;
+
+        }
+
+
+        /*
+         * GET USER
+         */
+
+        const user =
+            session.user;
+
+
+        /*
+         * GET FORM DATA
+         */
+
+        const cv =
+            getCVData();
+
+
+        /*
+         * REQUIRE NAME
+         */
+
+        if(!cv.fullName){
+
+            showMessage(
+                "Please enter your full name before saving your CV.",
+                "error"
+            );
+
+            saveButton.disabled = false;
+
+            saveButton.textContent =
+                "Save & View My CV →";
+
+            return;
+
+        }
+
+
+        /*
+         * SAVE A COPY LOCALLY
+         *
+         * This keeps your existing
+         * cv-preview.html working.
+         */
+
+        localStorage.setItem(
+            "careerCraftCV",
+            JSON.stringify(cv)
+        );
+
+
+        /*
+         * INSERT INTO SUPABASE
+         */
+
+        const { data, error } =
+        await supabaseClient
+            .from("cvs")
+            .insert({
+
+                user_id:
+                    user.id,
+
+                title:
+                    cv.professionalTitle ||
+                    "My CV",
+
+                full_name:
+                    cv.fullName,
+
+                email:
+                    cv.email,
+
+                phone:
+                    cv.phone,
+
+                location:
+                    cv.location,
+
+                professional_summary:
+                    cv.summary,
+
+                education:
+                    cv.education,
+
+                experience:
+                    cv.experience,
+
+                skills:
+                    cv.skills,
+
+                certifications:
+                    "",
+
+                projects:
+                    "",
+
+                languages:
+                    ""
+
+            })
+            .select()
+            .single();
+
+
+        /*
+         * CHECK SUPABASE ERROR
+         */
+
+        if(error){
+
+            console.error(
+                "Supabase save error:",
+                error
+            );
+
+            showMessage(
+                "Your CV could not be saved. Please try again.",
+                "error"
+            );
+
+            saveButton.disabled = false;
+
+            saveButton.textContent =
+                "Save & View My CV →";
+
+            return;
+
+        }
+
+
+        /*
+         * SAVE THE SUPABASE CV ID LOCALLY
+         */
+
+        if(data && data.id){
+
+            localStorage.setItem(
+                "careerCraftCVId",
+                data.id
+            );
+
+        }
+
+
+        /*
+         * SUCCESS
+         */
+
+        showMessage(
+            "Your CV has been saved successfully! Opening your CV preview...",
+            "success"
+        );
+
+
+        /*
+         * OPEN PREVIEW
+         */
+
+        setTimeout(function(){
+
+            window.location.href =
+                "cv-preview.html";
+
+        },800);
+
+    }
+
+
+    catch(error){
+
+        console.error(
+            "Unexpected save error:",
+            error
+        );
+
+        showMessage(
+            "Something went wrong while saving your CV.",
+            "error"
+        );
+
+        saveButton.disabled = false;
+
+        saveButton.textContent =
+            "Save & View My CV →";
+
+    }
+
+}
+
+
+/* ==================================================
+   CLEAR FORM
+   ================================================== */
 
 function clearCV(){
 
-if(
-confirm(
-"Are you sure you want to clear your CV information?"
-)
-){
+    if(
+        confirm(
+            "Are you sure you want to clear your CV information?"
+        )
+    ){
 
-localStorage.removeItem(
-"careerCraftCV"
-);
+        localStorage.removeItem(
+            "careerCraftCV"
+        );
 
-document.querySelectorAll(
-"input, textarea"
-).forEach(function(field){
+        localStorage.removeItem(
+            "careerCraftCVId"
+        );
 
-field.value="";
 
-});
+        document
+        .querySelectorAll(
+            "input, textarea"
+        )
+        .forEach(function(field){
+
+            field.value = "";
+
+        });
+
+
+        message.style.display =
+            "none";
+
+    }
 
 }
 
-}
 
-
-/* LOAD SAVED INFORMATION */
+/* ==================================================
+   LOAD LOCAL CV
+   ================================================== */
 
 window.addEventListener(
-"DOMContentLoaded",
-function(){
+    "DOMContentLoaded",
+    function(){
 
-const saved =
-localStorage.getItem(
-"careerCraftCV"
+        const saved =
+            localStorage.getItem(
+                "careerCraftCV"
+            );
+
+
+        if(!saved){
+            return;
+        }
+
+
+        try{
+
+            const cv =
+                JSON.parse(saved);
+
+
+            Object.keys(cv).forEach(
+                function(key){
+
+                    const field =
+                        document.getElementById(key);
+
+
+                    if(field){
+
+                        field.value =
+                            cv[key] || "";
+
+                    }
+
+                }
+            );
+
+        }
+
+        catch(error){
+
+            console.error(
+                "Could not load saved CV:",
+                error
+            );
+
+        }
+
+    }
 );
-
-if(!saved) return;
-
-try{
-
-const cv =
-JSON.parse(saved);
-
-
-Object.keys(cv).forEach(
-function(key){
-
-const field =
-document.getElementById(key);
-
-if(field){
-
-field.value =
-cv[key] || "";
-
-}
-
-});
-
-}
-
-catch(error){
-
-console.log(
-"Could not load saved CV."
-);
-
-}
-
-});
 
 </script>
 
