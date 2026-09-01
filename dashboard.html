@@ -1,7 +1,15 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+  <!DOCTYPE html>
+<html lang="en">
 
-<title>CareerCraft — Dashboard</title><style>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CareerCraft — Dashboard</title>
+
+<style>
 
 * {
     box-sizing: border-box;
@@ -21,15 +29,18 @@ body {
     background: #ffffff;
     border-bottom: 1px solid #e5e7eb;
     padding: 16px 6%;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     gap: 20px;
 }
 
 .logo {
     font-size: 25px;
     font-weight: 800;
+
     text-decoration: none;
     color: #111827;
 }
@@ -60,6 +71,7 @@ body {
     border: none;
     background: transparent;
     color: #dc2626;
+
     font-weight: 700;
     cursor: pointer;
     font-size: 14px;
@@ -69,22 +81,28 @@ body {
 
 .container {
     max-width: 1150px;
+
     margin: auto;
+
     padding: 40px 20px 70px;
 }
 
 /* WELCOME */
 
 .welcome {
-    background: linear-gradient(
-        135deg,
-        #2563eb,
-        #1e40af
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1e40af
+        );
 
     color: white;
+
     border-radius: 18px;
+
     padding: 35px;
+
     margin-bottom: 28px;
 }
 
@@ -98,21 +116,42 @@ body {
     font-size: 16px;
 }
 
-/* QUICK STATS */
+.user-email {
+    display: inline-block;
+
+    margin-top: 14px;
+
+    padding: 7px 12px;
+
+    background: rgba(255,255,255,0.15);
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    color: #eff6ff;
+}
+
+/* STATS */
 
 .stats {
     display: grid;
+
     grid-template-columns:
         repeat(4, 1fr);
 
     gap: 18px;
+
     margin-bottom: 30px;
 }
 
 .stat {
     background: white;
+
     border: 1px solid #e5e7eb;
+
     border-radius: 14px;
+
     padding: 22px;
 }
 
@@ -136,8 +175,11 @@ body {
 
 .section-title {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     margin-bottom: 16px;
 }
 
@@ -147,8 +189,11 @@ body {
 
 .section-title a {
     color: #2563eb;
+
     text-decoration: none;
+
     font-size: 14px;
+
     font-weight: 700;
 }
 
@@ -156,25 +201,34 @@ body {
 
 .tools {
     display: grid;
+
     grid-template-columns:
         repeat(3, 1fr);
 
     gap: 18px;
+
     margin-bottom: 35px;
 }
 
 .tool {
     background: white;
+
     border: 1px solid #e5e7eb;
+
     border-radius: 14px;
+
     padding: 25px;
+
     text-decoration: none;
+
     color: inherit;
+
     transition: .2s;
 }
 
 .tool:hover {
     transform: translateY(-3px);
+
     box-shadow:
         0 10px 25px rgba(0,0,0,.07);
 }
@@ -182,23 +236,33 @@ body {
 .tool-icon {
     width: 48px;
     height: 48px;
+
     border-radius: 12px;
+
     background: #eff6ff;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     font-size: 24px;
+
     margin-bottom: 15px;
 }
 
 .tool h3 {
     margin-bottom: 8px;
+
     font-size: 17px;
 }
 
 .tool p {
     color: #6b7280;
+
     font-size: 13px;
+
     line-height: 1.6;
 }
 
@@ -206,50 +270,73 @@ body {
 
 .cv-card {
     background: white;
+
     border: 1px solid #e5e7eb;
+
     border-radius: 15px;
+
     padding: 25px;
+
     margin-bottom: 30px;
 }
 
 .cv-info {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     gap: 20px;
 }
 
 .cv-name {
     font-size: 20px;
+
     font-weight: 800;
+
     margin-bottom: 6px;
 }
 
 .cv-title {
     color: #6b7280;
+
     font-size: 14px;
 }
 
 .cv-actions {
     display: flex;
+
     gap: 10px;
+
     flex-wrap: wrap;
 }
 
 .btn {
     border-radius: 8px;
+
     padding: 11px 17px;
+
     text-decoration: none;
+
     font-size: 13px;
+
     font-weight: 700;
+
     display: inline-block;
+
     cursor: pointer;
+
     border: none;
 }
 
 .btn-primary {
     background: #2563eb;
     color: white;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
 }
 
 .btn-secondary {
@@ -261,46 +348,59 @@ body {
 
 .saved-card {
     background: white;
+
     border: 1px solid #e5e7eb;
+
     border-radius: 15px;
+
     padding: 25px;
+
     margin-bottom: 30px;
 }
 
 .saved-number {
     font-size: 30px;
+
     font-weight: 800;
+
     color: #2563eb;
 }
 
 .saved-text {
     color: #6b7280;
+
     font-size: 14px;
+
     margin-top: 5px;
 }
 
-/* EMPTY CV */
+/* LOADING */
 
-.no-cv {
+.loading {
+    min-height: 70vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
     text-align: center;
-    padding: 15px 5px;
-}
 
-.no-cv h3 {
-    margin-bottom: 8px;
-}
-
-.no-cv p {
     color: #6b7280;
-    margin-bottom: 18px;
+
+    font-size: 18px;
 }
 
 /* FOOTER */
 
 .footer {
     text-align: center;
+
     padding: 30px 20px;
+
     color: #9ca3af;
+
     font-size: 13px;
 }
 
@@ -324,6 +424,7 @@ body {
 
     .navbar {
         flex-direction: column;
+
         align-items: flex-start;
     }
 
@@ -353,432 +454,660 @@ body {
 
     .cv-info {
         flex-direction: column;
+
         align-items: flex-start;
     }
 
 }
 
-</style></head><body><!-- NAVBAR --><nav class="navbar"><a
-    href="index.html"
-    class="logo">
-    Career<span>Craft</span>
-</a>
+</style>
 
-<div class="nav-links">
+</head>
 
-    <a href="index.html">
-        Home
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <a href="index.html" class="logo">
+        Career<span>Craft</span>
     </a>
 
-    <a href="cv-builder.html">
-        CV Builder
-    </a>
 
-    <a href="cv-templates.html">
-        Templates
-    </a>
+    <div class="nav-links">
 
-    <a href="cv-review.html">
-        CV Review
-    </a>
+        <a href="index.html">
+            Home
+        </a>
 
-    <a href="job-finder.html">
-        Find Jobs
-    </a>
+        <a href="cv-builder.html">
+            CV Builder
+        </a>
 
-    <a href="saved-jobs.html">
-        Saved Jobs
-    </a>
+        <a href="cv-templates.html">
+            Templates
+        </a>
 
-    <button
-        class="logout"
-        onclick="logout()">
-        Logout
-    </button>
-
-</div>
-
-</nav><!-- MAIN --><main class="container"><!-- WELCOME -->
-
-<section class="welcome">
-
-    <h1 id="welcomeTitle">
-        Welcome to CareerCraft 👋
-    </h1>
-
-    <p id="welcomeText">
-        Manage your CV, discover jobs,
-        and build your career.
-    </p>
-
-</section>
-
-
-<!-- STATS -->
-
-<section class="stats">
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            📄
-        </div>
-
-        <div
-            id="cvCount"
-            class="stat-number">
-            0
-        </div>
-
-        <div class="stat-label">
-            CVs Created
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            🎨
-        </div>
-
-        <div
-            id="templateName"
-            class="stat-number">
-            Classic
-        </div>
-
-        <div class="stat-label">
-            Current Template
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            ⭐
-        </div>
-
-        <div
-            id="savedCount"
-            class="stat-number">
-            0
-        </div>
-
-        <div class="stat-label">
-            Saved Jobs
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            🔎
-        </div>
-
-        <div
-            id="reviewStatus"
-            class="stat-number">
-            Ready
-        </div>
-
-        <div class="stat-label">
+        <a href="cv-review.html">
             CV Review
-        </div>
+        </a>
 
-    </div>
-
-</section>
-
-
-<!-- MY CV -->
-
-<div class="section-title">
-
-    <h2>
-        My CV
-    </h2>
-
-    <a href="cv-builder.html">
-        Create New
-    </a>
-
-</div>
-
-
-<section class="cv-card">
-
-    <div
-        id="cvContent"
-        class="cv-info">
-
-        <div>
-
-            <div
-                id="cvName"
-                class="cv-name">
-                No CV created yet
-            </div>
-
-            <div
-                id="cvTitle"
-                class="cv-title">
-                Create your first CV with CareerCraft.
-            </div>
-
-        </div>
-
-        <div class="cv-actions">
-
-            <a
-                href="cv-builder.html"
-                class="btn btn-primary">
-                Create CV
-            </a>
-
-            <a
-                href="cv-preview.html"
-                class="btn btn-secondary">
-                Preview
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- CAREER TOOLS -->
-
-<div class="section-title">
-
-    <h2>
-        Career Tools
-    </h2>
-
-</div>
-
-
-<section class="tools">
-
-    <a
-        href="cv-builder.html"
-        class="tool">
-
-        <div class="tool-icon">
-            📝
-        </div>
-
-        <h3>
-            Build Your CV
-        </h3>
-
-        <p>
-            Create a professional CV
-            designed to impress employers.
-        </p>
-
-    </a>
-
-
-    <a
-        href="cv-templates.html"
-        class="tool">
-
-        <div class="tool-icon">
-            🎨
-        </div>
-
-        <h3>
-            CV Templates
-        </h3>
-
-        <p>
-            Choose from professional
-            CV designs and layouts.
-        </p>
-
-    </a>
-
-
-    <a
-        href="cv-review.html"
-        class="tool">
-
-        <div class="tool-icon">
-            🤖
-        </div>
-
-        <h3>
-            CV Review
-        </h3>
-
-        <p>
-            Check your CV and discover
-            areas you can improve.
-        </p>
-
-    </a>
-
-
-    <a
-        href="job-finder.html"
-        class="tool">
-
-        <div class="tool-icon">
-            🔎
-        </div>
-
-        <h3>
+        <a href="job-finder.html">
             Find Jobs
-        </h3>
+        </a>
 
-        <p>
-            Search real job opportunities
-            and find your next role.
-        </p>
-
-    </a>
-
-
-    <a
-        href="saved-jobs.html"
-        class="tool">
-
-        <div class="tool-icon">
-            ⭐
-        </div>
-
-        <h3>
+        <a href="saved-jobs.html">
             Saved Jobs
-        </h3>
+        </a>
 
-        <p>
-            Keep track of jobs you want
-            to apply for later.
-        </p>
+        <button
+            class="logout"
+            id="logoutButton">
 
-    </a>
+            Logout
 
+        </button>
 
-    <a
-        href="cv-preview.html"
-        class="tool">
+    </div>
 
-        <div class="tool-icon">
-            📥
-        </div>
-
-        <h3>
-            Download CV
-        </h3>
-
-        <p>
-            Preview your CV and download
-            it as a professional PDF.
-        </p>
-
-    </a>
-
-</section>
+</nav>
 
 
-<!-- SAVED JOBS -->
+<!-- LOADING -->
 
-<div class="section-title">
+<div
+    id="loading"
+    class="loading">
 
-    <h2>
-        Saved Jobs
-    </h2>
-
-    <a href="saved-jobs.html">
-        View All
-    </a>
+    Checking your CareerCraft account...
 
 </div>
 
 
-<section class="saved-card">
+<!-- DASHBOARD -->
 
-    <div
-        id="savedCountLarge"
-        class="saved-number">
-        0
+<main
+    id="dashboard"
+    class="container"
+    style="display:none;">
+
+
+    <!-- WELCOME -->
+
+    <section class="welcome">
+
+        <h1 id="welcomeTitle">
+            Welcome to CareerCraft 👋
+        </h1>
+
+        <p>
+            Manage your CV, discover jobs,
+            and build your career.
+        </p>
+
+        <div
+            id="userEmail"
+            class="user-email">
+
+        </div>
+
+    </section>
+
+
+    <!-- STATS -->
+
+    <section class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                📄
+            </div>
+
+            <div
+                id="cvCount"
+                class="stat-number">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                CVs Created
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🎨
+            </div>
+
+            <div
+                id="templateName"
+                class="stat-number">
+
+                Classic
+
+            </div>
+
+            <div class="stat-label">
+                Current Template
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                ⭐
+            </div>
+
+            <div
+                id="savedCount"
+                class="stat-number">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                Saved Jobs
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🔎
+            </div>
+
+            <div
+                id="reviewStatus"
+                class="stat-number">
+
+                Start
+
+            </div>
+
+            <div class="stat-label">
+                CV Review
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MY CV -->
+
+    <div class="section-title">
+
+        <h2>
+            My CV
+        </h2>
+
+        <a href="cv-builder.html">
+            Create New
+        </a>
+
     </div>
 
-    <div class="saved-text">
-        jobs saved for later.
+
+    <section class="cv-card">
+
+        <div class="cv-info">
+
+            <div>
+
+                <div
+                    id="cvName"
+                    class="cv-name">
+
+                    No CV created yet
+
+                </div>
+
+                <div
+                    id="cvTitle"
+                    class="cv-title">
+
+                    Create your first CV with CareerCraft.
+
+                </div>
+
+            </div>
+
+
+            <div class="cv-actions">
+
+                <a
+                    href="cv-builder.html"
+                    class="btn btn-primary">
+
+                    Create CV
+
+                </a>
+
+                <a
+                    href="cv-preview.html"
+                    class="btn btn-secondary">
+
+                    Preview
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CAREER TOOLS -->
+
+    <div class="section-title">
+
+        <h2>
+            Career Tools
+        </h2>
+
     </div>
 
-    <br>
 
-    <a
-        href="job-finder.html"
-        class="btn btn-primary">
-        Find More Jobs
-    </a>
+    <section class="tools">
 
-</section>
 
-</main><footer class="footer">© 2026 CareerCraft.
-Build your future with confidence.
+        <a
+            href="cv-builder.html"
+            class="tool">
 
-</footer><script>
+            <div class="tool-icon">
+                📝
+            </div>
 
-/* ==========================
-   LOAD CV
-========================== */
+            <h3>
+                Build Your CV
+            </h3>
 
-const cvData =
-    JSON.parse(
-        localStorage.getItem(
-            "careerCraftCV"
-        )
+            <p>
+                Create a professional CV
+                designed to impress employers.
+            </p>
+
+        </a>
+
+
+        <a
+            href="cv-templates.html"
+            class="tool">
+
+            <div class="tool-icon">
+                🎨
+            </div>
+
+            <h3>
+                CV Templates
+            </h3>
+
+            <p>
+                Choose from professional
+                CV designs and layouts.
+            </p>
+
+        </a>
+
+
+        <a
+            href="cv-review.html"
+            class="tool">
+
+            <div class="tool-icon">
+                🤖
+            </div>
+
+            <h3>
+                CV Review
+            </h3>
+
+            <p>
+                Check your CV and discover
+                areas you can improve.
+            </p>
+
+        </a>
+
+
+        <a
+            href="job-finder.html"
+            class="tool">
+
+            <div class="tool-icon">
+                🔎
+            </div>
+
+            <h3>
+                Find Jobs
+            </h3>
+
+            <p>
+                Search real job opportunities
+                and find your next role.
+            </p>
+
+        </a>
+
+
+        <a
+            href="saved-jobs.html"
+            class="tool">
+
+            <div class="tool-icon">
+                ⭐
+            </div>
+
+            <h3>
+                Saved Jobs
+            </h3>
+
+            <p>
+                Keep track of jobs you want
+                to apply for later.
+            </p>
+
+        </a>
+
+
+        <a
+            href="cv-preview.html"
+            class="tool">
+
+            <div class="tool-icon">
+                📥
+            </div>
+
+            <h3>
+                Download CV
+            </h3>
+
+            <p>
+                Preview your CV and download
+                it as a professional PDF.
+            </p>
+
+        </a>
+
+    </section>
+
+
+    <!-- SAVED JOBS -->
+
+    <div class="section-title">
+
+        <h2>
+            Saved Jobs
+        </h2>
+
+        <a href="saved-jobs.html">
+            View All
+        </a>
+
+    </div>
+
+
+    <section class="saved-card">
+
+        <div
+            id="savedCountLarge"
+            class="saved-number">
+
+            0
+
+        </div>
+
+        <div class="saved-text">
+            jobs saved for later.
+        </div>
+
+        <br>
+
+        <a
+            href="job-finder.html"
+            class="btn btn-primary">
+
+            Find More Jobs
+
+        </a>
+
+    </section>
+
+
+</main>
+
+
+<footer class="footer">
+
+    © 2026 CareerCraft.
+    Build your future with confidence.
+
+</footer>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+/* ==================================================
+   SUPABASE CONNECTION
+================================================== */
+
+const SUPABASE_URL =
+    "https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
     );
 
 
-/* ==========================
-   WELCOME
-========================== */
+/* ==================================================
+   ELEMENTS
+================================================== */
 
-if (cvData && cvData.fullName) {
+const loading =
+    document.getElementById("loading");
 
-    document.getElementById(
-        "welcomeTitle"
-    ).textContent =
-        "Welcome back, " +
-        cvData.fullName +
-        " 👋";
+const dashboard =
+    document.getElementById("dashboard");
 
-    document.getElementById(
-        "welcomeText"
-    ).textContent =
-        "Your career journey starts here.";
+const welcomeTitle =
+    document.getElementById("welcomeTitle");
+
+const userEmail =
+    document.getElementById("userEmail");
+
+const logoutButton =
+    document.getElementById("logoutButton");
+
+
+/* ==================================================
+   CHECK LOGIN
+================================================== */
+
+async function checkUser() {
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth.getSession();
+
+
+        if (error) {
+
+            console.error(
+                "Session error:",
+                error
+            );
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+
+        const session =
+            data.session;
+
+
+        /* USER NOT LOGGED IN */
+
+        if (!session || !session.user) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+
+        /* USER IS LOGGED IN */
+
+        const user =
+            session.user;
+
+
+        const fullName =
+            user.user_metadata?.full_name ||
+            user.user_metadata?.name ||
+            "CareerCraft User";
+
+
+        welcomeTitle.textContent =
+            "Welcome back, " +
+            fullName +
+            " 👋";
+
+
+        userEmail.textContent =
+            user.email || "";
+
+
+        loadCV();
+
+        loadTemplate();
+
+        loadSavedJobs();
+
+        loadReviewStatus();
+
+
+        loading.style.display =
+            "none";
+
+        dashboard.style.display =
+            "block";
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Dashboard error:",
+            error
+        );
+
+        window.location.href =
+            "login.html";
+
+    }
 
 }
 
 
-/* ==========================
-   CV INFORMATION
-========================== */
+/* ==================================================
+   LOAD CV
+================================================== */
 
-if (cvData) {
+function loadCV() {
+
+    let cvData = null;
+
+
+    try {
+
+        cvData =
+            JSON.parse(
+                localStorage.getItem(
+                    "careerCraftCV"
+                )
+            );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "CV data error:",
+            error
+        );
+
+    }
+
+
+    if (!cvData) {
+
+        document.getElementById(
+            "cvCount"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "cvName"
+        ).textContent =
+            "No CV created yet";
+
+
+        document.getElementById(
+            "cvTitle"
+        ).textContent =
+            "Create your first CV with CareerCraft.";
+
+        return;
+    }
+
 
     document.getElementById(
         "cvCount"
-    ).textContent = "1";
+    ).textContent =
+        "1";
+
 
     document.getElementById(
         "cvName"
     ).textContent =
         cvData.fullName ||
         "My CV";
+
 
     document.getElementById(
         "cvTitle"
@@ -789,103 +1118,196 @@ if (cvData) {
 }
 
 
-/* ==========================
-   TEMPLATE
-========================== */
+/* ==================================================
+   LOAD TEMPLATE
+================================================== */
 
-const template =
-    localStorage.getItem(
-        "careerCraftTemplate"
-    ) || "classic";
+function loadTemplate() {
 
-const templateNames = {
-
-    classic: "Classic",
-
-    modern: "Modern",
-
-    minimal: "Minimal",
-
-    executive: "Executive"
-
-};
-
-document.getElementById(
-    "templateName"
-).textContent =
-    templateNames[template] ||
-    "Classic";
-
-
-/* ==========================
-   SAVED JOBS
-========================== */
-
-const savedJobs =
-    JSON.parse(
+    const template =
         localStorage.getItem(
-            "careerCraftSavedJobs"
-        )
-    ) || [];
-
-document.getElementById(
-    "savedCount"
-).textContent =
-    savedJobs.length;
-
-document.getElementById(
-    "savedCountLarge"
-).textContent =
-    savedJobs.length;
+            "careerCraftTemplate"
+        ) ||
+        "classic";
 
 
-/* ==========================
-   CV REVIEW
-========================== */
+    const templateNames = {
 
-if (cvData) {
+        classic: "Classic",
+
+        modern: "Modern",
+
+        minimal: "Minimal",
+
+        executive: "Executive"
+
+    };
+
 
     document.getElementById(
-        "reviewStatus"
+        "templateName"
     ).textContent =
-        "Ready";
-
-} else {
-
-    document.getElementById(
-        "reviewStatus"
-    ).textContent =
-        "Start";
+        templateNames[template] ||
+        "Classic";
 
 }
 
 
-/* ==========================
+/* ==================================================
+   LOAD SAVED JOBS
+================================================== */
+
+function loadSavedJobs() {
+
+    let savedJobs = [];
+
+
+    try {
+
+        savedJobs =
+            JSON.parse(
+                localStorage.getItem(
+                    "careerCraftSavedJobs"
+                )
+            ) || [];
+
+    }
+
+    catch (error) {
+
+        savedJobs = [];
+
+    }
+
+
+    document.getElementById(
+        "savedCount"
+    ).textContent =
+        savedJobs.length;
+
+
+    document.getElementById(
+        "savedCountLarge"
+    ).textContent =
+        savedJobs.length;
+
+}
+
+
+/* ==================================================
+   REVIEW STATUS
+================================================== */
+
+function loadReviewStatus() {
+
+    const cv =
+        localStorage.getItem(
+            "careerCraftCV"
+        );
+
+
+    document.getElementById(
+        "reviewStatus"
+    ).textContent =
+        cv ? "Ready" : "Start";
+
+}
+
+
+/* ==================================================
    LOGOUT
-========================== */
+================================================== */
 
-function logout() {
+logoutButton.addEventListener(
+    "click",
+    async function() {
 
-    if (
-        confirm(
-            "Are you sure you want to log out?"
-        )
-    ) {
+        if (
+            !confirm(
+                "Are you sure you want to log out?"
+            )
+        ) {
 
-        /*
-         * We clear the temporary
-         * login flag if one exists.
-         */
+            return;
+
+        }
+
+
+        logoutButton.disabled =
+            true;
+
+        logoutButton.textContent =
+            "Logging out...";
+
+
+        const {
+            error
+        } =
+        await supabaseClient.auth.signOut();
+
+
+        if (error) {
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+            alert(
+                "Unable to log out. Please try again."
+            );
+
+            logoutButton.disabled =
+                false;
+
+            logoutButton.textContent =
+                "Logout";
+
+            return;
+        }
+
 
         localStorage.removeItem(
             "careerCraftLoggedIn"
         );
 
+
         window.location.href =
-            "login.html";
+            "index.html";
 
     }
+);
 
-}
 
-</script></body></html>    
+/* ==================================================
+   START
+================================================== */
+
+checkUser();
+
+
+/* ==================================================
+   AUTH STATE
+================================================== */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event, session) {
+
+        if (
+            event === "SIGNED_OUT" ||
+            !session
+        ) {
+
+            window.location.href =
+                "login.html";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+                    </html>
