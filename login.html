@@ -1,475 +1,641 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Log In | CareerCraft</title>
 
-<meta charset="UTF-8">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eef4ff, #ffffff);
+        }
 
-<title>Log In | CareerCraft</title>
+        nav {
+            height: 70px;
+            background: white;
 
-<style>
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+            padding: 0 7%;
 
-body {
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #eef4ff, #ffffff);
-}
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
 
-nav {
-    height: 70px;
-    background: white;
+        .logo {
+            text-decoration: none;
+            color: #2563eb;
+            font-size: 25px;
+            font-weight: bold;
+        }
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+        .home-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+        }
 
-    padding: 0 7%;
+        .home-link:hover {
+            color: #2563eb;
+        }
 
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-}
+        .container {
+            min-height: calc(100vh - 70px);
 
-.logo {
-    text-decoration: none;
-    color: #2563eb;
-    font-size: 25px;
-    font-weight: bold;
-}
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-.home-link {
-    text-decoration: none;
-    color: #333;
-}
+            padding: 30px 20px;
+        }
 
-.container {
-    min-height: calc(100vh - 70px);
+        .card {
+            width: 100%;
+            max-width: 430px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+            background: white;
 
-    padding: 30px 20px;
-}
+            padding: 35px 30px;
 
-.card {
-    width: 100%;
-    max-width: 430px;
+            border-radius: 18px;
 
-    background: white;
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.10);
+        }
 
-    padding: 35px 30px;
+        h1 {
+            text-align: center;
+            color: #111827;
+            margin-bottom: 10px;
+        }
 
-    border-radius: 18px;
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
 
-    box-shadow:
-        0 10px 35px rgba(0,0,0,0.10);
-}
+        .form-group {
+            margin-bottom: 18px;
+        }
 
-h1 {
-    text-align: center;
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #374151;
+            font-size: 14px;
+            font-weight: bold;
+        }
 
-    color: #111827;
+        input {
+            width: 100%;
 
-    margin-bottom: 10px;
-}
+            padding: 13px;
 
-.subtitle {
-    text-align: center;
+            border: 1px solid #d1d5db;
 
-    color: #6b7280;
+            border-radius: 9px;
 
-    font-size: 14px;
+            font-size: 15px;
 
-    margin-bottom: 28px;
-}
+            outline: none;
+        }
 
-.form-group {
-    margin-bottom: 18px;
-}
+        input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+        }
 
-label {
-    display: block;
+        button {
+            width: 100%;
 
-    margin-bottom: 7px;
+            padding: 14px;
 
-    color: #374151;
+            border: none;
 
-    font-size: 14px;
+            border-radius: 9px;
 
-    font-weight: bold;
-}
+            background: #2563eb;
 
-input {
-    width: 100%;
+            color: white;
 
-    padding: 13px;
+            font-size: 16px;
 
-    border:
-        1px solid #d1d5db;
+            font-weight: bold;
 
-    border-radius: 9px;
+            cursor: pointer;
 
-    font-size: 15px;
+            transition: 0.2s;
+        }
 
-    outline: none;
-}
+        button:hover {
+            background: #1d4ed8;
+        }
 
-input:focus {
-    border-color: #2563eb;
-}
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
 
-button {
-    width: 100%;
+        #message {
+            text-align: center;
 
-    padding: 14px;
+            margin-top: 15px;
 
-    border: none;
+            font-size: 14px;
 
-    border-radius: 9px;
+            font-weight: bold;
 
-    background: #2563eb;
+            line-height: 1.5;
+        }
 
-    color: white;
+        .create-text {
+            text-align: center;
 
-    font-size: 16px;
+            margin-top: 22px;
 
-    font-weight: bold;
+            color: #6b7280;
 
-    cursor: pointer;
-}
+            font-size: 14px;
+        }
 
-button:hover {
-    background: #1d4ed8;
-}
+        .create-text a {
+            color: #2563eb;
 
-button:disabled {
-    opacity: 0.7;
+            font-weight: bold;
 
-    cursor: not-allowed;
-}
+            text-decoration: none;
+        }
 
-#message {
-    text-align: center;
+        .create-text a:hover {
+            text-decoration: underline;
+        }
 
-    margin-top: 15px;
+        .forgot {
+            display: block;
+            text-align: right;
+            margin-top: -8px;
+            margin-bottom: 18px;
 
-    font-size: 14px;
+            color: #2563eb;
+            font-size: 13px;
+            text-decoration: none;
+            font-weight: 600;
+        }
 
-    font-weight: bold;
-}
+        .forgot:hover {
+            text-decoration: underline;
+        }
 
-.create-text {
-    text-align: center;
+        @media (max-width: 500px) {
 
-    margin-top: 22px;
+            nav {
+                padding: 0 5%;
+            }
 
-    color: #6b7280;
+            .card {
+                padding: 30px 22px;
+            }
 
-    font-size: 14px;
-}
-
-.create-text a {
-    color: #2563eb;
-
-    font-weight: bold;
-
-    text-decoration: none;
-}
-
-.create-text a:hover {
-    text-decoration: underline;
-}
-
-</style>
-
+            .logo {
+                font-size: 22px;
+            }
+        }
+    </style>
 </head>
-
 
 <body>
 
+    <!-- NAVIGATION -->
 
-<!-- =========================
-     NAVIGATION
-========================= -->
+    <nav>
 
-<nav>
+        <a href="index.html" class="logo">
+            CareerCraft
+        </a>
 
-<a href="index.html" class="logo">
-    CareerCraft
-</a>
+        <a href="index.html" class="home-link">
+            Home
+        </a>
 
-<a href="index.html" class="home-link">
-    Home
-</a>
+    </nav>
 
-</nav>
 
+    <!-- LOGIN -->
 
-<!-- =========================
-     LOGIN
-========================= -->
+    <div class="container">
 
-<div class="container">
+        <div class="card">
 
-<div class="card">
+            <h1>
+                Welcome Back
+            </h1>
 
-<h1>
-    Welcome Back
-</h1>
+            <p class="subtitle">
+                Log in to your CareerCraft account.
+            </p>
 
-<p class="subtitle">
-    Log in to your CareerCraft account.
-</p>
 
+            <form id="loginForm">
 
-<form id="loginForm">
+                <div class="form-group">
 
+                    <label for="email">
+                        Email Address
+                    </label>
 
-<div class="form-group">
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
 
-<label for="email">
-    Email Address
-</label>
+                </div>
 
-<input
-    type="email"
-    id="email"
-    placeholder="Enter your email"
-    required
->
 
-</div>
+                <div class="form-group">
 
+                    <label for="password">
+                        Password
+                    </label>
 
-<div class="form-group">
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
 
-<label for="password">
-    Password
-</label>
+                </div>
 
-<input
-    type="password"
-    id="password"
-    placeholder="Enter your password"
-    required
->
 
-</div>
+                <a href="#" class="forgot" id="forgotPassword">
+                    Forgot password?
+                </a>
 
 
-<button
-    type="submit"
-    id="loginButton">
+                <button
+                    type="submit"
+                    id="loginButton">
 
-    Log In
+                    Log In
 
-</button>
+                </button>
 
 
-<div id="message"></div>
+                <div id="message"></div>
 
+            </form>
 
-</form>
 
+            <p class="create-text">
 
-<p class="create-text">
+                Don't have an account?
 
-Don't have an account?
+                <a href="signup/create-account.html">
+                    Create an account
+                </a>
 
-<a href="create-account.html">
-    Create an account
-</a>
+            </p>
 
-</p>
+        </div>
 
+    </div>
 
-</div>
 
-</div>
+    <!-- SUPABASE -->
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- ==================================================
-     SUPABASE LIBRARY
-================================================== -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
 
+        /* =========================================
+           SUPABASE CONNECTION
+        ========================================= */
 
-<script>
+        const SUPABASE_URL =
+            "https://upcxmlbgmqhaqieldmyk.supabase.co";
 
-/* ==================================================
-   SUPABASE CONNECTION
-================================================== */
+        const SUPABASE_KEY =
+            "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
 
-const SUPABASE_URL =
-    "https://upcxmlbgmqhaqieldmyk.supabase.co";
 
-const SUPABASE_KEY =
-    "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
-
-
-const { createClient } = supabase;
-
-
-const supabaseClient =
-    createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-
-/* ==================================================
-   LOGIN FORM
-================================================== */
-
-const loginForm =
-    document.getElementById("loginForm");
-
-const message =
-    document.getElementById("message");
-
-const loginButton =
-    document.getElementById("loginButton");
-
-
-loginForm.addEventListener(
-    "submit",
-    async function(event) {
-
-        event.preventDefault();
-
-
-        /* GET VALUES */
-
-        const email =
-            document
-            .getElementById("email")
-            .value
-            .trim()
-            .toLowerCase();
-
-
-        const password =
-            document
-            .getElementById("password")
-            .value;
-
-
-        /* LOADING */
-
-        loginButton.disabled = true;
-
-        loginButton.textContent =
-            "Logging In...";
-
-        message.textContent = "";
-
-
-        /* ==================================================
-           SUPABASE LOGIN
-        ================================================== */
-
-        const {
-            data,
-            error
-        } = await supabaseClient.auth.signInWithPassword({
-
-            email: email,
-
-            password: password
-
-        });
-
-
-        /* ==================================================
-           LOGIN ERROR
-        ================================================== */
-
-        if (error) {
-
-            console.error(
-                "Supabase login error:",
-                error
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
             );
 
 
-            message.textContent =
-                error.message;
+        /* =========================================
+           ELEMENTS
+        ========================================= */
 
-            message.style.color =
-                "red";
+        const loginForm =
+            document.getElementById("loginForm");
 
+        const emailInput =
+            document.getElementById("email");
 
-            loginButton.disabled = false;
+        const passwordInput =
+            document.getElementById("password");
 
-            loginButton.textContent =
-                "Log In";
+        const loginButton =
+            document.getElementById("loginButton");
 
+        const message =
+            document.getElementById("message");
 
-            return;
-        }
-
-
-        /* ==================================================
-           SUCCESS
-        ================================================== */
-
-        message.textContent =
-            "Login successful!";
-
-        message.style.color =
-            "green";
+        const forgotPassword =
+            document.getElementById("forgotPassword");
 
 
-        /* ==================================================
-           SAVE USER INFORMATION
-        ================================================== */
+        /* =========================================
+           LOGIN
+        ========================================= */
 
-        if (data.user) {
+        loginForm.addEventListener(
+            "submit",
+            async function(event) {
 
-            const name =
-                data.user.user_metadata?.full_name;
+                event.preventDefault();
 
 
-            if (name) {
+                const email =
+                    emailInput.value
+                    .trim()
+                    .toLowerCase();
 
-                localStorage.setItem(
-                    "careerCraftName",
-                    name
-                );
+                const password =
+                    passwordInput.value;
+
+
+                if (!email || !password) {
+
+                    message.textContent =
+                        "Please enter your email and password.";
+
+                    message.style.color =
+                        "#dc2626";
+
+                    return;
+                }
+
+
+                /* LOADING */
+
+                loginButton.disabled = true;
+
+                loginButton.textContent =
+                    "Logging in...";
+
+                message.textContent = "";
+
+
+                try {
+
+                    /* =========================================
+                       SUPABASE AUTHENTICATION
+                    ========================================= */
+
+                    const {
+                        data,
+                        error
+                    } =
+                    await supabaseClient.auth.signInWithPassword({
+
+                        email: email,
+
+                        password: password
+
+                    });
+
+
+                    /* =========================================
+                       ERROR
+                    ========================================= */
+
+                    if (error) {
+
+                        console.error(
+                            "Supabase login error:",
+                            error
+                        );
+
+                        message.textContent =
+                            error.message ||
+                            "Login failed. Please try again.";
+
+                        message.style.color =
+                            "#dc2626";
+
+                        loginButton.disabled = false;
+
+                        loginButton.textContent =
+                            "Log In";
+
+                        return;
+                    }
+
+
+                    /* =========================================
+                       USER SUCCESSFULLY LOGGED IN
+                    ========================================= */
+
+                    if (!data || !data.user) {
+
+                        message.textContent =
+                            "Login completed, but user information was not returned.";
+
+                        message.style.color =
+                            "#dc2626";
+
+                        loginButton.disabled = false;
+
+                        loginButton.textContent =
+                            "Log In";
+
+                        return;
+                    }
+
+
+                    const user =
+                        data.user;
+
+
+                    /* =========================================
+                       SAVE USER NAME LOCALLY
+                    ========================================= */
+
+                    const fullName =
+                        user.user_metadata?.full_name;
+
+
+                    if (fullName) {
+
+                        localStorage.setItem(
+                            "careerCraftName",
+                            fullName
+                        );
+
+                    }
+
+
+                    /* =========================================
+                       SAVE LOGIN FLAG
+                       (dashboard will still verify Supabase)
+                    ========================================= */
+
+                    localStorage.setItem(
+                        "careerCraftLoggedIn",
+                        "true"
+                    );
+
+
+                    /* =========================================
+                       SUCCESS MESSAGE
+                    ========================================= */
+
+                    message.textContent =
+                        "Login successful! Opening your dashboard...";
+
+                    message.style.color =
+                        "#16a34a";
+
+
+                    /* =========================================
+                       GO TO DASHBOARD
+                    ========================================= */
+
+                    setTimeout(
+                        function() {
+
+                            window.location.href =
+                                "dashboard.html";
+
+                        },
+                        600
+                    );
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        "Unexpected login error:",
+                        error
+                    );
+
+                    message.textContent =
+                        "Something went wrong. Please try again.";
+
+                    message.style.color =
+                        "#dc2626";
+
+                    loginButton.disabled = false;
+
+                    loginButton.textContent =
+                        "Log In";
+                }
 
             }
-
-        }
-
-
-        /* ==================================================
-           GO TO HOMEPAGE
-        ================================================== */
-
-        setTimeout(
-            function() {
-
-                window.location.href =
-                    "index.html";
-
-            },
-            800
         );
 
-    }
-);
 
-</script>
+        /* =========================================
+           FORGOT PASSWORD
+        ========================================= */
 
+        forgotPassword.addEventListener(
+            "click",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const email =
+                    emailInput.value
+                    .trim()
+                    .toLowerCase();
+
+
+                if (!email) {
+
+                    message.textContent =
+                        "Enter your email address first.";
+
+                    message.style.color =
+                        "#dc2626";
+
+                    emailInput.focus();
+
+                    return;
+                }
+
+
+                message.textContent =
+                    "Sending password reset email...";
+
+                message.style.color =
+                    "#2563eb";
+
+
+                const {
+                    error
+                } =
+                await supabaseClient.auth.resetPasswordForEmail(
+                    email,
+                    {
+                        redirectTo:
+                            window.location.origin +
+                            "/login.html"
+                    }
+                );
+
+
+                if (error) {
+
+                    console.error(
+                        "Password reset error:",
+                        error
+                    );
+
+                    message.textContent =
+                        error.message;
+
+                    message.style.color =
+                        "#dc2626";
+
+                    return;
+                }
+
+
+                message.textContent =
+                    "Password reset instructions have been sent to your email.";
+
+                message.style.color =
+                    "#16a34a";
+
+            }
+        );
+
+
+    </script>
 
 </body>
-
-</html>
+    </html>
