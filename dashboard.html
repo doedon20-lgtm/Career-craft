@@ -1,456 +1,548 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard | CareerCraft</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    <title>CareerCraft Dashboard</title>
 
-body {
-    font-family: Arial, sans-serif;
-    background: #f5f7fb;
-    color: #111827;
-    min-height: 100vh;
-}
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-nav {
-    height: 70px;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 7%;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-}
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-.logo {
-    text-decoration: none;
-    color: #2563eb;
-    font-size: 25px;
-    font-weight: bold;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
 
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
+        .navbar {
+            background: white;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            border-bottom: 1px solid #e5e7eb;
+        }
 
-.user-name {
-    color: #374151;
-    font-size: 14px;
-    font-weight: bold;
-}
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #2563eb;
+            text-decoration: none;
+        }
 
-.logout-btn {
-    border: none;
-    background: #ef4444;
-    color: white;
-    padding: 9px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-}
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-.logout-btn:hover {
-    background: #dc2626;
-}
+        .nav-name {
+            font-weight: 600;
+        }
 
-.container {
-    width: 90%;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 45px 0;
-}
+        .logout-btn {
+            border: none;
+            background: #ef4444;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
 
-.welcome {
-    margin-bottom: 30px;
-}
+        .logout-btn:hover {
+            background: #dc2626;
+        }
 
-.welcome h1 {
-    font-size: 32px;
-    margin-bottom: 8px;
-}
+        #loading {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: #6b7280;
+        }
 
-.welcome p {
-    color: #6b7280;
-}
+        #dashboard {
+            display: none;
+            max-width: 1200px;
+            margin: auto;
+            padding: 35px 20px;
+        }
 
-.cards {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
-}
+        .welcome {
+            margin-bottom: 30px;
+        }
 
-.card {
-    background: white;
-    padding: 28px;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.07);
-    transition: transform 0.2s ease;
-}
+        .welcome h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
 
-.card:hover {
-    transform: translateY(-3px);
-}
+        .welcome p {
+            color: #6b7280;
+        }
 
-.icon {
-    font-size: 32px;
-    margin-bottom: 15px;
-}
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 35px;
+        }
 
-.card h2 {
-    font-size: 21px;
-    margin-bottom: 8px;
-}
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
 
-.card p {
-    color: #6b7280;
-    line-height: 1.5;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
+        .card h2 {
+            margin-bottom: 10px;
+            font-size: 21px;
+        }
 
-.card a {
-    display: inline-block;
-    text-decoration: none;
-    background: #2563eb;
-    color: white;
-    padding: 11px 18px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: bold;
-}
+        .card p {
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
 
-.profile {
-    margin-top: 25px;
-    background: white;
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.07);
-}
+        .card a {
+            display: inline-block;
+            text-decoration: none;
+            background: #2563eb;
+            color: white;
+            padding: 11px 17px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
 
-.profile h2 {
-    margin-bottom: 15px;
-}
+        .card a:hover {
+            background: #1d4ed8;
+        }
 
-.profile-item {
-    margin-bottom: 10px;
-    font-size: 14px;
-}
+        .profile {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
 
-.profile-item strong {
-    color: #374151;
-}
+        .profile h2 {
+            margin-bottom: 20px;
+        }
 
-#loading {
-    text-align: center;
-    padding: 80px 20px;
-    color: #6b7280;
-}
+        .profile-row {
+            margin-bottom: 15px;
+        }
 
-@media (max-width: 700px) {
+        .profile-label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
 
-    nav {
-        padding: 0 5%;
-    }
+        .profile-value {
+            font-weight: 600;
+            word-break: break-word;
+        }
 
-    .logo {
-        font-size: 22px;
-    }
+        @media (max-width: 800px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
 
-    .user-name {
-        display: none;
-    }
+            .welcome h1 {
+                font-size: 26px;
+            }
+        }
 
-    .container {
-        width: 90%;
-        padding: 30px 0;
-    }
+        @media (max-width: 500px) {
+            .navbar {
+                padding: 0 15px;
+            }
 
-    .welcome h1 {
-        font-size: 26px;
-    }
+            .logo {
+                font-size: 21px;
+            }
 
-    .cards {
-        grid-template-columns: 1fr;
-    }
+            .nav-name {
+                display: none;
+            }
 
-    .card {
-        padding: 23px;
-    }
-}
-</style>
+            #dashboard {
+                padding: 25px 15px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<nav>
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">CareerCraft</a>
 
-<a href="index.html" class="logo">
-    CareerCraft
-</a>
+        <div class="nav-right">
+            <span class="nav-name" id="navUserName"></span>
 
-<div class="nav-right">
+            <button class="logout-btn" id="logoutBtn">
+                Logout
+            </button>
+        </div>
+    </nav>
 
-<span id="navUserName" class="user-name">
-    Loading...
-</span>
 
-<button id="logoutButton" class="logout-btn">
-    Logout
-</button>
+    <!-- LOADING -->
+    <div id="loading">
+        Loading your dashboard...
+    </div>
 
-</div>
 
-</nav>
+    <!-- DASHBOARD -->
+    <main id="dashboard">
 
-<main class="container">
+        <section class="welcome">
+            <h1>
+                Welcome, <span id="welcomeName">there</span> 👋
+            </h1>
 
-<div id="loading">
-    Loading your dashboard...
-</div>
+            <p>
+                Manage your CV, find jobs and build your career with CareerCraft.
+            </p>
+        </section>
 
-<div id="dashboard" style="display:none;">
 
-<div class="welcome">
+        <!-- DASHBOARD CARDS -->
+        <section class="cards">
 
-<h1>
-    Welcome, <span id="welcomeName">there</span> 👋
-</h1>
+            <div class="card">
+                <h2>📄 Build Your CV</h2>
 
-<p>
-    Manage your career journey from your CareerCraft dashboard.
-</p>
+                <p>
+                    Create a professional CV that helps you stand out to employers.
+                </p>
 
-</div>
+                <a href="cv-builder.html">
+                    Build CV
+                </a>
+            </div>
 
-<div class="cards">
 
-<div class="card">
+            <div class="card">
+                <h2>🔎 Find Jobs</h2>
 
-<div class="icon">📄</div>
+                <p>
+                    Search for jobs and discover opportunities that match your skills.
+                </p>
 
-<h2>Build My CV</h2>
+                <a href="job-finder.html">
+                    Find Jobs
+                </a>
+            </div>
 
-<p>
-Create a professional CV that helps you stand out to employers.
-</p>
 
-<a href="cv-builder.html">
-    Build CV
-</a>
+            <div class="card">
+                <h2>👤 Your Profile</h2>
 
-</div>
+                <p>
+                    View the account information connected to your CareerCraft account.
+                </p>
 
-<div class="card">
+                <a href="#profile">
+                    View Profile
+                </a>
+            </div>
 
-<div class="icon">💼</div>
+        </section>
 
-<h2>Find Jobs</h2>
 
-<p>
-Search for jobs and discover opportunities that match your career goals.
-</p>
+        <!-- PROFILE -->
+        <section class="profile" id="profile">
 
-<a href="job-finder.html">
-    Find Jobs
-</a>
+            <h2>Your Account</h2>
 
-</div>
+            <div class="profile-row">
+                <div class="profile-label">
+                    Name
+                </div>
 
-<div class="card">
+                <div class="profile-value" id="profileName">
+                    Loading...
+                </div>
+            </div>
 
-<div class="icon">👤</div>
 
-<h2>My Profile</h2>
+            <div class="profile-row">
+                <div class="profile-label">
+                    Email
+                </div>
 
-<p>
-View and manage your CareerCraft account information.
-</p>
+                <div class="profile-value" id="profileEmail">
+                    Loading...
+                </div>
+            </div>
 
-<a href="#profile">
-    View Profile
-</a>
+        </section>
 
-</div>
+    </main>
 
-<div class="card">
 
-<div class="icon">⭐</div>
+    <script>
 
-<h2>My CVs</h2>
+        /*
+         * ============================================
+         * SUPABASE CONFIGURATION
+         * ============================================
+         *
+         * IMPORTANT:
+         * Put the SAME Supabase URL and ANON KEY
+         * that you used on your working login page.
+         */
 
-<p>
-Your saved CVs and career documents will appear here.
-</p>
+        const SUPABASE_URL = "https://upcxmlbgmqhaqieldmyk.supabase.co";
 
-<a href="cv-builder.html">
-    Manage CVs
-</a>
+        const SUPABASE_ANON_KEY = "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
 
-</div>
 
-</div>
+        /*
+         * Create Supabase client
+         */
 
-<div class="profile" id="profile">
-
-<h2>My Profile</h2>
-
-<div class="profile-item">
-<strong>Name:</strong>
-<span id="profileName">Loading...</span>
-</div>
-
-<div class="profile-item">
-<strong>Email:</strong>
-<span id="profileEmail">Loading...</span>
-</div>
-
-</div>
-
-</div>
-
-</main>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-
-const SUPABASE_URL =
-    "https://upcxmlbgmqhaqieldmyk.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
-
-const { createClient } = supabase;
-
-const supabaseClient =
-    createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-const loading =
-    document.getElementById("loading");
-
-const dashboard =
-    document.getElementById("dashboard");
-
-const welcomeName =
-    document.getElementById("welcomeName");
-
-const navUserName =
-    document.getElementById("navUserName");
-
-const profileName =
-    document.getElementById("profileName");
-
-const profileEmail =
-    document.getElementById("profileEmail");
-
-const logoutButton =
-    document.getElementById("logoutButton");
-
-
-async function loadUser() {
-
-    const {
-        data,
-        error
-    } = await supabaseClient.auth.getUser();
-
-    if (error || !data.user) {
-
-        window.location.href =
-            "login.html";
-
-        return;
-    }
-
-    const user =
-        data.user;
-
-    let name =
-        user.user_metadata?.full_name;
-
-    if (!name) {
-        name = "there";
-    }
-
-    welcomeName.textContent =
-        name;
-
-    navUserName.textContent =
-        name;
-
-    profileName.textContent =
-        name;
-
-    profileEmail.textContent =
-        user.email || "";
-
-    localStorage.setItem(
-        "careerCraftName",
-        name
-    );
-
-    loading.style.display =
-        "none";
-
-    dashboard.style.display =
-        "block";
-}
-
-
-logoutButton.addEventListener(
-    "click",
-    async function() {
-
-        logoutButton.disabled = true;
-
-        logoutButton.textContent =
-            "Logging out...";
-
-        const {
-            error
-        } = await supabaseClient.auth.signOut();
-
-        if (error) {
-
-            console.error(
-                "Logout error:",
-                error
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_ANON_KEY
             );
 
-            logoutButton.disabled =
-                false;
 
-            logoutButton.textContent =
-                "Logout";
+        /*
+         * Get dashboard elements
+         */
 
-            return;
+        const loading =
+            document.getElementById("loading");
+
+        const dashboard =
+            document.getElementById("dashboard");
+
+        const welcomeName =
+            document.getElementById("welcomeName");
+
+        const navUserName =
+            document.getElementById("navUserName");
+
+        const profileName =
+            document.getElementById("profileName");
+
+        const profileEmail =
+            document.getElementById("profileEmail");
+
+        const logoutBtn =
+            document.getElementById("logoutBtn");
+
+
+        /*
+         * ============================================
+         * LOAD USER
+         * ============================================
+         *
+         * CORRECTED VERSION:
+         * We use getSession() instead of getUser()
+         * to check the existing login session.
+         */
+
+        async function loadUser() {
+
+            try {
+
+                const {
+                    data: {
+                        session
+                    },
+                    error
+                } = await supabaseClient.auth.getSession();
+
+
+                /*
+                 * If Supabase returns an error
+                 * or there is no logged-in session,
+                 * send the user to login.
+                 */
+
+                if (
+                    error ||
+                    !session ||
+                    !session.user
+                ) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+                }
+
+
+                /*
+                 * Get the logged-in user
+                 */
+
+                const user =
+                    session.user;
+
+
+                /*
+                 * Get the user's name
+                 */
+
+                let name =
+                    user.user_metadata?.full_name;
+
+
+                /*
+                 * If no name exists,
+                 * use "there".
+                 */
+
+                if (!name) {
+                    name = "there";
+                }
+
+
+                /*
+                 * Display user's name
+                 */
+
+                welcomeName.textContent =
+                    name;
+
+                navUserName.textContent =
+                    name;
+
+                profileName.textContent =
+                    name;
+
+
+                /*
+                 * Display email
+                 */
+
+                profileEmail.textContent =
+                    user.email || "";
+
+
+                /*
+                 * Save name locally
+                 */
+
+                localStorage.setItem(
+                    "careerCraftName",
+                    name
+                );
+
+
+                /*
+                 * Hide loading screen
+                 */
+
+                loading.style.display =
+                    "none";
+
+
+                /*
+                 * Show dashboard
+                 */
+
+                dashboard.style.display =
+                    "block";
+
+
+            } catch (err) {
+
+                console.error(
+                    "Dashboard error:",
+                    err
+                );
+
+                /*
+                 * If something goes wrong,
+                 * send user back to login.
+                 */
+
+                window.location.href =
+                    "login.html";
+            }
         }
 
-        localStorage.removeItem(
-            "careerCraftName"
+
+        /*
+         * ============================================
+         * LOGOUT
+         * ============================================
+         */
+
+        logoutBtn.addEventListener(
+            "click",
+            async function () {
+
+                const {
+                    error
+                } = await supabaseClient.auth.signOut();
+
+
+                if (error) {
+
+                    console.error(
+                        "Logout error:",
+                        error
+                    );
+
+                    alert(
+                        "Unable to log out. Please try again."
+                    );
+
+                    return;
+                }
+
+
+                /*
+                 * Clear saved name
+                 */
+
+                localStorage.removeItem(
+                    "careerCraftName"
+                );
+
+
+                /*
+                 * Return to login page
+                 */
+
+                window.location.href =
+                    "login.html";
+            }
         );
 
-        window.location.href =
-            "login.html";
-    }
-);
 
+        /*
+         * ============================================
+         * START DASHBOARD
+         * ============================================
+         */
 
-loadUser();
+        loadUser();
 
-</script>
+    </script>
 
 </body>
-</html>
+    </html>
