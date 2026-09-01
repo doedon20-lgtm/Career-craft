@@ -9,7 +9,6 @@
 
 <title>CareerCraft | CV Builder</title>
 
-<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -25,8 +24,6 @@ body{
     background:#f4f7fb;
     color:#172033;
 }
-
-/* NAVIGATION */
 
 .navbar{
     background:white;
@@ -77,15 +74,8 @@ body{
     color:#2563eb !important;
 }
 
-/* PAGE HEADER */
-
 .page-header{
-    background:linear-gradient(
-        135deg,
-        #0f172a,
-        #2563eb
-    );
-
+    background:linear-gradient(135deg,#0f172a,#2563eb);
     color:white;
     text-align:center;
     padding:55px 20px;
@@ -100,8 +90,6 @@ body{
     color:#dbeafe;
     font-size:15px;
 }
-
-/* BUILDER */
 
 .builder{
     width:92%;
@@ -128,8 +116,6 @@ body{
     line-height:1.6;
     margin-bottom:28px;
 }
-
-/* SECTIONS */
 
 .form-section{
     margin-bottom:30px;
@@ -164,8 +150,7 @@ label{
 }
 
 input,
-textarea,
-select{
+textarea{
     width:100%;
     border:1px solid #cbd5e1;
     border-radius:8px;
@@ -177,8 +162,7 @@ select{
 }
 
 input:focus,
-textarea:focus,
-select:focus{
+textarea:focus{
     border-color:#2563eb;
     box-shadow:0 0 0 3px rgba(37,99,235,.08);
 }
@@ -187,8 +171,6 @@ textarea{
     min-height:120px;
     resize:vertical;
 }
-
-/* BUTTONS */
 
 .button-row{
     display:flex;
@@ -227,14 +209,13 @@ textarea{
     cursor:not-allowed;
 }
 
-/* MESSAGE */
-
 .message{
     display:none;
     margin-top:15px;
     padding:12px;
     border-radius:8px;
     font-size:13px;
+    line-height:1.5;
 }
 
 .message.success{
@@ -247,8 +228,6 @@ textarea{
     color:#991b1b;
 }
 
-/* FOOTER */
-
 footer{
     background:#0f172a;
     color:#94a3b8;
@@ -256,8 +235,6 @@ footer{
     padding:28px 20px;
     font-size:13px;
 }
-
-/* MOBILE */
 
 @media(max-width:700px){
 
@@ -301,8 +278,6 @@ footer{
 <body>
 
 
-<!-- NAVIGATION -->
-
 <header class="navbar">
 
 <div class="nav-inner">
@@ -340,8 +315,6 @@ Job Finder
 </header>
 
 
-<!-- HEADER -->
-
 <section class="page-header">
 
 <h1>
@@ -354,8 +327,6 @@ Build a professional CV in minutes and get ready for your next opportunity.
 
 </section>
 
-
-<!-- BUILDER -->
 
 <main class="builder">
 
@@ -379,6 +350,7 @@ Personal Information
 </h3>
 
 <div class="form-grid">
+
 
 <div class="form-group">
 
@@ -449,12 +421,13 @@ placeholder="e.g. Virtual Assistant">
 
 </div>
 
+
 </div>
 
 </section>
 
 
-<!-- PROFESSIONAL SUMMARY -->
+<!-- SUMMARY -->
 
 <section class="form-section">
 
@@ -509,6 +482,7 @@ Work Experience
 </h3>
 
 <div class="form-grid">
+
 
 <div class="form-group">
 
@@ -578,6 +552,7 @@ placeholder="Example: Managed daily administrative tasks, responded to customer 
 
 </div>
 
+
 </div>
 
 </section>
@@ -621,8 +596,6 @@ class="message">
 </main>
 
 
-<!-- FOOTER -->
-
 <footer>
 
 CareerCraft © 2026 — Build a better career.
@@ -632,18 +605,26 @@ CareerCraft © 2026 — Build a better career.
 
 <script>
 
+
 /* ==================================================
-   SUPABASE CONFIGURATION
-   ================================================== */
+   SUPABASE
+================================================== */
+
+
+/*
+   IMPORTANT:
+   Replace these with the SAME values
+   from your working dashboard.html
+*/
+
 
 const SUPABASE_URL =
 "https://upcxmlbgmqhaqieldmyk.supabase.co";
 
+
 const SUPABASE_ANON_KEY =
 "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
 
-
-/* CREATE SUPABASE CLIENT */
 
 const supabaseClient =
 window.supabase.createClient(
@@ -653,8 +634,8 @@ window.supabase.createClient(
 
 
 /* ==================================================
-   GET FORM ELEMENTS
-   ================================================== */
+   ELEMENTS
+================================================== */
 
 const saveButton =
 document.getElementById("saveButton");
@@ -664,23 +645,25 @@ document.getElementById("message");
 
 
 /* ==================================================
-   SHOW MESSAGE
-   ================================================== */
+   MESSAGE
+================================================== */
 
-function showMessage(text, type){
+function showMessage(text,type){
 
     message.textContent = text;
 
     message.className =
         "message " + type;
 
-    message.style.display = "block";
+    message.style.display =
+        "block";
+
 }
 
 
 /* ==================================================
    GET CV DATA
-   ================================================== */
+================================================== */
 
 function getCVData(){
 
@@ -740,82 +723,52 @@ function getCVData(){
 
 
 /* ==================================================
+   GENERATE TEXT ID
+================================================== */
+
+function generateId(){
+
+    return (
+        Date.now().toString(36) +
+        "-" +
+        Math.random()
+        .toString(36)
+        .substring(2,12)
+    );
+
+}
+
+
+/* ==================================================
    SAVE CV
-   ================================================== */
+================================================== */
 
 async function saveAndPreview(){
 
+    saveButton.disabled = true;
+
+    saveButton.textContent =
+        "Saving your CV...";
+
+
     try{
 
-        saveButton.disabled = true;
-
-        saveButton.textContent =
-            "Saving your CV...";
-
-
-        /*
-         * CHECK LOGIN SESSION
-         */
+        /* CHECK LOGIN */
 
         const {
-            data: {
-                session
-            },
+            data,
             error: sessionError
         } =
         await supabaseClient
-            .auth
-            .getSession();
+        .auth
+        .getSession();
 
 
-        if(
-            sessionError ||
-            !session ||
-            !session.user
-        ){
+        if(sessionError){
 
-            showMessage(
-                "Your login session has expired. Please log in again.",
-                "error"
-            );
-
-            setTimeout(function(){
-
-                window.location.href =
-                    "login.html";
-
-            },1500);
-
-            return;
-
-        }
-
-
-        /*
-         * GET USER
-         */
-
-        const user =
-            session.user;
-
-
-        /*
-         * GET FORM DATA
-         */
-
-        const cv =
-            getCVData();
-
-
-        /*
-         * REQUIRE NAME
-         */
-
-        if(!cv.fullName){
-
-            showMessage(
-                "Please enter your full name before saving your CV.",
-                "error"
+            alert(
+                "SESSION ERROR\n\n" +
+                sessionError.message
             );
 
             saveButton.disabled = false;
@@ -828,12 +781,55 @@ async function saveAndPreview(){
         }
 
 
-        /*
-         * SAVE A COPY LOCALLY
-         *
-         * This keeps your existing
-         * cv-preview.html working.
-         */
+        if(
+            !data ||
+            !data.session ||
+            !data.session.user
+        ){
+
+            alert(
+                "You are not logged in.\n\nPlease log in first."
+            );
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        /* USER */
+
+        const user =
+            data.session.user;
+
+
+        /* FORM DATA */
+
+        const cv =
+            getCVData();
+
+
+        /* NAME REQUIRED */
+
+        if(!cv.fullName){
+
+            alert(
+                "Please enter your full name."
+            );
+
+            saveButton.disabled = false;
+
+            saveButton.textContent =
+                "Save & View My CV →";
+
+            return;
+
+        }
+
+
+        /* SAVE LOCAL COPY */
 
         localStorage.setItem(
             "careerCraftCV",
@@ -841,75 +837,99 @@ async function saveAndPreview(){
         );
 
 
-        /*
-         * INSERT INTO SUPABASE
-         */
+        /* CREATE ID */
 
-        const { data, error } =
+        const cvId =
+            generateId();
+
+
+        /* INSERT INTO SUPABASE */
+
+        const {
+            error
+        } =
         await supabaseClient
-            .from("cvs")
-            .insert({
+        .from("cvs")
+        .insert({
 
-                user_id:
-                    user.id,
+            id:
+                cvId,
 
-                title:
-                    cv.professionalTitle ||
-                    "My CV",
+            user_id:
+                String(user.id),
 
-                full_name:
-                    cv.fullName,
+            title:
+                cv.professionalTitle ||
+                "My CV",
 
-                email:
-                    cv.email,
+            full_name:
+                cv.fullName,
 
-                phone:
-                    cv.phone,
+            email:
+                cv.email,
 
-                location:
-                    cv.location,
+            phone:
+                cv.phone,
 
-                professional_summary:
-                    cv.summary,
+            location:
+                cv.location,
 
-                education:
-                    cv.education,
+            professional_summary:
+                cv.summary,
 
-                experience:
-                    cv.experience,
+            education:
+                cv.education,
 
-                skills:
-                    cv.skills,
+            experience:
+                cv.experience,
 
-                certifications:
-                    "",
+            skills:
+                cv.skills,
 
-                projects:
-                    "",
+            certifications:
+                "",
 
-                languages:
-                    ""
+            projects:
+                "",
 
-            })
-            .select()
-            .single();
+            languages:
+                ""
+
+        });
 
 
-        /*
-         * CHECK SUPABASE ERROR
-         */
+        /* CHECK ERROR */
 
         if(error){
 
             console.error(
-                "Supabase save error:",
+                "SUPABASE ERROR:",
                 error
             );
 
+
+            alert(
+                "SUPABASE ERROR\n\n" +
+
+                "Message:\n" +
+                (error.message || "Unknown error") +
+
+                "\n\nCode:\n" +
+                (error.code || "None") +
+
+                "\n\nDetails:\n" +
+                (error.details || "None") +
+
+                "\n\nHint:\n" +
+                (error.hint || "None")
+            );
+
+
             showMessage(
-                "Your CV could not be saved. Please try again.",
+                "Your CV could not be saved. Check the error message.",
                 "error"
             );
+
 
             saveButton.disabled = false;
 
@@ -921,55 +941,53 @@ async function saveAndPreview(){
         }
 
 
-        /*
-         * SAVE THE SUPABASE CV ID LOCALLY
-         */
+        /* SAVE ID LOCALLY */
 
-        if(data && data.id){
-
-            localStorage.setItem(
-                "careerCraftCVId",
-                data.id
-            );
-
-        }
+        localStorage.setItem(
+            "careerCraftCVId",
+            cvId
+        );
 
 
-        /*
-         * SUCCESS
-         */
+        /* SUCCESS */
 
         showMessage(
-            "Your CV has been saved successfully! Opening your CV preview...",
+            "Your CV has been saved successfully!",
             "success"
         );
 
 
-        /*
-         * OPEN PREVIEW
-         */
+        /* OPEN PREVIEW */
 
         setTimeout(function(){
 
             window.location.href =
                 "cv-preview.html";
 
-        },800);
+        },1000);
+
 
     }
-
 
     catch(error){
 
         console.error(
-            "Unexpected save error:",
+            "UNEXPECTED ERROR:",
             error
         );
+
+
+        alert(
+            "UNEXPECTED ERROR\n\n" +
+            error.message
+        );
+
 
         showMessage(
             "Something went wrong while saving your CV.",
             "error"
         );
+
 
         saveButton.disabled = false;
 
@@ -983,7 +1001,7 @@ async function saveAndPreview(){
 
 /* ==================================================
    CLEAR FORM
-   ================================================== */
+================================================== */
 
 function clearCV(){
 
@@ -1022,8 +1040,8 @@ function clearCV(){
 
 
 /* ==================================================
-   LOAD LOCAL CV
-   ================================================== */
+   LOAD SAVED CV
+================================================== */
 
 window.addEventListener(
     "DOMContentLoaded",
@@ -1082,4 +1100,4 @@ window.addEventListener(
 
 </body>
 
-    </html>
+</html>
