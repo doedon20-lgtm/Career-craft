@@ -1,11 +1,16 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>CareerCraft - Build Your Career</title>
+    <title>CareerCraft | Build Your Career</title>
+
+    <meta
+        name="description"
+        content="CareerCraft helps you build professional CVs, choose beautiful templates, review your CV and find jobs."
+    >
 
     <style>
 
@@ -15,10 +20,14 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: Arial, Helvetica, sans-serif;
-            color: #172033;
             background: #ffffff;
+            color: #172033;
             line-height: 1.6;
         }
 
@@ -27,25 +36,35 @@
             color: inherit;
         }
 
-        /* NAVBAR */
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
 
         .navbar {
             width: 100%;
+            min-height: 74px;
+            padding: 14px 6%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 18px 6%;
-            background: white;
-            border-bottom: 1px solid #eeeeee;
+            gap: 30px;
+            background: rgba(255,255,255,0.96);
+            border-bottom: 1px solid #edf0f4;
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
         .logo {
-            font-size: 25px;
+            font-size: 27px;
             font-weight: 800;
-            color: #172033;
+            letter-spacing: -1px;
+            white-space: nowrap;
         }
 
         .logo span {
@@ -55,45 +74,56 @@
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 22px;
+            justify-content: flex-end;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         .nav-links a {
-            font-size: 14px;
-            font-weight: 600;
             color: #4b5563;
-            transition: 0.2s;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.2s ease;
         }
 
         .nav-links a:hover {
             color: #2563eb;
         }
 
-        .dashboard-nav {
+        .nav-dashboard {
             color: #2563eb !important;
         }
 
-        .signup-nav {
+        .nav-signup {
             background: #2563eb;
-            color: white !important;
+            color: #ffffff !important;
             padding: 10px 17px;
-            border-radius: 8px;
+            border-radius: 9px;
         }
 
-        .signup-nav:hover {
+        .nav-signup:hover {
             background: #1d4ed8;
         }
 
-        /* HERO */
+        /* =========================
+           HERO
+        ========================= */
 
         .hero {
-            min-height: 620px;
-            display: flex;
+            background:
+                radial-gradient(circle at 85% 15%, #dbeafe 0, transparent 28%),
+                linear-gradient(135deg, #f8fbff 0%, #ffffff 60%);
+            padding: 80px 6% 75px;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
             align-items: center;
-            justify-content: space-between;
-            padding: 80px 7%;
-            background: linear-gradient(135deg, #eff6ff, #ffffff);
-            gap: 50px;
+            gap: 70px;
         }
 
         .hero-content {
@@ -101,52 +131,68 @@
         }
 
         .hero-badge {
-            display: inline-block;
-            background: #dbeafe;
-            color: #1d4ed8;
-            padding: 8px 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
             border-radius: 30px;
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            color: #2563eb;
             font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-weight: 800;
+            margin-bottom: 22px;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
         }
 
         .hero h1 {
-            font-size: 55px;
-            line-height: 1.1;
-            margin-bottom: 22px;
+            font-size: 57px;
+            line-height: 1.08;
+            letter-spacing: -2px;
             color: #111827;
+            margin-bottom: 22px;
         }
 
         .hero h1 span {
             color: #2563eb;
         }
 
-        .hero p {
-            font-size: 18px;
+        .hero-description {
+            max-width: 590px;
             color: #667085;
-            max-width: 580px;
+            font-size: 18px;
             margin-bottom: 30px;
         }
 
         .hero-buttons {
             display: flex;
-            gap: 14px;
+            gap: 13px;
             flex-wrap: wrap;
+            margin-bottom: 28px;
         }
 
         .button {
-            display: inline-block;
-            padding: 14px 23px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 13px 21px;
             border-radius: 9px;
-            font-weight: 700;
             font-size: 15px;
-            transition: 0.2s;
+            font-weight: 800;
+            transition: 0.2s ease;
         }
 
         .primary-button {
             background: #2563eb;
-            color: white;
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(37,99,235,0.2);
         }
 
         .primary-button:hover {
@@ -154,403 +200,1063 @@
             transform: translateY(-2px);
         }
 
-        .secondary-button {
-            background: white;
+        .outline-button {
+            border: 1px solid #cbd5e1;
+            background: #ffffff;
+            color: #172033;
+        }
+
+        .outline-button:hover {
+            border-color: #2563eb;
             color: #2563eb;
-            border: 1px solid #2563eb;
         }
 
-        .secondary-button:hover {
-            background: #eff6ff;
+        .hero-note {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #667085;
+            font-size: 13px;
+            font-weight: 600;
         }
 
-        .template-hero-button {
-            background: #111827;
+        .check {
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #dcfce7;
+            color: #16a34a;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        /* =========================
+           HERO DASHBOARD PREVIEW
+        ========================= */
+
+        .hero-product {
+            position: relative;
+        }
+
+        .product-window {
+            background: #ffffff;
+            border: 1px solid #e4e9f0;
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(15,23,42,0.13);
+            overflow: hidden;
+        }
+
+        .window-top {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 0 17px;
+            background: #f8fafc;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .window-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #cbd5e1;
+        }
+
+        .product-body {
+            display: grid;
+            grid-template-columns: 145px 1fr;
+            min-height: 390px;
+        }
+
+        .product-sidebar {
+            background: #172033;
+            padding: 22px 14px;
+        }
+
+        .side-brand {
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            padding-left: 8px;
+        }
+
+        .side-brand span {
+            color: #60a5fa;
+        }
+
+        .side-item {
+            color: #b8c1d1;
+            padding: 10px 9px;
+            margin-bottom: 5px;
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .side-item.active {
+            background: #2563eb;
             color: white;
         }
 
-        .template-hero-button:hover {
-            background: #000000;
+        .product-main {
+            padding: 22px;
+            background: #f8fafc;
         }
 
-        /* HERO VISUAL */
-
-        .hero-visual {
-            width: 420px;
-            min-width: 350px;
-        }
-
-        .cv-card {
-            background: white;
-            border-radius: 18px;
-            padding: 25px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-            transform: rotate(2deg);
-        }
-
-        .cv-top {
+        .product-welcome {
             display: flex;
+            justify-content: space-between;
             gap: 15px;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
-        .profile-circle {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
+        .product-welcome h3 {
+            font-size: 17px;
+            color: #172033;
+        }
+
+        .product-welcome p {
+            color: #94a3b8;
+            font-size: 10px;
+            margin-top: 2px;
+        }
+
+        .avatar {
+            width: 37px;
+            height: 37px;
             background: #dbeafe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563eb;
+            font-weight: 800;
+            font-size: 13px;
         }
 
-        .cv-name {
-            width: 150px;
-            height: 13px;
-            background: #1f2937;
+        .product-stats {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .product-stat {
+            background: #ffffff;
+            border: 1px solid #e8edf3;
+            border-radius: 9px;
+            padding: 13px;
+        }
+
+        .product-stat strong {
+            display: block;
+            font-size: 20px;
+            color: #172033;
+        }
+
+        .product-stat span {
+            color: #94a3b8;
+            font-size: 9px;
+        }
+
+        .dashboard-panel {
+            background: #ffffff;
+            border: 1px solid #e8edf3;
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 10px;
+        }
+
+        .panel-title {
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .cv-row {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .cv-icon {
+            width: 37px;
+            height: 42px;
             border-radius: 5px;
-            margin-bottom: 8px;
+            background: #eff6ff;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
         }
 
-        .cv-title {
-            width: 110px;
-            height: 9px;
-            background: #93c5fd;
-            border-radius: 5px;
+        .cv-row-text {
+            flex: 1;
         }
 
-        .cv-line {
-            height: 9px;
+        .cv-row-text strong {
+            display: block;
+            font-size: 11px;
+        }
+
+        .cv-row-text span {
+            color: #94a3b8;
+            font-size: 9px;
+        }
+
+        .small-progress {
+            width: 70px;
+            height: 6px;
             background: #e5e7eb;
-            border-radius: 5px;
-            margin: 10px 0;
+            border-radius: 20px;
+            overflow: hidden;
         }
 
-        .cv-line.short {
-            width: 65%;
-        }
-
-        .cv-line.medium {
+        .small-progress div {
             width: 80%;
-        }
-
-        .cv-section {
-            margin-top: 22px;
-        }
-
-        .cv-section-title {
-            width: 100px;
-            height: 11px;
+            height: 100%;
             background: #2563eb;
-            border-radius: 5px;
-            margin-bottom: 10px;
         }
 
-        /* SECTION */
+        .job-mini {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 9px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .job-mini:last-child {
+            border-bottom: 0;
+        }
+
+        .job-company {
+            width: 30px;
+            height: 30px;
+            border-radius: 7px;
+            background: #eff6ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563eb;
+            font-weight: 800;
+            font-size: 11px;
+        }
+
+        .job-info {
+            flex: 1;
+        }
+
+        .job-info strong {
+            display: block;
+            font-size: 10px;
+        }
+
+        .job-info span {
+            color: #94a3b8;
+            font-size: 8px;
+        }
+
+        .job-status {
+            color: #16a34a;
+            font-size: 8px;
+            font-weight: 800;
+        }
+
+        /* =========================
+           QUICK ACCESS
+        ========================= */
+
+        .quick-section {
+            margin-top: -1px;
+            padding: 25px 6%;
+            background: #ffffff;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .quick-container {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 13px;
+        }
+
+        .quick-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            border: 1px solid #e8edf3;
+            border-radius: 11px;
+            background: #ffffff;
+            transition: 0.2s;
+        }
+
+        .quick-card:hover {
+            border-color: #bfdbfe;
+            box-shadow: 0 8px 25px rgba(15,23,42,0.05);
+            transform: translateY(-2px);
+        }
+
+        .quick-icon {
+            width: 39px;
+            height: 39px;
+            border-radius: 9px;
+            background: #eff6ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .quick-card strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .quick-card span {
+            color: #94a3b8;
+            font-size: 10px;
+        }
+
+        /* =========================
+           GENERAL SECTION
+        ========================= */
 
         .section {
-            padding: 80px 7%;
+            padding: 85px 6%;
         }
 
-        .section-heading {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-heading h2 {
-            font-size: 36px;
-            color: #111827;
-            margin-bottom: 10px;
-        }
-
-        .section-heading p {
-            color: #6b7280;
-            max-width: 600px;
+        .section-container {
+            max-width: 1200px;
             margin: auto;
         }
 
-        /* CAREER TOOLS */
+        .section-heading {
+            max-width: 680px;
+            margin: 0 auto 45px;
+            text-align: center;
+        }
+
+        .section-heading .eyebrow {
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 9px;
+        }
+
+        .section-heading h2 {
+            color: #111827;
+            font-size: 38px;
+            line-height: 1.2;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .section-heading p {
+            color: #667085;
+            font-size: 15px;
+        }
+
+        /* =========================
+           TOOLS
+        ========================= */
 
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 22px;
+            grid-template-columns: repeat(4,1fr);
+            gap: 17px;
         }
 
         .tool-card {
-            background: white;
+            padding: 26px;
+            background: #ffffff;
             border: 1px solid #e5e7eb;
-            border-radius: 15px;
-            padding: 28px;
+            border-radius: 14px;
             transition: 0.25s;
         }
 
         .tool-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            transform: translateY(-5px);
             border-color: #bfdbfe;
+            box-shadow: 0 16px 40px rgba(15,23,42,0.07);
         }
 
         .tool-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
-            background: #eff6ff;
+            width: 48px;
+            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 25px;
-            margin-bottom: 20px;
+            border-radius: 11px;
+            background: #eff6ff;
+            font-size: 22px;
+            margin-bottom: 18px;
         }
 
         .tool-card h3 {
-            margin-bottom: 10px;
-            font-size: 20px;
+            font-size: 18px;
+            margin-bottom: 8px;
         }
 
         .tool-card p {
+            min-height: 67px;
             color: #6b7280;
-            font-size: 14px;
-            margin-bottom: 20px;
+            font-size: 13px;
+            margin-bottom: 17px;
         }
 
         .tool-link {
             color: #2563eb;
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 13px;
+            font-weight: 800;
         }
 
-        /* DASHBOARD FEATURE */
+        /* =========================
+           JOB SEARCH
+        ========================= */
 
-        .dashboard-section {
+        .jobs-section {
             background: #f8fafc;
         }
 
-        .dashboard-box {
+        .jobs-layout {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 50px;
             align-items: center;
-            gap: 60px;
-            max-width: 1100px;
-            margin: auto;
         }
 
-        .dashboard-text h2 {
-            font-size: 38px;
+        .jobs-text h2 {
+            font-size: 39px;
+            line-height: 1.2;
             margin-bottom: 15px;
+            letter-spacing: -1px;
         }
 
-        .dashboard-text p {
+        .jobs-text > p {
             color: #667085;
-            margin-bottom: 25px;
+            font-size: 15px;
+            margin-bottom: 24px;
         }
 
-        .dashboard-list {
+        .job-benefits {
             list-style: none;
             margin-bottom: 25px;
         }
 
-        .dashboard-list li {
-            margin: 12px 0;
-            font-weight: 600;
-        }
-
-        .dashboard-preview {
-            background: white;
-            padding: 22px;
-            border-radius: 18px;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
-        }
-
-        .dashboard-preview-header {
+        .job-benefits li {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .dashboard-preview-title {
-            font-weight: 800;
-            font-size: 19px;
-        }
-
-        .dashboard-small-button {
-            background: #2563eb;
-            color: white;
-            padding: 7px 12px;
-            border-radius: 7px;
-            font-size: 12px;
+            align-items: center;
+            gap: 10px;
+            margin: 12px 0;
+            color: #374151;
+            font-size: 14px;
             font-weight: 700;
         }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-
-        .stat {
-            background: #f8fafc;
+        .jobs-preview {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 17px;
             padding: 18px;
-            border-radius: 10px;
+            box-shadow: 0 15px 45px rgba(15,23,42,0.06);
         }
 
-        .stat strong {
+        .jobs-search {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .fake-input {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: #64748b;
+            font-size: 11px;
+            background: #ffffff;
+        }
+
+        .search-button {
+            border: 0;
+            background: #2563eb;
+            color: white;
+            border-radius: 8px;
+            padding: 0 15px;
+            font-weight: 800;
+            font-size: 11px;
+        }
+
+        .job-card {
+            border: 1px solid #edf0f4;
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 10px;
+        }
+
+        .job-card-top {
+            display: flex;
+            gap: 11px;
+        }
+
+        .company-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: #eff6ff;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+        }
+
+        .job-card-info {
+            flex: 1;
+        }
+
+        .job-card-info h4 {
+            font-size: 13px;
+        }
+
+        .job-card-info p {
+            color: #64748b;
+            font-size: 10px;
+        }
+
+        .job-tag {
+            display: inline-block;
+            background: #f1f5f9;
+            color: #475569;
+            padding: 4px 7px;
+            border-radius: 5px;
+            font-size: 8px;
+            font-weight: 700;
+            margin-top: 8px;
+            margin-right: 4px;
+        }
+
+        /* =========================
+           TEMPLATES
+        ========================= */
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 17px;
+        }
+
+        .template-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 13px;
+            padding: 11px;
+            background: #ffffff;
+            transition: 0.2s;
+        }
+
+        .template-card:hover {
+            border-color: #2563eb;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(15,23,42,0.08);
+        }
+
+        .template-paper {
+            height: 235px;
+            border-radius: 7px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            padding: 15px;
+            overflow: hidden;
+        }
+
+        .template-header {
+            height: 42px;
+            background: #172033;
+            margin: -15px -15px 13px;
+            padding: 13px;
+        }
+
+        .template-header span {
             display: block;
-            font-size: 25px;
+            width: 65px;
+            height: 7px;
+            background: #ffffff;
+            border-radius: 3px;
+        }
+
+        .template-header small {
+            display: block;
+            width: 42px;
+            height: 4px;
+            background: #93c5fd;
+            margin-top: 5px;
+            border-radius: 3px;
+        }
+
+        .template-line {
+            height: 5px;
+            background: #dbe2ea;
+            border-radius: 3px;
+            margin: 7px 0;
+        }
+
+        .template-line.short {
+            width: 65%;
+        }
+
+        .template-title {
+            width: 55px;
+            height: 6px;
+            background: #2563eb;
+            border-radius: 3px;
+            margin: 14px 0 8px;
+        }
+
+        .template-card h3 {
+            font-size: 14px;
+            margin: 12px 4px 3px;
+        }
+
+        .template-card p {
+            color: #94a3b8;
+            font-size: 10px;
+            margin: 0 4px 7px;
+        }
+
+        .template-link {
+            color: #2563eb;
+            font-size: 11px;
+            font-weight: 800;
+            margin-left: 4px;
+        }
+
+        .template-modern .template-header {
+            background: #2563eb;
+        }
+
+        .template-minimal .template-header {
+            background: #ffffff;
+            border-bottom: 2px solid #172033;
+        }
+
+        .template-minimal .template-header span {
+            background: #172033;
+        }
+
+        .template-minimal .template-header small {
+            background: #94a3b8;
+        }
+
+        .template-executive .template-header {
+            background: #0f172a;
+        }
+
+        /* =========================
+           APPLICATION TRACKER
+        ========================= */
+
+        .tracker-section {
+            background: #172033;
+            color: white;
+        }
+
+        .tracker-layout {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 55px;
+            align-items: center;
+        }
+
+        .tracker-text .eyebrow {
+            color: #60a5fa;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            margin-bottom: 9px;
+        }
+
+        .tracker-text h2 {
+            font-size: 38px;
+            line-height: 1.2;
+            margin-bottom: 14px;
+        }
+
+        .tracker-text p {
+            color: #cbd5e1;
+            font-size: 15px;
+            margin-bottom: 23px;
+        }
+
+        .tracker-points {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .tracker-points li {
+            color: #e2e8f0;
+            margin: 10px 0;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .tracker-button {
+            background: #ffffff;
+            color: #172033;
+        }
+
+        .tracker-button:hover {
+            background: #eff6ff;
+        }
+
+        .tracker-preview {
+            background: #ffffff;
+            color: #172033;
+            border-radius: 16px;
+            padding: 19px;
+        }
+
+        .tracker-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .tracker-head h3 {
+            font-size: 15px;
+        }
+
+        .tracker-head span {
+            color: #2563eb;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .tracker-stats {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .tracker-stat {
+            background: #f8fafc;
+            padding: 11px;
+            border-radius: 8px;
+        }
+
+        .tracker-stat strong {
+            display: block;
+            font-size: 18px;
+        }
+
+        .tracker-stat span {
+            color: #94a3b8;
+            font-size: 8px;
+        }
+
+        .application-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 0;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .application-row:last-child {
+            border-bottom: 0;
+        }
+
+        .application-logo {
+            width: 34px;
+            height: 34px;
+            border-radius: 7px;
+            background: #eff6ff;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .application-info {
+            flex: 1;
+        }
+
+        .application-info strong {
+            display: block;
+            font-size: 10px;
+        }
+
+        .application-info span {
+            color: #94a3b8;
+            font-size: 8px;
+        }
+
+        .application-status {
+            font-size: 8px;
+            font-weight: 800;
+            padding: 5px 7px;
+            border-radius: 5px;
+            background: #eff6ff;
             color: #2563eb;
         }
 
-        .stat span {
-            font-size: 12px;
-            color: #6b7280;
+        .application-status.interview {
+            background: #fef3c7;
+            color: #a16207;
         }
 
-        /* HOW IT WORKS */
+        /* =========================
+           HOW IT WORKS
+        ========================= */
 
         .steps {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
+            grid-template-columns: repeat(4,1fr);
+            gap: 20px;
         }
 
         .step {
             text-align: center;
-            padding: 25px;
+            padding: 20px;
         }
 
         .step-number {
-            width: 55px;
-            height: 55px;
-            margin: auto auto 18px;
-            border-radius: 50%;
-            background: #2563eb;
-            color: white;
+            width: 53px;
+            height: 53px;
+            margin: 0 auto 17px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            font-weight: 800;
+            background: #eff6ff;
+            color: #2563eb;
+            border: 1px solid #dbeafe;
+            border-radius: 50%;
+            font-size: 17px;
+            font-weight: 900;
         }
 
         .step h3 {
-            margin-bottom: 8px;
+            font-size: 17px;
+            margin-bottom: 7px;
         }
 
         .step p {
             color: #6b7280;
-            font-size: 14px;
+            font-size: 12px;
         }
 
-        /* CTA */
+        /* =========================
+           CTA
+        ========================= */
 
-        .cta {
-            margin: 0 7% 80px;
-            padding: 60px 30px;
-            background: #172033;
+        .cta-section {
+            padding: 20px 6% 85px;
+        }
+
+        .cta-box {
+            max-width: 1200px;
+            margin: auto;
+            background: linear-gradient(135deg,#2563eb,#1d4ed8);
             color: white;
-            border-radius: 20px;
+            border-radius: 19px;
+            padding: 55px 30px;
             text-align: center;
         }
 
-        .cta h2 {
-            font-size: 35px;
-            margin-bottom: 12px;
+        .cta-box h2 {
+            font-size: 37px;
+            line-height: 1.2;
+            margin-bottom: 11px;
         }
 
-        .cta p {
-            color: #cbd5e1;
-            margin-bottom: 25px;
+        .cta-box p {
+            color: #dbeafe;
+            max-width: 570px;
+            margin: 0 auto 24px;
+            font-size: 14px;
         }
 
         .cta-buttons {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
-        .cta-button {
-            padding: 13px 22px;
-            border-radius: 8px;
-            font-weight: 700;
-            display: inline-block;
-        }
-
-        .cta-button.primary {
-            background: #2563eb;
-            color: white;
-        }
-
-        .cta-button.secondary {
-            background: white;
+        .cta-white {
+            background: #ffffff;
             color: #172033;
         }
 
-        /* FOOTER */
+        .cta-outline {
+            border: 1px solid rgba(255,255,255,0.6);
+            color: white;
+        }
+
+        .cta-outline:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
 
         footer {
             background: #f8fafc;
             border-top: 1px solid #e5e7eb;
-            padding: 45px 7% 25px;
+            padding: 55px 6% 25px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 50px;
-            margin-bottom: 30px;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 45px;
+            padding-bottom: 35px;
         }
 
         .footer-brand p {
-            color: #6b7280;
-            max-width: 350px;
+            max-width: 330px;
+            color: #64748b;
+            font-size: 13px;
             margin-top: 12px;
-            font-size: 14px;
         }
 
-        footer h4 {
+        .footer-column h4 {
+            font-size: 13px;
             margin-bottom: 14px;
         }
 
-        footer a {
+        .footer-column a {
             display: block;
-            color: #6b7280;
-            font-size: 14px;
-            margin: 8px 0;
+            color: #64748b;
+            font-size: 12px;
+            margin: 9px 0;
         }
 
-        footer a:hover {
+        .footer-column a:hover {
             color: #2563eb;
         }
 
-        .copyright {
-            border-top: 1px solid #e5e7eb;
+        .footer-bottom {
             padding-top: 20px;
-            text-align: center;
-            color: #9ca3af;
-            font-size: 13px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            color: #94a3b8;
+            font-size: 11px;
         }
 
-        /* MOBILE */
+        /* =========================
+           MOBILE
+        ========================= */
 
-        @media (max-width: 1000px) {
+        @media (max-width: 1050px) {
 
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .nav-links {
+                gap: 13px;
+            }
+
+            .hero-container {
+                gap: 40px;
+            }
+
+            .hero h1 {
+                font-size: 47px;
+            }
+
+            .tools-grid,
+            .template-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .quick-container {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .jobs-layout,
+            .tracker-layout {
+                grid-template-columns: 1fr;
             }
 
             .steps {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 760px) {
+
+            .navbar {
+                padding: 15px 5%;
+                flex-direction: column;
+                gap: 13px;
+                position: relative;
+            }
+
+            .logo {
+                font-size: 29px;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                gap: 9px 15px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .nav-signup {
+                padding: 8px 12px;
             }
 
             .hero {
-                flex-direction: column;
-                text-align: center;
+                padding: 55px 5% 50px;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
             }
 
             .hero-content {
-                max-width: 700px;
+                text-align: center;
             }
 
-            .hero p {
+            .hero h1 {
+                font-size: 40px;
+                letter-spacing: -1.5px;
+            }
+
+            .hero-description {
+                font-size: 16px;
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -559,683 +1265,100 @@
                 justify-content: center;
             }
 
-            .dashboard-box {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-        @media (max-width: 750px) {
-
-            .navbar {
-                padding: 15px 5%;
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .nav-links {
-                width: 100%;
+            .hero-note {
                 justify-content: center;
                 flex-wrap: wrap;
-                gap: 12px;
             }
 
-            .nav-links a {
-                font-size: 12px;
+            .product-body {
+                grid-template-columns: 105px 1fr;
             }
 
-            .hero {
-                padding: 60px 5%;
+            .product-sidebar {
+                padding: 18px 8px;
             }
 
-            .hero h1 {
-                font-size: 39px;
+            .side-brand {
+                font-size: 13px;
             }
 
-            .hero p {
-                font-size: 16px;
+            .side-item {
+                font-size: 9px;
             }
 
-            .hero-visual {
-                width: 100%;
-                min-width: 0;
-                max-width: 420px;
+            .product-main {
+                padding: 13px;
+            }
+
+            .product-stats {
+                grid-template-columns: repeat(3,1fr);
+            }
+
+            .product-stat {
+                padding: 8px;
+            }
+
+            .product-stat strong {
+                font-size: 15px;
+            }
+
+            .product-stat span {
+                font-size: 7px;
+            }
+
+            .quick-section {
+                padding: 15px 5%;
+            }
+
+            .quick-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .quick-card {
+                padding: 11px;
             }
 
             .section {
-                padding: 60px 5%;
+                padding: 65px 5%;
             }
 
-            .section-heading h2 {
+            .section-heading {
+                margin-bottom: 32px;
+            }
+
+            .section-heading h2,
+            .jobs-text h2,
+            .tracker-text h2 {
                 font-size: 30px;
             }
 
-            .tools-grid {
+            .tools-grid,
+            .template-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .tool-card p {
+                min-height: auto;
+            }
+
+            .jobs-search {
+                grid-template-columns: 1fr;
+            }
+
+            .search-button {
+                min-height: 38px;
+            }
+
+            .tracker-stats {
+                grid-template-columns: repeat(2,1fr);
             }
 
             .steps {
                 grid-template-columns: 1fr;
             }
 
-            .stats {
-                grid-template-columns: 1fr;
+            .cta-section {
+                padding: 5px 5% 65px;
             }
 
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-
-            .cta {
-                margin-left: 5%;
-                margin-right: 5%;
-            }
-
-            .cta h2 {
-                font-size: 28px;
-            }
-
-        }
-
-    </style>
-</head>
-
-<body>
-
-    <!-- NAVIGATION -->
-
-    <header class="navbar">
-
-        <a href="index.html" class="logo">
-            Career<span>Craft</span>
-        </a>
-
-        <nav class="nav-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="dashboard.html" class="dashboard-nav">
-                Dashboard
-            </a>
-
-            <a href="cv-builder.html">
-                CV Builder
-            </a>
-
-            <a href="cv-templates.html">
-                CV Templates
-            </a>
-
-            <a href="cv-review.html">
-                CV Review
-            </a>
-
-            <a href="job-finder.html">
-                Find Jobs
-            </a>
-
-            <a href="saved-jobs.html">
-                Saved Jobs
-            </a>
-
-            <a href="login.html">
-                Login
-            </a>
-
-            <a href="signup/create-account.html" class="signup-nav">
-                Sign Up
-            </a>
-
-        </nav>
-
-    </header>
-
-
-    <!-- HERO -->
-
-    <section class="hero">
-
-        <div class="hero-content">
-
-            <div class="hero-badge">
-                Build. Improve. Get Hired.
-            </div>
-
-            <h1>
-                Build Your Future With
-                <span>CareerCraft</span>
-            </h1>
-
-            <p>
-                Create a professional CV, choose a beautiful template,
-                improve your CV and discover job opportunities that
-                match your career goals.
-            </p>
-
-            <div class="hero-buttons">
-
-                <a href="cv-builder.html" class="button primary-button">
-                    Build My CV
-                </a>
-
-                <a href="cv-templates.html" class="button template-hero-button">
-                    Choose a Template
-                </a>
-
-                <a href="job-finder.html" class="button secondary-button">
-                    Find Jobs
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="hero-visual">
-
-            <div class="cv-card">
-
-                <div class="cv-top">
-
-                    <div class="profile-circle"></div>
-
-                    <div>
-
-                        <div class="cv-name"></div>
-                        <div class="cv-title"></div>
-
-                    </div>
-
-                </div>
-
-                <div class="cv-section">
-
-                    <div class="cv-section-title"></div>
-
-                    <div class="cv-line"></div>
-                    <div class="cv-line medium"></div>
-                    <div class="cv-line short"></div>
-
-                </div>
-
-                <div class="cv-section">
-
-                    <div class="cv-section-title"></div>
-
-                    <div class="cv-line"></div>
-                    <div class="cv-line medium"></div>
-                    <div class="cv-line short"></div>
-
-                </div>
-
-                <div class="cv-section">
-
-                    <div class="cv-section-title"></div>
-
-                    <div class="cv-line"></div>
-                    <div class="cv-line medium"></div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- CAREER TOOLS -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
-            <h2>
-                Everything You Need For Your Career
-            </h2>
-
-            <p>
-                CareerCraft gives you the tools you need to create
-                a stronger CV and find your next opportunity.
-            </p>
-
-        </div>
-
-
-        <div class="tools-grid">
-
-
-            <!-- CV BUILDER -->
-
-            <div class="tool-card">
-
-                <div class="tool-icon">
-                    📄
-                </div>
-
-                <h3>
-                    CV Builder
-                </h3>
-
-                <p>
-                    Create a professional CV quickly using
-                    our easy-to-use CV builder.
-                </p>
-
-                <a href="cv-builder.html" class="tool-link">
-                    Build My CV →
-                </a>
-
-            </div>
-
-
-            <!-- TEMPLATES -->
-
-            <div class="tool-card">
-
-                <div class="tool-icon">
-                    🎨
-                </div>
-
-                <h3>
-                    CV Templates
-                </h3>
-
-                <p>
-                    Choose from professional CV designs
-                    that help your application stand out.
-                </p>
-
-                <a href="cv-templates.html" class="tool-link">
-                    Browse Templates →
-                </a>
-
-            </div>
-
-
-            <!-- CV REVIEW -->
-
-            <div class="tool-card">
-
-                <div class="tool-icon">
-                    🔍
-                </div>
-
-                <h3>
-                    CV Review
-                </h3>
-
-                <p>
-                    Check your CV and receive useful
-                    feedback to improve it.
-                </p>
-
-                <a href="cv-review.html" class="tool-link">
-                    Review My CV →
-                </a>
-
-            </div>
-
-
-            <!-- JOB FINDER -->
-
-            <div class="tool-card">
-
-                <div class="tool-icon">
-                    💼
-                </div>
-
-                <h3>
-                    Job Finder
-                </h3>
-
-                <p>
-                    Search for jobs and discover opportunities
-                    that match your skills.
-                </p>
-
-                <a href="job-finder.html" class="tool-link">
-                    Find Jobs →
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- DASHBOARD -->
-
-    <section class="section dashboard-section">
-
-        <div class="dashboard-box">
-
-
-            <div class="dashboard-text">
-
-                <h2>
-                    Your Career, All In One Dashboard
-                </h2>
-
-                <p>
-                    Keep your CV, templates, saved jobs and career
-                    tools organized in one simple place.
-                </p>
-
-                <ul class="dashboard-list">
-
-                    <li>
-                        ✅ Manage your CV
-                    </li>
-
-                    <li>
-                        ✅ Change your CV template
-                    </li>
-
-                    <li>
-                        ✅ Review your CV
-                    </li>
-
-                    <li>
-                        ✅ Track your saved jobs
-                    </li>
-
-                    <li>
-                        ✅ Find new opportunities
-                    </li>
-
-                </ul>
-
-                <a href="dashboard.html" class="button primary-button">
-                    Open Dashboard
-                </a>
-
-            </div>
-
-
-            <div class="dashboard-preview">
-
-                <div class="dashboard-preview-header">
-
-                    <div class="dashboard-preview-title">
-                        Career Dashboard
-                    </div>
-
-                    <a href="dashboard.html" class="dashboard-small-button">
-                        Open
-                    </a>
-
-                </div>
-
-
-                <div class="stats">
-
-                    <div class="stat">
-
-                        <strong>
-                            1
-                        </strong>
-
-                        <span>
-                            CV Created
-                        </span>
-
-                    </div>
-
-
-                    <div class="stat">
-
-                        <strong>
-                            ✓
-                        </strong>
-
-                        <span>
-                            Template
-                        </span>
-
-                    </div>
-
-
-                    <div class="stat">
-
-                        <strong>
-                            0
-                        </strong>
-
-                        <span>
-                            Saved Jobs
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- HOW IT WORKS -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
-            <h2>
-                How CareerCraft Works
-            </h2>
-
-            <p>
-                Start building your career in just a few simple steps.
-            </p>
-
-        </div>
-
-
-        <div class="steps">
-
-
-            <div class="step">
-
-                <div class="step-number">
-                    1
-                </div>
-
-                <h3>
-                    Build Your CV
-                </h3>
-
-                <p>
-                    Add your education, experience,
-                    skills and professional information.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <div class="step-number">
-                    2
-                </div>
-
-                <h3>
-                    Choose a Template
-                </h3>
-
-                <p>
-                    Select a professional design
-                    that matches your career style.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <div class="step-number">
-                    3
-                </div>
-
-                <h3>
-                    Review It
-                </h3>
-
-                <p>
-                    Check your CV and improve areas
-                    that could make your application stronger.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <div class="step-number">
-                    4
-                </div>
-
-                <h3>
-                    Find Opportunities
-                </h3>
-
-                <p>
-                    Search for jobs and connect your
-                    CV with new opportunities.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- CTA -->
-
-    <section class="cta">
-
-        <h2>
-            Ready To Build Your Career?
-        </h2>
-
-        <p>
-            Create your CV, choose a professional template
-            and start looking for your next opportunity.
-        </p>
-
-        <div class="cta-buttons">
-
-            <a href="cv-builder.html" class="cta-button primary">
-                Build My CV
-            </a>
-
-            <a href="cv-templates.html" class="cta-button secondary">
-                Browse CV Templates
-            </a>
-
-            <a href="dashboard.html" class="cta-button secondary">
-                Open Dashboard
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- FOOTER -->
-
-    <footer>
-
-        <div class="footer-grid">
-
-
-            <div class="footer-brand">
-
-                <a href="index.html" class="logo">
-                    Career<span>Craft</span>
-                </a>
-
-                <p>
-                    CareerCraft helps you build a professional CV,
-                    improve your career profile and find new
-                    job opportunities.
-                </p>
-
-            </div>
-
-
-            <div>
-
-                <h4>
-                    Career Tools
-                </h4>
-
-                <a href="dashboard.html">
-                    Dashboard
-                </a>
-
-                <a href="cv-builder.html">
-                    CV Builder
-                </a>
-
-                <a href="cv-templates.html">
-                    CV Templates
-                </a>
-
-                <a href="cv-review.html">
-                    CV Review
-                </a>
-
-                <a href="job-finder.html">
-                    Find Jobs
-                </a>
-
-            </div>
-
-
-            <div>
-
-                <h4>
-                    Account
-                </h4>
-
-                <a href="login.html">
-                    Login
-                </a>
-
-                <a href="signup/create-account.html">
-                    Create Account
-                </a>
-
-                <a href="saved-jobs.html">
-                    Saved Jobs
-                </a>
-
-                <a href="applications.html">
-                    Applications
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="copyright">
-
-            © 2026 CareerCraft. All rights reserved.
-
-        </div>
-
-    </footer>
-
-
-</body>
-
-      </html>
+            .
