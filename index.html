@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>CareerCraft | Build Your Career</title>
 
-    <meta
-        name="description"
-        content="CareerCraft helps you build professional CVs, choose beautiful templates, review your CV and find jobs."
-    >
+    <meta name="description"
+          content="CareerCraft helps you build professional CVs, choose beautiful templates, review your CV and find jobs.">
 
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -52,8 +48,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 30px;
-            background: rgba(255,255,255,0.96);
+            gap: 25px;
+            background: rgba(255,255,255,0.98);
             border-bottom: 1px solid #edf0f4;
             position: sticky;
             top: 0;
@@ -75,15 +71,15 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            gap: 20px;
+            gap: 18px;
             flex-wrap: wrap;
         }
 
         .nav-links a {
             color: #4b5563;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
-            transition: 0.2s ease;
+            transition: 0.2s;
         }
 
         .nav-links a:hover {
@@ -96,8 +92,8 @@
 
         .nav-signup {
             background: #2563eb;
-            color: #ffffff !important;
-            padding: 10px 17px;
+            color: white !important;
+            padding: 10px 16px;
             border-radius: 9px;
         }
 
@@ -123,7 +119,7 @@
             display: grid;
             grid-template-columns: 1.05fr 0.95fr;
             align-items: center;
-            gap: 70px;
+            gap: 60px;
         }
 
         .hero-content {
@@ -186,12 +182,13 @@
             border-radius: 9px;
             font-size: 15px;
             font-weight: 800;
-            transition: 0.2s ease;
+            transition: 0.2s;
+            cursor: pointer;
         }
 
         .primary-button {
             background: #2563eb;
-            color: #ffffff;
+            color: white;
             box-shadow: 0 8px 20px rgba(37,99,235,0.2);
         }
 
@@ -202,7 +199,7 @@
 
         .outline-button {
             border: 1px solid #cbd5e1;
-            background: #ffffff;
+            background: white;
             color: #172033;
         }
 
@@ -234,7 +231,7 @@
         }
 
         /* =========================
-           HERO DASHBOARD PREVIEW
+           PRODUCT PREVIEW
         ========================= */
 
         .hero-product {
@@ -242,7 +239,7 @@
         }
 
         .product-window {
-            background: #ffffff;
+            background: white;
             border: 1px solid #e4e9f0;
             border-radius: 20px;
             box-shadow: 0 25px 70px rgba(15,23,42,0.13);
@@ -278,7 +275,7 @@
         }
 
         .side-brand {
-            color: #ffffff;
+            color: white;
             font-size: 17px;
             font-weight: 800;
             margin-bottom: 30px;
@@ -318,7 +315,6 @@
 
         .product-welcome h3 {
             font-size: 17px;
-            color: #172033;
         }
 
         .product-welcome p {
@@ -348,7 +344,7 @@
         }
 
         .product-stat {
-            background: #ffffff;
+            background: white;
             border: 1px solid #e8edf3;
             border-radius: 9px;
             padding: 13px;
@@ -357,7 +353,6 @@
         .product-stat strong {
             display: block;
             font-size: 20px;
-            color: #172033;
         }
 
         .product-stat span {
@@ -366,7 +361,7 @@
         }
 
         .dashboard-panel {
-            background: #ffffff;
+            background: white;
             border: 1px solid #e8edf3;
             border-radius: 10px;
             padding: 14px;
@@ -476,9 +471,8 @@
         ========================= */
 
         .quick-section {
-            margin-top: -1px;
             padding: 25px 6%;
-            background: #ffffff;
+            background: white;
             border-bottom: 1px solid #edf0f4;
         }
 
@@ -497,7 +491,7 @@
             padding: 15px;
             border: 1px solid #e8edf3;
             border-radius: 11px;
-            background: #ffffff;
+            background: white;
             transition: 0.2s;
         }
 
@@ -529,7 +523,7 @@
         }
 
         /* =========================
-           GENERAL SECTION
+           SECTIONS
         ========================= */
 
         .section {
@@ -547,7 +541,7 @@
             text-align: center;
         }
 
-        .section-heading .eyebrow {
+        .eyebrow {
             color: #2563eb;
             font-size: 12px;
             font-weight: 900;
@@ -561,7 +555,6 @@
             font-size: 38px;
             line-height: 1.2;
             margin-bottom: 12px;
-            letter-spacing: -1px;
         }
 
         .section-heading p {
@@ -581,7 +574,7 @@
 
         .tool-card {
             padding: 26px;
-            background: #ffffff;
+            background: white;
             border: 1px solid #e5e7eb;
             border-radius: 14px;
             transition: 0.25s;
@@ -624,7 +617,7 @@
         }
 
         /* =========================
-           JOB SEARCH
+           JOBS
         ========================= */
 
         .jobs-section {
@@ -642,7 +635,6 @@
             font-size: 39px;
             line-height: 1.2;
             margin-bottom: 15px;
-            letter-spacing: -1px;
         }
 
         .jobs-text > p {
@@ -667,7 +659,7 @@
         }
 
         .jobs-preview {
-            background: #ffffff;
+            background: white;
             border: 1px solid #e5e7eb;
             border-radius: 17px;
             padding: 18px;
@@ -687,7 +679,6 @@
             padding: 10px 12px;
             color: #64748b;
             font-size: 11px;
-            background: #ffffff;
         }
 
         .search-button {
@@ -763,7 +754,7 @@
             border: 1px solid #e5e7eb;
             border-radius: 13px;
             padding: 11px;
-            background: #ffffff;
+            background: white;
             transition: 0.2s;
         }
 
@@ -793,7 +784,7 @@
             display: block;
             width: 65px;
             height: 7px;
-            background: #ffffff;
+            background: white;
             border-radius: 3px;
         }
 
@@ -848,7 +839,7 @@
         }
 
         .template-minimal .template-header {
-            background: #ffffff;
+            background: white;
             border-bottom: 2px solid #172033;
         }
 
@@ -865,7 +856,7 @@
         }
 
         /* =========================
-           APPLICATION TRACKER
+           TRACKER
         ========================= */
 
         .tracker-section {
@@ -882,11 +873,6 @@
 
         .tracker-text .eyebrow {
             color: #60a5fa;
-            font-size: 12px;
-            font-weight: 900;
-            letter-spacing: 1.4px;
-            text-transform: uppercase;
-            margin-bottom: 9px;
         }
 
         .tracker-text h2 {
@@ -914,16 +900,12 @@
         }
 
         .tracker-button {
-            background: #ffffff;
+            background: white;
             color: #172033;
         }
 
-        .tracker-button:hover {
-            background: #eff6ff;
-        }
-
         .tracker-preview {
-            background: #ffffff;
+            background: white;
             color: #172033;
             border-radius: 16px;
             padding: 19px;
@@ -1101,7 +1083,7 @@
         }
 
         .cta-white {
-            background: #ffffff;
+            background: white;
             color: #172033;
         }
 
@@ -1170,17 +1152,17 @@
         }
 
         /* =========================
-           MOBILE
+           RESPONSIVE
         ========================= */
 
         @media (max-width: 1050px) {
 
             .nav-links {
-                gap: 13px;
+                gap: 12px;
             }
 
             .hero-container {
-                gap: 40px;
+                gap: 35px;
             }
 
             .hero h1 {
@@ -1226,11 +1208,11 @@
             .nav-links {
                 width: 100%;
                 justify-content: center;
-                gap: 9px 15px;
+                gap: 9px 13px;
             }
 
             .nav-links a {
-                font-size: 12px;
+                font-size: 11px;
             }
 
             .nav-signup {
@@ -1271,7 +1253,7 @@
             }
 
             .product-body {
-                grid-template-columns: 105px 1fr;
+                grid-template-columns: 100px 1fr;
             }
 
             .product-sidebar {
@@ -1288,10 +1270,6 @@
 
             .product-main {
                 padding: 13px;
-            }
-
-            .product-stats {
-                grid-template-columns: repeat(3,1fr);
             }
 
             .product-stat {
@@ -1361,4 +1339,1342 @@
                 padding: 5px 5% 65px;
             }
 
-            .
+            .cta-box {
+                padding: 45px 20px;
+            }
+
+            .cta-box h2 {
+                font-size: 29px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 430px) {
+
+            .nav-links {
+                gap: 8px 10px;
+            }
+
+            .nav-links a {
+                font-size: 10px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .hero-buttons {
+                width: 100%;
+            }
+
+            .product-body {
+                grid-template-columns: 82px 1fr;
+            }
+
+            .side-brand {
+                font-size: 11px;
+            }
+
+            .side-item {
+                font-size: 8px;
+                padding: 8px 5px;
+            }
+
+            .product-welcome h3 {
+                font-size: 14px;
+            }
+
+            .product-welcome p {
+                font-size: 8px;
+            }
+
+            .quick-container {
+                grid-template-columns: 1fr;
+            }
+
+            .jobs-preview {
+                padding: 12px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-brand {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+        Career<span>Craft</span>
+    </a>
+
+    <nav class="nav-links">
+
+        <a href="index.html">Home</a>
+
+        <a href="dashboard.html" class="nav-dashboard">
+            Dashboard
+        </a>
+
+        <a href="cv-builder.html">
+            CV Builder
+        </a>
+
+        <a href="cv-templates.html">
+            Templates
+        </a>
+
+        <a href="cv-review.html">
+            CV Review
+        </a>
+
+        <a href="job-finder.html">
+            Find Jobs
+        </a>
+
+        <a href="saved-jobs.html">
+            Saved Jobs
+        </a>
+
+        <a href="login.html">
+            Login
+        </a>
+
+        <a href="signup/create-account.html" class="nav-signup">
+            Sign Up
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-container">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                Your career, built better
+            </div>
+
+            <h1>
+                Build a CV that
+                <span>gets you noticed.</span>
+            </h1>
+
+            <p class="hero-description">
+                Create a professional CV, choose a beautiful template,
+                improve your application and discover opportunities
+                that match your career goals.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="cv-builder.html"
+                   class="button primary-button">
+                    Build My CV
+                </a>
+
+                <a href="job-finder.html"
+                   class="button outline-button">
+                    Find Jobs
+                </a>
+
+            </div>
+
+            <div class="hero-note">
+                <span class="check">✓</span>
+                Professional CV tools and job discovery in one place
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT PREVIEW -->
+
+        <div class="hero-product">
+
+            <div class="product-window">
+
+                <div class="window-top">
+                    <span class="window-dot"></span>
+                    <span class="window-dot"></span>
+                    <span class="window-dot"></span>
+                </div>
+
+                <div class="product-body">
+
+                    <aside class="product-sidebar">
+
+                        <div class="side-brand">
+                            Career<span>Craft</span>
+                        </div>
+
+                        <div class="side-item active">
+                            Dashboard
+                        </div>
+
+                        <div class="side-item">
+                            My CVs
+                        </div>
+
+                        <div class="side-item">
+                            Templates
+                        </div>
+
+                        <div class="side-item">
+                            CV Review
+                        </div>
+
+                        <div class="side-item">
+                            Find Jobs
+                        </div>
+
+                        <div class="side-item">
+                            Applications
+                        </div>
+
+                    </aside>
+
+
+                    <main class="product-main">
+
+                        <div class="product-welcome">
+
+                            <div>
+                                <h3>Welcome back 👋</h3>
+                                <p>Your career dashboard</p>
+                            </div>
+
+                            <div class="avatar">
+                                CC
+                            </div>
+
+                        </div>
+
+
+                        <div class="product-stats">
+
+                            <div class="product-stat">
+                                <strong>3</strong>
+                                <span>My CVs</span>
+                            </div>
+
+                            <div class="product-stat">
+                                <strong>12</strong>
+                                <span>Applications</span>
+                            </div>
+
+                            <div class="product-stat">
+                                <strong>8</strong>
+                                <span>Saved Jobs</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="dashboard-panel">
+
+                            <div class="panel-title">
+                                Your CV
+                            </div>
+
+                            <div class="cv-row">
+
+                                <div class="cv-icon">
+                                    📄
+                                </div>
+
+                                <div class="cv-row-text">
+                                    <strong>
+                                        Professional CV
+                                    </strong>
+
+                                    <span>
+                                        Updated recently
+                                    </span>
+                                </div>
+
+                                <div class="small-progress">
+                                    <div></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="dashboard-panel">
+
+                            <div class="panel-title">
+                                Recent Applications
+                            </div>
+
+                            <div class="job-mini">
+
+                                <div class="job-company">
+                                    G
+                                </div>
+
+                                <div class="job-info">
+                                    <strong>Software Developer</strong>
+                                    <span>Technology Company</span>
+                                </div>
+
+                                <span class="job-status">
+                                    Applied
+                                </span>
+
+                            </div>
+
+
+                            <div class="job-mini">
+
+                                <div class="job-company">
+                                    M
+                                </div>
+
+                                <div class="job-info">
+                                    <strong>Marketing Assistant</strong>
+                                    <span>Marketing Company</span>
+                                </div>
+
+                                <span class="job-status">
+                                    Applied
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </main>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     QUICK ACCESS
+========================= -->
+
+<section class="quick-section">
+
+    <div class="quick-container">
+
+        <a href="cv-builder.html" class="quick-card">
+
+            <div class="quick-icon">📄</div>
+
+            <div>
+                <strong>Build CV</strong>
+                <span>Create your CV</span>
+            </div>
+
+        </a>
+
+
+        <a href="cv-templates.html" class="quick-card">
+
+            <div class="quick-icon">🎨</div>
+
+            <div>
+                <strong>Templates</strong>
+                <span>Choose a design</span>
+            </div>
+
+        </a>
+
+
+        <a href="cv-review.html" class="quick-card">
+
+            <div class="quick-icon">✓</div>
+
+            <div>
+                <strong>CV Review</strong>
+                <span>Improve your CV</span>
+            </div>
+
+        </a>
+
+
+        <a href="job-finder.html" class="quick-card">
+
+            <div class="quick-icon">💼</div>
+
+            <div>
+                <strong>Find Jobs</strong>
+                <span>Discover opportunities</span>
+            </div>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CAREER TOOLS
+========================= -->
+
+<section class="section">
+
+    <div class="section-container">
+
+        <div class="section-heading">
+
+            <div class="eyebrow">
+                Career tools
+            </div>
+
+            <h2>
+                Everything you need to move forward
+            </h2>
+
+            <p>
+                CareerCraft brings your CV building, career improvement
+                and job search tools together in one simple platform.
+            </p>
+
+        </div>
+
+
+        <div class="tools-grid">
+
+            <div class="tool-card">
+
+                <div class="tool-icon">📄</div>
+
+                <h3>CV Builder</h3>
+
+                <p>
+                    Create a professional CV with easy-to-complete
+                    sections designed to showcase your experience.
+                </p>
+
+                <a href="cv-builder.html" class="tool-link">
+                    Start building →
+                </a>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-icon">🎨</div>
+
+                <h3>CV Templates</h3>
+
+                <p>
+                    Select from professional CV designs that help
+                    your application stand out.
+                </p>
+
+                <a href="cv-templates.html" class="tool-link">
+                    Browse templates →
+                </a>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-icon">🔍</div>
+
+                <h3>CV Review</h3>
+
+                <p>
+                    Review your CV and identify areas that can be
+                    improved before sending your application.
+                </p>
+
+                <a href="cv-review.html" class="tool-link">
+                    Review my CV →
+                </a>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-icon">💼</div>
+
+                <h3>Job Finder</h3>
+
+                <p>
+                    Search for current opportunities and explore
+                    jobs that match your skills and career interests.
+                </p>
+
+                <a href="job-finder.html" class="tool-link">
+                    Find jobs →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     JOB FINDER
+========================= -->
+
+<section class="section jobs-section">
+
+    <div class="section-container">
+
+        <div class="jobs-layout">
+
+            <div class="jobs-text">
+
+                <div class="eyebrow">
+                    Job Finder
+                </div>
+
+                <h2>
+                    Find your next opportunity.
+                </h2>
+
+                <p>
+                    Search for jobs using CareerCraft and discover
+                    opportunities from real job listings.
+                </p>
+
+                <ul class="job-benefits">
+
+                    <li>
+                        <span class="check">✓</span>
+                        Search by job title and location
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Explore current job opportunities
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Save jobs you want to apply for
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Keep track of your applications
+                    </li>
+
+                </ul>
+
+                <a href="job-finder.html"
+                   class="button primary-button">
+                    Search Jobs
+                </a>
+
+            </div>
+
+
+            <div class="jobs-preview">
+
+                <div class="jobs-search">
+
+                    <div class="fake-input">
+                        Software Developer
+                    </div>
+
+                    <div class="fake-input">
+                        United Kingdom
+                    </div>
+
+                    <button class="search-button">
+                        Search
+                    </button>
+
+                </div>
+
+
+                <div class="job-card">
+
+                    <div class="job-card-top">
+
+                        <div class="company-logo">
+                            A
+                        </div>
+
+                        <div class="job-card-info">
+
+                            <h4>
+                                Software Developer
+                            </h4>
+
+                            <p>
+                                Technology Company · London
+                            </p>
+
+                            <span class="job-tag">
+                                Full-time
+                            </span>
+
+                            <span class="job-tag">
+                                £40,000+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="job-card">
+
+                    <div class="job-card-top">
+
+                        <div class="company-logo">
+                            D
+                        </div>
+
+                        <div class="job-card-info">
+
+                            <h4>
+                                Junior Software Engineer
+                            </h4>
+
+                            <p>
+                                Digital Company · Manchester
+                            </p>
+
+                            <span class="job-tag">
+                                Full-time
+                            </span>
+
+                            <span class="job-tag">
+                                Hybrid
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="job-card">
+
+                    <div class="job-card-top">
+
+                        <div class="company-logo">
+                            T
+                        </div>
+
+                        <div class="job-card-info">
+
+                            <h4>
+                                Frontend Developer
+                            </h4>
+
+                            <p>
+                                Technology Company · Birmingham
+                            </p>
+
+                            <span class="job-tag">
+                                Full-time
+                            </span>
+
+                            <span class="job-tag">
+                                Remote
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     TEMPLATES
+========================= -->
+
+<section class="section">
+
+    <div class="section-container">
+
+        <div class="section-heading">
+
+            <div class="eyebrow">
+                CV Templates
+            </div>
+
+            <h2>
+                Choose a CV style that fits you
+            </h2>
+
+            <p>
+                Start with a professional design and make it your own.
+            </p>
+
+        </div>
+
+
+        <div class="template-grid">
+
+            <!-- CLASSIC -->
+
+            <div class="template-card">
+
+                <div class="template-paper">
+
+                    <div class="template-header">
+
+                        <span></span>
+                        <small></small>
+
+                    </div>
+
+                    <div class="template-line"></div>
+                    <div class="template-line short"></div>
+
+                    <div class="template-title"></div>
+
+                    <div class="template-line"></div>
+                    <div class="template-line"></div>
+                    <div class="template-line short"></div>
+
+                    <div class="template-title"></div>
+
+                    <div class="template-line"></div>
+                    <div class="template-line short"></div>
+
+                </div>
+
+                <h3>Classic</h3>
+
+                <p>
+                    Clean and professional.
+                </p>
+
+                <a href="cv-templates.html"
+                   class="template-link">
+                    Use template →
+                </a>
+
+            </div>
+
+
+            <!-- MODERN -->
+
+            <div class="template-card template-modern">
+
+                <div class="template-paper">
+
+                    <div class="template-header">
+
+                        <span></span>
+                        <small></small>
+
+                    </div>
+
+                    <div class="template-title"></div>
+
+                    <div class="template-line"></div>
+                    <div class="template-line short"></div>
+
+                    <div class="template-title"></div>
+
+                    <div class="template-line"></div>
+                    <div class="template-line"></div>
+                    <div class="template-line short"></div>
+
+                    <div class="template-title"></div>
+
+                    <div class="template-line"></div>
+
+                </div>
+
+                <h3>Modern</h3>
+
+                <p>
+                    Bold and contemporary.
+                </p>
+
+                <a href="cv-templates.html"
+                   class="template-link">
+                    Use template →
+                </a>
+
+            </div>
+
+
+            <!-- MINIMAL -->
+
+            <div class="template-card template-minimal">
+
+                <div class="template-paper">
+
+                    <div class="template-header">
+
+                        <span></span>
+                        <small></small>
+
+                    </div>
+
+                    <div class="template-title"></div>
+
+                    <div class="template-line"></div>
+                    <div class="template-line short"></div>
+
+                    <div class="template-title"></div>
+
+                    <div class="template-line"></div>
+                    <div class="template-line"></div>
+
+                    <div class="template-title"></div>
+
+                    <div class="template-line short"></div>
+                    <div class="template-line"></div>
+
+                </div>
+
+                <h3>Minimal</h3>
+
+                <p>
+                    Simple and elegant.
+                </p>
+
+                <a href="cv-templates.html"
+                   class="template-link">
+                    Use template →
+                </a>
+
+            </div>
+
+
+            <!-- EXECUTIVE -->
+
+            <div class="template-card template-executive">
+
+                <div class="template-paper">
+
+                    <div class="template-header">
+
+                        <span></span>
+                        <small></small>
+
+                    </div>
+
+                    <div class="template-title"></div>
+
+                    <div class="template-line"></div>
+                    <div class="template-line short"></div>
+
+                    <div class="template-title"></div>
+
+                    <div class="template-line"></div>
+                    <div class="template-line"></div>
+                    <div class="template-line short"></div>
+
+                    <div class="template-title"></div>
+
+                    <div class="template-line"></div>
+
+                </div>
+
+                <h3>Executive</h3>
+
+                <p>
+                    Designed for experienced professionals.
+                </p>
+
+                <a href="cv-templates.html"
+                   class="template-link">
+                    Use template →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     APPLICATION TRACKER
+========================= -->
+
+<section class="section tracker-section">
+
+    <div class="section-container">
+
+        <div class="tracker-layout">
+
+            <div class="tracker-text">
+
+                <div class="eyebrow">
+                    Application Tracker
+                </div>
+
+                <h2>
+                    Keep your job search organized.
+                </h2>
+
+                <p>
+                    Keep track of the opportunities you've applied
+                    for so nothing gets lost in your job search.
+                </p>
+
+                <ul class="tracker-points">
+
+                    <li>✓ Track submitted applications</li>
+                    <li>✓ Monitor interview progress</li>
+                    <li>✓ Keep important job information together</li>
+                    <li>✓ Stay organized throughout your search</li>
+
+                </ul>
+
+                <a href="applications.html"
+                   class="button tracker-button">
+                    View Applications
+                </a>
+
+            </div>
+
+
+            <div class="tracker-preview">
+
+                <div class="tracker-head">
+
+                    <h3>
+                        My Applications
+                    </h3>
+
+                    <span>
+                        View all →
+                    </span>
+
+                </div>
+
+
+                <div class="tracker-stats">
+
+                    <div class="tracker-stat">
+                        <strong>12</strong>
+                        <span>Applied</span>
+                    </div>
+
+                    <div class="tracker-stat">
+                        <strong>4</strong>
+                        <span>Reviewing</span>
+                    </div>
+
+                    <div class="tracker-stat">
+                        <strong>2</strong>
+                        <span>Interview</span>
+                    </div>
+
+                    <div class="tracker-stat">
+                        <strong>1</strong>
+                        <span>Offer</span>
+                    </div>
+
+                </div>
+
+
+                <div class="application-row">
+
+                    <div class="application-logo">
+                        G
+                    </div>
+
+                    <div class="application-info">
+
+                        <strong>
+                            Software Developer
+                        </strong>
+
+                        <span>
+                            Technology Company
+                        </span>
+
+                    </div>
+
+                    <span class="application-status">
+                        Reviewing
+                    </span>
+
+                </div>
+
+
+                <div class="application-row">
+
+                    <div class="application-logo">
+                        M
+                    </div>
+
+                    <div class="application-info">
+
+                        <strong>
+                            Marketing Assistant
+                        </strong>
+
+                        <span>
+                            Marketing Company
+                        </span>
+
+                    </div>
+
+                    <span class="application-status interview">
+                        Interview
+                    </span>
+
+                </div>
+
+
+                <div class="application-row">
+
+                    <div class="application-logo">
+                        D
+                    </div>
+
+                    <div class="application-info">
+
+                        <strong>
+                            Junior Developer
+                        </strong>
+
+                        <span>
+                            Digital Company
+                        </span>
+
+                    </div>
+
+                    <span class="application-status">
+                        Applied
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     HOW IT WORKS
+========================= -->
+
+<section class="section">
+
+    <div class="section-container">
+
+        <div class="section-heading">
+
+            <div class="eyebrow">
+                How it works
+            </div>
+
+            <h2>
+                From CV to career opportunity
+            </h2>
+
+            <p>
+                CareerCraft makes the process simple.
+            </p>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <h3>
+                    Build
+                </h3>
+
+                <p>
+                    Add your education, experience,
+                    skills and achievements.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <h3>
+                    Design
+                </h3>
+
+                <p>
+                    Choose a professional template
+                    that fits your career.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <h3>
+                    Improve
+                </h3>
+
+                <p>
+                    Review your CV and make it
+                    stronger before applying.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <h3>
+                    Apply
+                </h3>
+
+                <p>
+                    Discover jobs and manage
+                    your applications.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FINAL CTA
+========================= -->
+
+<section class="cta-section">
+
+    <div class="cta-box">
+
+        <h2>
+            Ready to build your next opportunity?
+        </h2>
+
+        <p>
+            Create a professional CV, discover jobs and take
+            control of your career journey with CareerCraft.
+        </p>
+
+        <div class="cta-buttons">
+
+            <a href="cv-builder.html"
+               class="button cta-white">
+                Build My CV
+            </a>
+
+            <a href="signup/create-account.html"
+               class="button cta-outline">
+                Create Free Account
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="footer-container">
+
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="logo">
+                    Career<span>Craft</span>
+                </a>
+
+                <p>
+                    CareerCraft gives job seekers the tools they need
+                    to build better CVs, discover opportunities and
+                    manage their career journey.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Career Tools
+                </h4>
+
+                <a href="cv-builder.html">
+                    CV Builder
+                </a>
+
+                <a href="cv-templates.html">
+                    CV Templates
+                </a>
+
+                <a href="cv-review.html">
+                    CV Review
+                </a>
+
+                <a href="job-finder.html">
+                    Job Finder
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Your Account
+                </h4>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="saved-jobs.html">
+                    Saved Jobs
+                </a>
+
+                <a href="applications.html">
+                    Applications
+                </a>
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Get Started
+                </h4>
+
+                <a href="signup/create-account.html">
+                    Create Account
+                </a>
+
+                <a href="cv-builder.html">
+                    Build a CV
+                </a>
+
+                <a href="job-finder.html">
+                    Find Jobs
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 CareerCraft. All rights reserved.
+            </span>
+
+            <span>
+                Build better. Apply smarter.
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+</body>
+        </html>        
