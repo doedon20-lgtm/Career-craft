@@ -1,10 +1,10 @@
 export default async function handler(req, res) {
 
     const keyword =
-        req.query.keyword || "software developer";
+        (req.query.keyword || "").trim();
 
     const location =
-        req.query.location || "London";
+        (req.query.location || "").trim();
 
     const appId =
         process.env.ADZUNA_APP_ID;
@@ -12,31 +12,54 @@ export default async function handler(req, res) {
     const appKey =
         process.env.ADZUNA_APP_KEY;
 
+
+    // Check Adzuna credentials
     if (!appId || !appKey) {
 
         return res.status(500).json({
-            error: "Adzuna credentials are missing in Vercel."
+
+            error:
+                "Adzuna credentials are missing in Vercel."
+
         });
 
     }
 
-    try {
 
-        const params = new URLSearchParams({
+    // Don't allow completely empty searches
+    if (!keyword && !location) {
 
-            app_id: appId,
+        return res.status(400).json({
 
-            app_key: appKey,
-
-            results_per_page: "20",
-
-            what: keyword,
-
-            where: location,
-
-            "content-type": "application/json"
+            error:
+                "Please enter a job title, skill or location."
 
         });
+
+    }
+
+
+    try {
+
+        const params =
+            new URLSearchParams({
+
+                app_id: appId,
+
+                app_key: appKey,
+
+                results_per_page: "20",
+
+                what:
+                    keyword || "jobs",
+
+                where:
+                    location || "United Kingdom",
+
+                "content-type":
+                    "application/json"
+
+            });
 
 
         const adzunaURL =
@@ -51,7 +74,15 @@ export default async function handler(req, res) {
             await response.text();
 
 
+        // Adzuna returned an error
         if (!response.ok) {
+
+            console.error(
+                "Adzuna error:",
+                response.status,
+                text
+            );
+
 
             return res.status(response.status).json({
 
@@ -66,6 +97,7 @@ export default async function handler(req, res) {
         }
 
 
+        // Convert Adzuna response to JSON
         let data;
 
         try {
@@ -87,9 +119,26 @@ export default async function handler(req, res) {
         }
 
 
-        return res.status(200).json(data);
+        // Make sure the frontend always receives results
+        if (!Array.isArray(data.results)) {
+
+            data.results = [];
+
+        }
+
+
+        return res.status(200).json({
+
+            results:
+                data.results,
+
+            count:
+                data.count || data.results.length
+
+        });
 
     }
+
 
     catch (error) {
 
@@ -97,6 +146,7 @@ export default async function handler(req, res) {
             "Adzuna connection error:",
             error
         );
+
 
         return res.status(500).json({
 
