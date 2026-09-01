@@ -14,14 +14,13 @@
 }
 
 body{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
     background:#f5f7fb;
     color:#172033;
-    min-height:100vh;
 }
 
 nav{
-    background:#ffffff;
+    background:#fff;
     border-bottom:1px solid #e5e7eb;
     padding:16px 6%;
     display:flex;
@@ -31,16 +30,15 @@ nav{
 }
 
 .logo{
-    font-size:24px;
-    font-weight:800;
     color:#2563eb;
     text-decoration:none;
+    font-size:24px;
+    font-weight:800;
 }
 
 .nav-links{
     display:flex;
-    gap:22px;
-    align-items:center;
+    gap:20px;
     flex-wrap:wrap;
 }
 
@@ -51,19 +49,16 @@ nav{
     font-weight:600;
 }
 
-.nav-links a:hover{
-    color:#2563eb;
-}
-
+.nav-links a:hover,
 .nav-links .active{
     color:#2563eb;
 }
 
 .hero{
     background:linear-gradient(135deg,#2563eb,#4f46e5);
-    color:white;
-    padding:65px 20px;
+    color:#fff;
     text-align:center;
+    padding:60px 20px;
 }
 
 .hero h1{
@@ -74,25 +69,22 @@ nav{
 .hero p{
     font-size:18px;
     opacity:.92;
-    max-width:650px;
-    margin:auto;
 }
 
 .welcome{
-    margin-top:22px;
-    font-size:15px;
+    margin-top:20px;
     font-weight:600;
 }
 
 .search-section{
     max-width:1050px;
-    margin:-30px auto 40px;
+    margin:-30px auto 35px;
     padding:0 20px;
     position:relative;
 }
 
 .search-box{
-    background:white;
+    background:#fff;
     padding:22px;
     border-radius:16px;
     box-shadow:0 10px 35px rgba(0,0,0,.10);
@@ -104,30 +96,25 @@ nav{
     gap:12px;
 }
 
-.input-group{
-    position:relative;
-}
-
-.input-group input{
+.search-row input{
     width:100%;
-    padding:15px 16px;
+    padding:15px;
     border:1px solid #d8dee9;
     border-radius:10px;
-    font-size:15px;
     outline:none;
+    font-size:15px;
 }
 
-.input-group input:focus{
+.search-row input:focus{
     border-color:#2563eb;
 }
 
 .search-btn{
     border:none;
     background:#2563eb;
-    color:white;
+    color:#fff;
     padding:0 25px;
     border-radius:10px;
-    font-size:15px;
     font-weight:700;
     cursor:pointer;
 }
@@ -137,7 +124,7 @@ nav{
 }
 
 .search-btn:disabled{
-    opacity:.65;
+    opacity:.6;
     cursor:not-allowed;
 }
 
@@ -152,7 +139,6 @@ nav{
     justify-content:space-between;
     align-items:center;
     margin-bottom:18px;
-    gap:15px;
 }
 
 .results-header h2{
@@ -171,13 +157,12 @@ nav{
     padding:15px;
     border-radius:10px;
     margin-bottom:20px;
-    line-height:1.5;
 }
 
 .loading{
     display:none;
     text-align:center;
-    padding:50px 20px;
+    padding:45px;
     color:#6b7280;
 }
 
@@ -203,7 +188,7 @@ nav{
 }
 
 .job-card{
-    background:white;
+    background:#fff;
     border:1px solid #e5e7eb;
     border-radius:15px;
     padding:22px;
@@ -267,31 +252,55 @@ nav{
 }
 
 .salary{
-    font-weight:700;
     color:#059669;
-    font-size:14px;
+    font-weight:700;
     margin-bottom:15px;
 }
 
-.view-job{
-    display:inline-block;
-    background:#2563eb;
-    color:white;
+.job-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.view-job,
+.save-job{
+    border:none;
     text-decoration:none;
     padding:10px 15px;
     border-radius:8px;
     font-size:14px;
     font-weight:700;
+    cursor:pointer;
+}
+
+.view-job{
+    background:#2563eb;
+    color:#fff;
 }
 
 .view-job:hover{
     background:#1d4ed8;
 }
 
+.save-job{
+    background:#f3f4f6;
+    color:#374151;
+}
+
+.save-job:hover{
+    background:#e5e7eb;
+}
+
+.save-job.saved{
+    background:#fef3c7;
+    color:#92400e;
+}
+
 .no-results{
     display:none;
     text-align:center;
-    background:white;
+    background:#fff;
     padding:45px 20px;
     border-radius:15px;
     border:1px solid #e5e7eb;
@@ -305,10 +314,22 @@ nav{
     color:#6b7280;
 }
 
+.saved-link{
+    display:inline-block;
+    margin-bottom:20px;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    padding:11px 16px;
+    border-radius:9px;
+    color:#374151;
+    text-decoration:none;
+    font-weight:700;
+}
+
 .cv-cta{
     margin-top:35px;
     background:#111827;
-    color:white;
+    color:#fff;
     border-radius:15px;
     padding:28px;
     text-align:center;
@@ -325,18 +346,18 @@ nav{
 
 .cv-cta a{
     display:inline-block;
-    background:white;
+    background:#fff;
     color:#111827;
-    text-decoration:none;
     padding:11px 18px;
     border-radius:8px;
+    text-decoration:none;
     font-weight:700;
 }
 
 footer{
     text-align:center;
     padding:25px;
-    background:#ffffff;
+    background:#fff;
     border-top:1px solid #e5e7eb;
     color:#6b7280;
     font-size:13px;
@@ -349,17 +370,12 @@ footer{
         align-items:flex-start;
     }
 
-    .nav-links{
-        width:100%;
-        gap:12px;
+    .search-row{
+        grid-template-columns:1fr;
     }
 
-    .nav-links a{
-        font-size:13px;
-    }
-
-    .hero{
-        padding:50px 18px;
+    .search-btn{
+        padding:14px;
     }
 
     .hero h1{
@@ -370,22 +386,14 @@ footer{
         font-size:16px;
     }
 
-    .search-row{
-        grid-template-columns:1fr;
-    }
-
-    .search-btn{
-        padding:14px;
-    }
-
     .job-card{
         padding:17px;
     }
 
     .company-logo{
         width:42px;
-        height:42px;
         min-width:42px;
+        height:42px;
     }
 
     .job-title{
@@ -398,29 +406,55 @@ footer{
 <body>
 
 <nav>
-    <a href="index.html" class="logo">CareerCraft</a>
+
+    <a href="index.html" class="logo">
+        CareerCraft
+    </a>
 
     <div class="nav-links">
+
         <a href="index.html">Home</a>
-        <a href="cv-builder.html">CV Builder</a>
-        <a href="cv-preview.html">CV Preview</a>
-        <a href="cv-review.html">CV Review</a>
-        <a href="job-finder.html" class="active">Job Finder</a>
+
+        <a href="cv-builder.html">
+            CV Builder
+        </a>
+
+        <a href="cv-preview.html">
+            CV Preview
+        </a>
+
+        <a href="cv-review.html">
+            CV Review
+        </a>
+
+        <a href="job-finder.html" class="active">
+            Job Finder
+        </a>
+
+        <a href="saved-jobs.html">
+            ⭐ Saved Jobs
+        </a>
+
     </div>
+
 </nav>
+
 
 <section class="hero">
 
     <h1>Find Your Next Opportunity</h1>
 
     <p>
-        Search thousands of jobs by title, skill or location
-        and discover opportunities that match your career goals.
+        Search thousands of jobs by title, skill or location.
     </p>
 
-    <div class="welcome" id="welcomeMessage"></div>
+    <div
+        class="welcome"
+        id="welcomeMessage">
+    </div>
 
 </section>
+
 
 <section class="search-section">
 
@@ -428,23 +462,17 @@ footer{
 
         <div class="search-row">
 
-            <div class="input-group">
-                <input
-                    type="text"
-                    id="keywordInput"
-                    placeholder="Job title, skill or keyword"
-                    autocomplete="off"
-                >
-            </div>
+            <input
+                id="keywordInput"
+                type="text"
+                placeholder="Job title, skill or keyword"
+            >
 
-            <div class="input-group">
-                <input
-                    type="text"
-                    id="locationInput"
-                    placeholder="Location e.g. London"
-                    autocomplete="off"
-                >
-            </div>
+            <input
+                id="locationInput"
+                type="text"
+                placeholder="Location e.g. London"
+            >
 
             <button
                 class="search-btn"
@@ -460,31 +488,60 @@ footer{
 
 </section>
 
+
 <main class="main">
+
+    <a
+        href="saved-jobs.html"
+        class="saved-link"
+    >
+        ⭐ View Saved Jobs
+    </a>
+
 
     <div class="results-header">
 
-        <h2>Job Opportunities</h2>
+        <h2>
+            Job Opportunities
+        </h2>
 
         <span id="resultCount"></span>
 
     </div>
 
-    <div class="error" id="errorBox"></div>
 
-    <div class="loading" id="loading">
+    <div
+        class="error"
+        id="errorBox">
+    </div>
+
+
+    <div
+        class="loading"
+        id="loading">
 
         <div class="spinner"></div>
 
-        <p>Searching for jobs...</p>
+        <p>
+            Searching for jobs...
+        </p>
 
     </div>
 
-    <div class="jobs" id="jobsContainer"></div>
 
-    <div class="no-results" id="noResults">
+    <div
+        class="jobs"
+        id="jobsContainer">
+    </div>
 
-        <h3>No jobs found</h3>
+
+    <div
+        class="no-results"
+        id="noResults">
+
+        <h3>
+            No jobs found
+        </h3>
 
         <p>
             Try another job title, skill or location.
@@ -492,53 +549,90 @@ footer{
 
     </div>
 
+
     <div class="cv-cta">
 
-        <h3>Need a better CV?</h3>
+        <h3>
+            Need a better CV?
+        </h3>
 
         <p>
-            Create a professional CV with CareerCraft before applying.
+            Create a professional CV with CareerCraft
+            before applying.
         </p>
 
-        <a href="cv-builder.html">Build My CV</a>
+        <a href="cv-builder.html">
+            Build My CV
+        </a>
 
     </div>
 
 </main>
 
+
 <footer>
-    © 2026 CareerCraft. Build your CV. Find your opportunity.
+
+    © 2026 CareerCraft.
+    Build your CV. Find your opportunity.
+
 </footer>
+
 
 <script>
 
-const keywordInput = document.getElementById("keywordInput");
-const locationInput = document.getElementById("locationInput");
-const searchButton = document.getElementById("searchButton");
-const jobsContainer = document.getElementById("jobsContainer");
-const loading = document.getElementById("loading");
-const noResults = document.getElementById("noResults");
-const errorBox = document.getElementById("errorBox");
-const resultCount = document.getElementById("resultCount");
-const welcomeMessage = document.getElementById("welcomeMessage");
+const keywordInput =
+    document.getElementById("keywordInput");
+
+const locationInput =
+    document.getElementById("locationInput");
+
+const searchButton =
+    document.getElementById("searchButton");
+
+const jobsContainer =
+    document.getElementById("jobsContainer");
+
+const loading =
+    document.getElementById("loading");
+
+const noResults =
+    document.getElementById("noResults");
+
+const errorBox =
+    document.getElementById("errorBox");
+
+const resultCount =
+    document.getElementById("resultCount");
+
+const welcomeMessage =
+    document.getElementById("welcomeMessage");
 
 
-// Load saved CV
+// ------------------------------
+// LOAD CV
+// ------------------------------
+
 let savedCV = null;
 
 try {
-    savedCV = JSON.parse(localStorage.getItem("careerCraftCV"));
+
+    savedCV =
+        JSON.parse(
+            localStorage.getItem("careerCraftCV")
+        );
+
 } catch(error) {
+
     savedCV = null;
+
 }
 
 
-// Personalise Job Finder from CV
-if (
+if(
     savedCV &&
     savedCV.fullName &&
     savedCV.professionalTitle
-) {
+){
 
     welcomeMessage.textContent =
         "Welcome, " +
@@ -546,64 +640,209 @@ if (
         " — finding jobs for " +
         savedCV.professionalTitle;
 
-    keywordInput.value = savedCV.professionalTitle;
+    keywordInput.value =
+        savedCV.professionalTitle;
 
 }
 
 
-// Search jobs
+// ------------------------------
+// SAVED JOBS
+// ------------------------------
+
+function getSavedJobs(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem("careerCraftSavedJobs")
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+function saveJobs(jobs){
+
+    localStorage.setItem(
+        "careerCraftSavedJobs",
+        JSON.stringify(jobs)
+    );
+
+}
+
+
+function getJobId(job){
+
+    if(job.id){
+        return String(job.id);
+    }
+
+    if(job.redirect_url){
+        return job.redirect_url;
+    }
+
+    return (
+        (job.title || "") +
+        "|" +
+        (job.company?.display_name || "")
+    );
+
+}
+
+
+function isJobSaved(job){
+
+    const saved =
+        getSavedJobs();
+
+    const id =
+        getJobId(job);
+
+    return saved.some(
+        savedJob =>
+            getJobId(savedJob) === id
+    );
+
+}
+
+
+function toggleSaveJob(job){
+
+    let saved =
+        getSavedJobs();
+
+    const id =
+        getJobId(job);
+
+    const index =
+        saved.findIndex(
+            savedJob =>
+                getJobId(savedJob) === id
+        );
+
+
+    if(index !== -1){
+
+        saved.splice(index,1);
+
+        saveJobs(saved);
+
+        return false;
+
+    }
+
+
+    saved.push(job);
+
+    saveJobs(saved);
+
+    return true;
+
+}
+
+
+// ------------------------------
+// SEARCH JOBS
+// ------------------------------
+
 async function searchJobs(){
 
-    const keyword = keywordInput.value.trim();
-    const location = locationInput.value.trim();
+    const keyword =
+        keywordInput.value.trim();
 
-    errorBox.style.display = "none";
-    noResults.style.display = "none";
-    jobsContainer.innerHTML = "";
-    resultCount.textContent = "";
+    const location =
+        locationInput.value.trim();
+
+
+    errorBox.style.display =
+        "none";
+
+    noResults.style.display =
+        "none";
+
+    jobsContainer.innerHTML =
+        "";
+
+    resultCount.textContent =
+        "";
+
 
     if(!keyword && !location){
 
         errorBox.textContent =
-            "Please enter a job title, skill or location before searching.";
+            "Please enter a job title, skill or location.";
 
-        errorBox.style.display = "block";
+        errorBox.style.display =
+            "block";
 
         return;
+
     }
 
 
-    loading.style.display = "block";
-    searchButton.disabled = true;
-    searchButton.textContent = "Searching...";
+    loading.style.display =
+        "block";
+
+    searchButton.disabled =
+        true;
+
+    searchButton.textContent =
+        "Searching...";
 
 
     try{
 
-        const params = new URLSearchParams();
+        const params =
+            new URLSearchParams();
+
 
         if(keyword){
-            params.set("keyword", keyword);
+
+            params.set(
+                "keyword",
+                keyword
+            );
+
         }
+
 
         if(location){
-            params.set("location", location);
+
+            params.set(
+                "location",
+                location
+            );
+
         }
 
 
-        const response = await fetch(
-            "/api/jobs?" + params.toString()
-        );
+        const response =
+            await fetch(
+                "/api/jobs?" +
+                params.toString()
+            );
 
 
         let data;
 
+
         try{
-            data = await response.json();
-        }catch(jsonError){
+
+            data =
+                await response.json();
+
+        }catch(error){
+
             throw new Error(
                 "The server returned an invalid response."
             );
+
         }
 
 
@@ -611,34 +850,42 @@ async function searchJobs(){
 
             throw new Error(
                 data.error ||
-                "Unable to search for jobs right now."
+                "Unable to search for jobs."
             );
 
         }
 
 
-        const jobs = Array.isArray(data.results)
-            ? data.results
-            : [];
+        const jobs =
+            Array.isArray(data.results)
+                ? data.results
+                : [];
 
 
-        loading.style.display = "none";
+        loading.style.display =
+            "none";
 
 
         if(jobs.length === 0){
 
-            noResults.style.display = "block";
+            noResults.style.display =
+                "block";
 
             resultCount.textContent =
                 "0 jobs found";
 
             return;
+
         }
 
 
         resultCount.textContent =
             jobs.length +
-            (jobs.length === 1 ? " job found" : " jobs found");
+            (
+                jobs.length === 1
+                    ? " job found"
+                    : " jobs found"
+            );
 
 
         jobs.forEach(function(job){
@@ -653,43 +900,61 @@ async function searchJobs(){
 
     }catch(error){
 
-        loading.style.display = "none";
+        loading.style.display =
+            "none";
 
         errorBox.textContent =
             error.message ||
-            "Something went wrong while searching for jobs.";
+            "Something went wrong.";
 
-        errorBox.style.display = "block";
+        errorBox.style.display =
+            "block";
 
     }finally{
 
-        searchButton.disabled = false;
-        searchButton.textContent = "Search Jobs";
+        searchButton.disabled =
+            false;
+
+        searchButton.textContent =
+            "Search Jobs";
 
     }
 
 }
 
 
-// Create job card
+// ------------------------------
+// CREATE JOB CARD
+// ------------------------------
+
 function createJobCard(job){
 
     const title =
-        escapeHTML(job.title || "Untitled Job");
+        escapeHTML(
+            job.title ||
+            "Untitled Job"
+        );
+
+
+    const companyName =
+        job.company &&
+        job.company.display_name
+            ? job.company.display_name
+            : "Company not specified";
+
 
     const company =
-        escapeHTML(
-            job.company && job.company.display_name
-                ? job.company.display_name
-                : "Company not specified"
-        );
+        escapeHTML(companyName);
+
 
     const location =
         escapeHTML(
-            job.location && job.location.display_name
+            job.location &&
+            job.location.display_name
                 ? job.location.display_name
                 : "Location not specified"
         );
+
 
     const contract =
         escapeHTML(
@@ -697,8 +962,12 @@ function createJobCard(job){
             "Full-time"
         );
 
+
     const description =
-        cleanDescription(job.description || "");
+        cleanDescription(
+            job.description || ""
+        );
+
 
     const salary =
         formatSalary(
@@ -706,14 +975,24 @@ function createJobCard(job){
             job.salary_max
         );
 
+
     const redirectURL =
         safeURL(job.redirect_url);
 
 
-    let initial = "J";
+    const saved =
+        isJobSaved(job);
 
-    if(company !== "Company not specified"){
-        initial = company.charAt(0).toUpperCase();
+
+    let initial =
+        companyName.charAt(0)
+        .toUpperCase();
+
+
+    if(!initial){
+
+        initial = "J";
+
     }
 
 
@@ -747,40 +1026,61 @@ function createJobCard(job){
 
                 </div>
 
+
                 ${
                     description
-                    ? `
+                    ?
+                    `
                     <div class="description">
                         ${description}
                     </div>
                     `
-                    : ""
+                    :
+                    ""
                 }
+
 
                 ${
                     salary
-                    ? `
+                    ?
+                    `
                     <div class="salary">
                         ${salary}
                     </div>
                     `
-                    : ""
+                    :
+                    ""
                 }
 
-                ${
-                    redirectURL
-                    ? `
-                    <a
-                        class="view-job"
-                        href="${redirectURL}"
-                        target="_blank"
-                        rel="noopener noreferrer"
+
+                <div class="job-actions">
+
+                    ${
+                        redirectURL
+                        ?
+                        `
+                        <a
+                            class="view-job"
+                            href="${redirectURL}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View Job →
+                        </a>
+                        `
+                        :
+                        ""
+                    }
+
+
+                    <button
+                        class="save-job ${saved ? "saved" : ""}"
+                        onclick='handleSaveJob(${JSON.stringify(job).replace(/'/g,"&#39;")}, this)'
                     >
-                        View Job →
-                    </a>
-                    `
-                    : ""
-                }
+                        ${saved ? "⭐ Saved" : "☆ Save Job"}
+                    </button>
+
+                </div>
 
             </div>
 
@@ -791,15 +1091,53 @@ function createJobCard(job){
 }
 
 
-// Format salary
-function formatSalary(min, max){
+// ------------------------------
+// SAVE BUTTON
+// ------------------------------
+
+function handleSaveJob(job, button){
+
+    const saved =
+        toggleSaveJob(job);
+
+
+    if(saved){
+
+        button.textContent =
+            "⭐ Saved";
+
+        button.classList.add(
+            "saved"
+        );
+
+    }else{
+
+        button.textContent =
+            "☆ Save Job";
+
+        button.classList.remove(
+            "saved"
+        );
+
+    }
+
+}
+
+
+// ------------------------------
+// SALARY
+// ------------------------------
+
+function formatSalary(min,max){
 
     if(!min && !max){
+
         return "";
+
     }
 
 
-    const format = function(value){
+    function format(value){
 
         return new Intl.NumberFormat(
             "en-GB",
@@ -810,41 +1148,76 @@ function formatSalary(min, max){
             }
         ).format(value);
 
-    };
+    }
 
 
     if(min && max){
-        return format(min) + " – " + format(max);
+
+        return (
+            format(min) +
+            " – " +
+            format(max)
+        );
+
     }
+
 
     if(min){
+
         return "From " + format(min);
+
     }
+
 
     return "Up to " + format(max);
+
 }
 
 
-// Clean job description
+// ------------------------------
+// DESCRIPTION
+// ------------------------------
+
 function cleanDescription(text){
 
-    const temp = document.createElement("div");
+    const temp =
+        document.createElement("div");
 
-    temp.innerHTML = text;
 
-    let clean = temp.textContent || temp.innerText || "";
+    temp.innerHTML =
+        text;
 
-    clean = clean.replace(/\s+/g," ").trim();
+
+    let clean =
+        temp.textContent ||
+        temp.innerText ||
+        "";
+
+
+    clean =
+        clean
+            .replace(/\s+/g," ")
+            .trim();
+
 
     if(clean.length > 300){
-        clean = clean.substring(0,300) + "...";
+
+        clean =
+            clean.substring(0,300) +
+            "...";
+
     }
 
+
     return escapeHTML(clean);
+
 }
 
 
-// Escape HTML
+// ------------------------------
+// SECURITY
+// ------------------------------
+
 function escapeHTML(value){
 
     return String(value)
@@ -853,26 +1226,33 @@ function escapeHTML(value){
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
+
 }
 
 
-// Protect external URL
 function safeURL(url){
 
     if(!url){
+
         return "";
+
     }
+
 
     try{
 
-        const parsed = new URL(url);
+        const parsed =
+            new URL(url);
+
 
         if(
             parsed.protocol === "http:" ||
             parsed.protocol === "https:"
         ){
 
-            return escapeHTML(parsed.href);
+            return escapeHTML(
+                parsed.href
+            );
 
         }
 
@@ -882,17 +1262,24 @@ function safeURL(url){
 
     }
 
+
     return "";
+
 }
 
 
-// Enter key support
+// ------------------------------
+// ENTER KEY
+// ------------------------------
+
 keywordInput.addEventListener(
     "keydown",
     function(event){
 
         if(event.key === "Enter"){
+
             searchJobs();
+
         }
 
     }
@@ -904,19 +1291,26 @@ locationInput.addEventListener(
     function(event){
 
         if(event.key === "Enter"){
+
             searchJobs();
+
         }
 
     }
 );
 
 
-// Automatically search using CV professional title
+// ------------------------------
+// AUTOMATIC SEARCH FROM CV
+// ------------------------------
+
 window.addEventListener(
     "DOMContentLoaded",
     function(){
 
-        if(keywordInput.value.trim()){
+        if(
+            keywordInput.value.trim()
+        ){
 
             searchJobs();
 
