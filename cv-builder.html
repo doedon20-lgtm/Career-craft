@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>CareerCraft | CV Builder</title>
@@ -19,35 +17,51 @@
     box-sizing:border-box;
 }
 
-body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f4f7fb;
-    color:#172033;
+:root{
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+    --dark:#0f172a;
+    --text:#172033;
+    --muted:#64748b;
+    --border:#e2e8f0;
+    --background:#f5f7fb;
+    --card:#ffffff;
+    --success:#16a34a;
+    --danger:#dc2626;
 }
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--background);
+    color:var(--text);
+}
+
+/* NAVBAR */
 
 .navbar{
     background:white;
-    border-bottom:1px solid #e2e8f0;
+    border-bottom:1px solid var(--border);
     position:sticky;
     top:0;
     z-index:1000;
 }
 
 .nav-inner{
-    width:92%;
-    max-width:1150px;
-    height:70px;
+    width:94%;
+    max-width:1250px;
+    min-height:68px;
     margin:auto;
     display:flex;
     align-items:center;
     justify-content:space-between;
+    gap:20px;
 }
 
 .logo{
     text-decoration:none;
     font-size:25px;
     font-weight:800;
-    color:#2563eb;
+    color:var(--primary);
 }
 
 .logo span{
@@ -66,71 +80,114 @@ body{
     font-weight:600;
 }
 
-.nav-links a:hover{
-    color:#2563eb;
+.nav-links a:hover,
+.nav-links .active{
+    color:var(--primary);
 }
 
-.active{
-    color:#2563eb !important;
-}
+/* HERO */
 
-.page-header{
-    background:linear-gradient(135deg,#0f172a,#2563eb);
+.hero{
+    background:
+        radial-gradient(circle at top right,rgba(59,130,246,.4),transparent 30%),
+        linear-gradient(135deg,#0f172a,#1d4ed8);
+
     color:white;
-    text-align:center;
-    padding:55px 20px;
+    padding:48px 20px;
 }
 
-.page-header h1{
+.hero-inner{
+    width:94%;
+    max-width:1250px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:30px;
+}
+
+.hero h1{
     font-size:38px;
     margin-bottom:12px;
 }
 
-.page-header p{
+.hero p{
     color:#dbeafe;
-    font-size:15px;
+    max-width:650px;
+    line-height:1.6;
 }
+
+.hero-badge{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.2);
+    padding:12px 16px;
+    border-radius:12px;
+    font-size:13px;
+    white-space:nowrap;
+}
+
+/* BUILDER */
 
 .builder{
-    width:92%;
-    max-width:900px;
-    margin:40px auto 70px;
+    width:94%;
+    max-width:1250px;
+    margin:30px auto 70px;
 }
 
-.form-card{
-    background:white;
+.builder-layout{
+    display:grid;
+    grid-template-columns:1fr 310px;
+    gap:25px;
+    align-items:start;
+}
+
+/* CARD */
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
     border-radius:16px;
-    padding:30px;
-    box-shadow:0 8px 30px rgba(0,0,0,.07);
-    border:1px solid #e2e8f0;
+    padding:26px;
+    margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(15,23,42,.05);
 }
 
-.form-card h2{
-    font-size:24px;
-    margin-bottom:8px;
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:22px;
 }
 
-.form-intro{
-    color:#64748b;
-    font-size:14px;
-    line-height:1.6;
-    margin-bottom:28px;
+.card-header h2{
+    font-size:20px;
 }
 
-.form-section{
-    margin-bottom:30px;
+.card-header p{
+    font-size:13px;
+    color:var(--muted);
+    margin-top:5px;
 }
 
-.form-section h3{
-    font-size:17px;
-    margin-bottom:16px;
-    color:#1e3a8a;
+.section-number{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:#eff6ff;
+    color:var(--primary);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
 }
+
+/* FORM */
 
 .form-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:15px;
+    gap:16px;
 }
 
 .form-group{
@@ -140,30 +197,33 @@ body{
 }
 
 .full{
-    grid-column:1 / -1;
+    grid-column:1/-1;
 }
 
 label{
     font-size:13px;
-    font-weight:bold;
+    font-weight:700;
     color:#334155;
 }
 
 input,
-textarea{
+textarea,
+select{
     width:100%;
     border:1px solid #cbd5e1;
-    border-radius:8px;
-    padding:13px;
-    font-family:Arial, Helvetica, sans-serif;
+    border-radius:9px;
+    padding:12px 13px;
+    font-family:Arial,Helvetica,sans-serif;
     font-size:14px;
     outline:none;
     background:white;
+    color:#172033;
 }
 
 input:focus,
-textarea:focus{
-    border-color:#2563eb;
+textarea:focus,
+select:focus{
+    border-color:var(--primary);
     box-shadow:0 0 0 3px rgba(37,99,235,.08);
 }
 
@@ -172,50 +232,308 @@ textarea{
     resize:vertical;
 }
 
-.button-row{
+.help{
+    font-size:11px;
+    color:#94a3b8;
+}
+
+/* PHOTO */
+
+.photo-section{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.photo-preview{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:#eff6ff;
+    border:3px solid #dbeafe;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    flex-shrink:0;
+}
+
+.photo-preview img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.photo-placeholder{
+    font-size:30px;
+    color:var(--primary);
+}
+
+/* REPEATER */
+
+.repeatable{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.repeat-item{
+    border:1px solid var(--border);
+    background:#f8fafc;
+    border-radius:12px;
+    padding:18px;
+    position:relative;
+}
+
+.repeat-top{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:12px;
-    margin-top:10px;
+    margin-bottom:15px;
 }
 
-.clear-button{
+.repeat-top strong{
+    font-size:14px;
+}
+
+.remove-btn{
+    border:none;
+    background:#fee2e2;
+    color:#b91c1c;
+    padding:7px 10px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.add-btn{
+    border:1px dashed #93c5fd;
+    background:#eff6ff;
+    color:var(--primary);
+    padding:11px 15px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.add-btn:hover{
+    background:#dbeafe;
+}
+
+/* SKILLS */
+
+.skills-container{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.skill-row{
+    display:grid;
+    grid-template-columns:1fr 160px auto;
+    gap:10px;
+    align-items:center;
+}
+
+.skill-remove{
+    border:none;
+    background:#fee2e2;
+    color:#b91c1c;
+    height:42px;
+    width:42px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* TEMPLATES */
+
+.templates{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.template{
+    border:2px solid var(--border);
+    border-radius:10px;
+    padding:15px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.template:hover{
+    border-color:#93c5fd;
+}
+
+.template.selected{
+    border-color:var(--primary);
+    background:#eff6ff;
+}
+
+.template-preview{
+    height:100px;
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:6px;
+    padding:10px;
+    margin-bottom:10px;
+}
+
+.template-preview div{
+    height:5px;
+    background:#cbd5e1;
+    margin-bottom:7px;
+    border-radius:3px;
+}
+
+.template-preview div:first-child{
+    width:50%;
+    background:#2563eb;
+}
+
+.template-name{
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:sticky;
+    top:95px;
+}
+
+.progress-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px;
+    margin-bottom:18px;
+}
+
+.progress-header{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:12px;
+}
+
+.progress-header strong{
+    font-size:15px;
+}
+
+.progress-percent{
+    color:var(--primary);
+    font-weight:bold;
+}
+
+.progress-bar{
+    width:100%;
+    height:9px;
+    background:#e2e8f0;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#2563eb,#60a5fa);
+    border-radius:20px;
+    transition:.3s;
+}
+
+.progress-text{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.5;
+    margin-top:12px;
+}
+
+.tip-card{
+    background:linear-gradient(135deg,#eff6ff,#ffffff);
+    border:1px solid #bfdbfe;
+    border-radius:16px;
+    padding:20px;
+}
+
+.tip-card h3{
+    font-size:16px;
+    margin-bottom:8px;
+}
+
+.tip-card p{
+    color:#475569;
+    font-size:13px;
+    line-height:1.6;
+}
+
+/* ACTION BAR */
+
+.action-bar{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    position:sticky;
+    bottom:15px;
+    z-index:100;
+    box-shadow:0 8px 30px rgba(15,23,42,.12);
+}
+
+.save-status{
+    font-size:12px;
+    color:var(--muted);
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+}
+
+.btn{
+    border:none;
+    border-radius:9px;
+    padding:12px 18px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:13px;
+}
+
+.btn-secondary{
     background:#f1f5f9;
     color:#475569;
-    border:none;
-    padding:13px 18px;
-    border-radius:8px;
-    font-weight:bold;
-    cursor:pointer;
 }
 
-.preview-button{
-    background:#2563eb;
+.btn-primary{
+    background:var(--primary);
     color:white;
-    border:none;
-    padding:13px 22px;
-    border-radius:8px;
-    font-weight:bold;
-    cursor:pointer;
 }
 
-.preview-button:hover{
-    background:#1d4ed8;
+.btn-primary:hover{
+    background:var(--primary-dark);
 }
 
-.preview-button:disabled{
-    opacity:.7;
+.btn:disabled{
+    opacity:.65;
     cursor:not-allowed;
 }
 
+/* MESSAGE */
+
 .message{
     display:none;
+    padding:13px;
+    border-radius:9px;
     margin-top:15px;
-    padding:12px;
-    border-radius:8px;
     font-size:13px;
-    line-height:1.5;
 }
 
 .message.success{
@@ -228,12 +546,34 @@ textarea{
     color:#991b1b;
 }
 
+/* FOOTER */
+
 footer{
     background:#0f172a;
     color:#94a3b8;
     text-align:center;
-    padding:28px 20px;
+    padding:30px;
     font-size:13px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+    .builder-layout{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        position:static;
+        order:-1;
+    }
+
+    .hero-inner{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
 }
 
 @media(max-width:700px){
@@ -242,12 +582,20 @@ footer{
         display:none;
     }
 
-    .page-header h1{
-        font-size:30px;
+    .hero h1{
+        font-size:29px;
     }
 
-    .form-card{
-        padding:22px;
+    .hero{
+        padding:35px 15px;
+    }
+
+    .builder{
+        width:94%;
+    }
+
+    .card{
+        padding:20px;
     }
 
     .form-grid{
@@ -258,13 +606,29 @@ footer{
         grid-column:auto;
     }
 
-    .button-row{
-        flex-direction:column-reverse;
+    .templates{
+        grid-template-columns:1fr;
+    }
+
+    .skill-row{
+        grid-template-columns:1fr;
+    }
+
+    .skill-remove{
+        width:100%;
+    }
+
+    .action-bar{
+        flex-direction:column;
         align-items:stretch;
     }
 
-    .clear-button,
-    .preview-button{
+    .actions{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .actions .btn{
         width:100%;
     }
 
@@ -274,9 +638,7 @@ footer{
 
 </head>
 
-
 <body>
-
 
 <header class="navbar">
 
@@ -288,9 +650,7 @@ Career<span>Craft</span>
 
 <nav class="nav-links">
 
-<a href="index.html">
-Home
-</a>
+<a href="index.html">Home</a>
 
 <a href="cv-builder.html" class="active">
 CV Builder
@@ -315,112 +675,200 @@ Job Finder
 </header>
 
 
-<section class="page-header">
+<section class="hero">
 
-<h1>
-Create Your Professional CV
-</h1>
+<div class="hero-inner">
+
+<div>
+
+<h1>Create a CV that gets noticed.</h1>
 
 <p>
-Build a professional CV in minutes and get ready for your next opportunity.
+Build a professional, modern CV with CareerCraft.
+Add your experience, education, skills, projects, certifications
+and achievements — then preview your finished CV before applying.
 </p>
+
+</div>
+
+<div class="hero-badge">
+✓ Securely saved to your account
+</div>
+
+</div>
 
 </section>
 
 
 <main class="builder">
 
-<div class="form-card">
+<div class="builder-layout">
 
-<h2>
-Your CV Information
-</h2>
-
-<p class="form-intro">
-Enter your information below. Your CV will be saved securely to your CareerCraft account.
-</p>
+<div>
 
 
-<!-- PERSONAL INFORMATION -->
+<!-- BASIC INFORMATION -->
 
-<section class="form-section">
+<section class="card">
 
-<h3>
-Personal Information
-</h3>
+<div class="card-header">
+
+<div>
+<h2>Basic Information</h2>
+<p>Start with the information employers need to know.</p>
+</div>
+
+<div class="section-number">1</div>
+
+</div>
+
 
 <div class="form-grid">
 
-
 <div class="form-group">
 
-<label for="fullName">
-Full Name
-</label>
+<label>CV Name</label>
 
 <input
+id="cvTitle"
 type="text"
-id="fullName"
-placeholder="e.g. Nnenna Chima">
+placeholder="e.g. Software Engineer CV">
+
+<span class="help">
+Give this CV a name so you can identify it later.
+</span>
 
 </div>
 
 
 <div class="form-group">
 
-<label for="email">
-Email Address
-</label>
+<label>Professional Headline</label>
 
 <input
-type="email"
-id="email"
-placeholder="e.g. you@email.com">
-
-</div>
-
-
-<div class="form-group">
-
-<label for="phone">
-Phone Number
-</label>
-
-<input
-type="tel"
-id="phone"
-placeholder="e.g. +44 7000 000000">
-
-</div>
-
-
-<div class="form-group">
-
-<label for="location">
-Location
-</label>
-
-<input
-type="text"
-id="location"
-placeholder="e.g. London, UK">
-
-</div>
-
-
-<div class="form-group full">
-
-<label for="professionalTitle">
-Professional Title
-</label>
-
-<input
-type="text"
 id="professionalTitle"
-placeholder="e.g. Virtual Assistant">
+type="text"
+placeholder="e.g. Software Engineer | Full-Stack Developer">
 
 </div>
 
+
+<div class="form-group">
+
+<label>Full Name *</label>
+
+<input
+id="fullName"
+type="text"
+placeholder="Your full name">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Email Address</label>
+
+<input
+id="email"
+type="email"
+placeholder="you@example.com">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Phone Number</label>
+
+<input
+id="phone"
+type="tel"
+placeholder="+234 800 000 0000">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Location</label>
+
+<input
+id="location"
+type="text"
+placeholder="Abuja, Nigeria">
+
+</div>
+
+
+<div class="form-group">
+
+<label>LinkedIn</label>
+
+<input
+id="linkedin"
+type="url"
+placeholder="https://linkedin.com/in/yourname">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Portfolio / Website</label>
+
+<input
+id="website"
+type="url"
+placeholder="https://yourwebsite.com">
+
+</div>
+
+
+<div class="form-group">
+
+<label>GitHub</label>
+
+<input
+id="github"
+type="url"
+placeholder="https://github.com/yourname">
+
+</div>
+
+<div class="form-group">
+
+<label>Professional Profile Photo</label>
+
+<input
+id="photo"
+type="file"
+accept="image/*">
+
+</div>
+
+</div>
+
+
+<div class="photo-section" style="margin-top:20px;">
+
+<div class="photo-preview" id="photoPreview">
+
+<div class="photo-placeholder">
+👤
+</div>
+
+</div>
+
+<div>
+
+<strong>Profile photo</strong>
+
+<p class="help">
+Use a professional-looking photo. The image is prepared for your CV preview.
+</p>
+
+</div>
 
 </div>
 
@@ -429,44 +877,26 @@ placeholder="e.g. Virtual Assistant">
 
 <!-- SUMMARY -->
 
-<section class="form-section">
+<section class="card">
 
-<h3>
-Professional Summary
-</h3>
+<div class="card-header">
 
-<div class="form-group">
+<div>
+<h2>Professional Summary</h2>
+<p>Tell employers who you are and what you bring.</p>
+</div>
 
-<label for="summary">
-Short professional introduction
-</label>
-
-<textarea
-id="summary"
-placeholder="Example: Motivated and reliable professional with strong communication, organisation and computer skills. Experienced in supporting teams, managing tasks and delivering high-quality work."></textarea>
+<div class="section-number">2</div>
 
 </div>
 
-</section>
-
-
-<!-- SKILLS -->
-
-<section class="form-section">
-
-<h3>
-Skills
-</h3>
-
 <div class="form-group">
 
-<label for="skills">
-Your key skills
-</label>
+<label>Professional Summary</label>
 
 <textarea
-id="skills"
-placeholder="Example: Microsoft Office, Communication, Customer Service, Time Management, Research, Teamwork"></textarea>
+id="summary"
+placeholder="Write 3–5 sentences describing your experience, strengths, career goals and the value you bring to an employer."></textarea>
 
 </div>
 
@@ -475,121 +905,448 @@ placeholder="Example: Microsoft Office, Communication, Customer Service, Time Ma
 
 <!-- EXPERIENCE -->
 
-<section class="form-section">
+<section class="card">
 
-<h3>
-Work Experience
-</h3>
+<div class="card-header">
 
-<div class="form-grid">
+<div>
+<h2>Work Experience</h2>
+<p>Add every relevant position you've held.</p>
+</div>
 
-
-<div class="form-group">
-
-<label for="jobTitle">
-Job Title
-</label>
-
-<input
-type="text"
-id="jobTitle"
-placeholder="e.g. Administrative Assistant">
+<div class="section-number">3</div>
 
 </div>
 
 
-<div class="form-group">
+<div id="experienceContainer" class="repeatable"></div>
 
-<label for="company">
-Company
-</label>
+<button
+type="button"
+class="add-btn"
+onclick="addExperience()">
 
-<input
-type="text"
-id="company"
-placeholder="e.g. ABC Company">
++ Add another experience
+
+</button>
+
+</section>
+
+
+<!-- EDUCATION -->
+
+<section class="card">
+
+<div class="card-header">
+
+<div>
+<h2>Education</h2>
+<p>Show employers your academic background.</p>
+</div>
+
+<div class="section-number">4</div>
 
 </div>
 
 
-<div class="form-group">
+<div id="educationContainer" class="repeatable"></div>
 
-<label for="experienceDates">
-Dates
-</label>
+<button
+type="button"
+class="add-btn"
+onclick="addEducation()">
 
-<input
-type="text"
-id="experienceDates"
-placeholder="e.g. 2024 - Present">
++ Add another education
+
+</button>
+
+</section>
+
+
+<!-- SKILLS -->
+
+<section class="card">
+
+<div class="card-header">
+
+<div>
+<h2>Skills</h2>
+<p>Highlight the skills that match your career goals.</p>
+</div>
+
+<div class="section-number">5</div>
 
 </div>
 
 
-<div class="form-group">
+<div id="skillsContainer" class="skills-container"></div>
 
-<label for="education">
-Education
-</label>
+<button
+type="button"
+class="add-btn"
+onclick="addSkill()">
 
-<input
-type="text"
-id="education"
-placeholder="e.g. Bachelor's Degree">
++ Add another skill
+
+</button>
+
+</section>
+
+
+<!-- CERTIFICATIONS -->
+
+<section class="card">
+
+<div class="card-header">
+
+<div>
+<h2>Certifications</h2>
+<p>Add professional certifications and training.</p>
+</div>
+
+<div class="section-number">6</div>
 
 </div>
 
 
-<div class="form-group full">
+<div id="certificationsContainer" class="repeatable"></div>
 
-<label for="experience">
-Experience Description
-</label>
+<button
+type="button"
+class="add-btn"
+onclick="addCertification()">
+
++ Add certification
+
+</button>
+
+</section>
+
+
+<!-- PROJECTS -->
+
+<section class="card">
+
+<div class="card-header">
+
+<div>
+<h2>Projects</h2>
+<p>Show employers what you have actually built or accomplished.</p>
+</div>
+
+<div class="section-number">7</div>
+
+</div>
+
+
+<div id="projectsContainer" class="repeatable"></div>
+
+<button
+type="button"
+class="add-btn"
+onclick="addProject()">
+
++ Add project
+
+</button>
+
+</section>
+
+
+<!-- LANGUAGES -->
+
+<section class="card">
+
+<div class="card-header">
+
+<div>
+<h2>Languages</h2>
+<p>Show the languages you can communicate in.</p>
+</div>
+
+<div class="section-number">8</div>
+
+</div>
+
+
+<div id="languagesContainer" class="repeatable"></div>
+
+<button
+type="button"
+class="add-btn"
+onclick="addLanguage()">
+
++ Add language
+
+</button>
+
+</section>
+
+
+<!-- ACHIEVEMENTS -->
+
+<section class="card">
+
+<div class="card-header">
+
+<div>
+<h2>Achievements</h2>
+<p>Stand out with measurable accomplishments.</p>
+</div>
+
+<div class="section-number">9</div>
+
+</div>
+
+<div class="form-group">
+
+<label>Achievements & Awards</label>
 
 <textarea
-id="experience"
-placeholder="Example: Managed daily administrative tasks, responded to customer enquiries, prepared documents and supported team members with business operations."></textarea>
-
-</div>
-
+id="achievements"
+placeholder="Example:
+• Increased customer satisfaction by 25%.
+• Won Employee of the Month twice.
+• Led a student technology project."></textarea>
 
 </div>
 
 </section>
 
 
-<!-- BUTTONS -->
+<!-- VOLUNTEER -->
 
-<div class="button-row">
+<section class="card">
 
-<button
-type="button"
-class="clear-button"
-onclick="clearCV()">
+<div class="card-header">
 
-Clear Form
+<div>
+<h2>Volunteer Experience</h2>
+<p>Include meaningful volunteer and community experience.</p>
+</div>
 
-</button>
+<div class="section-number">10</div>
+
+</div>
 
 
-<button
-type="button"
-id="saveButton"
-class="preview-button"
-onclick="saveAndPreview()">
+<div class="form-group">
 
-Save & View My CV →
+<label>Volunteer Experience</label>
 
-</button>
+<textarea
+id="volunteer"
+placeholder="Organisation, role, dates and what you accomplished."></textarea>
+
+</div>
+
+</section>
+
+
+<!-- REFERENCES -->
+
+<section class="card">
+
+<div class="card-header">
+
+<div>
+<h2>References</h2>
+<p>Optional references for employers.</p>
+</div>
+
+<div class="section-number">11</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>References</label>
+
+<textarea
+id="references"
+placeholder="Reference Name — Job Title — Company — Email — Phone"></textarea>
+
+</div>
+
+</section>
+
+
+<!-- TEMPLATE -->
+
+<section class="card">
+
+<div class="card-header">
+
+<div>
+<h2>Choose Your CV Style</h2>
+<p>Select the design you want to use for your CV.</p>
+</div>
+
+<div class="section-number">12</div>
+
+</div>
+
+
+<div class="templates">
+
+<div
+class="template selected"
+data-template="professional"
+onclick="selectTemplate(this)">
+
+<div class="template-preview">
+
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+
+</div>
+
+<div class="template-name">
+Professional
+</div>
 
 </div>
 
 
 <div
-id="message"
-class="message">
+class="template"
+data-template="modern"
+onclick="selectTemplate(this)">
+
+<div class="template-preview">
+
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+
 </div>
 
+<div class="template-name">
+Modern
+</div>
+
+</div>
+
+
+<div
+class="template"
+data-template="minimal"
+onclick="selectTemplate(this)">
+
+<div class="template-preview">
+
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+
+</div>
+
+<div class="template-name">
+Minimal
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<div class="message" id="message"></div>
+
+
+<div class="action-bar">
+
+<div class="save-status" id="saveStatus">
+Ready to save
+</div>
+
+<div class="actions">
+
+<button
+class="btn btn-secondary"
+type="button"
+onclick="clearForm()">
+
+Clear
+
+</button>
+
+<button
+class="btn btn-primary"
+id="saveButton"
+type="button"
+onclick="saveCV()">
+
+Save & Preview →
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="progress-card">
+
+<div class="progress-header">
+
+<strong>CV Completion</strong>
+
+<span
+class="progress-percent"
+id="progressPercent">
+0%
+</span>
+
+</div>
+
+<div class="progress-bar">
+
+<div
+class="progress-fill"
+id="progressFill">
+</div>
+
+</div>
+
+<p
+class="progress-text"
+id="progressText">
+
+Complete your CV to improve your chances of making a strong first impression.
+
+</p>
+
+</div>
+
+
+<div class="tip-card">
+
+<h3>💡 CareerCraft Tip</h3>
+
+<p id="tipText">
+Use specific achievements instead of simply listing responsibilities.
+For example, explain how you improved sales, saved time or helped customers.
+</p>
+
+</div>
+
+</aside>
 
 </div>
 
@@ -605,26 +1362,15 @@ CareerCraft © 2026 — Build a better career.
 
 <script>
 
-
-/* ==================================================
+/* =========================================================
    SUPABASE
-================================================== */
-
-
-/*
-   IMPORTANT:
-   Replace these with the SAME values
-   from your working dashboard.html
-*/
-
+========================================================= */
 
 const SUPABASE_URL =
 "https://upcxmlbgmqhaqieldmyk.supabase.co";
 
-
 const SUPABASE_ANON_KEY =
 "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
-
 
 const supabaseClient =
 window.supabase.createClient(
@@ -633,20 +1379,36 @@ window.supabase.createClient(
 );
 
 
-/* ==================================================
-   ELEMENTS
-================================================== */
+/* =========================================================
+   STATE
+========================================================= */
 
-const saveButton =
-document.getElementById("saveButton");
+let currentUser = null;
+
+let currentCVId = null;
+
+let selectedTemplate = "professional";
+
+let photoData = "";
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
 const message =
 document.getElementById("message");
 
+const saveButton =
+document.getElementById("saveButton");
 
-/* ==================================================
+const saveStatus =
+document.getElementById("saveStatus");
+
+
+/* =========================================================
    MESSAGE
-================================================== */
+========================================================= */
 
 function showMessage(text,type){
 
@@ -655,78 +1417,70 @@ function showMessage(text,type){
     message.className =
         "message " + type;
 
-    message.style.display =
-        "block";
+    message.style.display = "block";
 
 }
 
 
-/* ==================================================
-   GET CV DATA
-================================================== */
+/* =========================================================
+   AUTH
+========================================================= */
 
-function getCVData(){
+async function checkAuth(){
 
-    return {
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .auth
+    .getSession();
 
-        fullName:
-        document.getElementById("fullName")
-        .value.trim(),
+    if(error){
 
-        email:
-        document.getElementById("email")
-        .value.trim(),
+        console.error(error);
 
-        phone:
-        document.getElementById("phone")
-        .value.trim(),
+        window.location.href =
+            "login.html";
 
-        location:
-        document.getElementById("location")
-        .value.trim(),
+        return false;
 
-        professionalTitle:
-        document.getElementById("professionalTitle")
-        .value.trim(),
+    }
 
-        summary:
-        document.getElementById("summary")
-        .value.trim(),
+    if(
+        !data ||
+        !data.session ||
+        !data.session.user
+    ){
 
-        skills:
-        document.getElementById("skills")
-        .value.trim(),
+        window.location.href =
+            "login.html";
 
-        jobTitle:
-        document.getElementById("jobTitle")
-        .value.trim(),
+        return false;
 
-        company:
-        document.getElementById("company")
-        .value.trim(),
+    }
 
-        experienceDates:
-        document.getElementById("experienceDates")
-        .value.trim(),
+    currentUser =
+        data.session.user;
 
-        education:
-        document.getElementById("education")
-        .value.trim(),
-
-        experience:
-        document.getElementById("experience")
-        .value.trim()
-
-    };
-
+    return true;
 }
 
 
-/* ==================================================
-   GENERATE TEXT ID
-================================================== */
+/* =========================================================
+   GENERATE ID
+========================================================= */
 
 function generateId(){
+
+    if(
+        window.crypto &&
+        crypto.randomUUID
+    ){
+
+        return crypto.randomUUID();
+
+    }
 
     return (
         Date.now().toString(36) +
@@ -739,126 +1493,831 @@ function generateId(){
 }
 
 
-/* ==================================================
-   SAVE CV
-================================================== */
+/* =========================================================
+   ADD EXPERIENCE
+========================================================= */
 
-async function saveAndPreview(){
+function addExperience(data = {}){
+
+    const container =
+        document.getElementById(
+            "experienceContainer"
+        );
+
+    const item =
+        document.createElement("div");
+
+    item.className =
+        "repeat-item experience-item";
+
+    item.innerHTML = `
+
+        <div class="repeat-top">
+
+            <strong>Work Experience</strong>
+
+            <button
+                type="button"
+                class="remove-btn"
+                onclick="this.closest('.repeat-item').remove(); updateProgress();">
+
+                Remove
+
+            </button>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Job Title</label>
+
+                <input
+                    class="exp-job"
+                    type="text"
+                    placeholder="Software Engineer"
+                    value="${escapeHTML(data.jobTitle || "")}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Company</label>
+
+                <input
+                    class="exp-company"
+                    type="text"
+                    placeholder="Company name"
+                    value="${escapeHTML(data.company || "")}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Start Date</label>
+
+                <input
+                    class="exp-start"
+                    type="text"
+                    placeholder="January 2024"
+                    value="${escapeHTML(data.startDate || "")}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>End Date</label>
+
+                <input
+                    class="exp-end"
+                    type="text"
+                    placeholder="Present"
+                    value="${escapeHTML(data.endDate || "")}">
+
+            </div>
+
+            <div class="form-group full">
+
+                <label>Location</label>
+
+                <input
+                    class="exp-location"
+                    type="text"
+                    placeholder="Lagos, Nigeria"
+                    value="${escapeHTML(data.location || "")}">
+
+            </div>
+
+            <div class="form-group full">
+
+                <label>Description & Achievements</label>
+
+                <textarea
+                    class="exp-description"
+                    placeholder="Describe your responsibilities and achievements. Use measurable results where possible.">${escapeHTML(data.description || "")}</textarea>
+
+            </div>
+
+        </div>
+
+    `;
+
+    container.appendChild(item);
+
+    updateProgress();
+
+}
+
+
+/* =========================================================
+   ADD EDUCATION
+========================================================= */
+
+function addEducation(data = {}){
+
+    const container =
+        document.getElementById(
+            "educationContainer"
+        );
+
+    const item =
+        document.createElement("div");
+
+    item.className =
+        "repeat-item education-item";
+
+    item.innerHTML = `
+
+        <div class="repeat-top">
+
+            <strong>Education</strong>
+
+            <button
+                type="button"
+                class="remove-btn"
+                onclick="this.closest('.repeat-item').remove(); updateProgress();">
+
+                Remove
+
+            </button>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>School / Institution</label>
+
+                <input
+                    class="edu-school"
+                    type="text"
+                    placeholder="University name"
+                    value="${escapeHTML(data.school || "")}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Degree / Qualification</label>
+
+                <input
+                    class="edu-degree"
+                    type="text"
+                    placeholder="Bachelor's Degree"
+                    value="${escapeHTML(data.degree || "")}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Field of Study</label>
+
+                <input
+                    class="edu-field"
+                    type="text"
+                    placeholder="Computer Science"
+                    value="${escapeHTML(data.field || "")}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Dates</label>
+
+                <input
+                    class="edu-dates"
+                    type="text"
+                    placeholder="2020 - 2024"
+                    value="${escapeHTML(data.dates || "")}">
+
+            </div>
+
+            <div class="form-group full">
+
+                <label>Details</label>
+
+                <textarea
+                    class="edu-details"
+                    placeholder="Relevant coursework, honours, activities or achievements.">${escapeHTML(data.details || "")}</textarea>
+
+            </div>
+
+        </div>
+
+    `;
+
+    container.appendChild(item);
+
+    updateProgress();
+
+}
+
+
+/* =========================================================
+   ADD SKILL
+========================================================= */
+
+function addSkill(data = {}){
+
+    const container =
+        document.getElementById(
+            "skillsContainer"
+        );
+
+    const row =
+        document.createElement("div");
+
+    row.className =
+        "skill-row";
+
+    row.innerHTML = `
+
+        <input
+            class="skill-name"
+            type="text"
+            placeholder="e.g. JavaScript"
+            value="${escapeHTML(data.name || "")}">
+
+        <select class="skill-level">
+
+            <option value="">Skill level</option>
+
+            <option ${data.level === "Beginner" ? "selected" : ""}>
+                Beginner
+            </option>
+
+            <option ${data.level === "Intermediate" ? "selected" : ""}>
+                Intermediate
+            </option>
+
+            <option ${data.level === "Advanced" ? "selected" : ""}>
+                Advanced
+            </option>
+
+            <option ${data.level === "Expert" ? "selected" : ""}>
+                Expert
+            </option>
+
+        </select>
+
+        <button
+            type="button"
+            class="skill-remove"
+            onclick="this.parentElement.remove(); updateProgress();">
+
+            ×
+
+        </button>
+
+    `;
+
+    container.appendChild(row);
+
+    updateProgress();
+
+}
+
+
+/* =========================================================
+   ADD CERTIFICATION
+========================================================= */
+
+function addCertification(data = {}){
+
+    const container =
+        document.getElementById(
+            "certificationsContainer"
+        );
+
+    const item =
+        document.createElement("div");
+
+    item.className =
+        "repeat-item certification-item";
+
+    item.innerHTML = `
+
+        <div class="repeat-top">
+
+            <strong>Certification</strong>
+
+            <button
+                type="button"
+                class="remove-btn"
+                onclick="this.closest('.repeat-item').remove(); updateProgress();">
+
+                Remove
+
+            </button>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Certification</label>
+
+                <input
+                    class="cert-name"
+                    type="text"
+                    placeholder="Google Professional Certificate"
+                    value="${escapeHTML(data.name || "")}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Organisation</label>
+
+                <input
+                    class="cert-org"
+                    type="text"
+                    placeholder="Google"
+                    value="${escapeHTML(data.organization || "")}">
+
+            </div>
+
+            <div class="form-group full">
+
+                <label>Year</label>
+
+                <input
+                    class="cert-year"
+                    type="text"
+                    placeholder="2026"
+                    value="${escapeHTML(data.year || "")}">
+
+            </div>
+
+        </div>
+
+    `;
+
+    container.appendChild(item);
+
+    updateProgress();
+
+}
+
+
+/* =========================================================
+   ADD PROJECT
+========================================================= */
+
+function addProject(data = {}){
+
+    const container =
+        document.getElementById(
+            "projectsContainer"
+        );
+
+    const item =
+        document.createElement("div");
+
+    item.className =
+        "repeat-item project-item";
+
+    item.innerHTML = `
+
+        <div class="repeat-top">
+
+            <strong>Project</strong>
+
+            <button
+                type="button"
+                class="remove-btn"
+                onclick="this.closest('.repeat-item').remove(); updateProgress();">
+
+                Remove
+
+            </button>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Project Name</label>
+
+                <input
+                    class="project-name"
+                    type="text"
+                    placeholder="CareerCraft"
+                    value="${escapeHTML(data.name || "")}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Project Link</label>
+
+                <input
+                    class="project-link"
+                    type="url"
+                    placeholder="https://..."
+                    value="${escapeHTML(data.link || "")}">
+
+            </div>
+
+            <div class="form-group full">
+
+                <label>Project Description</label>
+
+                <textarea
+                    class="project-description"
+                    placeholder="Explain what you built, the technologies used and the result.">${escapeHTML(data.description || "")}</textarea>
+
+            </div>
+
+        </div>
+
+    `;
+
+    container.appendChild(item);
+
+    updateProgress();
+
+}
+
+
+/* =========================================================
+   ADD LANGUAGE
+========================================================= */
+
+function addLanguage(data = {}){
+
+    const container =
+        document.getElementById(
+            "languagesContainer"
+        );
+
+    const item =
+        document.createElement("div");
+
+    item.className =
+        "repeat-item language-item";
+
+    item.innerHTML = `
+
+        <div class="repeat-top">
+
+            <strong>Language</strong>
+
+            <button
+                type="button"
+                class="remove-btn"
+                onclick="this.closest('.repeat-item').remove(); updateProgress();">
+
+                Remove
+
+            </button>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Language</label>
+
+                <input
+                    class="language-name"
+                    type="text"
+                    placeholder="English"
+                    value="${escapeHTML(data.name || "")}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Proficiency</label>
+
+                <select class="language-level">
+
+                    <option value="">Select level</option>
+
+                    <option ${data.level === "Basic" ? "selected" : ""}>
+                        Basic
+                    </option>
+
+                    <option ${data.level === "Conversational" ? "selected" : ""}>
+                        Conversational
+                    </option>
+
+                    <option ${data.level === "Professional" ? "selected" : ""}>
+                        Professional
+                    </option>
+
+                    <option ${data.level === "Fluent" ? "selected" : ""}>
+                        Fluent
+                    </option>
+
+                    <option ${data.level === "Native" ? "selected" : ""}>
+                        Native
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    `;
+
+    container.appendChild(item);
+
+    updateProgress();
+
+}
+
+
+/* =========================================================
+   COLLECT EXPERIENCE
+========================================================= */
+
+function collectExperience(){
+
+    return [
+        ...document.querySelectorAll(".experience-item")
+    ].map(item => ({
+
+        jobTitle:
+            item.querySelector(".exp-job").value.trim(),
+
+        company:
+            item.querySelector(".exp-company").value.trim(),
+
+        startDate:
+            item.querySelector(".exp-start").value.trim(),
+
+        endDate:
+            item.querySelector(".exp-end").value.trim(),
+
+        location:
+            item.querySelector(".exp-location").value.trim(),
+
+        description:
+            item.querySelector(".exp-description").value.trim()
+
+    }));
+
+}
+
+
+/* =========================================================
+   COLLECT EDUCATION
+========================================================= */
+
+function collectEducation(){
+
+    return [
+        ...document.querySelectorAll(".education-item")
+    ].map(item => ({
+
+        school:
+            item.querySelector(".edu-school").value.trim(),
+
+        degree:
+            item.querySelector(".edu-degree").value.trim(),
+
+        field:
+            item.querySelector(".edu-field").value.trim(),
+
+        dates:
+            item.querySelector(".edu-dates").value.trim(),
+
+        details:
+            item.querySelector(".edu-details").value.trim()
+
+    }));
+
+}
+
+
+/* =========================================================
+   COLLECT SKILLS
+========================================================= */
+
+function collectSkills(){
+
+    return [
+        ...document.querySelectorAll(".skill-row")
+    ].map(row => ({
+
+        name:
+            row.querySelector(".skill-name").value.trim(),
+
+        level:
+            row.querySelector(".skill-level").value
+
+    })).filter(skill => skill.name);
+
+}
+
+
+/* =========================================================
+   COLLECT CERTIFICATIONS
+========================================================= */
+
+function collectCertifications(){
+
+    return [
+        ...document.querySelectorAll(".certification-item")
+    ].map(item => ({
+
+        name:
+            item.querySelector(".cert-name").value.trim(),
+
+        organization:
+            item.querySelector(".cert-org").value.trim(),
+
+        year:
+            item.querySelector(".cert-year").value.trim()
+
+    }));
+
+}
+
+
+/* =========================================================
+   COLLECT PROJECTS
+========================================================= */
+
+function collectProjects(){
+
+    return [
+        ...document.querySelectorAll(".project-item")
+    ].map(item => ({
+
+        name:
+            item.querySelector(".project-name").value.trim(),
+
+        link:
+            item.querySelector(".project-link").value.trim(),
+
+        description:
+            item.querySelector(".project-description").value.trim()
+
+    }));
+
+}
+
+
+/* =========================================================
+   COLLECT LANGUAGES
+========================================================= */
+
+function collectLanguages(){
+
+    return [
+        ...document.querySelectorAll(".language-item")
+    ].map(item => ({
+
+        name:
+            item.querySelector(".language-name").value.trim(),
+
+        level:
+            item.querySelector(".language-level").value
+
+    })).filter(language => language.name);
+
+}
+
+
+/* =========================================================
+   GET COMPLETE CV
+========================================================= */
+
+function getCVData(){
+
+    return {
+
+        cvTitle:
+            document.getElementById("cvTitle").value.trim(),
+
+        professionalTitle:
+            document.getElementById("professionalTitle").value.trim(),
+
+        fullName:
+            document.getElementById("fullName").value.trim(),
+
+        email:
+            document.getElementById("email").value.trim(),
+
+        phone:
+            document.getElementById("phone").value.trim(),
+
+        location:
+            document.getElementById("location").value.trim(),
+
+        linkedin:
+            document.getElementById("linkedin").value.trim(),
+
+        website:
+            document.getElementById("website").value.trim(),
+
+        github:
+            document.getElementById("github").value.trim(),
+
+        summary:
+            document.getElementById("summary").value.trim(),
+
+        experience:
+            collectExperience(),
+
+        education:
+            collectEducation(),
+
+        skills:
+            collectSkills(),
+
+        certifications:
+            collectCertifications(),
+
+        projects:
+            collectProjects(),
+
+        languages:
+            collectLanguages(),
+
+        achievements:
+            document.getElementById("achievements").value.trim(),
+
+        volunteer:
+            document.getElementById("volunteer").value.trim(),
+
+        references:
+            document.getElementById("references").value.trim(),
+
+        photo:
+            photoData,
+
+        template:
+            selectedTemplate
+
+    };
+
+}
+
+
+/* =========================================================
+   SAVE CV
+========================================================= */
+
+async function saveCV(){
+
+    if(!currentUser){
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    const cv =
+        getCVData();
+
+
+    if(!cv.fullName){
+
+        showMessage(
+            "Please enter your full name before saving your CV.",
+            "error"
+        );
+
+        document
+        .getElementById("fullName")
+        .focus();
+
+        return;
+
+    }
+
 
     saveButton.disabled = true;
 
     saveButton.textContent =
-        "Saving your CV...";
+        "Saving...";
+
+    saveStatus.textContent =
+        "Saving securely to CareerCraft...";
 
 
     try{
 
-        /* CHECK LOGIN */
-
-        const {
-            data,
-            error: sessionError
-        } =
-        await supabaseClient
-        .auth
-        .getSession();
-
-
-        if(sessionError){
-
-            alert(
-                "SESSION ERROR\n\n" +
-                sessionError.message
-            );
-
-            saveButton.disabled = false;
-
-            saveButton.textContent =
-                "Save & View My CV →";
-
-            return;
-
-        }
-
-
-        if(
-            !data ||
-            !data.session ||
-            !data.session.user
-        ){
-
-            alert(
-                "You are not logged in.\n\nPlease log in first."
-            );
-
-            window.location.href =
-                "login.html";
-
-            return;
-
-        }
-
-
-        /* USER */
-
-        const user =
-            data.session.user;
-
-
-        /* FORM DATA */
-
-        const cv =
-            getCVData();
-
-
-        /* NAME REQUIRED */
-
-        if(!cv.fullName){
-
-            alert(
-                "Please enter your full name."
-            );
-
-            saveButton.disabled = false;
-
-            saveButton.textContent =
-                "Save & View My CV →";
-
-            return;
-
-        }
-
-
-        /* SAVE LOCAL COPY */
-
-        localStorage.setItem(
-            "careerCraftCV",
-            JSON.stringify(cv)
-        );
-
-
-        /* CREATE ID */
-
-        const cvId =
-            generateId();
-
-
-        /* INSERT INTO SUPABASE */
-
-        const {
-            error
-        } =
-        await supabaseClient
-        .from("cvs")
-        .insert({
-
-            id:
-                cvId,
+        const payload = {
 
             user_id:
-                String(user.id),
+                String(currentUser.id),
 
             title:
+                cv.cvTitle ||
                 cv.professionalTitle ||
                 "My CV",
 
@@ -878,226 +2337,800 @@ async function saveAndPreview(){
                 cv.summary,
 
             education:
-                cv.education,
+                JSON.stringify(cv.education),
 
             experience:
-                cv.experience,
+                JSON.stringify(cv.experience),
 
             skills:
-                cv.skills,
+                JSON.stringify(cv.skills),
 
             certifications:
-                "",
+                JSON.stringify(cv.certifications),
 
             projects:
-                "",
+                JSON.stringify(cv.projects),
 
             languages:
-                ""
+                JSON.stringify(cv.languages),
 
-        });
+            content:
+                cv,
+
+            template:
+                cv.template,
+
+            updated_at:
+                new Date().toISOString()
+
+        };
 
 
-        /* CHECK ERROR */
+        let error = null;
+
+
+        /* EDIT EXISTING CV */
+
+        if(currentCVId){
+
+            const result =
+                await supabaseClient
+                .from("cvs")
+                .update(payload)
+                .eq("id", currentCVId)
+                .eq("user_id", String(currentUser.id));
+
+            error =
+                result.error;
+
+        }
+
+
+        /* CREATE NEW CV */
+
+        else{
+
+            currentCVId =
+                generateId();
+
+            payload.id =
+                currentCVId;
+
+
+            const result =
+                await supabaseClient
+                .from("cvs")
+                .insert(payload);
+
+            error =
+                result.error;
+
+        }
+
 
         if(error){
 
-            console.error(
-                "SUPABASE ERROR:",
-                error
-            );
-
-
-            alert(
-                "SUPABASE ERROR\n\n" +
-
-                "Message:\n" +
-                (error.message || "Unknown error") +
-
-                "\n\nCode:\n" +
-                (error.code || "None") +
-
-                "\n\nDetails:\n" +
-                (error.details || "None") +
-
-                "\n\nHint:\n" +
-                (error.hint || "None")
-            );
-
+            console.error(error);
 
             showMessage(
-                "Your CV could not be saved. Check the error message.",
+                "Unable to save your CV: " +
+                error.message,
                 "error"
             );
 
-
-            saveButton.disabled = false;
-
-            saveButton.textContent =
-                "Save & View My CV →";
+            saveStatus.textContent =
+                "Save failed";
 
             return;
 
         }
 
 
-        /* SAVE ID LOCALLY */
-
-        localStorage.setItem(
-            "careerCraftCVId",
-            cvId
-        );
-
-
-        /* SUCCESS */
-
         showMessage(
-            "Your CV has been saved successfully!",
+            "✓ Your CV has been saved successfully.",
             "success"
         );
 
+        saveStatus.textContent =
+            "✓ Saved securely";
 
-        /* OPEN PREVIEW */
 
-        setTimeout(function(){
+        setTimeout(() => {
 
             window.location.href =
-                "cv-preview.html";
+                "cv-preview.html?id=" +
+                encodeURIComponent(currentCVId);
 
-        },1000);
+        },700);
 
 
     }
 
     catch(error){
 
-        console.error(
-            "UNEXPECTED ERROR:",
-            error
-        );
-
-
-        alert(
-            "UNEXPECTED ERROR\n\n" +
-            error.message
-        );
-
+        console.error(error);
 
         showMessage(
             "Something went wrong while saving your CV.",
             "error"
         );
 
+        saveStatus.textContent =
+            "Save failed";
+
+    }
+
+    finally{
 
         saveButton.disabled = false;
 
         saveButton.textContent =
-            "Save & View My CV →";
+            "Save & Preview →";
 
     }
 
 }
 
 
-/* ==================================================
-   CLEAR FORM
-================================================== */
+/* =========================================================
+   TEMPLATE
+========================================================= */
 
-function clearCV(){
+function selectTemplate(element){
 
-    if(
-        confirm(
-            "Are you sure you want to clear your CV information?"
-        )
-    ){
+    document
+    .querySelectorAll(".template")
+    .forEach(template => {
 
-        localStorage.removeItem(
-            "careerCraftCV"
+        template.classList.remove(
+            "selected"
         );
 
-        localStorage.removeItem(
-            "careerCraftCVId"
-        );
+    });
 
 
-        document
-        .querySelectorAll(
-            "input, textarea"
-        )
-        .forEach(function(field){
-
-            field.value = "";
-
-        });
+    element.classList.add(
+        "selected"
+    );
 
 
-        message.style.display =
-            "none";
+    selectedTemplate =
+        element.dataset.template;
 
-    }
+    updateProgress();
 
 }
 
 
-/* ==================================================
-   LOAD SAVED CV
-================================================== */
+/* =========================================================
+   PHOTO
+========================================================= */
 
-window.addEventListener(
-    "DOMContentLoaded",
+document
+.getElementById("photo")
+.addEventListener(
+    "change",
     function(){
 
-        const saved =
-            localStorage.getItem(
-                "careerCraftCV"
-            );
+        const file =
+            this.files[0];
 
-
-        if(!saved){
+        if(!file){
             return;
         }
 
 
-        try{
-
-            const cv =
-                JSON.parse(saved);
+        const reader =
+            new FileReader();
 
 
-            Object.keys(cv).forEach(
-                function(key){
+        reader.onload =
+            function(event){
 
-                    const field =
-                        document.getElementById(key);
+                photoData =
+                    event.target.result;
 
 
-                    if(field){
+                document
+                .getElementById("photoPreview")
+                .innerHTML = `
 
-                        field.value =
-                            cv[key] || "";
+                    <img
+                        src="${photoData}"
+                        alt="Profile photo">
 
-                    }
+                `;
 
-                }
-            );
+            };
 
-        }
 
-        catch(error){
-
-            console.error(
-                "Could not load saved CV:",
-                error
-            );
-
-        }
+        reader.readAsDataURL(file);
 
     }
 );
 
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function updateProgress(){
+
+    const fields = [
+
+        document.getElementById("fullName").value.trim(),
+
+        document.getElementById("email").value.trim(),
+
+        document.getElementById("phone").value.trim(),
+
+        document.getElementById("location").value.trim(),
+
+        document.getElementById("professionalTitle").value.trim(),
+
+        document.getElementById("summary").value.trim(),
+
+        collectExperience().some(
+            x => x.jobTitle || x.company || x.description
+        ),
+
+        collectEducation().some(
+            x => x.school || x.degree
+        ),
+
+        collectSkills().length > 0,
+
+        collectCertifications().some(
+            x => x.name
+        ),
+
+        collectProjects().some(
+            x => x.name
+        ),
+
+        collectLanguages().length > 0,
+
+        document.getElementById("achievements").value.trim(),
+
+        document.getElementById("volunteer").value.trim(),
+
+        selectedTemplate
+
+    ];
+
+
+    const completed =
+        fields.filter(Boolean).length;
+
+
+    const percent =
+        Math.round(
+            (completed / fields.length) * 100
+        );
+
+
+    document
+    .getElementById("progressPercent")
+    .textContent =
+        percent + "%";
+
+
+    document
+    .getElementById("progressFill")
+    .style.width =
+        percent + "%";
+
+
+    let text =
+        "Keep building your CV.";
+
+    if(percent >= 40){
+        text =
+            "Good start. Add experience and skills to strengthen it.";
+    }
+
+    if(percent >= 70){
+        text =
+            "Your CV is looking strong. Add projects and achievements if relevant.";
+    }
+
+    if(percent >= 90){
+        text =
+            "Excellent! Your CV is almost complete.";
+    }
+
+    document
+    .getElementById("progressText")
+    .textContent =
+        text;
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   CLEAR FORM
+========================================================= */
+
+function clearForm(){
+
+    if(
+        !confirm(
+            "Clear all information in this CV?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    document
+    .querySelectorAll(
+        "input:not([type=file]), textarea"
+    )
+    .forEach(field => {
+
+        field.value = "";
+
+    });
+
+
+    document
+    .getElementById(
+        "experienceContainer"
+    )
+    .innerHTML = "";
+
+    document
+    .getElementById(
+        "educationContainer"
+    )
+    .innerHTML = "";
+
+    document
+    .getElementById(
+        "skillsContainer"
+    )
+    .innerHTML = "";
+
+    document
+    .getElementById(
+        "certificationsContainer"
+    )
+    .innerHTML = "";
+
+    document
+    .getElementById(
+        "projectsContainer"
+    )
+    .innerHTML = "";
+
+    document
+    .getElementById(
+        "languagesContainer"
+    )
+    .innerHTML = "";
+
+
+    addExperience();
+
+    addEducation();
+
+    addSkill();
+
+    addCertification();
+
+    addProject();
+
+    addLanguage();
+
+
+    photoData = "";
+
+    document
+    .getElementById("photoPreview")
+    .innerHTML = `
+        <div class="photo-placeholder">👤</div>
+    `;
+
+
+    selectedTemplate =
+        "professional";
+
+
+    document
+    .querySelectorAll(".template")
+    .forEach(template => {
+
+        template.classList.remove(
+            "selected"
+        );
+
+    });
+
+
+    document
+    .querySelector(
+        '[data-template="professional"]'
+    )
+    .classList.add("selected");
+
+
+    updateProgress();
+
+}
+
+
+/* =========================================================
+   LOAD EXISTING CV
+========================================================= */
+
+async function loadExistingCV(){
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    currentCVId =
+        params.get("id");
+
+
+    if(!currentCVId){
+
+        addExperience();
+
+        addEducation();
+
+        addSkill();
+
+        addCertification();
+
+        addProject();
+
+        addLanguage();
+
+        updateProgress();
+
+        return;
+
+    }
+
+
+    saveStatus.textContent =
+        "Loading your CV...";
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("cvs")
+    .select("*")
+    .eq("id",currentCVId)
+    .eq(
+        "user_id",
+        String(currentUser.id)
+    )
+    .maybeSingle();
+
+
+    if(error){
+
+        console.error(error);
+
+        showMessage(
+            "Unable to load this CV.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(!data){
+
+        showMessage(
+            "CV not found.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    let content =
+        data.content || {};
+
+
+    document
+    .getElementById("cvTitle")
+    .value =
+        content.cvTitle ||
+        data.title ||
+        "";
+
+
+    document
+    .getElementById("professionalTitle")
+    .value =
+        content.professionalTitle ||
+        "";
+
+
+    document
+    .getElementById("fullName")
+    .value =
+        data.full_name ||
+        content.fullName ||
+        "";
+
+
+    document
+    .getElementById("email")
+    .value =
+        data.email ||
+        content.email ||
+        "";
+
+
+    document
+    .getElementById("phone")
+    .value =
+        data.phone ||
+        content.phone ||
+        "";
+
+
+    document
+    .getElementById("location")
+    .value =
+        data.location ||
+        content.location ||
+        "";
+
+
+    document
+    .getElementById("linkedin")
+    .value =
+        content.linkedin ||
+        "";
+
+
+    document
+    .getElementById("website")
+    .value =
+        content.website ||
+        "";
+
+
+    document
+    .getElementById("github")
+    .value =
+        content.github ||
+        "";
+
+
+    document
+    .getElementById("summary")
+    .value =
+        data.professional_summary ||
+        content.summary ||
+        "";
+
+
+    document
+    .getElementById("achievements")
+    .value =
+        content.achievements ||
+        "";
+
+
+    document
+    .getElementById("volunteer")
+    .value =
+        content.volunteer ||
+        "";
+
+
+    document
+    .getElementById("references")
+    .value =
+        content.references ||
+        "";
+
+
+    selectedTemplate =
+        data.template ||
+        content.template ||
+        "professional";
+
+
+    document
+    .querySelectorAll(".template")
+    .forEach(template => {
+
+        template.classList.toggle(
+            "selected",
+            template.dataset.template === selectedTemplate
+        );
+
+    });
+
+
+    photoData =
+        content.photo ||
+        "";
+
+
+    if(photoData){
+
+        document
+        .getElementById("photoPreview")
+        .innerHTML = `
+
+            <img
+                src="${photoData}"
+                alt="Profile photo">
+
+        `;
+
+    }
+
+
+    loadJSONArray(
+        content.experience ||
+        parseJSON(data.experience),
+        addExperience
+    );
+
+
+    loadJSONArray(
+        content.education ||
+        parseJSON(data.education),
+        addEducation
+    );
+
+
+    loadJSONArray(
+        content.skills ||
+        parseJSON(data.skills),
+        addSkill
+    );
+
+
+    loadJSONArray(
+        content.certifications ||
+        parseJSON(data.certifications),
+        addCertification
+    );
+
+
+    loadJSONArray(
+        content.projects ||
+        parseJSON(data.projects),
+        addProject
+    );
+
+
+    loadJSONArray(
+        content.languages ||
+        parseJSON(data.languages),
+        addLanguage
+    );
+
+
+    updateProgress();
+
+    saveStatus.textContent =
+        "✓ CV loaded";
+
+}
+
+
+/* =========================================================
+   PARSE JSON
+========================================================= */
+
+function parseJSON(value){
+
+    if(!value){
+        return [];
+    }
+
+
+    try{
+
+        return JSON.parse(value);
+
+    }
+
+    catch{
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD ARRAY
+========================================================= */
+
+function loadJSONArray(array,callback){
+
+    if(
+        Array.isArray(array) &&
+        array.length
+    ){
+
+        array.forEach(callback);
+
+    }
+
+    else{
+
+        callback({});
+
+    }
+
+}
+
+
+/* =========================================================
+   WATCH FORM
+========================================================= */
+
+document.addEventListener(
+    "input",
+    function(){
+
+        updateProgress();
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+(async function(){
+
+    const loggedIn =
+        await checkAuth();
+
+
+    if(!loggedIn){
+        return;
+    }
+
+
+    await loadExistingCV();
+
+})();
+
 </script>
 
-
 </body>
-
-</html>
+    </html>        
