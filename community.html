@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Community | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,Arial,sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    color:#172033;
+}
+
+/* TOPBAR */
+
+.topbar{
+    height:64px;
+    background:#fff;
+    border-bottom:1px solid #e5e9ef;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1000;
+}
+
+.logo{
+    color:#2563eb;
+    font-size:23px;
+    font-weight:800;
+    text-decoration:none;
+}
+
+.search{
+    width:360px;
+    height:40px;
+    background:#f1f4f8;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    padding:0 14px;
+    gap:8px;
+}
+
+.search input{
+    border:0;
+    outline:0;
+    background:transparent;
+    width:100%;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.top-link{
+    color:#536071;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+}
+
+.profile-mini{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    object-fit:cover;
+    cursor:pointer;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:64px;
+    bottom:0;
+    width:235px;
+    background:#fff;
+    border-right:1px solid #e5e9ef;
+    padding:22px 14px;
+}
+
+.side-title{
+    color:#98a1af;
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase;
+    padding:0 12px;
+    margin-bottom:10px;
+}
+
+.side-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    margin-bottom:4px;
+    border-radius:9px;
+    text-decoration:none;
+    color:#536071;
+    font-size:14px;
+    font-weight:600;
+}
+
+.side-link:hover{
+    background:#f1f5ff;
+    color:#2563eb;
+}
+
+.side-link.active{
+    background:#eaf1ff;
+    color:#2563eb;
+}
+
+.side-icon{
+    width:22px;
+    text-align:center;
+}
+
+/* MAIN */
+
+.main{
+    margin-left:235px;
+    padding:90px 30px 100px;
+    max-width:1000px;
+}
+
+/* COMMUNITY HEADER */
+
+.community-header{
+    background:#fff;
+    border:1px solid #e2e7ee;
+    border-radius:15px;
+    padding:24px;
+    margin-bottom:20px;
+}
+
+.back{
+    display:inline-block;
+    color:#2563eb;
+    font-size:13px;
+    font-weight:700;
+    text-decoration:none;
+    margin-bottom:18px;
+}
+
+.community-title{
+    display:flex;
+    gap:17px;
+    align-items:center;
+}
+
+.community-icon{
+    width:65px;
+    height:65px;
+    border-radius:15px;
+    background:#eaf1ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:33px;
+}
+
+.community-title h1{
+    font-size:25px;
+    margin-bottom:5px;
+}
+
+.community-title p{
+    color:#7b8594;
+    font-size:13px;
+}
+
+.community-description{
+    margin-top:20px;
+    color:#596577;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.community-info{
+    display:flex;
+    gap:18px;
+    margin-top:15px;
+    color:#7b8594;
+    font-size:13px;
+}
+
+/* COMPOSER */
+
+.composer{
+    background:#fff;
+    border:1px solid #e2e7ee;
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:18px;
+}
+
+.composer-top{
+    display:flex;
+    gap:12px;
+}
+
+.avatar{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+textarea{
+    width:100%;
+    min-height:75px;
+    border:1px solid #dce1e8;
+    border-radius:10px;
+    padding:12px;
+    resize:vertical;
+    outline:none;
+    font-size:14px;
+}
+
+textarea:focus{
+    border-color:#2563eb;
+}
+
+.composer-bottom{
+    display:flex;
+    justify-content:flex-end;
+    margin-top:12px;
+}
+
+.post-btn{
+    border:0;
+    background:#2563eb;
+    color:#fff;
+    padding:10px 19px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:700;
+}
+
+/* POSTS */
+
+.post{
+    background:#fff;
+    border:1px solid #e2e7ee;
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:15px;
+}
+
+.post-head{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.post-user{
+    flex:1;
+}
+
+.post-user strong{
+    display:block;
+    font-size:14px;
+}
+
+.post-time{
+    color:#929aa7;
+    font-size:11px;
+    margin-top:3px;
+}
+
+.post-content{
+    margin-top:15px;
+    font-size:14px;
+    line-height:1.65;
+    color:#394456;
+    white-space:pre-wrap;
+}
+
+.post-actions{
+    display:flex;
+    gap:25px;
+    border-top:1px solid #edf0f4;
+    margin-top:17px;
+    padding-top:13px;
+}
+
+.action-btn{
+    border:0;
+    background:none;
+    color:#687384;
+    cursor:pointer;
+    font-weight:600;
+    font-size:13px;
+}
+
+.action-btn:hover{
+    color:#2563eb;
+}
+
+.action-btn.liked{
+    color:#2563eb;
+}
+
+/* COMMENTS */
+
+.comments{
+    margin-top:15px;
+    display:none;
+}
+
+.comments.show{
+    display:block;
+}
+
+.comment{
+    display:flex;
+    gap:10px;
+    margin-bottom:11px;
+}
+
+.comment img{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+}
+
+.comment-body{
+    background:#f3f5f8;
+    border-radius:10px;
+    padding:8px 11px;
+    flex:1;
+}
+
+.comment-body strong{
+    font-size:12px;
+}
+
+.comment-body p{
+    font-size:12px;
+    color:#596577;
+    margin-top:3px;
+}
+
+.comment-form{
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+}
+
+.comment-form input{
+    flex:1;
+    border:1px solid #dce1e8;
+    border-radius:8px;
+    padding:9px;
+    outline:none;
+}
+
+.comment-form button{
+    border:0;
+    background:#2563eb;
+    color:white;
+    padding:0 13px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/* EMPTY */
+
+.empty{
+    background:#fff;
+    border:1px solid #e2e7ee;
+    border-radius:14px;
+    padding:60px 20px;
+    text-align:center;
+}
+
+.empty-icon{
+    font-size:45px;
+    margin-bottom:12px;
+}
+
+.empty p{
+    color:#8993a2;
+    font-size:14px;
+}
+
+/* MOBILE */
+
+.mobile-nav{
+    display:none;
+}
+
+@media(max-width:850px){
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .search{
+        display:none;
+    }
+
+    .top-link{
+        display:none;
+    }
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+        padding:82px 14px 90px;
+    }
+
+    .community-header{
+        padding:18px;
+    }
+
+    .community-title h1{
+        font-size:21px;
+    }
+
+    .mobile-nav{
+        display:flex;
+        position:fixed;
+        bottom:0;
+        left:0;
+        right:0;
+        height:65px;
+        background:#fff;
+        border-top:1px solid #e5e9ef;
+        justify-content:space-around;
+        align-items:center;
+        z-index:1000;
+    }
+
+    .mobile-nav a{
+        color:#697386;
+        text-decoration:none;
+        text-align:center;
+        font-size:11px;
+    }
+
+    .mobile-nav a.active{
+        color:#2563eb;
+    }
+
+    .mobile-nav span{
+        display:block;
+        font-size:19px;
+        margin-bottom:3px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <a href="index.html" class="logo">
+        CareerCraft
+    </a>
+
+    <div class="search">
+        🔎
+        <input
+            type="text"
+            placeholder="Search CareerCraft"
+        >
+    </div>
+
+    <div class="top-actions">
+
+        <a
+            href="job-finder.html"
+            class="top-link"
+        >
+            Jobs
+        </a>
+
+        <a
+            href="messages.html"
+            class="top-link"
+        >
+            Messages
+        </a>
+
+        <a
+            href="notifications.html"
+            class="top-link"
+        >
+            🔔
+        </a>
+
+        <img
+            id="topAvatar"
+            class="profile-mini"
+            src=""
+            onclick="location.href='profile.html'"
+        >
+
+    </div>
+
+</header>
+
+
+<aside class="sidebar">
+
+    <div class="side-title">
+        CareerCraft
+    </div>
+
+    <a href="dashboard.html" class="side-link">
+        <span class="side-icon">🏠</span>
+        Dashboard
+    </a>
+
+    <a href="profile.html" class="side-link">
+        <span class="side-icon">👤</span>
+        My Profile
+    </a>
+
+    <a href="network.html" class="side-link">
+        <span class="side-icon">👥</span>
+        Network
+    </a>
+
+    <a href="job-finder.html" class="side-link">
+        <span class="side-icon">💼</span>
+        Jobs
+    </a>
+
+    <a href="applications.html" class="side-link">
+        <span class="side-icon">📄</span>
+        Applications
+    </a>
+
+    <a href="communities.html" class="side-link active">
+        <span class="side-icon">🌐</span>
+        Communities
+    </a>
+
+    <a href="messages.html" class="side-link">
+        <span class="side-icon">💬</span>
+        Messages
+    </a>
+
+    <a href="notifications.html" class="side-link">
+        <span class="side-icon">🔔</span>
+        Notifications
+    </a>
+
+</aside>
+
+
+<main class="main">
+
+    <section
+        id="communityHeader"
+        class="community-header"
+    >
+
+        <a
+            href="communities.html"
+            class="back"
+        >
+            ← Back to Communities
+        </a>
+
+        <div class="community-title">
+
+            <div
+                id="communityIcon"
+                class="community-icon"
+            >
+                🌐
+            </div>
+
+            <div>
+
+                <h1 id="communityName">
+                    Community
+                </h1>
+
+                <p id="communityCategory">
+                    CareerCraft Community
+                </p>
+
+            </div>
+
+        </div>
+
+        <div
+            id="communityDescription"
+            class="community-description"
+        ></div>
+
+        <div class="community-info">
+
+            <span id="communityMembers">
+                👥 0 members
+            </span>
+
+            <span id="communityType">
+                🌐 Public
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- POST COMPOSER -->
+
+    <section class="composer">
+
+        <div class="composer-top">
+
+            <img
+                id="currentAvatar"
+                class="avatar"
+                src=""
+            >
+
+            <textarea
+                id="postInput"
+                placeholder="Share something with this community..."
+            ></textarea>
+
+        </div>
+
+        <div class="composer-bottom">
+
+            <button
+                class="post-btn"
+                onclick="createPost()"
+            >
+                Post
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- POSTS -->
+
+    <section id="posts"></section>
+
+</main>
+
+
+<nav class="mobile-nav">
+
+    <a href="dashboard.html">
+        <span>🏠</span>
+        Home
+    </a>
+
+    <a href="network.html">
+        <span>👥</span>
+        Network
+    </a>
+
+    <a href="create.html">
+        <span>➕</span>
+        Create
+    </a>
+
+    <a href="messages.html">
+        <span>💬</span>
+        Messages
+    </a>
+
+    <a
+        href="communities.html"
+        class="active"
+    >
+        <span>🌐</span>
+        Communities
+    </a>
+
+</nav>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+let currentUser = null;
+
+let currentProfile = null;
+
+let currentCommunity = null;
+
+let posts = [];
+
+
+/* =========================
+   DEFAULT COMMUNITIES
+========================= */
+
+const defaultCommunities = [
+
+{
+id:"career-growth",
+name:"Career Growth",
+description:"Share career advice, opportunities, interview tips and professional growth strategies.",
+type:"Public",
+category:"Career",
+icon:"🚀",
+members:1240
+},
+
+{
+id:"tech-professionals",
+name:"Tech Professionals",
+description:"A community for developers, engineers, designers and technology professionals.",
+type:"Public",
+category:"Technology",
+icon:"💻",
+members:986
+},
+
+{
+id:"entrepreneurs",
+name:"Entrepreneurs Hub",
+description:"Build, learn and connect with entrepreneurs and ambitious business-minded professionals.",
+type:"Public",
+category:"Business",
+icon:"💡",
+members:734
+},
+
+{
+id:"students",
+name:"Students & Graduates",
+description:"A place for students and recent graduates to learn, network and find opportunities.",
+type:"Public",
+category:"Education",
+icon:"🎓",
+members:1580
+},
+
+{
+id:"designers",
+name:"Designers Community",
+description:"Connect with UI/UX, graphic, product and creative designers.",
+type:"Public",
+category:"Design",
+icon:"🎨",
+members:623
+},
+
+{
+id:"finance",
+name:"Finance Professionals",
+description:"Discuss finance, accounting, investing, banking and professional development.",
+type:"Public",
+category:"Finance",
+icon:"📊",
+members:452
+}
+
+];
+
+
+/* =========================
+   AVATAR
+========================= */
+
+function createAvatar(name){
+
+    const letter =
+        encodeURIComponent(
+            (name || "U")
+            .charAt(0)
+            .toUpperCase()
+        );
+
+    return `
+https://ui-avatars.com/api/?name=${letter}&background=2563eb&color=ffffff&size=100
+`;
+}
+
+
+/* =========================
+   AUTH
+========================= */
+
+async function authenticate(){
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+        .auth
+        .getUser();
+
+    if(error || !data.user){
+
+        location.href =
+            "login.html";
+
+        return false;
+    }
+
+    currentUser =
+        data.user;
+
+    return true;
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+async function loadProfile(){
+
+    const {
+        data
+    } =
+    await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq(
+            "ID",
+            currentUser.id
+        )
+        .maybeSingle();
+
+    currentProfile =
+        data || {};
+
+    const name =
+        data?.["FULL NAME"] ||
+        data?.full_name ||
+        data?.fullName ||
+        data?.name ||
+        currentUser
+            .user_metadata
+            ?.full_name ||
+        currentUser.email
+            ?.split("@")[0] ||
+        "CareerCraft User";
+
+    const avatar =
+        data?.avatar_url ||
+        createAvatar(name);
+
+    document.getElementById(
+        "topAvatar"
+    ).src = avatar;
+
+    document.getElementById(
+        "currentAvatar"
+    ).src = avatar;
+}
+
+
+/* =========================
+   COMMUNITY
+========================= */
+
+function getCommunity(){
+
+    const params =
+        new URLSearchParams(
+            location.search
+        );
+
+    const id =
+        params.get("id");
+
+    if(!id){
+
+        return defaultCommunities[0];
+
+    }
+
+    const custom =
+        localStorage.getItem(
+            "careercraft_communities_" +
+            currentUser.id
+        );
+
+    if(custom){
+
+        try{
+
+            const customList =
+                JSON.parse(custom);
+
+            const found =
+                customList.find(
+                    item =>
+                        item.id === id
+                );
+
+            if(found){
+                return found;
+            }
+
+        }catch(error){
+
+            console.error(error);
+
+        }
+    }
+
+    return (
+        defaultCommunities.find(
+            item =>
+                item.id === id
+        ) ||
+        defaultCommunities[0]
+    );
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+function renderCommunity(){
+
+    currentCommunity =
+        getCommunity();
+
+    document.getElementById(
+        "communityName"
+    ).textContent =
+        currentCommunity.name;
+
+    document.getElementById(
+        "communityDescription"
+    ).textContent =
+        currentCommunity.description;
+
+    document.getElementById(
+        "communityCategory"
+    ).textContent =
+        currentCommunity.category;
+
+    document.getElementById(
+        "communityIcon"
+    ).textContent =
+        currentCommunity.icon ||
+        "🌐";
+
+    document.getElementById(
+        "communityMembers"
+    ).textContent =
+        "👥 " +
+        Number(
+            currentCommunity.members ||
+            0
+        ).toLocaleString() +
+        " members";
+
+    document.getElementById(
+        "communityType"
+    ).textContent =
+        "🌐 " +
+        currentCommunity.type;
+}
+
+
+/* =========================
+   POSTS STORAGE
+========================= */
+
+function postsKey(){
+
+    return (
+        "careercraft_posts_" +
+        currentUser.id +
+        "_" +
+        currentCommunity.id
+    );
+}
+
+
+function loadPosts(){
+
+    const saved =
+        localStorage.getItem(
+            postsKey()
+        );
+
+    if(!saved){
+
+        posts = [];
+
+        renderPosts();
+
+        return;
+    }
+
+    try{
+
+        posts =
+            JSON.parse(saved);
+
+    }catch(error){
+
+        posts = [];
+
+    }
+
+    renderPosts();
+}
+
+
+function savePosts(){
+
+    localStorage.setItem(
+        postsKey(),
+        JSON.stringify(posts)
+    );
+}
+
+
+/* =========================
+   CREATE POST
+========================= */
+
+function createPost(){
+
+    const input =
+        document.getElementById(
+            "postInput"
+        );
+
+    const content =
+        input.value.trim();
+
+    if(!content){
+
+        return;
+
+    }
+
+
+    const name =
+        currentProfile?.["FULL NAME"] ||
+        currentProfile?.full_name ||
+        currentProfile?.fullName ||
+        currentProfile?.name ||
+        currentUser
+            .user_metadata
+            ?.full_name ||
+        currentUser.email
+            ?.split("@")[0] ||
+        "CareerCraft User";
+
+
+    const avatar =
+        currentProfile?.avatar_url ||
+        createAvatar(name);
+
+
+    const post = {
+
+        id:
+            Date.now().toString(),
+
+        userId:
+            currentUser.id,
+
+        name:name,
+
+        avatar:avatar,
+
+        content:content,
+
+        createdAt:
+            new Date().toISOString(),
+
+        likes:0,
+
+        liked:false,
+
+        comments:[]
+
+    };
+
+
+    posts.unshift(post);
+
+    savePosts();
+
+    input.value = "";
+
+    renderPosts();
+}
+
+
+/* =========================
+   RENDER POSTS
+========================= */
+
+function renderPosts(){
+
+    const container =
+        document.getElementById(
+            "posts"
+        );
+
+    if(posts.length === 0){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    💬
+                </div>
+
+                <p>
+                    No posts yet. Be the first
+                    person to start the conversation.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML =
+        posts
+        .map(
+            post =>
+                renderPost(post)
+        )
+        .join("");
+}
+
+
+/* =========================
+   POST HTML
+========================= */
+
+function renderPost(post){
+
+    const comments =
+        post.comments || [];
+
+
+    return `
+
+        <article class="post">
+
+            <div class="post-head">
+
+                <img
+                    class="avatar"
+                    src="${post.avatar}"
+                >
+
+                <div class="post-user">
+
+                    <strong>
+                        ${escapeHtml(
+                            post.name
+                        )}
+                    </strong>
+
+                    <div class="post-time">
+                        ${formatTime(
+                            post.createdAt
+                        )}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="post-content">
+
+                ${escapeHtml(
+                    post.content
+                )}
+
+            </div>
+
+
+            <div class="post-actions">
+
+                <button
+                    class="action-btn ${
+                        post.liked
+                        ? "liked"
+                        : ""
+                    }"
+                    onclick="likePost('${post.id}')"
+                >
+
+                    ${
+                        post.liked
+                        ? "❤️"
+                        : "♡"
+                    }
+
+                    Like
+
+                    ${
+                        post.likes
+                        ? "(" +
+                          post.likes +
+                          ")"
+                        : ""
+                    }
+
+                </button>
+
+
+                <button
+                    class="action-btn"
+                    onclick="toggleComments('${post.id}')"
+                >
+                    💬 Comment
+                    ${
+                        comments.length
+                        ? "(" +
+                          comments.length +
+                          ")"
+                        : ""
+                    }
+                </button>
+
+            </div>
+
+
+            <div
+                id="comments-${post.id}"
+                class="comments"
+            >
+
+                ${
+                    comments
+                    .map(
+                        comment =>
+                            `
+                            <div class="comment">
+
+                                <img
+                                    src="${comment.avatar}"
+                                >
+
+                                <div class="comment-body">
+
+                                    <strong>
+                                        ${escapeHtml(
+                                            comment.name
+                                        )}
+                                    </strong>
+
+                                    <p>
+                                        ${escapeHtml(
+                                            comment.text
+                                        )}
+                                    </p>
+
+                                </div>
+
+                            </div>
+                            `
+                    )
+                    .join("")
+                }
+
+
+                <div class="comment-form">
+
+                    <input
+                        id="comment-${post.id}"
+                        placeholder="Write a comment..."
+                    >
+
+                    <button
+                        onclick="addComment('${post.id}')"
+                    >
+                        Send
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    `;
+}
+
+
+/* =========================
+   LIKE
+========================= */
+
+function likePost(id){
+
+    const post =
+        posts.find(
+            item =>
+                item.id === id
+        );
+
+    if(!post){
+        return;
+    }
+
+
+    if(post.liked){
+
+        post.likes =
+            Math.max(
+                0,
+                post.likes - 1
+            );
+
+        post.liked = false;
+
+    }else{
+
+        post.likes =
+            Number(
+                post.likes || 0
+            ) + 1;
+
+        post.liked = true;
+
+    }
+
+
+    savePosts();
+
+    renderPosts();
+}
+
+
+/* =========================
+   COMMENTS
+========================= */
+
+function toggleComments(id){
+
+    const element =
+        document.getElementById(
+            "comments-" + id
+        );
+
+    if(!element){
+        return;
+    }
+
+    element.classList.toggle(
+        "show"
+    );
+}
+
+
+function addComment(id){
+
+    const input =
+        document.getElementById(
+            "comment-" + id
+        );
+
+    const text =
+        input.value.trim();
+
+    if(!text){
+        return;
+    }
+
+
+    const post =
+        posts.find(
+            item =>
+                item.id === id
+        );
+
+    if(!post){
+        return;
+    }
+
+
+    const name =
+        currentProfile?.["FULL NAME"] ||
+        currentProfile?.full_name ||
+        currentProfile?.fullName ||
+        currentProfile?.name ||
+        currentUser
+            .user_metadata
+            ?.full_name ||
+        currentUser.email
+            ?.split("@")[0] ||
+        "CareerCraft User";
+
+
+    const avatar =
+        currentProfile?.avatar_url ||
+        createAvatar(name);
+
+
+    if(!post.comments){
+
+        post.comments = [];
+
+    }
+
+
+    post.comments.push({
+
+        id:
+            Date.now().toString(),
+
+        name:name,
+
+        avatar:avatar,
+
+        text:text
+
+    });
+
+
+    savePosts();
+
+    renderPosts();
+
+    setTimeout(
+        () => {
+
+            const comments =
+                document.getElementById(
+                    "comments-" + id
+                );
+
+            if(comments){
+
+                comments.classList.add(
+                    "show"
+                );
+
+            }
+
+        },
+        50
+    );
+}
+
+
+/* =========================
+   TIME
+========================= */
+
+function formatTime(dateString){
+
+    const date =
+        new Date(dateString);
+
+    const now =
+        new Date();
+
+    const seconds =
+        Math.floor(
+            (now - date) / 1000
+        );
+
+
+    if(seconds < 60){
+        return "Just now";
+    }
+
+
+    const minutes =
+        Math.floor(
+            seconds / 60
+        );
+
+
+    if(minutes < 60){
+
+        return (
+            minutes +
+            " minute" +
+            (
+                minutes === 1
+                ? ""
+                : "s"
+            ) +
+            " ago"
+        );
+
+    }
+
+
+    const hours =
+        Math.floor(
+            minutes / 60
+        );
+
+
+    if(hours < 24){
+
+        return (
+            hours +
+            " hour" +
+            (
+                hours === 1
+                ? ""
+                : "s"
+            ) +
+            " ago"
+        );
+
+    }
+
+
+    const days =
+        Math.floor(
+            hours / 24
+        );
+
+
+    if(days < 7){
+
+        return (
+            days +
+            " day" +
+            (
+                days === 1
+                ? ""
+                : "s"
+            ) +
+            " ago"
+        );
+
+    }
+
+
+    return date.toLocaleDateString(
+        undefined,
+        {
+            day:"numeric",
+            month:"short",
+            year:"numeric"
+        }
+    );
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHtml(value){
+
+    return String(value || "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
+
+
+/* =========================
+   START
+========================= */
+
+async function init(){
+
+    const authenticated =
+        await authenticate();
+
+    if(!authenticated){
+        return;
+    }
+
+    await loadProfile();
+
+    renderCommunity();
+
+    loadPosts();
+}
+
+init();
+
+</script>
+
+</body>
+  </html>
