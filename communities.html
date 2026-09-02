@@ -10,165 +10,186 @@
 
 <style>
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
-    font-family:Inter,Arial,sans-serif;
 }
 
 body{
+    font-family:Arial,Helvetica,sans-serif;
     background:#f5f7fb;
     color:#172033;
 }
 
-/* =========================
-   TOPBAR
-========================= */
+button,input,select,textarea{
+    font:inherit;
+}
 
-.topbar{
-    height:64px;
-    background:#fff;
-    border-bottom:1px solid #e5e9ef;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 28px;
+button{
+    cursor:pointer;
+}
+
+.app{
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
     position:fixed;
-    top:0;
     left:0;
-    right:0;
-    z-index:1000;
+    top:0;
+    bottom:0;
+    width:245px;
+    background:#fff;
+    border-right:1px solid #e5e7eb;
+    padding:22px 14px;
+    z-index:20;
 }
 
 .logo{
-    color:#2563eb;
-    font-size:23px;
+    font-size:24px;
     font-weight:800;
-    text-decoration:none;
+    color:#2563eb;
+    padding:0 12px 25px;
 }
 
-.search{
-    width:360px;
-    height:40px;
-    background:#f1f4f8;
-    border-radius:10px;
+.nav-title{
+    font-size:11px;
+    color:#9ca3af;
+    font-weight:700;
+    text-transform:uppercase;
+    padding:12px;
+}
+
+.nav-item{
     display:flex;
     align-items:center;
-    gap:8px;
-    padding:0 14px;
+    gap:12px;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:4px;
+    color:#4b5563;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
 }
 
-.search input{
-    border:0;
-    outline:0;
-    background:transparent;
+.nav-item:hover{
+    background:#f1f5ff;
+    color:#2563eb;
+}
+
+.nav-item.active{
+    background:#eff6ff;
+    color:#2563eb;
+}
+
+.nav-icon{
+    width:22px;
+    text-align:center;
+    font-size:18px;
+}
+
+/* TOPBAR */
+
+.topbar{
+    position:fixed;
+    left:245px;
+    right:0;
+    top:0;
+    height:70px;
+    background:#fff;
+    border-bottom:1px solid #e5e7eb;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    z-index:15;
+}
+
+.search-box{
+    width:380px;
+    position:relative;
+}
+
+.search-box input{
     width:100%;
-    font-size:14px;
+    height:42px;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    padding:0 15px 0 42px;
+    outline:none;
+    background:#f8fafc;
+}
+
+.search-box input:focus{
+    border-color:#2563eb;
+    background:#fff;
+}
+
+.search-icon{
+    position:absolute;
+    left:14px;
+    top:11px;
+    color:#6b7280;
 }
 
 .top-actions{
     display:flex;
     align-items:center;
-    gap:22px;
+    gap:18px;
 }
 
 .top-link{
-    color:#536071;
     text-decoration:none;
+    color:#374151;
     font-size:14px;
     font-weight:600;
 }
 
-.top-link:hover{
-    color:#2563eb;
-}
-
-.profile-mini{
-    width:38px;
-    height:38px;
+.icon-btn{
+    width:40px;
+    height:40px;
+    border:0;
+    background:#f3f4f6;
     border-radius:50%;
-    object-fit:cover;
-    cursor:pointer;
-}
-
-/* =========================
-   SIDEBAR
-========================= */
-
-.sidebar{
-    position:fixed;
-    left:0;
-    top:64px;
-    bottom:0;
-    width:235px;
-    background:#fff;
-    border-right:1px solid #e5e9ef;
-    padding:22px 14px;
-}
-
-.side-title{
-    color:#98a1af;
-    font-size:11px;
-    font-weight:800;
-    text-transform:uppercase;
-    padding:0 12px;
-    margin-bottom:10px;
-}
-
-.side-link{
     display:flex;
     align-items:center;
-    gap:12px;
-    text-decoration:none;
-    color:#536071;
-    font-size:14px;
-    font-weight:600;
-    padding:12px;
-    border-radius:9px;
-    margin-bottom:4px;
+    justify-content:center;
 }
 
-.side-link:hover{
-    background:#f1f5ff;
-    color:#2563eb;
+.profile-avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    object-fit:cover;
 }
 
-.side-link.active{
-    background:#eaf1ff;
-    color:#2563eb;
-}
-
-.side-icon{
-    width:22px;
-    text-align:center;
-    font-size:17px;
-}
-
-/* =========================
-   MAIN
-========================= */
+/* MAIN */
 
 .main{
-    margin-left:235px;
-    padding:94px 35px 100px;
-    max-width:1200px;
+    margin-left:245px;
+    padding:95px 28px 90px;
+    max-width:1400px;
 }
 
-.page-head{
+.page-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
     gap:20px;
-    margin-bottom:25px;
+    margin-bottom:24px;
 }
 
-.page-head h1{
-    font-size:29px;
-    margin-bottom:6px;
+.page-title{
+    font-size:30px;
+    font-weight:800;
 }
 
-.page-head p{
-    color:#7c8797;
+.page-subtitle{
+    color:#6b7280;
+    margin-top:7px;
     font-size:14px;
 }
 
@@ -176,214 +197,233 @@ body{
     border:0;
     background:#2563eb;
     color:#fff;
-    padding:12px 19px;
-    border-radius:9px;
+    padding:12px 18px;
+    border-radius:10px;
     font-weight:700;
-    cursor:pointer;
-    font-size:14px;
 }
 
 .create-btn:hover{
     background:#1d4ed8;
 }
 
-/* =========================
-   TABS
-========================= */
+/* TABS */
 
 .tabs{
     display:flex;
     gap:8px;
+    border-bottom:1px solid #e5e7eb;
     margin-bottom:22px;
 }
 
 .tab{
-    border:1px solid #dfe4eb;
-    background:#fff;
-    color:#647083;
-    padding:9px 16px;
-    border-radius:20px;
-    cursor:pointer;
-    font-weight:600;
+    border:0;
+    background:transparent;
+    padding:13px 18px;
+    color:#6b7280;
+    font-weight:700;
+    border-bottom:3px solid transparent;
 }
 
 .tab.active{
-    background:#2563eb;
-    border-color:#2563eb;
-    color:#fff;
+    color:#2563eb;
+    border-bottom-color:#2563eb;
 }
 
-/* =========================
-   COMMUNITY GRID
-========================= */
+/* SEARCH/FILTER */
 
-.community-grid{
+.community-tools{
+    display:flex;
+    gap:12px;
+    margin-bottom:22px;
+}
+
+.community-search{
+    flex:1;
+    height:45px;
+    border:1px solid #e5e7eb;
+    background:#fff;
+    border-radius:10px;
+    padding:0 15px;
+    outline:none;
+}
+
+.community-search:focus{
+    border-color:#2563eb;
+}
+
+.category-select{
+    width:190px;
+    height:45px;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    padding:0 12px;
+    background:#fff;
+    outline:none;
+}
+
+/* GRID */
+
+.communities-grid{
     display:grid;
-    grid-template-columns:
-        repeat(3,minmax(0,1fr));
+    grid-template-columns:repeat(3,1fr);
     gap:18px;
 }
 
 .community-card{
     background:#fff;
-    border:1px solid #e3e7ed;
-    border-radius:14px;
+    border:1px solid #e5e7eb;
+    border-radius:15px;
     padding:20px;
     transition:.2s;
 }
 
 .community-card:hover{
     transform:translateY(-2px);
-    box-shadow:
-        0 8px 25px rgba(20,35,60,.08);
-}
-
-.community-top{
-    display:flex;
-    gap:14px;
-    align-items:flex-start;
-    margin-bottom:15px;
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
 }
 
 .community-icon{
-    width:55px;
-    height:55px;
-    border-radius:13px;
-    background:#eaf1ff;
+    width:58px;
+    height:58px;
+    background:#eff6ff;
+    border-radius:14px;
     display:flex;
     align-items:center;
     justify-content:center;
     font-size:28px;
-    flex-shrink:0;
+    margin-bottom:15px;
 }
 
 .community-name{
-    font-size:17px;
+    font-size:18px;
     font-weight:800;
-    margin-bottom:5px;
-}
-
-.community-type{
-    display:inline-block;
-    font-size:11px;
-    font-weight:700;
-    padding:4px 8px;
-    border-radius:20px;
-    background:#f0f2f5;
-    color:#697386;
+    margin-bottom:7px;
 }
 
 .community-description{
-    color:#687384;
     font-size:13px;
-    line-height:1.55;
-    margin-bottom:17px;
+    line-height:1.6;
+    color:#6b7280;
+    min-height:62px;
 }
 
 .community-meta{
     display:flex;
+    align-items:center;
     justify-content:space-between;
-    color:#8993a2;
+    margin:15px 0;
+    color:#6b7280;
     font-size:12px;
-    margin-bottom:15px;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 8px;
+    border-radius:20px;
+    background:#f3f4f6;
+    color:#4b5563;
+    font-size:11px;
+    font-weight:700;
+}
+
+.community-actions{
+    display:flex;
+    gap:8px;
+}
+
+.join-btn,
+.open-btn{
+    flex:1;
+    border-radius:9px;
+    padding:10px;
+    font-weight:700;
+    font-size:13px;
 }
 
 .join-btn{
-    width:100%;
     border:1px solid #2563eb;
-    background:#fff;
-    color:#2563eb;
-    padding:10px;
-    border-radius:8px;
-    font-weight:700;
-    cursor:pointer;
-}
-
-.join-btn:hover{
-    background:#eff5ff;
-}
-
-.join-btn.joined{
     background:#2563eb;
     color:#fff;
 }
 
-/* =========================
-   EMPTY
-========================= */
+.join-btn.joined{
+    background:#fff;
+    color:#2563eb;
+}
+
+.open-btn{
+    border:1px solid #e5e7eb;
+    background:#fff;
+    color:#374151;
+}
+
+.open-btn:hover{
+    background:#f8fafc;
+}
 
 .empty{
     background:#fff;
-    border:1px solid #e3e7ed;
+    border:1px dashed #d1d5db;
     border-radius:14px;
-    padding:70px 20px;
+    padding:55px 20px;
     text-align:center;
+    color:#6b7280;
     grid-column:1/-1;
 }
 
 .empty-icon{
-    font-size:48px;
-    margin-bottom:14px;
+    font-size:45px;
+    margin-bottom:12px;
 }
 
 .empty h3{
-    font-size:19px;
+    color:#172033;
     margin-bottom:7px;
 }
 
-.empty p{
-    color:#8a94a3;
-    font-size:14px;
-}
+/* MODAL */
 
-/* =========================
-   MODAL
-========================= */
-
-.modal{
+.modal-overlay{
+    display:none;
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.45);
-    display:none;
+    background:rgba(15,23,42,.55);
     align-items:center;
     justify-content:center;
-    z-index:2000;
     padding:20px;
+    z-index:100;
 }
 
-.modal.show{
+.modal-overlay.show{
     display:flex;
 }
 
-.modal-box{
-    background:#fff;
+.modal{
     width:100%;
-    max-width:480px;
-    border-radius:15px;
-    padding:25px;
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.2);
+    max-width:500px;
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 20px 50px rgba(0,0,0,.2);
 }
 
-.modal-head{
+.modal-header{
     display:flex;
     align-items:center;
     justify-content:space-between;
     margin-bottom:20px;
 }
 
-.modal-head h2{
+.modal-header h2{
     font-size:21px;
 }
 
-.close{
+.close-btn{
+    width:35px;
+    height:35px;
     border:0;
-    background:#f1f3f6;
-    width:34px;
-    height:34px;
     border-radius:50%;
-    cursor:pointer;
-    font-size:18px;
+    background:#f3f4f6;
 }
 
 .form-group{
@@ -401,16 +441,15 @@ body{
 .form-group textarea,
 .form-group select{
     width:100%;
-    border:1px solid #d9dee6;
-    border-radius:8px;
-    padding:11px 12px;
+    border:1px solid #d1d5db;
+    border-radius:9px;
+    padding:11px;
     outline:none;
-    font-size:14px;
 }
 
 .form-group textarea{
-    min-height:100px;
     resize:vertical;
+    min-height:100px;
 }
 
 .form-group input:focus,
@@ -419,121 +458,115 @@ body{
     border-color:#2563eb;
 }
 
-.modal-submit{
-    width:100%;
+.modal-footer{
+    display:flex;
+    gap:10px;
+    justify-content:flex-end;
+    margin-top:20px;
+}
+
+.cancel-btn{
+    border:1px solid #d1d5db;
+    background:#fff;
+    padding:11px 17px;
+    border-radius:9px;
+    font-weight:700;
+}
+
+.save-btn{
     border:0;
     background:#2563eb;
     color:#fff;
-    padding:12px;
+    padding:11px 17px;
     border-radius:9px;
     font-weight:700;
-    cursor:pointer;
 }
 
-/* =========================
-   MOBILE NAV
-========================= */
+/* MOBILE NAV */
 
 .mobile-nav{
     display:none;
 }
 
-/* =========================
-   TOAST
-========================= */
+/* RESPONSIVE */
 
-.toast{
-    position:fixed;
-    right:20px;
-    bottom:25px;
-    background:#172033;
-    color:#fff;
-    padding:13px 17px;
-    border-radius:9px;
-    font-size:13px;
-    opacity:0;
-    transform:translateY(15px);
-    pointer-events:none;
-    transition:.25s;
-    z-index:3000;
-}
-
-.toast.show{
-    opacity:1;
-    transform:translateY(0);
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:1000px){
-
-    .community-grid{
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
+@media(max-width:1100px){
+    .communities-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 }
 
-@media(max-width:850px){
-
-    .topbar{
-        padding:0 15px;
-    }
-
-    .search{
-        display:none;
-    }
-
-    .top-link{
-        display:none;
-    }
+@media(max-width:800px){
 
     .sidebar{
         display:none;
     }
 
-    .main{
-        margin-left:0;
-        padding:
-            84px 15px 90px;
+    .topbar{
+        left:0;
+        height:64px;
+        padding:0 15px;
     }
 
-    .page-head{
+    .search-box{
+        width:calc(100% - 50px);
+    }
+
+    .top-link,
+    .top-actions .icon-btn{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+        padding:82px 15px 85px;
+    }
+
+    .page-header{
         align-items:flex-start;
     }
 
-    .page-head h1{
-        font-size:24px;
+    .page-title{
+        font-size:25px;
     }
 
     .create-btn{
-        white-space:nowrap;
+        padding:10px 13px;
+        font-size:12px;
     }
 
-    .community-grid{
+    .community-tools{
+        flex-direction:column;
+    }
+
+    .category-select{
+        width:100%;
+    }
+
+    .communities-grid{
         grid-template-columns:1fr;
     }
 
     .mobile-nav{
-        display:flex;
         position:fixed;
+        display:flex;
         bottom:0;
         left:0;
         right:0;
         height:65px;
         background:#fff;
-        border-top:1px solid #e4e8ee;
-        z-index:1000;
-        align-items:center;
+        border-top:1px solid #e5e7eb;
+        z-index:30;
         justify-content:space-around;
+        align-items:center;
     }
 
     .mobile-nav a{
         text-decoration:none;
-        color:#697386;
+        color:#6b7280;
+        font-size:10px;
+        font-weight:700;
         text-align:center;
-        font-size:11px;
     }
 
     .mobile-nav a.active{
@@ -542,8 +575,8 @@ body{
 
     .mobile-nav span{
         display:block;
-        font-size:19px;
-        margin-bottom:3px;
+        font-size:20px;
+        margin-bottom:2px;
     }
 }
 </style>
@@ -551,51 +584,88 @@ body{
 
 <body>
 
-<!-- =========================
-     TOP BAR
-========================= -->
+<div class="app">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="logo">CareerCraft</div>
+
+    <div class="nav-title">Main</div>
+
+    <a class="nav-item" href="dashboard.html">
+        <span class="nav-icon">🏠</span>
+        Dashboard
+    </a>
+
+    <a class="nav-item" href="profile.html">
+        <span class="nav-icon">👤</span>
+        My Profile
+    </a>
+
+    <a class="nav-item" href="network.html">
+        <span class="nav-icon">👥</span>
+        Network
+    </a>
+
+    <a class="nav-item" href="job-finder.html">
+        <span class="nav-icon">💼</span>
+        Jobs
+    </a>
+
+    <a class="nav-item" href="applications.html">
+        <span class="nav-icon">📄</span>
+        Applications
+    </a>
+
+    <a class="nav-item active" href="communities.html">
+        <span class="nav-icon">🌐</span>
+        Communities
+    </a>
+
+    <a class="nav-item" href="messages.html">
+        <span class="nav-icon">💬</span>
+        Messages
+    </a>
+
+    <a class="nav-item" href="notifications.html">
+        <span class="nav-icon">🔔</span>
+        Notifications
+    </a>
+
+</aside>
+
+
+<!-- TOPBAR -->
 
 <header class="topbar">
 
-    <a href="index.html" class="logo">
-        CareerCraft
-    </a>
-
-    <div class="search">
-        🔎
+    <div class="search-box">
+        <span class="search-icon">🔎</span>
         <input
-            id="searchInput"
+            id="globalSearch"
             type="text"
-            placeholder="Search communities..."
+            placeholder="Search CareerCraft..."
         >
     </div>
 
     <div class="top-actions">
 
-        <a
-            href="job-finder.html"
-            class="top-link"
-        >
-            Jobs
+        <a class="top-link" href="job-finder.html">
+            Find Jobs
         </a>
 
-        <a
-            href="messages.html"
-            class="top-link"
-        >
-            Messages
-        </a>
-
-        <a
-            href="notifications.html"
-            class="top-link"
+        <button
+            class="icon-btn"
+            onclick="window.location.href='notifications.html'"
         >
             🔔
-        </a>
+        </button>
 
         <img
-            id="topAvatar"
-            class="profile-mini"
+            id="profileAvatar"
+            class="profile-avatar"
             src=""
             alt="Profile"
             onclick="window.location.href='profile.html'"
@@ -606,103 +676,18 @@ body{
 </header>
 
 
-<!-- =========================
-     SIDEBAR
-========================= -->
-
-<aside class="sidebar">
-
-    <div class="side-title">
-        CareerCraft
-    </div>
-
-    <a
-        href="dashboard.html"
-        class="side-link"
-    >
-        <span class="side-icon">🏠</span>
-        Dashboard
-    </a>
-
-    <a
-        href="profile.html"
-        class="side-link"
-    >
-        <span class="side-icon">👤</span>
-        My Profile
-    </a>
-
-    <a
-        href="network.html"
-        class="side-link"
-    >
-        <span class="side-icon">👥</span>
-        Network
-    </a>
-
-    <a
-        href="job-finder.html"
-        class="side-link"
-    >
-        <span class="side-icon">💼</span>
-        Jobs
-    </a>
-
-    <a
-        href="applications.html"
-        class="side-link"
-    >
-        <span class="side-icon">📄</span>
-        Applications
-    </a>
-
-    <a
-        href="communities.html"
-        class="side-link active"
-    >
-        <span class="side-icon">🌐</span>
-        Communities
-    </a>
-
-    <a
-        href="messages.html"
-        class="side-link"
-    >
-        <span class="side-icon">💬</span>
-        Messages
-    </a>
-
-    <a
-        href="notifications.html"
-        class="side-link"
-    >
-        <span class="side-icon">🔔</span>
-        Notifications
-    </a>
-
-</aside>
-
-
-<!-- =========================
-     MAIN
-========================= -->
+<!-- MAIN -->
 
 <main class="main">
 
-    <div class="page-head">
+    <div class="page-header">
 
         <div>
+            <h1 class="page-title">Communities</h1>
 
-            <h1>
-                Communities
-            </h1>
-
-            <p>
-                Connect with professionals,
-                students and people who share
-                your interests.
+            <p class="page-subtitle">
+                Connect with professionals, students, creators and ambitious people.
             </p>
-
         </div>
 
         <button
@@ -720,15 +705,17 @@ body{
     <div class="tabs">
 
         <button
+            id="discoverTab"
             class="tab active"
-            onclick="setTab('discover',this)"
+            onclick="setTab('discover')"
         >
             Discover
         </button>
 
         <button
+            id="myTab"
             class="tab"
-            onclick="setTab('joined',this)"
+            onclick="setTab('mine')"
         >
             My Communities
         </button>
@@ -736,19 +723,47 @@ body{
     </div>
 
 
-    <!-- COMMUNITY GRID -->
+    <!-- TOOLS -->
+
+    <div class="community-tools">
+
+        <input
+            id="communitySearch"
+            class="community-search"
+            type="text"
+            placeholder="Search communities..."
+            oninput="renderCommunities()"
+        >
+
+        <select
+            id="categoryFilter"
+            class="category-select"
+            onchange="renderCommunities()"
+        >
+            <option value="all">All Categories</option>
+            <option value="Career">Career</option>
+            <option value="Technology">Technology</option>
+            <option value="Business">Business</option>
+            <option value="Education">Education</option>
+            <option value="Design">Design</option>
+            <option value="Finance">Finance</option>
+            <option value="Other">Other</option>
+        </select>
+
+    </div>
+
+
+    <!-- COMMUNITIES -->
 
     <div
-        id="communityGrid"
-        class="community-grid"
+        id="communitiesGrid"
+        class="communities-grid"
     ></div>
 
 </main>
 
 
-<!-- =========================
-     MOBILE NAV
-========================= -->
+<!-- MOBILE NAV -->
 
 <nav class="mobile-nav">
 
@@ -767,17 +782,12 @@ body{
         Create
     </a>
 
-    <a
-        href="messages.html"
-    >
+    <a href="messages.html">
         <span>💬</span>
         Messages
     </a>
 
-    <a
-        href="communities.html"
-        class="active"
-    >
+    <a class="active" href="communities.html">
         <span>🌐</span>
         Communities
     </a>
@@ -785,189 +795,141 @@ body{
 </nav>
 
 
-<!-- =========================
-     CREATE COMMUNITY MODAL
-========================= -->
+<!-- CREATE COMMUNITY MODAL -->
 
 <div
     id="createModal"
-    class="modal"
+    class="modal-overlay"
 >
 
-    <div class="modal-box">
+    <div class="modal">
 
-        <div class="modal-head">
+        <div class="modal-header">
 
-            <h2>
-                Create Community
-            </h2>
+            <h2>Create Community</h2>
 
             <button
-                class="close"
+                class="close-btn"
                 onclick="closeCreateModal()"
             >
-                ×
+                ✕
             </button>
 
         </div>
 
+        <div class="form-group">
 
-        <form id="communityForm">
+            <label>Community Name</label>
 
-            <div class="form-group">
+            <input
+                id="communityName"
+                type="text"
+                placeholder="e.g. Nigerian Developers"
+            >
 
-                <label>
-                    Community name
-                </label>
-
-                <input
-                    id="communityName"
-                    type="text"
-                    placeholder="e.g. Nigerian Tech Professionals"
-                    required
-                >
-
-            </div>
+        </div>
 
 
-            <div class="form-group">
+        <div class="form-group">
 
-                <label>
-                    Description
-                </label>
+            <label>Description</label>
 
-                <textarea
-                    id="communityDescription"
-                    placeholder="What is this community about?"
-                    required
-                ></textarea>
+            <textarea
+                id="communityDescription"
+                placeholder="What is this community about?"
+            ></textarea>
 
-            </div>
+        </div>
 
 
-            <div class="form-group">
+        <div class="form-group">
 
-                <label>
-                    Community type
-                </label>
+            <label>Community Type</label>
 
-                <select id="communityType">
+            <select id="communityType">
 
-                    <option value="Public">
-                        Public
-                    </option>
+                <option value="Public">
+                    Public
+                </option>
 
-                    <option value="Private">
-                        Private
-                    </option>
+                <option value="Private">
+                    Private
+                </option>
 
-                </select>
+            </select>
 
-            </div>
+        </div>
 
 
-            <div class="form-group">
+        <div class="form-group">
 
-                <label>
-                    Category
-                </label>
+            <label>Category</label>
 
-                <select id="communityCategory">
+            <select id="communityCategory">
 
-                    <option>
-                        Technology
-                    </option>
+                <option value="Career">Career</option>
+                <option value="Technology">Technology</option>
+                <option value="Business">Business</option>
+                <option value="Education">Education</option>
+                <option value="Design">Design</option>
+                <option value="Finance">Finance</option>
+                <option value="Other">Other</option>
 
-                    <option>
-                        Business
-                    </option>
+            </select>
 
-                    <option>
-                        Career
-                    </option>
+        </div>
 
-                    <option>
-                        Education
-                    </option>
 
-                    <option>
-                        Design
-                    </option>
-
-                    <option>
-                        Finance
-                    </option>
-
-                    <option>
-                        Entrepreneurship
-                    </option>
-
-                    <option>
-                        Other
-                    </option>
-
-                </select>
-
-            </div>
-
+        <div class="modal-footer">
 
             <button
-                class="modal-submit"
-                type="submit"
+                class="cancel-btn"
+                onclick="closeCreateModal()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="save-btn"
+                onclick="createCommunity()"
             >
                 Create Community
             </button>
 
-        </form>
+        </div>
 
     </div>
 
 </div>
 
 
-<!-- =========================
-     TOAST
-========================= -->
-
-<div
-    id="toast"
-    class="toast"
-></div>
-
-
 <script>
 
-/* =========================
-   SUPABASE
-========================= */
+/* SUPABASE */
 
 const SUPABASE_URL =
-"https://upcxmlbgmqhaqieldmyk.supabase.co";
+    "https://upcxmlbgmqhaqieldmyk.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+    "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
 
 const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
-/* =========================
-   VARIABLES
-========================= */
+/* GLOBAL VARIABLES */
 
 let currentUser = null;
-
-let activeTab = "discover";
+let currentProfile = null;
+let currentTab = "discover";
 
 let communities = [];
 
 
-/* =========================
-   DEFAULT COMMUNITIES
-========================= */
+/* DEFAULT COMMUNITIES */
 
 const defaultCommunities = [
 
@@ -980,8 +942,7 @@ const defaultCommunities = [
         category:"Career",
         icon:"🚀",
         members:1240,
-        createdBy:"CareerCraft",
-        joined:false
+        createdBy:"CareerCraft"
     },
 
     {
@@ -993,8 +954,7 @@ const defaultCommunities = [
         category:"Technology",
         icon:"💻",
         members:986,
-        createdBy:"CareerCraft",
-        joined:false
+        createdBy:"CareerCraft"
     },
 
     {
@@ -1006,8 +966,7 @@ const defaultCommunities = [
         category:"Business",
         icon:"💡",
         members:734,
-        createdBy:"CareerCraft",
-        joined:false
+        createdBy:"CareerCraft"
     },
 
     {
@@ -1019,8 +978,7 @@ const defaultCommunities = [
         category:"Education",
         icon:"🎓",
         members:1580,
-        createdBy:"CareerCraft",
-        joined:false
+        createdBy:"CareerCraft"
     },
 
     {
@@ -1032,8 +990,7 @@ const defaultCommunities = [
         category:"Design",
         icon:"🎨",
         members:623,
-        createdBy:"CareerCraft",
-        joined:false
+        createdBy:"CareerCraft"
     },
 
     {
@@ -1045,45 +1002,20 @@ const defaultCommunities = [
         category:"Finance",
         icon:"📊",
         members:452,
-        createdBy:"CareerCraft",
-        joined:false
+        createdBy:"CareerCraft"
     }
 
 ];
 
 
-/* =========================
-   AVATAR
-========================= */
-
-function createAvatar(name){
-
-    const letter =
-        encodeURIComponent(
-            (name || "U")
-            .charAt(0)
-            .toUpperCase()
-        );
-
-    return `
-https://ui-avatars.com/api/?name=${letter}&background=2563eb&color=ffffff&size=100
-`;
-}
-
-
-/* =========================
-   AUTH
-========================= */
+/* AUTHENTICATION */
 
 async function checkAuthentication(){
 
     const {
         data,
         error
-    } =
-    await supabaseClient
-        .auth
-        .getUser();
+    } = await supabaseClient.auth.getUser();
 
     if(error || !data.user){
 
@@ -1100,198 +1032,296 @@ async function checkAuthentication(){
 }
 
 
-/* =========================
-   PROFILE
-========================= */
+/* PROFILE */
 
-async function loadProfile(){
+function createAvatar(name){
 
-    const {
-        data
-    } =
-    await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq(
-            "ID",
-            currentUser.id
-        )
-        .maybeSingle();
+    const letter =
+        encodeURIComponent(
+            (name || "U")
+            .charAt(0)
+            .toUpperCase()
+        );
 
-    const name =
-        data?.["FULL NAME"] ||
-        data?.full_name ||
-        data?.fullName ||
-        data?.name ||
-        currentUser
-            .user_metadata
-            ?.full_name ||
-        currentUser
-            .email
-            ?.split("@")[0] ||
-        "CareerCraft User";
-
-    document.getElementById(
-        "topAvatar"
-    ).src =
-        data?.avatar_url ||
-        createAvatar(name);
+    return `https://ui-avatars.com/api/?name=${letter}&background=2563eb&color=ffffff&size=100`;
 }
 
 
-/* =========================
-   LOCAL STORAGE
-========================= */
+async function loadCurrentProfile(){
 
-function storageKey(){
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("ID", currentUser.id)
+        .maybeSingle();
 
-    return (
-        "careercraft_communities_" +
-        currentUser.id
+    currentProfile =
+        data || {};
+
+    const name =
+        currentProfile["FULL NAME"] ||
+        currentProfile.full_name ||
+        currentProfile.fullName ||
+        currentProfile.name ||
+        currentUser.user_metadata?.full_name ||
+        currentUser.user_metadata?.name ||
+        currentUser.email?.split("@")[0] ||
+        "CareerCraft User";
+
+    const avatar =
+        currentProfile.avatar_url ||
+        createAvatar(name);
+
+    document.getElementById(
+        "profileAvatar"
+    ).src = avatar;
+}
+
+
+/* STORAGE */
+
+function getCustomCommunities(){
+
+    const key =
+        "careercraft_custom_communities_" +
+        currentUser.id;
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(key)
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+}
+
+
+function saveCustomCommunities(custom){
+
+    const key =
+        "careercraft_custom_communities_" +
+        currentUser.id;
+
+    localStorage.setItem(
+        key,
+        JSON.stringify(custom)
     );
 }
 
+
+/*
+    IMPORTANT FIX:
+    Only custom communities are stored separately.
+    Default communities are always loaded once.
+*/
 
 function loadStoredCommunities(){
 
-    const stored =
-        localStorage.getItem(
-            storageKey()
-        );
+    const custom =
+        getCustomCommunities();
 
-    if(stored){
+    communities = [
+        ...defaultCommunities,
+        ...custom
+    ];
 
-        try{
-
-            return JSON.parse(stored);
-
-        }catch(error){
-
-            console.error(error);
-
-        }
-    }
-
-    return [];
+    applySavedJoinState();
 }
 
 
-function saveCommunities(){
+/* JOINED COMMUNITIES */
+
+function getJoinedCommunityIds(){
+
+    const key =
+        "careercraft_joined_" +
+        currentUser.id;
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(key)
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+}
+
+
+function saveJoinedCommunityIds(ids){
+
+    const key =
+        "careercraft_joined_" +
+        currentUser.id;
 
     localStorage.setItem(
-        storageKey(),
-        JSON.stringify(
-            communities
-        )
+        key,
+        JSON.stringify(ids)
     );
 }
 
 
-/* =========================
-   INITIALIZE
-========================= */
+function applySavedJoinState(){
 
-async function init(){
+    const joinedIds =
+        getJoinedCommunityIds();
 
-    const authenticated =
-        await checkAuthentication();
+    communities.forEach(
+        community => {
 
-    if(!authenticated){
-        return;
-    }
+            community.joined =
+                joinedIds.includes(
+                    community.id
+                );
 
-    await loadProfile();
+        }
+    );
+}
 
-    const userCommunities =
-        loadStoredCommunities();
 
-    communities =
-        [
-            ...defaultCommunities,
-            ...userCommunities
-        ];
+/* TABS */
+
+function setTab(tab){
+
+    currentTab =
+        tab;
+
+    document
+        .getElementById("discoverTab")
+        .classList.toggle(
+            "active",
+            tab === "discover"
+        );
+
+    document
+        .getElementById("myTab")
+        .classList.toggle(
+            "active",
+            tab === "mine"
+        );
+
+    applySavedJoinState();
 
     renderCommunities();
 }
 
 
-/* =========================
-   RENDER
-========================= */
+/* RENDER */
 
 function renderCommunities(){
 
+    applySavedJoinState();
+
     const grid =
         document.getElementById(
-            "communityGrid"
+            "communitiesGrid"
         );
 
     const search =
-        document.getElementById(
-            "searchInput"
-        )
-        .value
-        .toLowerCase()
-        .trim();
+        document
+            .getElementById(
+                "communitySearch"
+            )
+            .value
+            .trim()
+            .toLowerCase();
 
+    const category =
+        document
+            .getElementById(
+                "categoryFilter"
+            )
+            .value;
 
     let filtered =
         communities.filter(
             community => {
 
                 const matchesSearch =
+                    !search ||
                     community.name
                         .toLowerCase()
-                        .includes(search)
-                    ||
+                        .includes(search) ||
                     community.description
-                        .toLowerCase()
-                        .includes(search)
-                    ||
-                    community.category
                         .toLowerCase()
                         .includes(search);
 
+                const matchesCategory =
+                    category === "all" ||
+                    community.category === category;
+
                 const matchesTab =
-                    activeTab ===
-                    "discover"
-                    ||
+                    currentTab === "discover" ||
                     community.joined === true;
 
                 return (
                     matchesSearch &&
+                    matchesCategory &&
                     matchesTab
                 );
+
             }
         );
 
 
     if(filtered.length === 0){
 
-        grid.innerHTML = `
+        if(currentTab === "mine"){
 
-            <div class="empty">
+            grid.innerHTML = `
 
-                <div class="empty-icon">
-                    🌐
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🌐
+                    </div>
+
+                    <h3>
+                        No communities yet
+                    </h3>
+
+                    <p>
+                        You haven't joined any communities yet.
+                        Discover a community and join it to see it here.
+                    </p>
+
                 </div>
 
-                <h3>
-                    ${
-                        activeTab === "joined"
-                        ? "You haven't joined any communities yet"
-                        : "No communities found"
-                    }
-                </h3>
+            `;
 
-                <p>
-                    Search for another community
-                    or create your own.
-                </p>
+        }else{
 
-            </div>
+            grid.innerHTML = `
 
-        `;
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🔎
+                    </div>
+
+                    <h3>
+                        No communities found
+                    </h3>
+
+                    <p>
+                        Try another search or category.
+                    </p>
+
+                </div>
+
+            `;
+
+        }
 
         return;
     }
@@ -1299,138 +1329,134 @@ function renderCommunities(){
 
     grid.innerHTML =
         filtered
-        .map(
-            community =>
-                communityCard(
-                    community
-                )
-        )
-        .join("");
+            .map(
+                community =>
+                    communityCard(
+                        community
+                    )
+            )
+            .join("");
 }
 
 
-/* =========================
-   COMMUNITY CARD
-========================= */
+/* COMMUNITY CARD */
 
 function communityCard(community){
 
+    const joined =
+        community.joined === true;
+
     return `
 
-        <article
-            class="community-card"
-        >
+        <div class="community-card">
 
-            <div class="community-top">
-
-                <div class="community-icon">
-                    ${community.icon || "🌐"}
-                </div>
-
-                <div>
-
-                    <div class="community-name">
-                        ${escapeHtml(
-                            community.name
-                        )}
-                    </div>
-
-                    <span class="community-type">
-                        ${escapeHtml(
-                            community.type
-                        )}
-                    </span>
-
-                </div>
-
+            <div class="community-icon">
+                ${community.icon || "🌐"}
             </div>
 
+            <div class="community-name">
+                ${escapeHTML(
+                    community.name
+                )}
+            </div>
 
             <div class="community-description">
-
-                ${escapeHtml(
+                ${escapeHTML(
                     community.description
                 )}
-
             </div>
-
 
             <div class="community-meta">
 
                 <span>
-                    👥
-                    ${formatNumber(
-                        community.members
-                    )}
-                    members
+                    👥 ${Number(
+                        community.members || 0
+                    ).toLocaleString()} members
                 </span>
 
-                <span>
-                    ${escapeHtml(
-                        community.category
+                <span class="badge">
+                    ${escapeHTML(
+                        community.type || "Public"
                     )}
                 </span>
 
             </div>
 
+            <div class="community-actions">
 
-            <button
-                class="join-btn ${
-                    community.joined
-                    ? "joined"
-                    : ""
-                }"
-                onclick="toggleJoin('${community.id}')"
-            >
+                <button
+                    class="join-btn ${joined ? "joined" : ""}"
+                    onclick="toggleJoin('${escapeJS(
+                        community.id
+                    )}')"
+                >
+                    ${joined ? "✓ Joined" : "Join"}
+                </button>
 
-                ${
-                    community.joined
-                    ? "✓ Joined"
-                    : "Join Community"
-                }
+                <button
+                    class="open-btn"
+                    onclick="openCommunity('${escapeJS(
+                        community.id
+                    )}')"
+                >
+                    Open
+                </button>
 
-            </button>
+            </div>
 
-        </article>
+        </div>
 
     `;
 }
 
 
-/* =========================
-   JOIN / LEAVE
-========================= */
+/* JOIN / LEAVE */
 
 function toggleJoin(id){
 
     const community =
         communities.find(
             item =>
-                item.id === id
+                String(item.id) ===
+                String(id)
         );
 
     if(!community){
         return;
     }
 
+    const joinedIds =
+        getJoinedCommunityIds();
 
-    community.joined =
-        !community.joined;
+    const index =
+        joinedIds.indexOf(
+            community.id
+        );
 
 
-    if(community.joined){
+    if(index === -1){
+
+        joinedIds.push(
+            community.id
+        );
+
+        community.joined =
+            true;
 
         community.members =
             Number(
                 community.members || 0
             ) + 1;
 
-        showToast(
-            "You joined " +
-            community.name
+    }else{
+
+        joinedIds.splice(
+            index,
+            1
         );
 
-    }else{
+        community.joined =
+            false;
 
         community.members =
             Math.max(
@@ -1440,65 +1466,60 @@ function toggleJoin(id){
                 ) - 1
             );
 
-        showToast(
-            "You left " +
-            community.name
+    }
+
+
+    saveJoinedCommunityIds(
+        joinedIds
+    );
+
+    /*
+        Custom communities are saved separately.
+        This prevents default communities from being duplicated.
+    */
+
+    const custom =
+        getCustomCommunities();
+
+    const customIndex =
+        custom.findIndex(
+            item =>
+                String(item.id) ===
+                String(community.id)
+        );
+
+    if(customIndex !== -1){
+
+        custom[customIndex] =
+            community;
+
+        saveCustomCommunities(
+            custom
         );
 
     }
 
-
-    /*
-       Only save user-created /
-       user-specific state.
-    */
-
-    const userCommunities =
-        communities.filter(
-            item =>
-                !defaultCommunities
-                .some(
-                    defaultItem =>
-                        defaultItem.id ===
-                        item.id
-                )
-        );
-
-    saveCommunities();
-
-    /*
-       Save joined status separately
-       for default communities.
-    */
-
-    const joinedDefaults =
-        {};
-
-    communities.forEach(
-        item => {
-
-            joinedDefaults[
-                item.id
-            ] = !!item.joined;
-
-        }
-    );
-
-    localStorage.setItem(
-        "careercraft_joined_" +
-        currentUser.id,
-        JSON.stringify(
-            joinedDefaults
-        )
-    );
+    applySavedJoinState();
 
     renderCommunities();
 }
 
 
-/* =========================
-   CREATE COMMUNITY
-========================= */
+/* OPEN COMMUNITY */
+
+function openCommunity(id){
+
+    if(!id){
+        return;
+    }
+
+    window.location.href =
+        "community.html?id=" +
+        encodeURIComponent(id);
+}
+
+
+/* CREATE MODAL */
 
 function openCreateModal(){
 
@@ -1506,8 +1527,8 @@ function openCreateModal(){
         .getElementById(
             "createModal"
         )
-        .classList
-        .add("show");
+        .classList.add("show");
+
 }
 
 
@@ -1517,287 +1538,165 @@ function closeCreateModal(){
         .getElementById(
             "createModal"
         )
-        .classList
-        .remove("show");
+        .classList.remove("show");
+
 }
 
 
-document
-    .getElementById(
-        "communityForm"
-    )
-    .addEventListener(
-        "submit",
-        function(event){
+/* CREATE COMMUNITY */
 
-            event.preventDefault();
+function createCommunity(){
 
+    const name =
+        document
+            .getElementById(
+                "communityName"
+            )
+            .value
+            .trim();
 
-            const name =
-                document
-                .getElementById(
-                    "communityName"
-                )
-                .value
-                .trim();
+    const description =
+        document
+            .getElementById(
+                "communityDescription"
+            )
+            .value
+            .trim();
 
-            const description =
-                document
-                .getElementById(
-                    "communityDescription"
-                )
-                .value
-                .trim();
+    const type =
+        document
+            .getElementById(
+                "communityType"
+            )
+            .value;
 
-            const type =
-                document
-                .getElementById(
-                    "communityType"
-                )
-                .value;
-
-            const category =
-                document
-                .getElementById(
-                    "communityCategory"
-                )
-                .value;
+    const category =
+        document
+            .getElementById(
+                "communityCategory"
+            )
+            .value;
 
 
-            if(!name ||
-               !description){
+    if(!name){
 
-                showToast(
-                    "Please complete all fields."
-                );
-
-                return;
-            }
-
-
-            const community = {
-
-                id:
-                    "custom-" +
-                    Date.now(),
-
-                name:name,
-
-                description:
-                    description,
-
-                type:type,
-
-                category:category,
-
-                icon:
-                    categoryIcon(
-                        category
-                    ),
-
-                members:1,
-
-                createdBy:
-                    currentUser.id,
-
-                joined:true
-
-            };
-
-
-            communities.unshift(
-                community
-            );
-
-
-            saveCommunities();
-
-
-            /*
-               Store created community
-               for this account.
-            */
-
-            localStorage.setItem(
-                storageKey(),
-                JSON.stringify(
-                    communities.filter(
-                        item =>
-                            !defaultCommunities
-                            .some(
-                                defaultItem =>
-                                    defaultItem.id ===
-                                    item.id
-                            )
-                    )
-                )
-            );
-
-
-            document
-                .getElementById(
-                    "communityForm"
-                )
-                .reset();
-
-
-            closeCreateModal();
-
-
-            activeTab =
-                "joined";
-
-            document
-                .querySelectorAll(
-                    ".tab"
-                )
-                .forEach(
-                    tab =>
-                        tab.classList
-                            .remove(
-                                "active"
-                            )
-                );
-
-            document
-                .querySelectorAll(
-                    ".tab"
-                )[1]
-                .classList
-                .add("active");
-
-
-            renderCommunities();
-
-
-            showToast(
-                "Community created successfully!"
-            );
-
-        }
-    );
-
-
-/* =========================
-   TABS
-========================= */
-
-function setTab(
-    tab,
-    element
-){
-
-    activeTab = tab;
-
-    document
-        .querySelectorAll(
-            ".tab"
-        )
-        .forEach(
-            item =>
-                item.classList
-                    .remove(
-                        "active"
-                    )
+        alert(
+            "Please enter a community name."
         );
 
-    element
-        .classList
-        .add("active");
-
-
-    applySavedJoinState();
-
-    renderCommunities();
-}
-
-
-/* =========================
-   SAVED JOIN STATES
-========================= */
-
-function applySavedJoinState(){
-
-    const saved =
-        localStorage.getItem(
-            "careercraft_joined_" +
-            currentUser.id
-        );
-
-    if(!saved){
         return;
     }
 
-    try{
 
-        const joined =
-            JSON.parse(saved);
+    if(!description){
 
-        communities.forEach(
-            community => {
-
-                if(
-                    Object.prototype
-                        .hasOwnProperty
-                        .call(
-                            joined,
-                            community.id
-                        )
-                ){
-
-                    community.joined =
-                        joined[
-                            community.id
-                        ];
-
-                }
-
-            }
+        alert(
+            "Please enter a community description."
         );
 
-    }catch(error){
-
-        console.error(error);
-
+        return;
     }
-}
 
 
-/* =========================
-   SEARCH
-========================= */
+    const custom =
+        getCustomCommunities();
 
-document
-    .getElementById(
-        "searchInput"
-    )
-    .addEventListener(
-        "input",
-        renderCommunities
+
+    const newCommunity = {
+
+        id:
+            "custom-" +
+            currentUser.id +
+            "-" +
+            Date.now(),
+
+        name:name,
+
+        description:description,
+
+        type:type,
+
+        category:category,
+
+        icon:
+            getCategoryIcon(
+                category
+            ),
+
+        members:1,
+
+        createdBy:
+            currentProfile["FULL NAME"] ||
+            currentProfile.full_name ||
+            currentProfile.name ||
+            currentUser.email,
+
+        joined:true
+
+    };
+
+
+    custom.push(
+        newCommunity
+    );
+
+    saveCustomCommunities(
+        custom
     );
 
 
-/* =========================
-   CATEGORY ICON
-========================= */
+    const joinedIds =
+        getJoinedCommunityIds();
 
-function categoryIcon(category){
+    joinedIds.push(
+        newCommunity.id
+    );
+
+    saveJoinedCommunityIds(
+        joinedIds
+    );
+
+
+    loadStoredCommunities();
+
+    closeCreateModal();
+
+
+    document
+        .getElementById(
+            "communityName"
+        )
+        .value = "";
+
+    document
+        .getElementById(
+            "communityDescription"
+        )
+        .value = "";
+
+
+    setTab("mine");
+
+}
+
+
+/* CATEGORY ICON */
+
+function getCategoryIcon(category){
 
     const icons = {
 
+        Career:"🚀",
+
         Technology:"💻",
 
-        Business:"💼",
-
-        Career:"🚀",
+        Business:"💡",
 
         Education:"🎓",
 
         Design:"🎨",
 
         Finance:"📊",
-
-        Entrepreneurship:"💡",
 
         Other:"🌐"
 
@@ -1810,96 +1709,56 @@ function categoryIcon(category){
 }
 
 
-/* =========================
-   NUMBER FORMAT
-========================= */
+/* HTML ESCAPE */
 
-function formatNumber(number){
+function escapeHTML(value){
 
-    return Number(
-        number || 0
-    ).toLocaleString();
-}
-
-
-/* =========================
-   ESCAPE HTML
-========================= */
-
-function escapeHtml(value){
-
-    return String(
-        value || ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-}
-
-
-/* =========================
-   TOAST
-========================= */
-
-let toastTimer;
-
-function showToast(message){
-
-    const toast =
-        document.getElementById(
-            "toast"
-        );
-
-    toast.textContent =
-        message;
-
-    toast.classList.add(
-        "show"
-    );
-
-    clearTimeout(
-        toastTimer
-    );
-
-    toastTimer =
-        setTimeout(
-            () => {
-
-                toast.classList.remove(
-                    "show"
-                );
-
-            },
-            2500
+    return String(value || "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
         );
 }
 
 
-/* =========================
-   CLOSE MODAL OUTSIDE
-========================= */
+function escapeJS(value){
+
+    return String(value || "")
+        .replace(
+            /\\/g,
+            "\\\\"
+        )
+        .replace(
+            /'/g,
+            "\\'"
+        )
+        .replace(
+            /"/g,
+            '\\"'
+        );
+}
+
+
+/* CLOSE MODAL WHEN CLICKING OUTSIDE */
 
 document
-    .getElementById(
-        "createModal"
-    )
+    .getElementById("createModal")
     .addEventListener(
         "click",
         function(event){
@@ -1917,13 +1776,37 @@ document
     );
 
 
-/* =========================
-   START
-========================= */
+/* INITIALIZE */
+
+async function init(){
+
+    const authenticated =
+        await checkAuthentication();
+
+    if(!authenticated){
+        return;
+    }
+
+    await loadCurrentProfile();
+
+    loadStoredCommunities();
+
+    /*
+        This is the important fix.
+        It loads all communities the current
+        user has already joined.
+    */
+
+    applySavedJoinState();
+
+    renderCommunities();
+
+}
+
 
 init();
 
 </script>
 
 </body>
-</html>
+    </html>
