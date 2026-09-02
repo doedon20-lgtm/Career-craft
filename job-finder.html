@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>CareerCraft — Job Finder</title>
-
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>CareerCraft — Job Finder</title><style>
 *{
     box-sizing:border-box;
     margin:0;
@@ -400,185 +395,155 @@ footer{
         font-size:17px;
     }
 }
-</style>
-</head>
+</style></head><body><nav><a href="index.html" class="logo">
+    CareerCraft
+</a>
 
-<body>
+<div class="nav-links">
 
-<nav>
+    <a href="index.html">Home</a>
 
-    <a href="index.html" class="logo">
-        CareerCraft
+    <a href="cv-builder.html">
+        CV Builder
     </a>
 
-    <div class="nav-links">
+    <a href="cv-preview.html">
+        CV Preview
+    </a>
 
-        <a href="index.html">Home</a>
+    <a href="cv-review.html">
+        CV Review
+    </a>
 
-        <a href="cv-builder.html">
-            CV Builder
-        </a>
+    <a href="job-finder.html" class="active">
+        Job Finder
+    </a>
 
-        <a href="cv-preview.html">
-            CV Preview
-        </a>
+    <a href="saved-jobs.html">
+        ⭐ Saved Jobs
+    </a>
 
-        <a href="cv-review.html">
-            CV Review
-        </a>
+</div>
 
-        <a href="job-finder.html" class="active">
-            Job Finder
-        </a>
+</nav><section class="hero"><h1>Find Your Next Opportunity</h1>
 
-        <a href="saved-jobs.html">
-            ⭐ Saved Jobs
-        </a>
+<p>
+    Search jobs by title, skill or location.
+</p>
+
+<div
+    class="welcome"
+    id="welcomeMessage">
+</div>
+
+</section><section class="search-section"><div class="search-box">
+
+    <div class="search-row">
+
+        <input
+            id="keywordInput"
+            type="text"
+            placeholder="Job title, skill or keyword"
+        >
+
+        <input
+            id="locationInput"
+            type="text"
+            placeholder="Location or country e.g. London, USA, Germany"
+        >
+
+        <button
+            class="search-btn"
+            id="searchButton"
+            onclick="searchJobs()"
+        >
+            Search Jobs
+        </button>
 
     </div>
 
-</nav>
+</div>
+
+</section><main class="main"><a
+    href="saved-jobs.html"
+    class="saved-link"
+>
+    ⭐ View Saved Jobs
+</a>
 
 
-<section class="hero">
+<div class="results-header">
 
-    <h1>Find Your Next Opportunity</h1>
+    <h2>
+        Job Opportunities
+    </h2>
+
+    <span id="resultCount"></span>
+
+</div>
+
+
+<div
+    class="error"
+    id="errorBox">
+</div>
+
+
+<div
+    class="loading"
+    id="loading">
+
+    <div class="spinner"></div>
 
     <p>
-        Search thousands of jobs by title, skill or location.
+        Searching for jobs worldwide...
     </p>
 
-    <div
-        class="welcome"
-        id="welcomeMessage">
-    </div>
-
-</section>
+</div>
 
 
-<section class="search-section">
-
-    <div class="search-box">
-
-        <div class="search-row">
-
-            <input
-                id="keywordInput"
-                type="text"
-                placeholder="Job title, skill or keyword"
-            >
-
-            <input
-                id="locationInput"
-                type="text"
-                placeholder="Location e.g. London"
-            >
-
-            <button
-                class="search-btn"
-                id="searchButton"
-                onclick="searchJobs()"
-            >
-                Search Jobs
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
+<div
+    class="jobs"
+    id="jobsContainer">
+</div>
 
 
-<main class="main">
+<div
+    class="no-results"
+    id="noResults">
 
-    <a
-        href="saved-jobs.html"
-        class="saved-link"
-    >
-        ⭐ View Saved Jobs
+    <h3>
+        No jobs found
+    </h3>
+
+    <p>
+        Try another job title, skill or location.
+    </p>
+
+</div>
+
+
+<div class="cv-cta">
+
+    <h3>
+        Need a better CV?
+    </h3>
+
+    <p>
+        Create a professional CV with CareerCraft
+        before applying.
+    </p>
+
+    <a href="cv-builder.html">
+        Build My CV
     </a>
 
+</div>
 
-    <div class="results-header">
+</main><footer>© 2026 CareerCraft.
+Build your CV. Find your opportunity.
 
-        <h2>
-            Job Opportunities
-        </h2>
-
-        <span id="resultCount"></span>
-
-    </div>
-
-
-    <div
-        class="error"
-        id="errorBox">
-    </div>
-
-
-    <div
-        class="loading"
-        id="loading">
-
-        <div class="spinner"></div>
-
-        <p>
-            Searching for jobs...
-        </p>
-
-    </div>
-
-
-    <div
-        class="jobs"
-        id="jobsContainer">
-    </div>
-
-
-    <div
-        class="no-results"
-        id="noResults">
-
-        <h3>
-            No jobs found
-        </h3>
-
-        <p>
-            Try another job title, skill or location.
-        </p>
-
-    </div>
-
-
-    <div class="cv-cta">
-
-        <h3>
-            Need a better CV?
-        </h3>
-
-        <p>
-            Create a professional CV with CareerCraft
-            before applying.
-        </p>
-
-        <a href="cv-builder.html">
-            Build My CV
-        </a>
-
-    </div>
-
-</main>
-
-
-<footer>
-
-    © 2026 CareerCraft.
-    Build your CV. Find your opportunity.
-
-</footer>
-
-
-<script>
+</footer><script>
 
 const keywordInput =
     document.getElementById("keywordInput");
@@ -608,20 +573,20 @@ const welcomeMessage =
     document.getElementById("welcomeMessage");
 
 
-// ------------------------------
+// ======================================
 // LOAD CV
-// ------------------------------
+// ======================================
 
 let savedCV = null;
 
-try {
+try{
 
     savedCV =
         JSON.parse(
             localStorage.getItem("careerCraftCV")
         );
 
-} catch(error) {
+}catch(error){
 
     savedCV = null;
 
@@ -646,9 +611,9 @@ if(
 }
 
 
-// ------------------------------
+// ======================================
 // SAVED JOBS
-// ------------------------------
+// ======================================
 
 function getSavedJobs(){
 
@@ -677,24 +642,210 @@ function saveJobs(jobs){
 }
 
 
+// ======================================
+// GET JOB ID
+// ======================================
+
 function getJobId(job){
 
     if(job.id){
+
         return String(job.id);
+
     }
 
     if(job.redirect_url){
-        return job.redirect_url;
+
+        return String(job.redirect_url);
+
+    }
+
+    if(job.url){
+
+        return String(job.url);
+
     }
 
     return (
+
         (job.title || "") +
         "|" +
-        (job.company?.display_name || "")
+        getCompanyName(job)
+
     );
 
 }
 
+
+// ======================================
+// COMPANY NAME
+// ======================================
+
+function getCompanyName(job){
+
+    /*
+       Different job APIs use different
+       company-name fields.
+
+       We check all common formats.
+    */
+
+
+    if(
+        typeof job.company === "string" &&
+        job.company.trim()
+    ){
+
+        return job.company.trim();
+
+    }
+
+
+    if(
+        job.company &&
+        typeof job.company.display_name === "string" &&
+        job.company.display_name.trim()
+    ){
+
+        return job.company.display_name.trim();
+
+    }
+
+
+    if(
+        job.company &&
+        typeof job.company.name === "string" &&
+        job.company.name.trim()
+    ){
+
+        return job.company.name.trim();
+
+    }
+
+
+    if(
+        typeof job.company_name === "string" &&
+        job.company_name.trim()
+    ){
+
+        return job.company_name.trim();
+
+    }
+
+
+    if(
+        typeof job.employer === "string" &&
+        job.employer.trim()
+    ){
+
+        return job.employer.trim();
+
+    }
+
+
+    if(
+        job.employer &&
+        typeof job.employer.name === "string" &&
+        job.employer.name.trim()
+    ){
+
+        return job.employer.name.trim();
+
+    }
+
+
+    if(
+        typeof job.organization === "string" &&
+        job.organization.trim()
+    ){
+
+        return job.organization.trim();
+
+    }
+
+
+    if(
+        job.organization &&
+        typeof job.organization.name === "string" &&
+        job.organization.name.trim()
+    ){
+
+        return job.organization.name.trim();
+
+    }
+
+
+    return "Company not specified";
+
+}
+
+
+// ======================================
+// LOCATION
+// ======================================
+
+function getLocationName(job){
+
+    if(
+        typeof job.location === "string" &&
+        job.location.trim()
+    ){
+
+        return job.location.trim();
+
+    }
+
+
+    if(
+        job.location &&
+        typeof job.location.display_name === "string" &&
+        job.location.display_name.trim()
+    ){
+
+        return job.location.display_name.trim();
+
+    }
+
+
+    if(
+        job.location &&
+        typeof job.location.name === "string" &&
+        job.location.name.trim()
+    ){
+
+        return job.location.name.trim();
+
+    }
+
+
+    if(
+        typeof job.geo === "string" &&
+        job.geo.trim()
+    ){
+
+        return job.geo.trim();
+
+    }
+
+
+    if(
+        typeof job.country === "string" &&
+        job.country.trim()
+    ){
+
+        return job.country.trim();
+
+    }
+
+
+    return "Remote / Worldwide";
+
+}
+
+
+// ======================================
+// SAVED CHECK
+// ======================================
 
 function isJobSaved(job){
 
@@ -711,6 +862,10 @@ function isJobSaved(job){
 
 }
 
+
+// ======================================
+// TOGGLE SAVE
+// ======================================
 
 function toggleSaveJob(job){
 
@@ -747,9 +902,9 @@ function toggleSaveJob(job){
 }
 
 
-// ------------------------------
+// ======================================
 // SEARCH JOBS
-// ------------------------------
+// ======================================
 
 async function searchJobs(){
 
@@ -888,14 +1043,10 @@ async function searchJobs(){
             );
 
 
-        jobs.forEach(function(job){
-
-            jobsContainer.insertAdjacentHTML(
-                "beforeend",
-                createJobCard(job)
-            );
-
-        });
+        jobsContainer.innerHTML =
+            jobs
+                .map(createJobCard)
+                .join("");
 
 
     }catch(error){
@@ -923,9 +1074,9 @@ async function searchJobs(){
 }
 
 
-// ------------------------------
+// ======================================
 // CREATE JOB CARD
-// ------------------------------
+// ======================================
 
 function createJobCard(job){
 
@@ -937,47 +1088,58 @@ function createJobCard(job){
 
 
     const companyName =
-        job.company &&
-        job.company.display_name
-            ? job.company.display_name
-            : "Company not specified";
+        getCompanyName(job);
 
 
     const company =
-        escapeHTML(companyName);
+        escapeHTML(
+            companyName
+        );
+
+
+    const locationName =
+        getLocationName(job);
 
 
     const location =
         escapeHTML(
-            job.location &&
-            job.location.display_name
-                ? job.location.display_name
-                : "Location not specified"
+            locationName
         );
 
 
     const contract =
         escapeHTML(
             job.contract_time ||
+            job.employment_type ||
+            job.type ||
             "Full-time"
         );
 
 
     const description =
         cleanDescription(
-            job.description || ""
+            job.description ||
+            job.snippet ||
+            ""
         );
 
 
     const salary =
         formatSalary(
             job.salary_min,
-            job.salary_max
+            job.salary_max,
+            job.salary_currency ||
+            job.currency ||
+            ""
         );
 
 
     const redirectURL =
-        safeURL(job.redirect_url);
+        safeURL(
+            job.redirect_url ||
+            job.url ||
+            job.apply_url
+        );
 
 
     const saved =
@@ -985,8 +1147,9 @@ function createJobCard(job){
 
 
     let initial =
-        companyName.charAt(0)
-        .toUpperCase();
+        companyName
+            .charAt(0)
+            .toUpperCase();
 
 
     if(!initial){
@@ -994,6 +1157,12 @@ function createJobCard(job){
         initial = "J";
 
     }
+
+
+    const encodedJob =
+        encodeURIComponent(
+            JSON.stringify(job)
+        );
 
 
     return `
@@ -1017,15 +1186,14 @@ function createJobCard(job){
                 <div class="job-meta">
 
                     <span class="badge">
-                        ${location}
+                        📍 ${location}
                     </span>
 
                     <span class="badge">
-                        ${contract}
+                        💼 ${contract}
                     </span>
 
                 </div>
-
 
                 ${
                     description
@@ -1039,7 +1207,6 @@ function createJobCard(job){
                     ""
                 }
 
-
                 ${
                     salary
                     ?
@@ -1051,7 +1218,6 @@ function createJobCard(job){
                     :
                     ""
                 }
-
 
                 <div class="job-actions">
 
@@ -1075,7 +1241,8 @@ function createJobCard(job){
 
                     <button
                         class="save-job ${saved ? "saved" : ""}"
-                        onclick='handleSaveJob(${JSON.stringify(job).replace(/'/g,"&#39;")}, this)'
+                        data-job="${escapeHTML(encodedJob)}"
+                        onclick="handleSaveJobFromButton(this)"
                     >
                         ${saved ? "⭐ Saved" : "☆ Save Job"}
                     </button>
@@ -1091,32 +1258,51 @@ function createJobCard(job){
 }
 
 
-// ------------------------------
+// ======================================
 // SAVE BUTTON
-// ------------------------------
+// ======================================
 
-function handleSaveJob(job, button){
+function handleSaveJobFromButton(button){
 
-    const saved =
-        toggleSaveJob(job);
+    try{
+
+        const job =
+            JSON.parse(
+                decodeURIComponent(
+                    button.dataset.job
+                )
+            );
 
 
-    if(saved){
+        const saved =
+            toggleSaveJob(job);
 
-        button.textContent =
-            "⭐ Saved";
 
-        button.classList.add(
-            "saved"
-        );
+        if(saved){
 
-    }else{
+            button.textContent =
+                "⭐ Saved";
 
-        button.textContent =
-            "☆ Save Job";
+            button.classList.add(
+                "saved"
+            );
 
-        button.classList.remove(
-            "saved"
+        }else{
+
+            button.textContent =
+                "☆ Save Job";
+
+            button.classList.remove(
+                "saved"
+            );
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "Could not save job:",
+            error
         );
 
     }
@@ -1124,13 +1310,82 @@ function handleSaveJob(job, button){
 }
 
 
-// ------------------------------
+// ======================================
 // SALARY
-// ------------------------------
+// ======================================
 
-function formatSalary(min,max){
+function formatSalary(min,max,currency){
 
-    if(!min && !max){
+    if(
+        min == null &&
+        max == null
+    ){
+
+        return "";
+
+    }
+
+
+    const numericMin =
+        Number(min);
+
+    const numericMax =
+        Number(max);
+
+
+    if(
+        Number.isNaN(numericMin) &&
+        Number.isNaN(numericMax)
+    ){
+
+        return "";
+
+    }
+
+
+    let currencyCode =
+        String(
+            currency || ""
+        ).toUpperCase();
+
+
+    /*
+       If the API does not provide a currency,
+       don't incorrectly display every salary
+       as GBP.
+    */
+
+    if(!currencyCode){
+
+        return "";
+
+    }
+
+
+    const allowedCurrencies = [
+        "GBP",
+        "USD",
+        "EUR",
+        "CAD",
+        "AUD",
+        "NZD",
+        "NGN",
+        "CHF",
+        "SEK",
+        "NOK",
+        "DKK",
+        "ZAR",
+        "INR",
+        "SGD",
+        "AED"
+    ];
+
+
+    if(
+        !allowedCurrencies.includes(
+            currencyCode
+        )
+    ){
 
         return "";
 
@@ -1140,10 +1395,10 @@ function formatSalary(min,max){
     function format(value){
 
         return new Intl.NumberFormat(
-            "en-GB",
+            "en",
             {
                 style:"currency",
-                currency:"GBP",
+                currency:currencyCode,
                 maximumFractionDigits:0
             }
         ).format(value);
@@ -1151,32 +1406,52 @@ function formatSalary(min,max){
     }
 
 
-    if(min && max){
+    if(
+        Number.isFinite(numericMin) &&
+        Number.isFinite(numericMax) &&
+        numericMin > 0 &&
+        numericMax > 0
+    ){
 
         return (
-            format(min) +
+            format(numericMin) +
             " – " +
-            format(max)
+            format(numericMax)
         );
 
     }
 
 
-    if(min){
+    if(
+        Number.isFinite(numericMin) &&
+        numericMin > 0
+    ){
 
-        return "From " + format(min);
+        return "From " +
+            format(numericMin);
 
     }
 
 
-    return "Up to " + format(max);
+    if(
+        Number.isFinite(numericMax) &&
+        numericMax > 0
+    ){
+
+        return "Up to " +
+            format(numericMax);
+
+    }
+
+
+    return "";
 
 }
 
 
-// ------------------------------
+// ======================================
 // DESCRIPTION
-// ------------------------------
+// ======================================
 
 function cleanDescription(text){
 
@@ -1185,7 +1460,7 @@ function cleanDescription(text){
 
 
     temp.innerHTML =
-        text;
+        String(text);
 
 
     let clean =
@@ -1209,14 +1484,16 @@ function cleanDescription(text){
     }
 
 
-    return escapeHTML(clean);
+    return escapeHTML(
+        clean
+    );
 
 }
 
 
-// ------------------------------
+// ======================================
 // SECURITY
-// ------------------------------
+// ======================================
 
 function escapeHTML(value){
 
@@ -1268,9 +1545,9 @@ function safeURL(url){
 }
 
 
-// ------------------------------
+// ======================================
 // ENTER KEY
-// ------------------------------
+// ======================================
 
 keywordInput.addEventListener(
     "keydown",
@@ -1300,9 +1577,9 @@ locationInput.addEventListener(
 );
 
 
-// ------------------------------
+// ======================================
 // AUTOMATIC SEARCH FROM CV
-// ------------------------------
+// ======================================
 
 window.addEventListener(
     "DOMContentLoaded",
@@ -1319,7 +1596,5 @@ window.addEventListener(
     }
 );
 
-</script>
-
-</body>
+</script></body>
     </html>
