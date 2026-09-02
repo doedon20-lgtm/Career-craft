@@ -15,14 +15,21 @@
     padding:0;
 }
 
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f5f7fb;
-    color:#172033;
+:root{
+    --primary:#2457d6;
+    --primary-dark:#1743ad;
+    --primary-light:#eef3ff;
+    --text:#101828;
+    --muted:#667085;
+    --border:#e4e7ec;
+    --background:#f7f8fc;
+    --white:#ffffff;
 }
 
-button{
-    font-family:inherit;
+body{
+    font-family:Inter,Arial,Helvetica,sans-serif;
+    background:var(--background);
+    color:var(--text);
 }
 
 a{
@@ -30,73 +37,156 @@ a{
     color:inherit;
 }
 
+button{
+    font-family:inherit;
+}
+
+.app{
+    min-height:100vh;
+    display:flex;
+}
+
 /* =========================
    SIDEBAR
 ========================= */
 
 .sidebar{
+    width:250px;
+    background:#fff;
+    border-right:1px solid var(--border);
     position:fixed;
     left:0;
     top:0;
     bottom:0;
-    width:245px;
-    background:#fff;
-    border-right:1px solid #e5e9f0;
-    padding:25px 15px;
+    padding:24px 15px;
     z-index:100;
 }
 
 .logo{
-    font-size:23px;
-    font-weight:800;
-    padding:0 12px;
-    margin-bottom:30px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:4px 10px 30px;
 }
 
-.logo span{
-    color:#2563eb;
+.logo-mark{
+    width:39px;
+    height:39px;
+    background:var(--primary);
+    color:#fff;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+    font-weight:800;
+}
+
+.logo-name{
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:-.5px;
+}
+
+.logo-name span{
+    color:var(--primary);
 }
 
 .nav-title{
-    font-size:11px;
-    color:#9ca3af;
+    font-size:10px;
+    font-weight:800;
+    color:#98a2b3;
+    padding:0 12px 9px;
     text-transform:uppercase;
-    font-weight:700;
-    padding:0 12px;
-    margin:20px 0 8px;
+    letter-spacing:.7px;
 }
 
-.nav-item{
+.nav{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.nav a{
     display:flex;
     align-items:center;
     gap:12px;
-    padding:12px;
-    margin:4px 0;
+    padding:11px 13px;
     border-radius:10px;
-    color:#4b5563;
+    color:#475467;
     font-size:14px;
     font-weight:600;
-    cursor:pointer;
+    transition:.2s;
 }
 
-.nav-item:hover{
-    background:#f3f6fb;
+.nav a:hover{
+    background:#f4f6fa;
+    color:var(--primary);
 }
 
-.nav-item.active{
-    background:#eaf1ff;
-    color:#2563eb;
+.nav a.active{
+    background:var(--primary-light);
+    color:var(--primary);
 }
 
-.create-nav{
-    background:#2563eb;
-    color:#fff !important;
+.nav-icon{
+    width:21px;
+    text-align:center;
+    font-size:17px;
+}
+
+.sidebar-profile{
+    position:absolute;
+    left:15px;
+    right:15px;
+    bottom:20px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:11px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.profile-avatar{
+    width:37px;
+    height:37px;
+    flex-shrink:0;
+    border-radius:50%;
+    background:var(--primary-light);
+    color:var(--primary);
+    display:flex;
+    align-items:center;
     justify-content:center;
-    margin-top:15px;
+    font-weight:800;
+    overflow:hidden;
 }
 
-.create-nav:hover{
-    background:#1d4ed8 !important;
+.profile-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.profile-info{
+    min-width:0;
+}
+
+.profile-name{
+    font-size:12px;
+    font-weight:800;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.profile-email{
+    font-size:10px;
+    color:#98a2b3;
+    margin-top:2px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 /* =========================
@@ -104,78 +194,85 @@ a{
 ========================= */
 
 .main{
-    margin-left:245px;
+    margin-left:250px;
+    width:calc(100% - 250px);
     min-height:100vh;
 }
-
-/* =========================
-   TOPBAR
-========================= */
 
 .topbar{
     height:72px;
     background:#fff;
-    border-bottom:1px solid #e5e9f0;
+    border-bottom:1px solid var(--border);
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
     padding:0 30px;
     position:sticky;
     top:0;
-    z-index:90;
+    z-index:50;
 }
 
-.search{
-    width:350px;
-    background:#f3f5f8;
-    border:1px solid #e7ebf0;
-    border-radius:10px;
-    padding:11px 14px;
-    outline:none;
-}
-
-.search:focus{
-    border-color:#2563eb;
-    background:#fff;
-}
-
-.top-right{
-    display:flex;
-    align-items:center;
-    gap:18px;
-}
-
-.icon-btn{
-    border:0;
-    background:#f3f5f8;
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    cursor:pointer;
-    font-size:17px;
-}
-
-.profile-mini{
+.topbar-left{
     display:flex;
     align-items:center;
     gap:10px;
 }
 
-.profile-mini img{
+.topbar-title{
+    font-size:18px;
+    font-weight:800;
+}
+
+.topbar-right{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.icon-button{
+    width:40px;
+    height:40px;
+    border:1px solid var(--border);
+    border-radius:11px;
+    background:#fff;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.top-profile{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding-left:5px;
+}
+
+.top-profile-avatar{
     width:38px;
     height:38px;
     border-radius:50%;
+    background:var(--primary-light);
+    color:var(--primary);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    overflow:hidden;
+}
+
+.top-profile-avatar img{
+    width:100%;
+    height:100%;
     object-fit:cover;
-    background:#e5e7eb;
 }
 
-.profile-mini strong{
+.top-profile-name{
     font-size:13px;
+    font-weight:800;
 }
 
-.profile-mini small{
-    display:block;
-    color:#9ca3af;
+.top-profile-role{
+    font-size:10px;
+    color:#98a2b3;
     margin-top:2px;
 }
 
@@ -186,15 +283,15 @@ a{
 .content{
     max-width:1450px;
     margin:auto;
-    padding:35px;
+    padding:32px;
 }
 
 .hero{
-    background:#111827;
-    border-radius:20px;
-    padding:40px;
-    color:#fff;
-    margin-bottom:30px;
+    background:linear-gradient(120deg,#eef3ff,#ffffff);
+    border:1px solid #dfe6f7;
+    border-radius:22px;
+    padding:34px;
+    margin-bottom:28px;
     position:relative;
     overflow:hidden;
 }
@@ -202,88 +299,112 @@ a{
 .hero:after{
     content:"";
     position:absolute;
-    width:300px;
-    height:300px;
+    width:220px;
+    height:220px;
     border-radius:50%;
-    border:45px solid rgba(255,255,255,.04);
-    right:-80px;
-    top:-100px;
+    background:rgba(36,87,214,.07);
+    right:-70px;
+    top:-90px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:700px;
+}
+
+.hero-label{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:#fff;
+    color:var(--primary);
+    border:1px solid #dce5ff;
+    padding:7px 11px;
+    border-radius:30px;
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:14px;
 }
 
 .hero h1{
-    font-size:34px;
+    font-size:31px;
+    line-height:1.2;
+    letter-spacing:-.8px;
     margin-bottom:10px;
-    position:relative;
-    z-index:2;
 }
 
 .hero p{
-    max-width:680px;
-    color:#cbd5e1;
-    line-height:1.6;
-    font-size:15px;
-    position:relative;
-    z-index:2;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.7;
 }
 
 /* =========================
-   CATEGORY
+   SECTION
 ========================= */
 
-.category{
-    margin-top:32px;
+.section{
+    margin-bottom:30px;
 }
 
-.category-heading{
-    margin-bottom:16px;
+.section-heading{
+    margin-bottom:15px;
 }
 
-.category-heading h2{
-    font-size:21px;
-    margin-bottom:5px;
+.section-heading h2{
+    font-size:19px;
+    font-weight:800;
 }
 
-.category-heading p{
-    color:#6b7280;
-    font-size:13px;
+.section-heading p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
 }
 
 /* =========================
-   CREATE GRID
+   CREATION GRID
 ========================= */
 
-.create-grid{
+.creation-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
+    grid-template-columns:repeat(4,1fr);
+    gap:17px;
 }
 
 .create-card{
     background:#fff;
-    border:1px solid #e2e7ef;
+    border:1px solid var(--border);
     border-radius:17px;
-    padding:23px;
+    padding:20px;
+    min-height:190px;
     cursor:pointer;
-    transition:.2s;
     position:relative;
-    min-height:205px;
+    transition:.2s ease;
+    display:flex;
+    flex-direction:column;
 }
 
 .create-card:hover{
-    transform:translateY(-4px);
-    border-color:#2563eb;
-    box-shadow:0 15px 35px rgba(0,0,0,.07);
+    transform:translateY(-3px);
+    border-color:#c7d4f7;
+    box-shadow:0 10px 28px rgba(16,24,40,.08);
 }
 
-.card-icon{
-    width:52px;
-    height:52px;
+.create-card:active{
+    transform:translateY(0);
+}
+
+.create-icon{
+    width:48px;
+    height:48px;
     border-radius:13px;
-    background:#edf3ff;
+    background:var(--primary-light);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:26px;
+    font-size:23px;
     margin-bottom:18px;
 }
 
@@ -293,88 +414,175 @@ a{
 }
 
 .create-card p{
-    color:#6b7280;
+    color:var(--muted);
     font-size:12px;
     line-height:1.6;
-    max-width:300px;
 }
 
-.card-arrow{
-    position:absolute;
-    right:20px;
-    bottom:20px;
-    width:32px;
-    height:32px;
-    border-radius:50%;
-    background:#f3f5f8;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#2563eb;
+.create-arrow{
+    margin-top:auto;
+    padding-top:18px;
+    color:var(--primary);
+    font-size:18px;
+    font-weight:800;
+}
+
+/* Different icon backgrounds */
+
+.icon-cv{
+    background:#eef3ff;
+}
+
+.icon-letter{
+    background:#f3efff;
+}
+
+.icon-portfolio{
+    background:#edf9f4;
+}
+
+.icon-presentation{
+    background:#fff4e8;
+}
+
+.icon-card{
+    background:#eef7ff;
+}
+
+.icon-certificate{
+    background:#fff8df;
+}
+
+.icon-banner{
+    background:#f5efff;
+}
+
+.icon-social{
+    background:#edf8ff;
 }
 
 /* =========================
-   FEATURED
+   FEATURE AREA
 ========================= */
 
-.featured{
-    background:#fff;
-    border:1px solid #e3e8ef;
-    border-radius:17px;
-    padding:25px;
-    margin-top:30px;
-}
-
-.featured h2{
-    font-size:19px;
-    margin-bottom:5px;
-}
-
-.featured p{
-    color:#6b7280;
-    font-size:13px;
-    margin-bottom:20px;
-}
-
-.feature-row{
+.features{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:14px;
+    gap:15px;
 }
 
 .feature{
-    border:1px solid #e6eaf0;
-    border-radius:12px;
-    padding:17px;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:19px;
 }
 
-.feature strong{
-    display:block;
+.feature-icon{
+    font-size:20px;
+    margin-bottom:11px;
+}
+
+.feature h3{
     font-size:13px;
-    margin-bottom:5px;
+    margin-bottom:6px;
 }
 
-.feature span{
-    color:#6b7280;
+.feature p{
+    color:var(--muted);
     font-size:11px;
-    line-height:1.5;
+    line-height:1.6;
 }
 
 /* =========================
-   MOBILE
+   FOOTER NOTE
 ========================= */
 
-.mobile-bottom{
+.workspace-note{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px 20px;
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.workspace-note-icon{
+    width:40px;
+    height:40px;
+    background:var(--primary-light);
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--primary);
+    font-size:19px;
+}
+
+.workspace-note h3{
+    font-size:13px;
+    margin-bottom:3px;
+}
+
+.workspace-note p{
+    font-size:11px;
+    color:var(--muted);
+}
+
+/* =========================
+   MOBILE NAV
+========================= */
+
+.mobile-nav{
     display:none;
 }
 
-@media(max-width:1100px){
+/* =========================
+   LOADING
+========================= */
 
-    .create-grid{
+.loading-screen{
+    position:fixed;
+    inset:0;
+    background:#fff;
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:12px;
+}
+
+.loading-logo{
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    background:var(--primary);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+    font-weight:800;
+}
+
+.loading-screen p{
+    font-size:13px;
+    color:var(--muted);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1200px){
+
+    .creation-grid{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .feature-row{
+    .features{
         grid-template-columns:repeat(2,1fr);
     }
 }
@@ -387,72 +595,139 @@ a{
 
     .main{
         margin-left:0;
-        padding-bottom:75px;
+        width:100%;
+        padding-bottom:76px;
     }
 
     .topbar{
+        height:64px;
         padding:0 15px;
     }
 
-    .search{
-        width:180px;
+    .topbar-title{
+        font-size:16px;
     }
 
-    .profile-mini strong,
-    .profile-mini small{
+    .top-profile-name,
+    .top-profile-role{
         display:none;
     }
 
+    .top-profile{
+        padding-left:0;
+    }
+
     .content{
-        padding:18px 14px;
+        padding:18px 14px 25px;
     }
 
     .hero{
-        padding:28px 22px;
-        border-radius:16px;
+        padding:24px 21px;
+        border-radius:18px;
     }
 
     .hero h1{
-        font-size:27px;
+        font-size:25px;
     }
 
-    .create-grid{
-        grid-template-columns:1fr;
+    .hero p{
+        font-size:13px;
     }
 
-    .feature-row{
+    .creation-grid{
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+    }
+
+    .create-card{
+        min-height:175px;
+        padding:16px;
+    }
+
+    .create-icon{
+        width:43px;
+        height:43px;
+        margin-bottom:14px;
+    }
+
+    .create-card h3{
+        font-size:14px;
+    }
+
+    .create-card p{
+        font-size:11px;
+    }
+
+    .features{
         grid-template-columns:1fr 1fr;
     }
 
-    .mobile-bottom{
-        display:flex;
+    .mobile-nav{
         position:fixed;
-        bottom:0;
+        display:flex;
         left:0;
         right:0;
-        height:68px;
+        bottom:0;
+        height:67px;
         background:#fff;
-        border-top:1px solid #e5e9f0;
-        z-index:200;
+        border-top:1px solid var(--border);
+        z-index:500;
         justify-content:space-around;
         align-items:center;
     }
 
-    .mobile-nav{
+    .mobile-nav a{
+        min-width:55px;
         text-align:center;
-        font-size:10px;
-        color:#6b7280;
-        cursor:pointer;
+        color:#667085;
+        font-size:9px;
+        font-weight:700;
     }
 
-    .mobile-nav div{
-        font-size:20px;
+    .mobile-nav a.active{
+        color:var(--primary);
+    }
+
+    .mobile-nav-icon{
+        display:block;
+        font-size:19px;
         margin-bottom:3px;
     }
 
-    .mobile-nav.active{
-        color:#2563eb;
-        font-weight:700;
+    .workspace-note{
+        align-items:flex-start;
+    }
+}
+
+@media(max-width:480px){
+
+    .creation-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .features{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        padding:21px 18px;
+    }
+
+    .hero h1{
+        font-size:23px;
+    }
+
+    .create-card{
+        min-height:185px;
+    }
+
+    .create-card p{
+        font-size:10.5px;
+    }
+
+    .topbar .icon-button{
+        width:36px;
+        height:36px;
     }
 }
 </style>
@@ -461,88 +736,123 @@ a{
 <body>
 
 <!-- =========================
+     AUTH LOADING
+========================= -->
+
+<div class="loading-screen" id="loadingScreen">
+
+    <div class="loading-logo">C</div>
+
+    <p>Loading CareerCraft...</p>
+
+</div>
+
+
+<div class="app">
+
+<!-- =========================
      SIDEBAR
 ========================= -->
 
 <aside class="sidebar">
 
     <div class="logo">
-        Career<span>Craft</span>
+
+        <div class="logo-mark">
+            C
+        </div>
+
+        <div class="logo-name">
+            Career<span>Craft</span>
+        </div>
+
     </div>
+
 
     <div class="nav-title">
         Workspace
     </div>
 
-    <div class="nav-item"
-         onclick="goDashboard()">
-        🏠
-        Home
-    </div>
 
-    <div class="nav-item"
-         onclick="goJobs()">
-        💼
-        Jobs
-    </div>
+    <nav class="nav">
 
-    <div class="nav-item">
-        👥
-        Network
-    </div>
+        <a href="index.html">
+            <span class="nav-icon">🏠</span>
+            Home
+        </a>
 
-    <div class="nav-item">
-        🌐
-        Communities
-    </div>
+        <a href="job-finder.html">
+            <span class="nav-icon">💼</span>
+            Jobs
+        </a>
 
-    <div class="nav-item">
-        💬
-        Messages
-    </div>
+        <a href="network.html">
+            <span class="nav-icon">🤝</span>
+            Network
+        </a>
 
-    <div class="nav-item active create-nav">
-        ＋ Create
-    </div>
+        <a href="communities.html">
+            <span class="nav-icon">👥</span>
+            Communities
+        </a>
 
-    <div class="nav-title">
-        Career Tools
-    </div>
+        <a href="messages.html">
+            <span class="nav-icon">💬</span>
+            Messages
+        </a>
 
-    <div class="nav-item"
-         onclick="createCV()">
-        📄
-        CV Builder
-    </div>
+        <a href="create.html" class="active">
+            <span class="nav-icon">＋</span>
+            Create
+        </a>
 
-    <div class="nav-item">
-        🎨
-        Templates
-    </div>
+        <a href="cv-builder.html">
+            <span class="nav-icon">📄</span>
+            CV Builder
+        </a>
 
-    <div class="nav-item">
-        ⭐
-        Saved Jobs
-    </div>
+        <a href="templates.html">
+            <span class="nav-icon">🎨</span>
+            Templates
+        </a>
 
-    <div class="nav-item">
-        📋
-        Applications
-    </div>
+        <a href="saved-jobs.html">
+            <span class="nav-icon">🔖</span>
+            Saved Jobs
+        </a>
 
-    <div class="nav-title">
-        Account
-    </div>
+        <a href="applications.html">
+            <span class="nav-icon">📋</span>
+            Applications
+        </a>
 
-    <div class="nav-item">
-        👤
-        Profile
-    </div>
+    </nav>
 
-    <div class="nav-item"
-         onclick="logout()">
-        🚪
-        Log out
+
+    <div class="sidebar-profile">
+
+        <div class="profile-avatar" id="sideAvatar">
+            C
+        </div>
+
+        <div class="profile-info">
+
+            <div
+                class="profile-name"
+                id="sideName"
+            >
+                CareerCraft User
+            </div>
+
+            <div
+                class="profile-email"
+                id="sideEmail"
+            >
+                Loading...
+            </div>
+
+        </div>
+
     </div>
 
 </aside>
@@ -552,39 +862,54 @@ a{
      MAIN
 ========================= -->
 
-<div class="main">
+<main class="main">
+
+    <!-- TOP BAR -->
 
     <header class="topbar">
 
-        <input
-            class="search"
-            type="search"
-            placeholder="Search CareerCraft..."
-        >
+        <div class="topbar-left">
 
-        <div class="top-right">
+            <div class="topbar-title">
+                Creation Studio
+            </div>
 
-            <button class="icon-btn">
+        </div>
+
+
+        <div class="topbar-right">
+
+            <button
+                class="icon-button"
+                title="Notifications"
+                onclick="openNotifications()"
+            >
                 🔔
             </button>
 
-            <div class="profile-mini">
 
-                <img
-                    id="profileImage"
-                    src=""
-                    alt="Profile"
+            <div class="top-profile">
+
+                <div
+                    class="top-profile-avatar"
+                    id="topAvatar"
                 >
+                    C
+                </div>
+
 
                 <div>
 
-                    <strong id="profileName">
-                        Loading...
-                    </strong>
+                    <div
+                        class="top-profile-name"
+                        id="topName"
+                    >
+                        CareerCraft User
+                    </div>
 
-                    <small>
+                    <div class="top-profile-role">
                         CareerCraft
-                    </small>
+                    </div>
 
                 </div>
 
@@ -595,52 +920,62 @@ a{
     </header>
 
 
-    <main class="content">
+    <!-- CONTENT -->
 
-        <!-- =========================
-             HERO
-        ========================= -->
+    <section class="content">
 
-        <section class="hero">
+        <!-- HERO -->
 
-            <h1>
-                What do you want to create?
-            </h1>
+        <div class="hero">
 
-            <p>
-                Create professional documents and career assets
-                that help you stand out, apply with confidence,
-                and build your professional brand.
-            </p>
+            <div class="hero-content">
 
-        </section>
+                <div class="hero-label">
+                    ✨ CareerCraft Creation Studio
+                </div>
+
+                <h1>
+                    What do you want to create?
+                </h1>
+
+                <p>
+                    Build professional career documents, personal branding assets
+                    and application materials from one workspace — designed for
+                    modern professionals in the US and UK.
+                </p>
+
+            </div>
+
+        </div>
 
 
-        <!-- =========================
-             CAREER DOCUMENTS
-        ========================= -->
+        <!-- CAREER DOCUMENTS -->
 
-        <section class="category">
+        <section class="section">
 
-            <div class="category-heading">
+            <div class="section-heading">
 
                 <h2>
                     Career Documents
                 </h2>
 
                 <p>
-                    Build professional documents for your next opportunity.
+                    Create polished documents for your next opportunity.
                 </p>
 
             </div>
 
 
-            <div class="create-grid">
+            <div class="creation-grid">
 
-                <div class="create-card"
-                     onclick="createCV()">
+                <!-- CV -->
 
-                    <div class="card-icon">
+                <div
+                    class="create-card"
+                    onclick="openCreator('cv-builder.html')"
+                >
+
+                    <div class="create-icon icon-cv">
                         📄
                     </div>
 
@@ -649,21 +984,24 @@ a{
                     </h3>
 
                     <p>
-                        Build a professional, ATS-friendly CV
-                        tailored for US and UK employers.
+                        Build a professional, ATS-friendly CV tailored to your career.
                     </p>
 
-                    <div class="card-arrow">
-                        →
+                    <div class="create-arrow">
+                        Create →
                     </div>
 
                 </div>
 
 
-                <div class="create-card"
-                     onclick="createCoverLetter()">
+                <!-- COVER LETTER -->
 
-                    <div class="card-icon">
+                <div
+                    class="create-card"
+                    onclick="openCreator('cover-letter.html')"
+                >
+
+                    <div class="create-icon icon-letter">
                         ✉️
                     </div>
 
@@ -672,21 +1010,24 @@ a{
                     </h3>
 
                     <p>
-                        Create a targeted cover letter for a
-                        specific job opportunity.
+                        Create a tailored cover letter for a specific job and employer.
                     </p>
 
-                    <div class="card-arrow">
-                        →
+                    <div class="create-arrow">
+                        Create →
                     </div>
 
                 </div>
 
 
-                <div class="create-card"
-                     onclick="createPortfolio()">
+                <!-- PORTFOLIO -->
 
-                    <div class="card-icon">
+                <div
+                    class="create-card"
+                    onclick="openCreator('portfolio.html')"
+                >
+
+                    <div class="create-icon icon-portfolio">
                         🖥️
                     </div>
 
@@ -695,21 +1036,24 @@ a{
                     </h3>
 
                     <p>
-                        Showcase your projects, skills,
-                        achievements and professional work.
+                        Showcase your projects, skills, experience and professional work.
                     </p>
 
-                    <div class="card-arrow">
-                        →
+                    <div class="create-arrow">
+                        Create →
                     </div>
 
                 </div>
 
 
-                <div class="create-card"
-                     onclick="createPresentation()">
+                <!-- PRESENTATION -->
 
-                    <div class="card-icon">
+                <div
+                    class="create-card"
+                    onclick="openCreator('presentation.html')"
+                >
+
+                    <div class="create-icon icon-presentation">
                         📊
                     </div>
 
@@ -718,12 +1062,11 @@ a{
                     </h3>
 
                     <p>
-                        Create polished presentations for
-                        work, interviews and business.
+                        Create polished presentations for business, school and professional work.
                     </p>
 
-                    <div class="card-arrow">
-                        →
+                    <div class="create-arrow">
+                        Create →
                     </div>
 
                 </div>
@@ -733,31 +1076,33 @@ a{
         </section>
 
 
-        <!-- =========================
-             PROFESSIONAL BRANDING
-        ========================= -->
+        <!-- PROFESSIONAL BRANDING -->
 
-        <section class="category">
+        <section class="section">
 
-            <div class="category-heading">
+            <div class="section-heading">
 
                 <h2>
                     Professional Branding
                 </h2>
 
                 <p>
-                    Create assets that represent you professionally.
+                    Build a consistent professional identity across your career.
                 </p>
 
             </div>
 
 
-            <div class="create-grid">
+            <div class="creation-grid">
 
-                <div class="create-card"
-                     onclick="createBusinessCard()">
+                <!-- BUSINESS CARD -->
 
-                    <div class="card-icon">
+                <div
+                    class="create-card"
+                    onclick="openCreator('business-card.html')"
+                >
+
+                    <div class="create-icon icon-card">
                         💳
                     </div>
 
@@ -766,21 +1111,24 @@ a{
                     </h3>
 
                     <p>
-                        Design a professional digital or printable
-                        business card.
+                        Design a professional digital or printable business card.
                     </p>
 
-                    <div class="card-arrow">
-                        →
+                    <div class="create-arrow">
+                        Create →
                     </div>
 
                 </div>
 
 
-                <div class="create-card"
-                     onclick="createCertificate()">
+                <!-- CERTIFICATE -->
 
-                    <div class="card-icon">
+                <div
+                    class="create-card"
+                    onclick="openCreator('certificate.html')"
+                >
+
+                    <div class="create-icon icon-certificate">
                         🏆
                     </div>
 
@@ -789,21 +1137,24 @@ a{
                     </h3>
 
                     <p>
-                        Create certificates for achievements,
-                        training and professional recognition.
+                        Create polished certificates for achievements, training and events.
                     </p>
 
-                    <div class="card-arrow">
-                        →
+                    <div class="create-arrow">
+                        Create →
                     </div>
 
                 </div>
 
 
-                <div class="create-card"
-                     onclick="createProfileBanner()">
+                <!-- PROFILE BANNER -->
 
-                    <div class="card-icon">
+                <div
+                    class="create-card"
+                    onclick="openCreator('profile-banner.html')"
+                >
+
+                    <div class="create-icon icon-banner">
                         🖼️
                     </div>
 
@@ -812,22 +1163,25 @@ a{
                     </h3>
 
                     <p>
-                        Create a professional banner for your
-                        CareerCraft profile.
+                        Create a professional banner for your online career profile.
                     </p>
 
-                    <div class="card-arrow">
-                        →
+                    <div class="create-arrow">
+                        Create →
                     </div>
 
                 </div>
 
 
-                <div class="create-card"
-                     onclick="createSocialGraphic()">
+                <!-- SOCIAL GRAPHIC -->
 
-                    <div class="card-icon">
-                        📱
+                <div
+                    class="create-card"
+                    onclick="openCreator('social-graphic.html')"
+                >
+
+                    <div class="create-icon icon-social">
+                        📣
                     </div>
 
                     <h3>
@@ -835,12 +1189,11 @@ a{
                     </h3>
 
                     <p>
-                        Create professional graphics for your
-                        career and personal brand.
+                        Design professional graphics for career announcements and networking.
                     </p>
 
-                    <div class="card-arrow">
-                        →
+                    <div class="create-arrow">
+                        Create →
                     </div>
 
                 </div>
@@ -850,76 +1203,89 @@ a{
         </section>
 
 
-        <!-- =========================
-             CREATION FEATURES
-        ========================= -->
+        <!-- FEATURES -->
 
-        <section class="featured">
+        <section class="section">
 
-            <h2>
-                Built for your career
-            </h2>
+            <div class="section-heading">
 
-            <p>
-                CareerCraft brings your professional tools together
-                in one workspace.
-            </p>
+                <h2>
+                    Built for your career
+                </h2>
+
+                <p>
+                    Everything you create stays connected to your CareerCraft workspace.
+                </p>
+
+            </div>
 
 
-            <div class="feature-row">
+            <div class="features">
 
                 <div class="feature">
 
-                    <strong>
+                    <div class="feature-icon">
+                        🎨
+                    </div>
+
+                    <h3>
                         Professional Templates
-                    </strong>
+                    </h3>
 
-                    <span>
-                        Modern layouts designed for real
-                        professional use.
-                    </span>
+                    <p>
+                        Clean layouts designed for real-world applications and professional branding.
+                    </p>
 
                 </div>
 
 
                 <div class="feature">
 
-                    <strong>
+                    <div class="feature-icon">
+                        🤖
+                    </div>
+
+                    <h3>
                         ATS-Friendly
-                    </strong>
+                    </h3>
 
-                    <span>
-                        Build CVs that are easier for applicant
-                        tracking systems to read.
-                    </span>
+                    <p>
+                        CV designs are structured to remain readable by applicant tracking systems.
+                    </p>
 
                 </div>
 
 
                 <div class="feature">
 
-                    <strong>
+                    <div class="feature-icon">
+                        ☁️
+                    </div>
+
+                    <h3>
                         One Workspace
-                    </strong>
+                    </h3>
 
-                    <span>
-                        Keep your career documents and designs
-                        organized in one place.
-                    </span>
+                    <p>
+                        Your CVs, cover letters and career documents are connected to your account.
+                    </p>
 
                 </div>
 
 
                 <div class="feature">
 
-                    <strong>
-                        US + UK Ready
-                    </strong>
+                    <div class="feature-icon">
+                        🌎
+                    </div>
 
-                    <span>
-                        Create professional documents for
-                        employers in the United States and London.
-                    </span>
+                    <h3>
+                        US + UK Ready
+                    </h3>
+
+                    <p>
+                        Professional formats and examples suitable for American and British employers.
+                    </p>
 
                 </div>
 
@@ -927,7 +1293,34 @@ a{
 
         </section>
 
-    </main>
+
+        <!-- WORKSPACE NOTE -->
+
+        <div class="workspace-note">
+
+            <div class="workspace-note-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <h3>
+                    Your CareerCraft workspace
+                </h3>
+
+                <p>
+                    Create your documents here, then connect them to jobs,
+                    applications and your professional profile.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+</main>
 
 </div>
 
@@ -936,129 +1329,139 @@ a{
      MOBILE NAV
 ========================= -->
 
-<nav class="mobile-bottom">
+<nav class="mobile-nav">
 
-    <div class="mobile-nav"
-         onclick="goDashboard()">
+    <a href="index.html">
 
-        <div>🏠</div>
+        <span class="mobile-nav-icon">
+            🏠
+        </span>
+
         Home
 
-    </div>
+    </a>
 
 
-    <div class="mobile-nav"
-         onclick="goJobs()">
+    <a href="job-finder.html">
 
-        <div>💼</div>
+        <span class="mobile-nav-icon">
+            💼
+        </span>
+
         Jobs
 
-    </div>
+    </a>
 
 
-    <div class="mobile-nav active">
+    <a
+        href="create.html"
+        class="active"
+    >
 
-        <div>＋</div>
+        <span class="mobile-nav-icon">
+            ＋
+        </span>
+
         Create
 
-    </div>
+    </a>
 
 
-    <div class="mobile-nav">
+    <a href="network.html">
 
-        <div>💬</div>
+        <span class="mobile-nav-icon">
+            🤝
+        </span>
+
+        Network
+
+    </a>
+
+
+    <a href="messages.html">
+
+        <span class="mobile-nav-icon">
+            💬
+        </span>
+
         Messages
 
-    </div>
-
-
-    <div class="mobile-nav">
-
-        <div>👤</div>
-        Profile
-
-    </div>
+    </a>
 
 </nav>
 
 
 <script>
 
-/* =========================================
+/* ==========================================
    SUPABASE
-========================================= */
+========================================== */
 
 const SUPABASE_URL =
     "https://upcxmlbgmqhaqieldmyk.supabase.co";
 
-const SUPABASE_ANON_KEY =
+const SUPABASE_KEY =
     "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
 
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
-        SUPABASE_ANON_KEY
+        SUPABASE_KEY
     );
 
 
 let currentUser = null;
 
 
-/* =========================================
-   AUTHENTICATION
-========================================= */
+/* ==========================================
+   OPEN CREATOR
+========================================== */
 
-async function checkAuthentication(){
+function openCreator(page){
 
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.auth.getSession();
+    window.location.href = page;
 
-
-    if(
-        error ||
-        !data ||
-        !data.session ||
-        !data.session.user
-    ){
-
-        window.location.href =
-            "login.html";
-
-        return false;
-    }
-
-
-    currentUser =
-        data.session.user;
-
-    return true;
 }
 
 
-/* =========================================
+/* ==========================================
+   NOTIFICATIONS
+========================================== */
+
+function openNotifications(){
+
+    window.location.href =
+        "notifications.html";
+
+}
+
+
+/* ==========================================
    PROFILE
-========================================= */
+========================================== */
 
 async function loadProfile(){
+
+    if(!currentUser)
+        return;
+
 
     const {
         data,
         error
     } =
-        await supabaseClient
-            .from("profiles")
-            .select("*")
-            .eq("ID", currentUser.id)
-            .maybeSingle();
+    await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("ID", currentUser.id)
+        .maybeSingle();
 
 
     if(error){
 
         console.error(
-            "Profile error:",
+            "Profile loading error:",
             error
         );
 
@@ -1075,179 +1478,138 @@ async function loadProfile(){
 
 
     document.getElementById(
-        "profileName"
+        "sideName"
+    ).textContent = name;
+
+
+    document.getElementById(
+        "topName"
+    ).textContent = name;
+
+
+    document.getElementById(
+        "sideEmail"
     ).textContent =
-        name;
+        currentUser.email || "";
 
 
-    const image =
+    const avatar =
+        data?.avatar_url;
+
+
+    if(avatar){
+
         document.getElementById(
-            "profileImage"
+            "sideAvatar"
+        ).innerHTML =
+            `<img src="${escapeHTML(avatar)}" alt="Profile">`;
+
+
+        document.getElementById(
+            "topAvatar"
+        ).innerHTML =
+            `<img src="${escapeHTML(avatar)}" alt="Profile">`;
+
+    }else{
+
+        const initial =
+            name.charAt(0).toUpperCase();
+
+
+        document.getElementById(
+            "sideAvatar"
+        ).textContent =
+            initial;
+
+
+        document.getElementById(
+            "topAvatar"
+        ).textContent =
+            initial;
+
+    }
+
+}
+
+
+/* ==========================================
+   HTML ESCAPE
+========================================== */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* ==========================================
+   AUTH CHECK
+========================================== */
+
+async function checkAuth(){
+
+    try{
+
+        const {
+            data:{
+                session
+            }
+        } =
+        await supabaseClient.auth.getSession();
+
+
+        if(!session){
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        currentUser =
+            session.user;
+
+
+        await loadProfile();
+
+
+        document.getElementById(
+            "loadingScreen"
+        ).style.display =
+            "none";
+
+
+    }catch(error){
+
+        console.error(
+            "Authentication error:",
+            error
         );
 
 
-    if(data?.avatar_url){
-
-        image.src =
-            data.avatar_url;
-
-    }
-    else{
-
-        image.src =
-            "https://ui-avatars.com/api/?name=" +
-            encodeURIComponent(name) +
-            "&background=2563eb&color=ffffff&size=100";
+        window.location.href =
+            "login.html";
 
     }
 
 }
 
 
-/* =========================================
-   CREATE CV
-========================================= */
+/* ==========================================
+   START
+========================================== */
 
-function createCV(){
-
-    window.location.href =
-        "cv-builder.html";
-
-}
-
-
-/* =========================================
-   FUTURE CREATION ROUTES
-========================================= */
-
-function createCoverLetter(){
-
-    window.location.href =
-        "cover-letter.html";
-
-}
-
-
-function createPortfolio(){
-
-    window.location.href =
-        "portfolio.html";
-
-}
-
-
-function createPresentation(){
-
-    window.location.href =
-        "presentation.html";
-
-}
-
-
-function createBusinessCard(){
-
-    window.location.href =
-        "business-card.html";
-
-}
-
-
-function createCertificate(){
-
-    window.location.href =
-        "certificate.html";
-
-}
-
-
-function createProfileBanner(){
-
-    window.location.href =
-        "profile-banner.html";
-
-}
-
-
-function createSocialGraphic(){
-
-    window.location.href =
-        "social-graphic.html";
-
-}
-
-
-/* =========================================
-   NAVIGATION
-========================================= */
-
-function goDashboard(){
-
-    window.location.href =
-        "index.html";
-
-}
-
-
-function goJobs(){
-
-    window.location.href =
-        "job-finder.html";
-
-}
-
-
-/* =========================================
-   LOGOUT
-========================================= */
-
-async function logout(){
-
-    const {
-        error
-    } =
-        await supabaseClient.auth.signOut();
-
-
-    if(error){
-
-        alert(
-            "Could not log out: " +
-            error.message
-        );
-
-        return;
-    }
-
-
-    window.location.href =
-        "login.html";
-
-}
-
-
-/* =========================================
-   INIT
-========================================= */
-
-async function init(){
-
-    const authenticated =
-        await checkAuthentication();
-
-
-    if(!authenticated){
-        return;
-    }
-
-
-    await loadProfile();
-
-}
-
-
-init();
+checkAuth();
 
 </script>
 
 </body>
-</html>
+    </html>
