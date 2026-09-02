@@ -21,55 +21,61 @@ body{
     color:#172033;
 }
 
-button,input{
+button,
+input,
+select{
     font:inherit;
+}
+
+button{
+    cursor:pointer;
 }
 
 .topbar{
     height:70px;
-    background:white;
+    background:#fff;
     border-bottom:1px solid #e5e7eb;
     display:flex;
     align-items:center;
+    gap:24px;
     padding:0 25px;
-    gap:25px;
     position:sticky;
     top:0;
     z-index:100;
 }
 
 .logo{
+    text-decoration:none;
     font-size:24px;
     font-weight:800;
     color:#2563eb;
-    text-decoration:none;
 }
 
 .search{
     flex:1;
-    max-width:550px;
+    max-width:560px;
     position:relative;
 }
 
 .search input{
     width:100%;
-    padding:13px 18px 13px 45px;
-    border:1px solid #d8dee9;
+    padding:13px 18px 13px 44px;
+    border:1px solid #d9dee8;
     border-radius:12px;
-    outline:none;
     background:#f8fafc;
+    outline:none;
 }
 
 .search input:focus{
+    background:#fff;
     border-color:#2563eb;
-    background:white;
 }
 
 .search-icon{
     position:absolute;
-    left:16px;
-    top:12px;
-    font-size:18px;
+    left:15px;
+    top:11px;
+    font-size:19px;
 }
 
 .top-actions{
@@ -86,27 +92,28 @@ button,input{
 }
 
 .avatar-small{
-    width:38px;
-    height:38px;
+    width:40px;
+    height:40px;
     border-radius:50%;
     object-fit:cover;
-    background:#dbeafe;
+    background:#e5e7eb;
     cursor:pointer;
 }
 
 .layout{
-    display:grid;
-    grid-template-columns:230px minmax(0,1fr) 280px;
-    gap:22px;
     max-width:1400px;
     margin:auto;
     padding:25px;
+    display:grid;
+    grid-template-columns:230px minmax(0,1fr) 280px;
+    gap:22px;
 }
 
 .sidebar,
 .rightbar,
-.card{
-    background:white;
+.card,
+.person-card{
+    background:#fff;
     border:1px solid #e5e7eb;
     border-radius:16px;
 }
@@ -123,29 +130,28 @@ button,input{
     align-items:center;
     gap:12px;
     padding:12px;
-    border-radius:10px;
+    margin-bottom:4px;
     text-decoration:none;
     color:#374151;
-    margin-bottom:4px;
+    border-radius:10px;
 }
 
 .sidebar a:hover,
 .sidebar a.active{
-    background:#eff6ff;
     color:#2563eb;
+    background:#eff6ff;
     font-weight:600;
 }
 
 .create-btn{
     width:100%;
     border:0;
+    border-radius:10px;
+    padding:13px;
+    margin-bottom:15px;
     background:#2563eb;
     color:white;
-    padding:13px;
-    border-radius:10px;
     font-weight:700;
-    cursor:pointer;
-    margin-bottom:15px;
 }
 
 .main{
@@ -165,8 +171,17 @@ button,input{
     color:#6b7280;
 }
 
+.error{
+    display:none;
+    padding:14px;
+    margin-bottom:18px;
+    border-radius:10px;
+    background:#fef2f2;
+    color:#b91c1c;
+}
+
 .filters{
-    background:white;
+    background:#fff;
     border:1px solid #e5e7eb;
     border-radius:16px;
     padding:18px;
@@ -184,17 +199,37 @@ button,input{
     border:1px solid #d8dee9;
     border-radius:10px;
     outline:none;
-    background:white;
+    background:#fff;
+}
+
+.filters input:focus,
+.filters select:focus{
+    border-color:#2563eb;
 }
 
 .filter-btn{
-    padding:12px 20px;
     border:0;
     border-radius:10px;
+    padding:12px 22px;
     background:#2563eb;
     color:white;
     font-weight:700;
-    cursor:pointer;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:25px 0 14px;
+}
+
+.section-title h2{
+    font-size:20px;
+}
+
+.section-title span{
+    color:#6b7280;
+    font-size:14px;
 }
 
 .people-grid{
@@ -204,14 +239,11 @@ button,input{
 }
 
 .person-card{
-    background:white;
-    border:1px solid #e5e7eb;
-    border-radius:16px;
     overflow:hidden;
 }
 
 .cover{
-    height:80px;
+    height:82px;
     background:linear-gradient(135deg,#2563eb,#7c3aed);
 }
 
@@ -223,31 +255,32 @@ button,input{
 .person-avatar{
     width:78px;
     height:78px;
+    margin-top:-39px;
     border-radius:50%;
     object-fit:cover;
     background:#e5e7eb;
     border:4px solid white;
-    margin-top:-39px;
 }
 
 .person-name{
+    margin-top:10px;
     font-size:18px;
     font-weight:700;
-    margin-top:10px;
     color:#111827;
 }
 
 .person-headline{
-    color:#4b5563;
-    font-size:14px;
     margin-top:6px;
     min-height:35px;
+    color:#4b5563;
+    font-size:14px;
+    line-height:1.4;
 }
 
 .person-location{
+    margin-top:8px;
     color:#6b7280;
     font-size:13px;
-    margin-top:8px;
 }
 
 .person-actions{
@@ -260,13 +293,22 @@ button,input{
     flex:1;
     padding:10px;
     border-radius:9px;
-    cursor:pointer;
     font-weight:600;
 }
 
 .connect{
     border:0;
     background:#2563eb;
+    color:white;
+}
+
+.connect.pending{
+    background:#e5e7eb;
+    color:#374151;
+}
+
+.connect.connected{
+    background:#16a34a;
     color:white;
 }
 
@@ -279,13 +321,88 @@ button,input{
 .profile-btn{
     width:100%;
     border:1px solid #2563eb;
-    background:white;
+    background:#fff;
     color:#2563eb;
     padding:10px;
     border-radius:9px;
     margin-top:8px;
-    cursor:pointer;
     font-weight:600;
+}
+
+.requests{
+    display:grid;
+    gap:12px;
+}
+
+.request-card{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:15px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.request-avatar{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#e5e7eb;
+}
+
+.request-info{
+    flex:1;
+    min-width:0;
+}
+
+.request-name{
+    font-weight:700;
+}
+
+.request-headline{
+    color:#6b7280;
+    font-size:13px;
+    margin-top:4px;
+}
+
+.request-actions{
+    display:flex;
+    gap:8px;
+}
+
+.accept-btn,
+.reject-btn{
+    border:0;
+    padding:9px 13px;
+    border-radius:8px;
+    font-weight:600;
+}
+
+.accept-btn{
+    background:#2563eb;
+    color:white;
+}
+
+.reject-btn{
+    background:#f3f4f6;
+    color:#374151;
+}
+
+.empty{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    padding:40px 20px;
+    text-align:center;
+    color:#6b7280;
+}
+
+.loading{
+    text-align:center;
+    padding:40px;
+    color:#6b7280;
 }
 
 .rightbar{
@@ -311,42 +428,18 @@ button,input{
 }
 
 .stat span:last-child{
-    font-weight:700;
     color:#2563eb;
+    font-weight:700;
 }
 
 .info-box{
     margin-top:20px;
     padding:15px;
-    background:#eff6ff;
     border-radius:12px;
+    background:#eff6ff;
     color:#374151;
     font-size:14px;
     line-height:1.5;
-}
-
-.empty{
-    background:white;
-    border:1px solid #e5e7eb;
-    border-radius:16px;
-    padding:45px 20px;
-    text-align:center;
-    color:#6b7280;
-}
-
-.loading{
-    text-align:center;
-    padding:40px;
-    color:#6b7280;
-}
-
-.error{
-    background:#fef2f2;
-    color:#b91c1c;
-    padding:15px;
-    border-radius:10px;
-    margin-bottom:15px;
-    display:none;
 }
 
 .mobile-nav{
@@ -354,6 +447,7 @@ button,input{
 }
 
 @media(max-width:1050px){
+
     .layout{
         grid-template-columns:190px minmax(0,1fr);
     }
@@ -364,9 +458,10 @@ button,input{
 }
 
 @media(max-width:750px){
+
     .topbar{
-        padding:0 15px;
         height:62px;
+        padding:0 15px;
     }
 
     .logo{
@@ -391,6 +486,19 @@ button,input{
         grid-template-columns:1fr;
     }
 
+    .request-card{
+        align-items:flex-start;
+        flex-wrap:wrap;
+    }
+
+    .request-actions{
+        width:100%;
+    }
+
+    .request-actions button{
+        flex:1;
+    }
+
     .mobile-nav{
         position:fixed;
         display:flex;
@@ -398,18 +506,18 @@ button,input{
         left:0;
         right:0;
         height:65px;
-        background:white;
+        background:#fff;
         border-top:1px solid #e5e7eb;
         z-index:200;
-        justify-content:space-around;
         align-items:center;
+        justify-content:space-around;
     }
 
     .mobile-nav a{
         text-decoration:none;
         color:#6b7280;
-        font-size:12px;
         text-align:center;
+        font-size:12px;
     }
 
     .mobile-nav a.active{
@@ -430,10 +538,13 @@ button,input{
 
 <header class="topbar">
 
-    <a href="index.html" class="logo">CareerCraft</a>
+    <a href="index.html" class="logo">
+        CareerCraft
+    </a>
 
     <div class="search">
         <span class="search-icon">🔎</span>
+
         <input
             id="globalSearch"
             type="text"
@@ -442,9 +553,19 @@ button,input{
     </div>
 
     <div class="top-actions">
-        <a href="jobs.html">Jobs</a>
-        <a href="messages.html">Messages</a>
-        <a href="notifications.html">🔔</a>
+
+        <a href="job-finder.html">
+            Jobs
+        </a>
+
+        <a href="messages.html">
+            Messages
+        </a>
+
+        <a href="notifications.html">
+            🔔
+        </a>
+
         <img
             id="topAvatar"
             class="avatar-small"
@@ -452,6 +573,7 @@ button,input{
             alt="Profile"
             onclick="window.location.href='profile.html'"
         >
+
     </div>
 
 </header>
@@ -461,8 +583,10 @@ button,input{
 
     <aside class="sidebar">
 
-        <button class="create-btn"
-            onclick="window.location.href='create.html'">
+        <button
+            class="create-btn"
+            onclick="window.location.href='create.html'"
+        >
             ＋ Create
         </button>
 
@@ -504,40 +628,147 @@ button,input{
     <main class="main">
 
         <div class="page-header">
-            <h1>My Network</h1>
-            <p>Discover professionals, build connections and grow your career.</p>
+
+            <h1>
+                My Network
+            </h1>
+
+            <p>
+                Discover professionals and build meaningful career connections.
+            </p>
+
         </div>
 
-        <div id="errorBox" class="error"></div>
+
+        <div
+            id="errorBox"
+            class="error"
+        ></div>
+
+
+        <!-- CONNECTION REQUESTS -->
+
+        <section id="requestsSection">
+
+            <div class="section-title">
+
+                <h2>
+                    Connection Requests
+                </h2>
+
+                <span id="requestTitleCount">
+                    0
+                </span>
+
+            </div>
+
+            <div
+                id="requestsContainer"
+                class="requests"
+            >
+                <div class="loading">
+                    Loading requests...
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- SEARCH -->
+
+        <div class="section-title">
+
+            <h2>
+                Discover Professionals
+            </h2>
+
+            <span id="peopleCountLabel">
+                0 people
+            </span>
+
+        </div>
+
 
         <div class="filters">
 
             <input
                 id="personSearch"
                 type="text"
-                placeholder="Search by name, skill or profession"
+                placeholder="Name, skill or profession"
             >
 
             <select id="countryFilter">
-                <option value="">All countries</option>
-                <option value="United States">United States</option>
-                <option value="United Kingdom">United Kingdom</option>
-                <option value="Nigeria">Nigeria</option>
-                <option value="Canada">Canada</option>
-                <option value="Australia">Australia</option>
-                <option value="Germany">Germany</option>
-                <option value="France">France</option>
-                <option value="India">India</option>
-                <option value="South Africa">South Africa</option>
-                <option value="Ireland">Ireland</option>
-                <option value="Netherlands">Netherlands</option>
-                <option value="Singapore">Singapore</option>
-                <option value="New Zealand">New Zealand</option>
-                <option value="Japan">Japan</option>
-                <option value="Brazil">Brazil</option>
+
+                <option value="">
+                    All countries
+                </option>
+
+                <option value="United States">
+                    United States
+                </option>
+
+                <option value="United Kingdom">
+                    United Kingdom
+                </option>
+
+                <option value="Nigeria">
+                    Nigeria
+                </option>
+
+                <option value="Canada">
+                    Canada
+                </option>
+
+                <option value="Australia">
+                    Australia
+                </option>
+
+                <option value="Germany">
+                    Germany
+                </option>
+
+                <option value="France">
+                    France
+                </option>
+
+                <option value="India">
+                    India
+                </option>
+
+                <option value="South Africa">
+                    South Africa
+                </option>
+
+                <option value="Ireland">
+                    Ireland
+                </option>
+
+                <option value="Netherlands">
+                    Netherlands
+                </option>
+
+                <option value="Singapore">
+                    Singapore
+                </option>
+
+                <option value="New Zealand">
+                    New Zealand
+                </option>
+
+                <option value="Japan">
+                    Japan
+                </option>
+
+                <option value="Brazil">
+                    Brazil
+                </option>
+
             </select>
 
-            <button class="filter-btn" onclick="loadPeople()">
+            <button
+                class="filter-btn"
+                onclick="loadPeople()"
+            >
                 Search
             </button>
 
@@ -545,9 +776,11 @@ button,input{
 
 
         <div id="peopleContainer">
+
             <div class="loading">
                 Loading professionals...
             </div>
+
         </div>
 
     </main>
@@ -555,26 +788,50 @@ button,input{
 
     <aside class="rightbar">
 
-        <h3>Your Network</h3>
+        <h3>
+            Your Network
+        </h3>
 
         <div class="stat">
-            <span>Connections</span>
-            <span id="connectionCount">0</span>
+            <span>
+                Connections
+            </span>
+
+            <span id="connectionCount">
+                0
+            </span>
         </div>
 
         <div class="stat">
-            <span>Pending Requests</span>
-            <span id="pendingCount">0</span>
+            <span>
+                Pending Requests
+            </span>
+
+            <span id="pendingCount">
+                0
+            </span>
         </div>
 
         <div class="stat">
-            <span>People Found</span>
-            <span id="peopleCount">0</span>
+            <span>
+                People Found
+            </span>
+
+            <span id="peopleCount">
+                0
+            </span>
         </div>
 
         <div class="info-box">
-            <strong>Grow your network</strong><br><br>
-            Connect with professionals who share your skills, interests and career goals.
+
+            <strong>
+                Grow your network
+            </strong>
+
+            <br><br>
+
+            Connect with professionals around the world and build relationships that can help your career.
+
         </div>
 
     </aside>
@@ -626,40 +883,26 @@ const supabaseClient =
         SUPABASE_KEY
     );
 
+
 let currentUser = null;
 let allPeople = [];
+let connectionRows = [];
 
 
-/* -----------------------------
+/* =========================
    HELPERS
------------------------------ */
-
-function showError(message){
-
-    const box =
-        document.getElementById("errorBox");
-
-    box.textContent = message;
-    box.style.display = "block";
-}
-
-
-function hideError(){
-
-    document.getElementById("errorBox")
-        .style.display = "none";
-}
-
+========================= */
 
 function getValue(row, names, fallback = ""){
+
+    if(!row){
+        return fallback;
+    }
 
     for(const name of names){
 
         if(
-            Object.prototype.hasOwnProperty.call(
-                row,
-                name
-            ) &&
+            Object.prototype.hasOwnProperty.call(row, name) &&
             row[name] !== null &&
             row[name] !== undefined &&
             String(row[name]).trim() !== ""
@@ -670,63 +913,6 @@ function getValue(row, names, fallback = ""){
     }
 
     return fallback;
-}
-
-
-function escapeHTML(value){
-
-    return String(value || "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-}
-
-
-function validImage(url){
-
-    if(!url) return false;
-
-    try{
-        new URL(url);
-        return true;
-    }catch{
-        return false;
-    }
-}
-
-
-function avatarFor(row){
-
-    const avatar =
-        getValue(
-            row,
-            [
-                "avatar_url",
-                "avatar",
-                "profile_photo",
-                "photo_url"
-            ]
-        );
-
-    if(validImage(avatar)){
-        return avatar;
-    }
-
-    return "https://ui-avatars.com/api/?name=" +
-        encodeURIComponent(
-            getValue(
-                row,
-                [
-                    "FULL NAME",
-                    "full_name",
-                    "fullName",
-                    "name"
-                ],
-                "CareerCraft User"
-            )
-        );
 }
 
 
@@ -770,7 +956,8 @@ function getLocation(row){
             ""
         );
 
-    const country = getCountry(row);
+    const country =
+        getCountry(row);
 
     if(city && country){
         return city + ", " + country;
@@ -796,9 +983,95 @@ function getHeadline(row){
 }
 
 
-/* -----------------------------
-   LOAD USER
------------------------------ */
+function getId(row){
+
+    return getValue(
+        row,
+        [
+            "ID",
+            "id"
+        ],
+        ""
+    );
+}
+
+
+function escapeHTML(value){
+
+    return String(value || "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+
+function validImage(url){
+
+    if(!url){
+        return false;
+    }
+
+    try{
+        new URL(url);
+        return true;
+    }catch{
+        return false;
+    }
+}
+
+
+function avatarFor(row){
+
+    const avatar =
+        getValue(
+            row,
+            [
+                "avatar_url",
+                "avatar",
+                "profile_photo",
+                "photo_url"
+            ]
+        );
+
+    if(validImage(avatar)){
+        return avatar;
+    }
+
+    return (
+        "https://ui-avatars.com/api/?name=" +
+        encodeURIComponent(getName(row))
+    );
+}
+
+
+function showError(message){
+
+    const box =
+        document.getElementById("errorBox");
+
+    box.textContent =
+        message;
+
+    box.style.display =
+        "block";
+}
+
+
+function hideError(){
+
+    const box =
+        document.getElementById("errorBox");
+
+    box.style.display =
+        "none";
+}
+
+
+/* =========================
+   CURRENT USER
+========================= */
 
 async function loadCurrentUser(){
 
@@ -809,6 +1082,7 @@ async function loadCurrentUser(){
     } =
         await supabaseClient.auth.getSession();
 
+
     if(!session){
 
         window.location.href =
@@ -817,6 +1091,7 @@ async function loadCurrentUser(){
         return false;
     }
 
+
     currentUser =
         session.user;
 
@@ -824,55 +1099,215 @@ async function loadCurrentUser(){
 }
 
 
-/* -----------------------------
-   LOAD MY AVATAR
------------------------------ */
+/* =========================
+   MY PROFILE
+========================= */
 
 async function loadMyProfile(){
 
-    if(!currentUser) return;
+    if(!currentUser){
+        return;
+    }
 
-    const { data } =
-        await supabaseClient
-            .from("profiles")
-            .select("*")
-            .eq("ID", currentUser.id)
-            .maybeSingle();
 
-    if(data){
+    try{
 
-        document.getElementById("topAvatar")
-            .src = avatarFor(data);
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("profiles")
+                .select("*")
+                .eq("ID", currentUser.id)
+                .maybeSingle();
 
-    }else{
 
-        document.getElementById("topAvatar")
-            .src =
-            "https://ui-avatars.com/api/?name=" +
-            encodeURIComponent(
-                currentUser.email || "User"
-            );
+        if(error){
+            throw error;
+        }
+
+
+        if(data){
+
+            document.getElementById(
+                "topAvatar"
+            ).src =
+                avatarFor(data);
+
+        }else{
+
+            document.getElementById(
+                "topAvatar"
+            ).src =
+                "https://ui-avatars.com/api/?name=" +
+                encodeURIComponent(
+                    currentUser.email || "User"
+                );
+        }
+
+
+    }catch(error){
+
+        console.log(
+            "Profile image could not be loaded:",
+            error.message
+        );
+
+        document.getElementById(
+            "topAvatar"
+        ).src =
+            "https://ui-avatars.com/api/?name=User";
     }
 }
 
 
-/* -----------------------------
+/* =========================
+   LOAD CONNECTIONS
+========================= */
+
+async function loadConnections(){
+
+    if(!currentUser){
+        return;
+    }
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("connections")
+                .select("*")
+                .or(
+                    "sender_id.eq." +
+                    currentUser.id +
+                    ",receiver_id.eq." +
+                    currentUser.id
+                );
+
+
+        if(error){
+            throw error;
+        }
+
+
+        connectionRows =
+            data || [];
+
+
+        updateStats();
+
+
+    }catch(error){
+
+        console.error(
+            "Connection loading error:",
+            error
+        );
+
+        connectionRows = [];
+
+        showError(
+            "Connections could not be loaded. Please check your Supabase policies."
+        );
+    }
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+function updateStats(){
+
+    const accepted =
+        connectionRows.filter(
+            row =>
+                row.status === "accepted"
+        );
+
+
+    const pendingReceived =
+        connectionRows.filter(
+            row =>
+                row.status === "pending" &&
+                row.receiver_id === currentUser.id
+        );
+
+
+    document.getElementById(
+        "connectionCount"
+    ).textContent =
+        accepted.length;
+
+
+    document.getElementById(
+        "pendingCount"
+    ).textContent =
+        pendingReceived.length;
+
+
+    document.getElementById(
+        "requestTitleCount"
+    ).textContent =
+        pendingReceived.length;
+}
+
+
+/* =========================
+   FIND CONNECTION STATUS
+========================= */
+
+function getConnectionStatus(personId){
+
+    const row =
+        connectionRows.find(
+            item =>
+                (
+                    item.sender_id === currentUser.id &&
+                    item.receiver_id === personId
+                )
+                ||
+                (
+                    item.sender_id === personId &&
+                    item.receiver_id === currentUser.id
+                )
+        );
+
+
+    if(!row){
+        return null;
+    }
+
+
+    return row;
+}
+
+
+/* =========================
    LOAD PEOPLE
------------------------------ */
+========================= */
 
 async function loadPeople(){
 
     hideError();
+
 
     const container =
         document.getElementById(
             "peopleContainer"
         );
 
+
     container.innerHTML =
         `<div class="loading">
             Searching professionals...
         </div>`;
+
 
     const search =
         document.getElementById(
@@ -881,12 +1316,14 @@ async function loadPeople(){
         .trim()
         .toLowerCase();
 
+
     const country =
         document.getElementById(
             "countryFilter"
         ).value
         .trim()
         .toLowerCase();
+
 
     try{
 
@@ -899,62 +1336,70 @@ async function loadPeople(){
                 .select("*")
                 .limit(200);
 
+
         if(error){
             throw error;
         }
 
+
         allPeople =
             (data || []).filter(
                 person =>
-                    person.ID !== currentUser.id
+                    getId(person) !==
+                    currentUser.id
             );
 
 
         if(search){
 
             allPeople =
-                allPeople.filter(person => {
+                allPeople.filter(
+                    person => {
 
-                    const text = [
-                        getName(person),
-                        getHeadline(person),
-                        getCountry(person),
-                        getLocation(person),
-                        getValue(
-                            person,
+                        const searchable =
                             [
-                                "skills",
-                                "Skills"
-                            ],
-                            ""
-                        ),
-                        getValue(
-                            person,
-                            [
-                                "about",
-                                "bio"
-                            ],
-                            ""
-                        )
-                    ]
-                    .join(" ")
-                    .toLowerCase();
+                                getName(person),
+                                getHeadline(person),
+                                getCountry(person),
+                                getLocation(person),
+                                getValue(
+                                    person,
+                                    [
+                                        "skills",
+                                        "Skills"
+                                    ],
+                                    ""
+                                ),
+                                getValue(
+                                    person,
+                                    [
+                                        "about",
+                                        "bio"
+                                    ],
+                                    ""
+                                )
+                            ]
+                            .join(" ")
+                            .toLowerCase();
 
-                    return text.includes(search);
-                });
+
+                        return searchable.includes(
+                            search
+                        );
+                    }
+                );
         }
 
 
         if(country){
 
             allPeople =
-                allPeople.filter(person => {
-
-                    return getCountry(person)
-                        .toLowerCase()
-                        .includes(country);
-
-                });
+                allPeople.filter(
+                    person =>
+                        getCountry(person)
+                            .toLowerCase()
+                            .includes(country)
+                );
         }
 
 
@@ -964,24 +1409,53 @@ async function loadPeople(){
             allPeople.length;
 
 
-        renderPeople(allPeople);
+        document.getElementById(
+            "peopleCountLabel"
+        ).textContent =
+            allPeople.length +
+            (
+                allPeople.length === 1
+                    ? " person"
+                    : " people"
+            );
+
+
+        renderPeople(
+            allPeople
+        );
+
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "People loading error:",
+            error
+        );
 
-        container.innerHTML = "";
+
+        container.innerHTML =
+            `<div class="empty">
+                <h3>
+                    Profiles could not be loaded
+                </h3>
+
+                <p style="margin-top:8px">
+                    Please check your profiles table and Supabase permissions.
+                </p>
+            </div>`;
+
 
         showError(
-            "We could not load profiles. Please check your Supabase profiles table and try again."
+            error.message ||
+            "Could not load profiles."
         );
     }
 }
 
 
-/* -----------------------------
+/* =========================
    RENDER PEOPLE
------------------------------ */
+========================= */
 
 function renderPeople(people){
 
@@ -990,16 +1464,21 @@ function renderPeople(people){
             "peopleContainer"
         );
 
+
     if(!people.length){
 
-        container.innerHTML = `
-            <div class="empty">
-                <h3>No professionals found</h3>
+        container.innerHTML =
+            `<div class="empty">
+
+                <h3>
+                    No professionals found
+                </h3>
+
                 <p style="margin-top:8px">
                     Try another name, skill, profession or country.
                 </p>
-            </div>
-        `;
+
+            </div>`;
 
         return;
     }
@@ -1007,211 +1486,263 @@ function renderPeople(people){
 
     container.innerHTML =
         `<div class="people-grid">
+
             ${
-                people.map(person => {
+                people.map(
+                    person => {
 
-                    const id =
-                        getValue(
-                            person,
-                            ["ID","id"],
-                            ""
-                        );
-
-                    const name =
-                        escapeHTML(
-                            getName(person)
-                        );
-
-                    const headline =
-                        escapeHTML(
-                            getHeadline(person)
-                        );
-
-                    const location =
-                        escapeHTML(
-                            getLocation(person)
-                        );
-
-                    const avatar =
-                        avatarFor(person);
+                        const id =
+                            escapeHTML(
+                                getId(person)
+                            );
 
 
-                    return `
-                        <article class="person-card">
+                        const name =
+                            escapeHTML(
+                                getName(person)
+                            );
 
-                            <div class="cover"></div>
 
-                            <div class="person-content">
+                        const headline =
+                            escapeHTML(
+                                getHeadline(person)
+                            );
 
-                                <img
-                                    class="person-avatar"
-                                    src="${escapeHTML(avatar)}"
-                                    alt="${name}"
-                                >
 
-                                <div class="person-name">
-                                    ${name}
-                                </div>
+                        const location =
+                            escapeHTML(
+                                getLocation(person)
+                            );
 
-                                <div class="person-headline">
-                                    ${headline}
-                                </div>
 
-                                <div class="person-location">
-                                    📍 ${location}
-                                </div>
+                        const avatar =
+                            escapeHTML(
+                                avatarFor(person)
+                            );
 
-                                <div class="person-actions">
+
+                        const connection =
+                            getConnectionStatus(
+                                getId(person)
+                            );
+
+
+                        let buttonText =
+                            "Connect";
+
+
+                        let buttonClass =
+                            "connect";
+
+
+                        let disabled =
+                            "";
+
+
+                        if(connection){
+
+                            if(
+                                connection.status ===
+                                "accepted"
+                            ){
+
+                                buttonText =
+                                    "Connected";
+
+                                buttonClass +=
+                                    " connected";
+
+                                disabled =
+                                    "disabled";
+
+                            }else if(
+                                connection.status ===
+                                "pending"
+                            ){
+
+                                if(
+                                    connection.sender_id ===
+                                    currentUser.id
+                                ){
+
+                                    buttonText =
+                                        "Pending";
+
+                                    buttonClass +=
+                                        " pending";
+
+                                    disabled =
+                                        "disabled";
+
+                                }else{
+
+                                    buttonText =
+                                        "Respond";
+                                }
+
+                            }else if(
+                                connection.status ===
+                                "rejected"
+                            ){
+
+                                buttonText =
+                                    "Connect";
+                            }
+                        }
+
+
+                        return `
+                            <article class="person-card">
+
+                                <div class="cover"></div>
+
+                                <div class="person-content">
+
+                                    <img
+                                        class="person-avatar"
+                                        src="${avatar}"
+                                        alt="${name}"
+                                    >
+
+                                    <div class="person-name">
+                                        ${name}
+                                    </div>
+
+                                    <div class="person-headline">
+                                        ${headline}
+                                    </div>
+
+                                    <div class="person-location">
+                                        📍 ${location}
+                                    </div>
+
+                                    <div class="person-actions">
+
+                                        <button
+                                            class="${buttonClass}"
+                                            ${disabled}
+                                            onclick="handleConnect('${id}', this)"
+                                        >
+                                            ${buttonText}
+                                        </button>
+
+                                        <button
+                                            class="message"
+                                            onclick="openMessage('${id}')"
+                                        >
+                                            Message
+                                        </button>
+
+                                    </div>
 
                                     <button
-                                        class="connect"
-                                        onclick="sendConnectionRequest('${escapeHTML(id)}', this)"
+                                        class="profile-btn"
+                                        onclick="viewProfile('${id}')"
                                     >
-                                        Connect
-                                    </button>
-
-                                    <button
-                                        class="message"
-                                        onclick="openMessage('${escapeHTML(id)}')"
-                                    >
-                                        Message
+                                        View Profile
                                     </button>
 
                                 </div>
 
-                                <button
-                                    class="profile-btn"
-                                    onclick="viewProfile('${escapeHTML(id)}')"
-                                >
-                                    View Profile
-                                </button>
-
-                            </div>
-
-                        </article>
-                    `;
-
-                }).join("")
+                            </article>
+                        `;
+                    }
+                ).join("")
             }
+
         </div>`;
 }
 
 
-/* -----------------------------
-   VIEW PROFILE
------------------------------ */
+/* =========================
+   SEND / RESPOND
+========================= */
 
-function viewProfile(id){
-
-    if(!id) return;
-
-    window.location.href =
-        "profile.html?id=" +
-        encodeURIComponent(id);
-}
-
-
-/* -----------------------------
-   MESSAGE
------------------------------ */
-
-function openMessage(id){
-
-    if(!id) return;
-
-    window.location.href =
-        "messages.html?user=" +
-        encodeURIComponent(id);
-}
-
-
-/* -----------------------------
-   CONNECTION REQUEST
------------------------------ */
-
-async function sendConnectionRequest(
-    receiverId,
+async function handleConnect(
+    personId,
     button
 ){
 
-    if(!receiverId || !currentUser){
+    if(!personId || !currentUser){
+        return;
+    }
+
+
+    const existing =
+        getConnectionStatus(
+            personId
+        );
+
+
+    if(
+        existing &&
+        existing.status === "pending" &&
+        existing.receiver_id === currentUser.id
+    ){
+
+        const accept =
+            confirm(
+                "Accept this connection request?"
+            );
+
+
+        if(accept){
+
+            await acceptRequest(
+                existing.id,
+                button
+            );
+
+        }else{
+
+            const reject =
+                confirm(
+                    "Reject this connection request?"
+                );
+
+            if(reject){
+
+                await rejectRequest(
+                    existing.id,
+                    button
+                );
+            }
+        }
+
+        return;
+    }
+
+
+    if(existing){
         return;
     }
 
 
     button.disabled = true;
-    button.textContent = "Sending...";
+    button.textContent =
+        "Sending...";
 
 
     try{
 
-        /*
-          This expects a Supabase table named:
-          connections
-
-          Recommended columns:
-
-          id
-          sender_id
-          receiver_id
-          status
-          created_at
-        */
-
-
         const {
-            data: existing,
-            error: checkError
-        } =
-            await supabaseClient
-                .from("connections")
-                .select("id,status")
-                .or(
-                    `and(sender_id.eq.${currentUser.id},receiver_id.eq.${receiverId}),and(sender_id.eq.${receiverId},receiver_id.eq.${currentUser.id})`
-                )
-                .limit(1);
-
-
-        if(checkError){
-            throw checkError;
-        }
-
-
-        if(existing && existing.length){
-
-            const status =
-                existing[0].status;
-
-            if(status === "accepted"){
-
-                button.textContent =
-                    "Connected";
-
-            }else if(status === "pending"){
-
-                button.textContent =
-                    "Pending";
-
-            }else{
-
-                button.textContent =
-                    "Requested";
-            }
-
-            return;
-        }
-
-
-        const {
+            data,
             error
         } =
             await supabaseClient
                 .from("connections")
                 .insert({
-                    sender_id: currentUser.id,
-                    receiver_id: receiverId,
-                    status: "pending"
-                });
+                    sender_id:
+                        currentUser.id,
+
+                    receiver_id:
+                        personId,
+
+                    status:
+                        "pending"
+                })
+                .select()
+                .single();
 
 
         if(error){
@@ -1219,110 +1750,420 @@ async function sendConnectionRequest(
         }
 
 
+        connectionRows.push(
+            data
+        );
+
+
         button.textContent =
-            "Request Sent";
+            "Pending";
 
-        button.style.background =
-            "#16a34a";
 
+        button.className =
+            "connect pending";
+
+
+        updateStats();
+
+
+    }catch(error){
+
+        console.error(
+            "Connection request error:",
+            error
+        );
+
+
+        button.disabled =
+            false;
+
+        button.textContent =
+            "Connect";
+
+
+        alert(
+            "Could not send the connection request.\n\n" +
+            error.message
+        );
+    }
+}
+
+
+/* =========================
+   REQUESTS
+========================= */
+
+async function loadRequests(){
+
+    const container =
         document.getElementById(
-            "pendingCount"
-        ).textContent =
-            Number(
-                document.getElementById(
-                    "pendingCount"
-                ).textContent
-            ) + 1;
+            "requestsContainer"
+        );
+
+
+    try{
+
+        const pending =
+            connectionRows.filter(
+                row =>
+                    row.status === "pending" &&
+                    row.receiver_id === currentUser.id
+            );
+
+
+        if(!pending.length){
+
+            container.innerHTML =
+                `<div class="empty">
+
+                    <h3>
+                        No connection requests
+                    </h3>
+
+                    <p style="margin-top:8px">
+                        New requests from professionals will appear here.
+                    </p>
+
+                </div>`;
+
+            return;
+        }
+
+
+        const senderIds =
+            pending.map(
+                row =>
+                    row.sender_id
+            );
+
+
+        const {
+            data: people,
+            error
+        } =
+            await supabaseClient
+                .from("profiles")
+                .select("*")
+                .in(
+                    "ID",
+                    senderIds
+                );
+
+
+        if(error){
+            throw error;
+        }
+
+
+        container.innerHTML =
+            pending.map(
+                request => {
+
+                    const person =
+                        (people || []).find(
+                            p =>
+                                getId(p) ===
+                                request.sender_id
+                        );
+
+
+                    if(!person){
+                        return "";
+                    }
+
+
+                    const name =
+                        escapeHTML(
+                            getName(person)
+                        );
+
+
+                    const headline =
+                        escapeHTML(
+                            getHeadline(person)
+                        );
+
+
+                    const avatar =
+                        escapeHTML(
+                            avatarFor(person)
+                        );
+
+
+                    return `
+                        <div class="request-card">
+
+                            <img
+                                class="request-avatar"
+                                src="${avatar}"
+                                alt="${name}"
+                            >
+
+                            <div class="request-info">
+
+                                <div class="request-name">
+                                    ${name}
+                                </div>
+
+                                <div class="request-headline">
+                                    ${headline}
+                                </div>
+
+                            </div>
+
+                            <div class="request-actions">
+
+                                <button
+                                    class="accept-btn"
+                                    onclick="acceptRequest('${request.id}')"
+                                >
+                                    Accept
+                                </button>
+
+                                <button
+                                    class="reject-btn"
+                                    onclick="rejectRequest('${request.id}')"
+                                >
+                                    Reject
+                                </button>
+
+                            </div>
+
+                        </div>
+                    `;
+                }
+            ).join("");
+
+
+    }catch(error){
+
+        console.error(
+            "Requests error:",
+            error
+        );
+
+
+        container.innerHTML =
+            `<div class="empty">
+                Unable to load connection requests.
+            </div>`;
+    }
+}
+
+
+/* =========================
+   ACCEPT
+========================= */
+
+async function acceptRequest(
+    connectionId,
+    button = null
+){
+
+    if(button){
+
+        button.disabled =
+            true;
+
+        button.textContent =
+            "Accepting...";
+    }
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("connections")
+                .update({
+                    status:
+                        "accepted"
+                })
+                .eq(
+                    "id",
+                    connectionId
+                )
+                .select()
+                .single();
+
+
+        if(error){
+            throw error;
+        }
+
+
+        const index =
+            connectionRows.findIndex(
+                row =>
+                    String(row.id) ===
+                    String(connectionId)
+            );
+
+
+        if(index !== -1){
+
+            connectionRows[index] =
+                data;
+        }
+
+
+        updateStats();
+
+        await loadRequests();
+
+        await loadPeople();
 
 
     }catch(error){
 
         console.error(error);
 
-        button.disabled = false;
-        button.textContent = "Connect";
+        if(button){
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "Accept";
+        }
+
 
         alert(
-            "Connection request could not be sent. Make sure the connections table has been created in Supabase."
+            "Could not accept the request.\n\n" +
+            error.message
         );
     }
 }
 
 
-/* -----------------------------
-   LOAD CONNECTION STATS
------------------------------ */
+/* =========================
+   REJECT
+========================= */
 
-async function loadConnectionStats(){
+async function rejectRequest(
+    connectionId,
+    button = null
+){
 
-    if(!currentUser) return;
+    if(button){
+
+        button.disabled =
+            true;
+
+        button.textContent =
+            "Rejecting...";
+    }
 
 
     try{
 
         const {
-            count: sentCount
+            data,
+            error
         } =
             await supabaseClient
                 .from("connections")
-                .select("*", {
-                    count:"exact",
-                    head:true
-                })
-                .or(
-                    `sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`
-                )
-                .eq(
-                    "status",
-                    "accepted"
-                );
-
-
-        document.getElementById(
-            "connectionCount"
-        ).textContent =
-            sentCount || 0;
-
-
-        const {
-            count: pendingCount
-        } =
-            await supabaseClient
-                .from("connections")
-                .select("*", {
-                    count:"exact",
-                    head:true
+                .update({
+                    status:
+                        "rejected"
                 })
                 .eq(
-                    "receiver_id",
-                    currentUser.id
+                    "id",
+                    connectionId
                 )
-                .eq(
-                    "status",
-                    "pending"
-                );
+                .select()
+                .single();
 
 
-        document.getElementById(
-            "pendingCount"
-        ).textContent =
-            pendingCount || 0;
+        if(error){
+            throw error;
+        }
+
+
+        const index =
+            connectionRows.findIndex(
+                row =>
+                    String(row.id) ===
+                    String(connectionId)
+            );
+
+
+        if(index !== -1){
+
+            connectionRows[index] =
+                data;
+        }
+
+
+        updateStats();
+
+        await loadRequests();
+
+        await loadPeople();
 
 
     }catch(error){
 
-        console.log(
-            "Connection statistics unavailable:",
+        console.error(error);
+
+        if(button){
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "Reject";
+        }
+
+
+        alert(
+            "Could not reject the request.\n\n" +
             error.message
         );
-
     }
 }
 
 
-/* -----------------------------
-   SEARCH ENTER KEY
------------------------------ */
+/* =========================
+   PROFILE
+========================= */
+
+function viewProfile(id){
+
+    if(!id){
+        return;
+    }
+
+
+    window.location.href =
+        "profile.html?id=" +
+        encodeURIComponent(id);
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function openMessage(id){
+
+    if(!id){
+        return;
+    }
+
+
+    window.location.href =
+        "messages.html?user=" +
+        encodeURIComponent(id);
+}
+
+
+/* =========================
+   SEARCH
+========================= */
 
 document.getElementById(
     "personSearch"
@@ -1331,6 +2172,7 @@ document.getElementById(
     function(event){
 
         if(event.key === "Enter"){
+
             loadPeople();
         }
 
@@ -1352,32 +2194,39 @@ document.getElementById(
                 this.value;
 
             loadPeople();
+
         }
 
     }
 );
 
 
-/* -----------------------------
+/* =========================
    START
------------------------------ */
+========================= */
 
 (async function(){
 
     const loggedIn =
         await loadCurrentUser();
 
-    if(!loggedIn) return;
+
+    if(!loggedIn){
+        return;
+    }
+
 
     await loadMyProfile();
 
-    await loadPeople();
+    await loadConnections();
 
-    await loadConnectionStats();
+    await loadRequests();
+
+    await loadPeople();
 
 })();
 
 </script>
 
 </body>
-  </html>
+    </html>
