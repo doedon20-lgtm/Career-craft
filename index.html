@@ -1,1 +1,2194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>CareerCraft — Create. Connect. Grow.</title>
+
+<meta name="description"
+content="CareerCraft is your professional career platform for creating CVs, discovering jobs, building your professional identity, networking and growing your career.">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --primary:#635bff;
+    --primary-dark:#5148e8;
+    --bg:#f6f7fb;
+    --card:#ffffff;
+    --text:#171827;
+    --muted:#73778a;
+    --border:#e8e9f0;
+    --success:#159447;
+    --danger:#d83b3b;
+    --shadow:0 10px 30px rgba(30,30,60,.08);
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,
+input{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* =========================
+   APP LAYOUT
+========================= */
+
+.app{
+    min-height:100vh;
+}
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:250px;
+    background:#fff;
+    border-right:1px solid var(--border);
+    padding:22px 16px;
+    z-index:100;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:22px;
+    font-weight:800;
+    margin:0 10px 32px;
+}
+
+.logo-icon{
+    width:38px;
+    height:38px;
+    border-radius:11px;
+    background:var(--primary);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+}
+
+.nav-title{
+    font-size:11px;
+    color:#a0a3b2;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin:18px 12px 8px;
+    font-weight:700;
+}
+
+.nav-link{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    width:100%;
+    padding:12px 13px;
+    border-radius:11px;
+    color:#55596b;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:3px;
+    transition:.2s;
+}
+
+.nav-link:hover{
+    background:#f3f2ff;
+    color:var(--primary);
+}
+
+.nav-link.active{
+    background:#efeeff;
+    color:var(--primary);
+}
+
+.nav-icon{
+    width:21px;
+    text-align:center;
+    font-size:17px;
+}
+
+.sidebar-bottom{
+    position:absolute;
+    bottom:20px;
+    left:16px;
+    right:16px;
+}
+
+.sidebar-profile{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px;
+    border-top:1px solid var(--border);
+    margin-top:10px;
+}
+
+.avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:var(--primary);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    flex-shrink:0;
+}
+
+.profile-text{
+    min-width:0;
+}
+
+.profile-text strong{
+    display:block;
+    font-size:13px;
+}
+
+.profile-text span{
+    display:block;
+    font-size:11px;
+    color:var(--muted);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:250px;
+    min-height:100vh;
+}
+
+.topbar{
+    height:72px;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    position:sticky;
+    top:0;
+    z-index:50;
+}
+
+.search-box{
+    width:min(420px,45vw);
+    position:relative;
+}
+
+.search-box input{
+    width:100%;
+    height:42px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:0 16px 0 42px;
+    outline:none;
+    background:#f8f8fb;
+}
+
+.search-box input:focus{
+    border-color:var(--primary);
+    background:#fff;
+}
+
+.search-icon{
+    position:absolute;
+    left:14px;
+    top:11px;
+    color:#999dac;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.icon-button{
+    width:40px;
+    height:40px;
+    border:1px solid var(--border);
+    border-radius:11px;
+    background:#fff;
+    position:relative;
+}
+
+.notification-dot{
+    position:absolute;
+    width:7px;
+    height:7px;
+    background:#e84141;
+    border-radius:50%;
+    top:8px;
+    right:8px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    max-width:1450px;
+    margin:auto;
+    padding:28px;
+}
+
+.welcome{
+    background:linear-gradient(120deg,#635bff,#817aff);
+    color:white;
+    border-radius:22px;
+    padding:30px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    box-shadow:var(--shadow);
+    margin-bottom:25px;
+}
+
+.welcome h1{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.welcome p{
+    opacity:.9;
+    max-width:650px;
+}
+
+.create-main{
+    border:0;
+    background:#fff;
+    color:var(--primary);
+    padding:13px 20px;
+    border-radius:12px;
+    font-weight:800;
+    white-space:nowrap;
+}
+
+.create-main:hover{
+    transform:translateY(-1px);
+}
+
+/* =========================
+   GRID
+========================= */
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1.7fr) minmax(280px,.8fr);
+    gap:22px;
+}
+
+.section{
+    margin-bottom:22px;
+}
+
+.section-heading{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:13px;
+}
+
+.section-heading h2{
+    font-size:18px;
+}
+
+.section-heading a{
+    color:var(--primary);
+    font-size:13px;
+    font-weight:700;
+}
+
+.card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:18px;
+    box-shadow:0 5px 18px rgba(30,30,60,.035);
+}
+
+/* =========================
+   QUICK STATS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.stat{
+    padding:19px;
+}
+
+.stat-icon{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:#f0efff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:13px;
+}
+
+.stat strong{
+    display:block;
+    font-size:25px;
+    margin-bottom:4px;
+}
+
+.stat span{
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* =========================
+   FEED
+========================= */
+
+.post{
+    padding:20px;
+    margin-bottom:14px;
+}
+
+.post-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.post-user strong{
+    display:block;
+    font-size:14px;
+}
+
+.post-user span{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.post-content{
+    margin:17px 0;
+    line-height:1.6;
+    color:#3e4252;
+    font-size:14px;
+}
+
+.post-actions{
+    display:flex;
+    gap:8px;
+    border-top:1px solid var(--border);
+    padding-top:13px;
+}
+
+.post-actions button{
+    border:0;
+    background:transparent;
+    padding:7px 11px;
+    border-radius:8px;
+    color:#666a7b;
+}
+
+.post-actions button:hover{
+    background:#f5f5f9;
+    color:var(--primary);
+}
+
+/* =========================
+   JOBS
+========================= */
+
+.job-card{
+    padding:18px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:10px;
+}
+
+.company-logo{
+    width:46px;
+    height:46px;
+    border-radius:12px;
+    background:#f0f0f5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    color:#555;
+}
+
+.job-info{
+    flex:1;
+}
+
+.job-info h3{
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.job-info p{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.job-meta{
+    margin-top:7px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.tag{
+    font-size:10px;
+    background:#f3f3f7;
+    padding:5px 8px;
+    border-radius:6px;
+    color:#676b7b;
+}
+
+.job-button{
+    border:1px solid var(--primary);
+    color:var(--primary);
+    background:#fff;
+    border-radius:9px;
+    padding:8px 11px;
+    font-size:12px;
+    font-weight:700;
+}
+
+/* =========================
+   CREATE AREA
+========================= */
+
+.create-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+}
+
+.create-card{
+    padding:18px;
+    border:1px solid var(--border);
+    background:#fff;
+    border-radius:15px;
+    text-align:left;
+    transition:.2s;
+}
+
+.create-card:hover{
+    border-color:#cbc8ff;
+    transform:translateY(-2px);
+    box-shadow:var(--shadow);
+}
+
+.create-card .big-icon{
+    font-size:24px;
+    margin-bottom:12px;
+}
+
+.create-card strong{
+    display:block;
+    font-size:13px;
+    margin-bottom:4px;
+}
+
+.create-card span{
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* =========================
+   CAREER PROGRESS
+========================= */
+
+.progress-card{
+    padding:20px;
+}
+
+.progress-number{
+    display:flex;
+    align-items:end;
+    gap:7px;
+    margin-bottom:14px;
+}
+
+.progress-number strong{
+    font-size:32px;
+}
+
+.progress-number span{
+    color:var(--muted);
+    font-size:12px;
+    margin-bottom:5px;
+}
+
+.progress-bar{
+    height:9px;
+    background:#eeeef4;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    width:74%;
+    height:100%;
+    background:var(--primary);
+    border-radius:20px;
+}
+
+.progress-list{
+    margin-top:18px;
+}
+
+.progress-item{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:8px 0;
+    font-size:12px;
+}
+
+.done{
+    color:var(--success);
+}
+
+/* =========================
+   PEOPLE
+========================= */
+
+.person{
+    padding:15px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:9px;
+}
+
+.person-info{
+    flex:1;
+}
+
+.person-info strong{
+    display:block;
+    font-size:13px;
+}
+
+.person-info span{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
+
+.connect{
+    border:1px solid var(--border);
+    background:#fff;
+    color:var(--primary);
+    padding:7px 9px;
+    border-radius:8px;
+    font-size:11px;
+    font-weight:700;
+}
+
+/* =========================
+   TEMPLATES
+========================= */
+
+.templates{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.template{
+    overflow:hidden;
+}
+
+.template-preview{
+    height:170px;
+    background:#f0f0f5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:35px;
+}
+
+.template-info{
+    padding:13px;
+}
+
+.template-info strong{
+    display:block;
+    font-size:13px;
+}
+
+.template-info span{
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* =========================
+   MENU
+========================= */
+
+.menu-wrapper{
+    position:relative;
+}
+
+.dropdown{
+    position:absolute;
+    right:0;
+    top:49px;
+    width:230px;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:15px;
+    box-shadow:0 15px 40px rgba(20,20,50,.15);
+    padding:8px;
+    display:none;
+    z-index:200;
+}
+
+.dropdown.show{
+    display:block;
+}
+
+.dropdown-user{
+    padding:12px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:6px;
+}
+
+.dropdown-user strong{
+    display:block;
+    font-size:13px;
+}
+
+.dropdown-user span{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
+
+.dropdown button,
+.dropdown a{
+    display:block;
+    width:100%;
+    padding:11px;
+    border:0;
+    background:#fff;
+    text-align:left;
+    border-radius:9px;
+    font-size:13px;
+}
+
+.dropdown button:hover,
+.dropdown a:hover{
+    background:#f4f3ff;
+    color:var(--primary);
+}
+
+/* =========================
+   CREATE MODAL
+========================= */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(20,20,40,.5);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:500;
+}
+
+.overlay.show{
+    display:flex;
+}
+
+.create-modal{
+    width:min(700px,100%);
+    background:#fff;
+    border-radius:22px;
+    padding:25px;
+    max-height:90vh;
+    overflow:auto;
+}
+
+.modal-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.modal-head h2{
+    font-size:22px;
+}
+
+.close{
+    border:0;
+    background:#f2f2f6;
+    width:35px;
+    height:35px;
+    border-radius:9px;
+}
+
+.modal-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.modal-item{
+    display:flex;
+    gap:13px;
+    padding:15px;
+    border:1px solid var(--border);
+    border-radius:13px;
+    background:#fff;
+    text-align:left;
+}
+
+.modal-item:hover{
+    border-color:#c9c6ff;
+    background:#faf9ff;
+}
+
+.modal-item-icon{
+    font-size:25px;
+}
+
+.modal-item strong{
+    display:block;
+    font-size:14px;
+}
+
+.modal-item span{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin-top:4px;
+}
+
+/* =========================
+   MOBILE NAV
+========================= */
+
+.mobile-nav{
+    display:none;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1100px){
+
+    .dashboard-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .create-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:800px){
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+        padding-bottom:75px;
+    }
+
+    .topbar{
+        padding:0 15px;
+        height:62px;
+    }
+
+    .search-box{
+        width:55%;
+    }
+
+    .content{
+        padding:15px;
+    }
+
+    .welcome{
+        padding:22px;
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .welcome h1{
+        font-size:24px;
+    }
+
+    .create-main{
+        width:100%;
+    }
+
+    .mobile-nav{
+        position:fixed;
+        bottom:0;
+        left:0;
+        right:0;
+        height:68px;
+        background:#fff;
+        border-top:1px solid var(--border);
+        display:grid;
+        grid-template-columns:repeat(5,1fr);
+        z-index:300;
+    }
+
+    .mobile-nav a,
+    .mobile-nav button{
+        border:0;
+        background:#fff;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:4px;
+        color:#777a8b;
+        font-size:10px;
+        font-weight:700;
+    }
+
+    .mobile-nav .active{
+        color:var(--primary);
+    }
+
+    .mobile-create{
+        width:48px!important;
+        height:48px!important;
+        border-radius:50%!important;
+        background:var(--primary)!important;
+        color:#fff!important;
+        margin:auto;
+        font-size:22px!important;
+        box-shadow:0 7px 18px rgba(99,91,255,.35);
+    }
+
+    .mobile-create span{
+        display:none;
+    }
+
+    .top-actions .desktop-only{
+        display:none;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .templates{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .job-card{
+        align-items:flex-start;
+    }
+
+    .job-button{
+        align-self:center;
+    }
+
+    .modal-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:500px){
+
+    .stats{
+        gap:8px;
+    }
+
+    .stat{
+        padding:15px;
+    }
+
+    .stat strong{
+        font-size:21px;
+    }
+
+    .create-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .templates{
+        grid-template-columns:1fr;
+    }
+
+    .welcome{
+        border-radius:17px;
+    }
+
+    .post{
+        padding:16px;
+    }
+
+    .job-card{
+        flex-wrap:wrap;
+    }
+
+    .job-info{
+        min-width:calc(100% - 65px);
+    }
+
+    .job-button{
+        margin-left:61px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- =========================
+     DESKTOP SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-icon">C</div>
+        CareerCraft
+    </div>
+
+    <div class="nav-title">Workspace</div>
+
+    <a href="index.html" class="nav-link active">
+        <span class="nav-icon">⌂</span>
+        Home
+    </a>
+
+    <a href="job-finder.html" class="nav-link">
+        <span class="nav-icon">💼</span>
+        Jobs
+    </a>
+
+    <a href="#" class="nav-link" onclick="showNetworkMessage();return false;">
+        <span class="nav-icon">👥</span>
+        Network
+    </a>
+
+    <a href="#" class="nav-link" onclick="showCommunityMessage();return false;">
+        <span class="nav-icon">🌐</span>
+        Communities
+    </a>
+
+    <a href="#" class="nav-link" onclick="showMessageCenter();return false;">
+        <span class="nav-icon">💬</span>
+        Messages
+    </a>
+
+    <div class="nav-title">Create</div>
+
+    <a href="cv-builder.html" class="nav-link">
+        <span class="nav-icon">📄</span>
+        CV Builder
+    </a>
+
+    <a href="cv-templates.html" class="nav-link">
+        <span class="nav-icon">🎨</span>
+        Templates
+    </a>
+
+    <a href="#" class="nav-link" onclick="openCreate();return false;">
+        <span class="nav-icon">＋</span>
+        Create
+    </a>
+
+    <div class="nav-title">Career</div>
+
+    <a href="saved-jobs.html" class="nav-link">
+        <span class="nav-icon">🔖</span>
+        Saved Jobs
+    </a>
+
+    <a href="applications.html" class="nav-link">
+        <span class="nav-icon">📋</span>
+        Applications
+    </a>
+
+    <a href="cv-review.html" class="nav-link">
+        <span class="nav-icon">✓</span>
+        CV Review
+    </a>
+
+    <div class="sidebar-bottom">
+
+        <a href="#" class="nav-link" onclick="openProfileMenu();return false;">
+            <span class="nav-icon">⚙</span>
+            Settings
+        </a>
+
+        <div class="sidebar-profile">
+            <div class="avatar" id="sideAvatar">SF</div>
+
+            <div class="profile-text">
+                <strong id="sideName">Samuel Fred</strong>
+                <span id="sideEmail">CareerCraft Member</span>
+            </div>
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+<header class="topbar">
+
+    <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input
+            type="search"
+            placeholder="Search jobs, people, communities..."
+            id="globalSearch"
+            onkeydown="handleSearch(event)"
+        >
+    </div>
+
+    <div class="top-actions">
+
+        <button class="icon-button" onclick="showNotificationCenter()">
+            🔔
+            <span class="notification-dot"></span>
+        </button>
+
+        <div class="menu-wrapper">
+
+            <button class="icon-button" onclick="toggleProfileMenu()">
+                <span id="topAvatar">SF</span>
+            </button>
+
+            <div class="dropdown" id="profileDropdown">
+
+                <div class="dropdown-user">
+                    <strong id="menuName">Samuel Fred</strong>
+                    <span id="menuEmail">CareerCraft Member</span>
+                </div>
+
+                <a href="#" onclick="viewProfile();return false;">
+                    👤 My Profile
+                </a>
+
+                <a href="cv-builder.html">
+                    📄 My CVs
+                </a>
+
+                <a href="cv-templates.html">
+                    🎨 My Designs
+                </a>
+
+                <a href="saved-jobs.html">
+                    🔖 Saved Jobs
+                </a>
+
+                <a href="applications.html">
+                    📋 Applications
+                </a>
+
+                <a href="#" onclick="openSettings();return false;">
+                    ⚙ Settings
+                </a>
+
+                <a href="#" onclick="openSubscription();return false;">
+                    ⭐ Subscription
+                </a>
+
+                <a href="#" onclick="showHelp();return false;">
+                    ❓ Help & Support
+                </a>
+
+                <button onclick="logout()">
+                    🚪 Log out
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<div class="content">
+
+<!-- =========================
+     WELCOME
+========================= -->
+
+<section class="welcome">
+
+    <div>
+        <h1>Good morning, <span id="welcomeName">Samuel</span> 👋</h1>
+
+        <p>
+            Build your professional identity, create beautiful career documents,
+            discover opportunities and connect with people who can help you grow.
+        </p>
+    </div>
+
+    <button class="create-main" onclick="openCreate()">
+        ＋ Create
+    </button>
+
+</section>
+
+
+<!-- =========================
+     STATS
+========================= -->
+
+<section class="section">
+
+    <div class="stats">
+
+        <div class="card stat">
+            <div class="stat-icon">📄</div>
+            <strong id="cvCount">0</strong>
+            <span>CVs & Resumes</span>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-icon">🔖</div>
+            <strong id="savedCount">0</strong>
+            <span>Saved Jobs</span>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-icon">📋</div>
+            <strong id="applicationCount">0</strong>
+            <span>Applications</span>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-icon">👥</div>
+            <strong id="connectionCount">0</strong>
+            <span>Connections</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<div class="dashboard-grid">
+
+<!-- =========================
+     LEFT
+========================= -->
+
+<div>
+
+<!-- CREATE -->
+
+<section class="section">
+
+    <div class="section-heading">
+        <h2>Create with CareerCraft</h2>
+        <a href="#" onclick="openCreate();return false;">View all</a>
+    </div>
+
+    <div class="create-grid">
+
+        <button class="create-card" onclick="location.href='cv-builder.html'">
+            <div class="big-icon">📄</div>
+            <strong>CV / Resume</strong>
+            <span>Build a professional CV</span>
+        </button>
+
+        <button class="create-card" onclick="showCoverLetter()">
+            <div class="big-icon">✉️</div>
+            <strong>Cover Letter</strong>
+            <span>Create a job-winning letter</span>
+        </button>
+
+        <button class="create-card" onclick="location.href='cv-templates.html'">
+            <div class="big-icon">🎨</div>
+            <strong>Design</strong>
+            <span>Create professional designs</span>
+        </button>
+
+        <button class="create-card" onclick="showPortfolio()">
+            <div class="big-icon">💼</div>
+            <strong>Portfolio</strong>
+            <span>Showcase your work</span>
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- FEED -->
+
+<section class="section">
+
+    <div class="section-heading">
+        <h2>Your Career Feed</h2>
+        <a href="#" onclick="showFullFeed();return false;">View all</a>
+    </div>
+
+    <article class="card post">
+
+        <div class="post-header">
+
+            <div class="avatar">CC</div>
+
+            <div class="post-user">
+                <strong>CareerCraft Careers</strong>
+                <span>Career opportunities · 2h</span>
+            </div>
+
+        </div>
+
+        <div class="post-content">
+
+            <strong>Build a career profile that works for you.</strong>
+
+            <br><br>
+
+            Your professional profile can bring together your CV,
+            experience, projects, skills and career achievements in one place.
+
+            Start building your CareerCraft profile today.
+
+        </div>
+
+        <div class="post-actions">
+
+            <button onclick="likePost(this)">♡ Like</button>
+
+            <button onclick="commentPost()">💬 Comment</button>
+
+            <button onclick="sharePost()">↗ Share</button>
+
+        </div>
+
+    </article>
+
+
+    <article class="card post">
+
+        <div class="post-header">
+
+            <div class="avatar">JD</div>
+
+            <div class="post-user">
+                <strong>James Davis</strong>
+                <span>Product Designer · London</span>
+            </div>
+
+        </div>
+
+        <div class="post-content">
+
+            Just finished redesigning my portfolio and CV.
+            One of the biggest lessons I've learned is that your career
+            documents should tell the same story as your professional profile.
+
+        </div>
+
+        <div class="post-actions">
+
+            <button onclick="likePost(this)">♡ Like</button>
+
+            <button onclick="commentPost()">💬 Comment</button>
+
+            <button onclick="sharePost()">↗ Share</button>
+
+        </div>
+
+    </article>
+
+</section>
+
+
+<!-- JOBS -->
+
+<section class="section">
+
+    <div class="section-heading">
+        <h2>Recommended Jobs</h2>
+        <a href="job-finder.html">Find more</a>
+    </div>
+
+
+    <div class="card job-card">
+
+        <div class="company-logo">T</div>
+
+        <div class="job-info">
+
+            <h3>Software Engineer</h3>
+
+            <p>Technology Company · London</p>
+
+            <div class="job-meta">
+                <span class="tag">Full-time</span>
+                <span class="tag">Hybrid</span>
+                <span class="tag">£45k–£65k</span>
+            </div>
+
+        </div>
+
+        <button class="job-button"
+        onclick="location.href='job-finder.html'">
+            View
+        </button>
+
+    </div>
+
+
+    <div class="card job-card">
+
+        <div class="company-logo">D</div>
+
+        <div class="job-info">
+
+            <h3>Digital Marketing Specialist</h3>
+
+            <p>Digital Agency · London</p>
+
+            <div class="job-meta">
+                <span class="tag">Full-time</span>
+                <span class="tag">Remote</span>
+                <span class="tag">£35k–£50k</span>
+            </div>
+
+        </div>
+
+        <button class="job-button"
+        onclick="location.href='job-finder.html'">
+            View
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- TEMPLATES -->
+
+<section class="section">
+
+    <div class="section-heading">
+        <h2>Professional Templates</h2>
+        <a href="cv-templates.html">Explore</a>
+    </div>
+
+    <div class="templates">
+
+        <div class="card template">
+
+            <div class="template-preview">
+                📄
+            </div>
+
+            <div class="template-info">
+                <strong>Executive Resume</strong>
+                <span>Professional · Free</span>
+            </div>
+
+        </div>
+
+
+        <div class="card template">
+
+            <div class="template-preview">
+                🎨
+            </div>
+
+            <div class="template-info">
+                <strong>Modern Creative</strong>
+                <span>Creative · Pro</span>
+            </div>
+
+        </div>
+
+
+        <div class="card template">
+
+            <div class="template-preview">
+                💼
+            </div>
+
+            <div class="template-info">
+                <strong>Professional Portfolio</strong>
+                <span>Portfolio · Pro</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<!-- =========================
+     RIGHT
+========================= -->
+
+<aside>
+
+<section class="section">
+
+    <div class="section-heading">
+        <h2>Career Progress</h2>
+        <a href="#" onclick="viewProfile();return false;">Improve</a>
+    </div>
+
+    <div class="card progress-card">
+
+        <div class="progress-number">
+            <strong>74%</strong>
+            <span>complete</span>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="progress-list">
+
+            <div class="progress-item done">
+                ✓ Create your account
+            </div>
+
+            <div class="progress-item done">
+                ✓ Add professional information
+            </div>
+
+            <div class="progress-item">
+                ○ Complete your CV
+            </div>
+
+            <div class="progress-item">
+                ○ Add your skills
+            </div>
+
+            <div class="progress-item">
+                ○ Add portfolio projects
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="section-heading">
+        <h2>People to Connect With</h2>
+        <a href="#" onclick="showNetworkMessage();return false;">See all</a>
+    </div>
+
+
+    <div class="card person">
+
+        <div class="avatar">AK</div>
+
+        <div class="person-info">
+            <strong>Alex King</strong>
+            <span>Software Engineer</span>
+        </div>
+
+        <button class="connect" onclick="connectPerson(this)">
+            Connect
+        </button>
+
+    </div>
+
+
+    <div class="card person">
+
+        <div class="avatar">SM</div>
+
+        <div class="person-info">
+            <strong>Sophie Martin</strong>
+            <span>UX Designer</span>
+        </div>
+
+        <button class="connect" onclick="connectPerson(this)">
+            Connect
+        </button>
+
+    </div>
+
+
+    <div class="card person">
+
+        <div class="avatar">DO</div>
+
+        <div class="person-info">
+            <strong>Daniel Okoro</strong>
+            <span>Business Analyst</span>
+        </div>
+
+        <button class="connect" onclick="connectPerson(this)">
+            Connect
+        </button>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="section-heading">
+        <h2>CareerCraft Pro</h2>
+    </div>
+
+    <div class="card progress-card">
+
+        <h3 style="font-size:16px;margin-bottom:8px;">
+            Build more. Stand out.
+        </h3>
+
+        <p style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:15px;">
+
+            Unlock premium templates, advanced career tools,
+            professional designs and enhanced CV features.
+
+        </p>
+
+        <button
+        class="create-main"
+        style="background:var(--primary);color:#fff;width:100%;"
+        onclick="openSubscription()">
+
+            Explore CareerCraft Pro
+
+        </button>
+
+    </div>
+
+</section>
+
+</aside>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+
+<!-- =========================
+     MOBILE NAVIGATION
+========================= -->
+
+<nav class="mobile-nav">
+
+    <a href="index.html" class="active">
+        <span>⌂</span>
+        <span>Home</span>
+    </a>
+
+    <a href="job-finder.html">
+        <span>💼</span>
+        <span>Jobs</span>
+    </a>
+
+    <button class="mobile-create" onclick="openCreate()">
+        +
+    </button>
+
+    <a href="#" onclick="showNetworkMessage();return false;">
+        <span>👥</span>
+        <span>Network</span>
+    </a>
+
+    <button onclick="toggleProfileMenu()">
+        <span>👤</span>
+        <span>Profile</span>
+    </button>
+
+</nav>
+
+
+<!-- =========================
+     CREATE MODAL
+========================= -->
+
+<div class="overlay" id="createOverlay" onclick="closeCreateOutside(event)">
+
+    <div class="create-modal">
+
+        <div class="modal-head">
+
+            <div>
+                <h2>Create something</h2>
+                <p style="color:var(--muted);font-size:12px;margin-top:5px;">
+                    Build professional content with CareerCraft.
+                </p>
+            </div>
+
+            <button class="close" onclick="closeCreate()">×</button>
+
+        </div>
+
+
+        <div class="modal-grid">
+
+            <button class="modal-item"
+            onclick="location.href='cv-builder.html'">
+
+                <div class="modal-item-icon">📄</div>
+
+                <div>
+                    <strong>CV / Resume</strong>
+                    <span>Create a professional CV</span>
+                </div>
+
+            </button>
+
+
+            <button class="modal-item"
+            onclick="showCoverLetter()">
+
+                <div class="modal-item-icon">✉️</div>
+
+                <div>
+                    <strong>Cover Letter</strong>
+                    <span>Prepare an application letter</span>
+                </div>
+
+            </button>
+
+
+            <button class="modal-item"
+            onclick="location.href='cv-templates.html'">
+
+                <div class="modal-item-icon">🎨</div>
+
+                <div>
+                    <strong>Design</strong>
+                    <span>Create beautiful professional designs</span>
+                </div>
+
+            </button>
+
+
+            <button class="modal-item"
+            onclick="showPortfolio()">
+
+                <div class="modal-item-icon">💼</div>
+
+                <div>
+                    <strong>Portfolio</strong>
+                    <span>Showcase your professional work</span>
+                </div>
+
+            </button>
+
+
+            <button class="modal-item"
+            onclick="showPresentation()">
+
+                <div class="modal-item-icon">📊</div>
+
+                <div>
+                    <strong>Presentation</strong>
+                    <span>Create a professional presentation</span>
+                </div>
+
+            </button>
+
+
+            <button class="modal-item"
+            onclick="showBusinessCard()">
+
+                <div class="modal-item-icon">🪪</div>
+
+                <div>
+                    <strong>Business Card</strong>
+                    <span>Create your professional card</span>
+                </div>
+
+            </button>
+
+
+            <button class="modal-item"
+            onclick="showCertificate()">
+
+                <div class="modal-item-icon">🏆</div>
+
+                <div>
+                    <strong>Certificate</strong>
+                    <span>Create a professional certificate</span>
+                </div>
+
+            </button>
+
+
+            <button class="modal-item"
+            onclick="showCareerPost()">
+
+                <div class="modal-item-icon">📝</div>
+
+                <div>
+                    <strong>Career Post</strong>
+                    <span>Share something with your network</span>
+                </div>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   USER
+========================= */
+
+function loadUser(){
+
+    const name =
+        localStorage.getItem("careerCraftName") ||
+        "Samuel Fred";
+
+    const email =
+        localStorage.getItem("careerCraftEmail") ||
+        "CareerCraft Member";
+
+    const firstName =
+        name.split(" ")[0] || "Samuel";
+
+    document.getElementById("welcomeName").textContent = firstName;
+    document.getElementById("sideName").textContent = name;
+    document.getElementById("menuName").textContent = name;
+
+    document.getElementById("sideEmail").textContent = email;
+    document.getElementById("menuEmail").textContent = email;
+
+    const initials =
+        name
+        .split(" ")
+        .map(x => x[0])
+        .join("")
+        .substring(0,2)
+        .toUpperCase();
+
+    document.getElementById("sideAvatar").textContent = initials;
+    document.getElementById("topAvatar").textContent = initials;
+}
+
+
+/* =========================
+   LOCAL DATA
+========================= */
+
+function loadStats(){
+
+    const cv =
+        JSON.parse(
+            localStorage.getItem("careerCraftCV") || "null"
+        );
+
+    const saved =
+        JSON.parse(
+            localStorage.getItem("careerCraftSavedJobs") || "[]"
+        );
+
+    const applications =
+        JSON.parse(
+            localStorage.getItem("careerCraftApplications") || "[]"
+        );
+
+    const connections =
+        JSON.parse(
+            localStorage.getItem("careerCraftConnections") || "[]"
+        );
+
+    document.getElementById("cvCount").textContent =
+        cv ? "1" : "0";
+
+    document.getElementById("savedCount").textContent =
+        saved.length;
+
+    document.getElementById("applicationCount").textContent =
+        applications.length;
+
+    document.getElementById("connectionCount").textContent =
+        connections.length;
+}
+
+
+/* =========================
+   CREATE
+========================= */
+
+function openCreate(){
+
+    document
+        .getElementById("createOverlay")
+        .classList.add("show");
+}
+
+function closeCreate(){
+
+    document
+        .getElementById("createOverlay")
+        .classList.remove("show");
+}
+
+function closeCreateOutside(event){
+
+    if(event.target.id === "createOverlay"){
+        closeCreate();
+    }
+}
+
+
+/* =========================
+   PROFILE MENU
+========================= */
+
+function toggleProfileMenu(){
+
+    document
+        .getElementById("profileDropdown")
+        .classList.toggle("show");
+}
+
+function openProfileMenu(){
+
+    document
+        .getElementById("profileDropdown")
+        .classList.add("show");
+}
+
+document.addEventListener("click", function(event){
+
+    const dropdown =
+        document.getElementById("profileDropdown");
+
+    const menu =
+        document.querySelector(".menu-wrapper");
+
+    if(
+        dropdown &&
+        !menu.contains(event.target)
+    ){
+        dropdown.classList.remove("show");
+    }
+
+});
+
+
+/* =========================
+   FEATURES
+========================= */
+
+function showNetworkMessage(){
+
+    alert(
+        "CareerCraft Network\n\n" +
+        "Connect with professionals, discover people in your industry, " +
+        "build meaningful relationships and grow your career network."
+    );
+}
+
+function showCommunityMessage(){
+
+    alert(
+        "CareerCraft Communities\n\n" +
+        "Discover professional communities, join career discussions, " +
+        "share knowledge and meet people with similar interests."
+    );
+}
+
+function showMessageCenter(){
+
+    alert(
+        "Messages\n\n" +
+        "Your professional conversations and networking messages will appear here."
+    );
+}
+
+function showNotificationCenter(){
+
+    alert(
+        "Notifications\n\n" +
+        "You'll receive updates about connections, jobs, applications and activity here."
+    );
+}
+
+function viewProfile(){
+
+    alert(
+        "Professional Profile\n\n" +
+        "Your CareerCraft profile will contain your professional headline, " +
+        "about section, experience, education, skills, projects and achievements."
+    );
+}
+
+function openSettings(){
+
+    alert(
+        "Settings\n\n" +
+        "Account\n" +
+        "Privacy\n" +
+        "Notifications\n" +
+        "Security\n" +
+        "Appearance\n" +
+        "Language\n" +
+        "Subscription"
+    );
+}
+
+function openSubscription(){
+
+    alert(
+        "CareerCraft Pro\n\n" +
+        "Premium templates, advanced career tools, enhanced CV features " +
+        "and professional design capabilities."
+    );
+}
+
+function showHelp(){
+
+    alert(
+        "CareerCraft Help & Support\n\n" +
+        "Find answers, learn how CareerCraft works and contact support."
+    );
+}
+
+function showCoverLetter(){
+
+    closeCreate();
+
+    alert(
+        "Cover Letter Creator\n\n" +
+        "Create a professional cover letter tailored to your target job."
+    );
+}
+
+function showPortfolio(){
+
+    closeCreate();
+
+    alert(
+        "Portfolio Creator\n\n" +
+        "Build a professional portfolio showcasing your projects and experience."
+    );
+}
+
+function showPresentation(){
+
+    closeCreate();
+
+    alert(
+        "Presentation Creator\n\n" +
+        "Create professional career and business presentations."
+    );
+}
+
+function showBusinessCard(){
+
+    closeCreate();
+
+    alert(
+        "Business Card Creator\n\n" +
+        "Create a professional digital or printable business card."
+    );
+}
+
+function showCertificate(){
+
+    closeCreate();
+
+    alert(
+        "Certificate Creator\n\n" +
+        "Create professional certificates and achievement documents."
+    );
+}
+
+function showCareerPost(){
+
+    closeCreate();
+
+    alert(
+        "Career Post\n\n" +
+        "Share career updates, achievements, knowledge and opportunities with your network."
+    );
+}
+
+function showFullFeed(){
+
+    alert(
+        "Career Feed\n\n" +
+        "Your personalized feed will bring together professional updates, " +
+        "career advice, jobs and networking activity."
+    );
+}
+
+
+/* =========================
+   SOCIAL ACTIONS
+========================= */
+
+function likePost(button){
+
+    if(button.textContent.includes("Liked")){
+        button.textContent = "♡ Like";
+    }else{
+        button.textContent = "♥ Liked";
+    }
+}
+
+function commentPost(){
+
+    const comment =
+        prompt("Write your comment:");
+
+    if(comment && comment.trim()){
+
+        alert("Comment added.");
+    }
+}
+
+function sharePost(){
+
+    alert("Post sharing options opened.");
+}
+
+function connectPerson(button){
+
+    button.textContent = "Pending";
+    button.disabled = true;
+
+    const connections =
+        JSON.parse(
+            localStorage.getItem("careerCraftConnections") || "[]"
+        );
+
+    connections.push({
+        connectedAt: new Date().toISOString()
+    });
+
+    localStorage.setItem(
+        "careerCraftConnections",
+        JSON.stringify(connections)
+    );
+
+    loadStats();
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function handleSearch(event){
+
+    if(event.key !== "Enter") return;
+
+    const value =
+        event.target.value.trim();
+
+    if(!value) return;
+
+    window.location.href =
+        "job-finder.html?search=" +
+        encodeURIComponent(value);
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+    const confirmLogout =
+        confirm("Are you sure you want to log out?");
+
+    if(!confirmLogout) return;
+
+    localStorage.removeItem("careerCraftLoggedIn");
+    localStorage.removeItem("careerCraftName");
+    localStorage.removeItem("careerCraftEmail");
+
+    window.location.href = "login.html";
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadUser();
+loadStats();
+
+</script>
+
+</body>
+  </html>
