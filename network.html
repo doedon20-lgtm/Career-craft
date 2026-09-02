@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Network | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+}
+
+button,input{
+    font:inherit;
+}
+
+.topbar{
+    height:70px;
+    background:white;
+    border-bottom:1px solid #e5e7eb;
+    display:flex;
+    align-items:center;
+    padding:0 25px;
+    gap:25px;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:800;
+    color:#2563eb;
+    text-decoration:none;
+}
+
+.search{
+    flex:1;
+    max-width:550px;
+    position:relative;
+}
+
+.search input{
+    width:100%;
+    padding:13px 18px 13px 45px;
+    border:1px solid #d8dee9;
+    border-radius:12px;
+    outline:none;
+    background:#f8fafc;
+}
+
+.search input:focus{
+    border-color:#2563eb;
+    background:white;
+}
+
+.search-icon{
+    position:absolute;
+    left:16px;
+    top:12px;
+    font-size:18px;
+}
+
+.top-actions{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.top-actions a{
+    text-decoration:none;
+    color:#4b5563;
+    font-size:14px;
+}
+
+.avatar-small{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#dbeafe;
+    cursor:pointer;
+}
+
+.layout{
+    display:grid;
+    grid-template-columns:230px minmax(0,1fr) 280px;
+    gap:22px;
+    max-width:1400px;
+    margin:auto;
+    padding:25px;
+}
+
+.sidebar,
+.rightbar,
+.card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+}
+
+.sidebar{
+    padding:15px;
+    height:max-content;
+    position:sticky;
+    top:95px;
+}
+
+.sidebar a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    border-radius:10px;
+    text-decoration:none;
+    color:#374151;
+    margin-bottom:4px;
+}
+
+.sidebar a:hover,
+.sidebar a.active{
+    background:#eff6ff;
+    color:#2563eb;
+    font-weight:600;
+}
+
+.create-btn{
+    width:100%;
+    border:0;
+    background:#2563eb;
+    color:white;
+    padding:13px;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+    margin-bottom:15px;
+}
+
+.main{
+    min-width:0;
+}
+
+.page-header{
+    margin-bottom:20px;
+}
+
+.page-header h1{
+    font-size:28px;
+    margin-bottom:7px;
+}
+
+.page-header p{
+    color:#6b7280;
+}
+
+.filters{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    padding:18px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.filters input,
+.filters select{
+    flex:1;
+    min-width:150px;
+    padding:12px 14px;
+    border:1px solid #d8dee9;
+    border-radius:10px;
+    outline:none;
+    background:white;
+}
+
+.filter-btn{
+    padding:12px 20px;
+    border:0;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.people-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px;
+}
+
+.person-card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    overflow:hidden;
+}
+
+.cover{
+    height:80px;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+}
+
+.person-content{
+    padding:0 18px 18px;
+    text-align:center;
+}
+
+.person-avatar{
+    width:78px;
+    height:78px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#e5e7eb;
+    border:4px solid white;
+    margin-top:-39px;
+}
+
+.person-name{
+    font-size:18px;
+    font-weight:700;
+    margin-top:10px;
+    color:#111827;
+}
+
+.person-headline{
+    color:#4b5563;
+    font-size:14px;
+    margin-top:6px;
+    min-height:35px;
+}
+
+.person-location{
+    color:#6b7280;
+    font-size:13px;
+    margin-top:8px;
+}
+
+.person-actions{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+}
+
+.person-actions button{
+    flex:1;
+    padding:10px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.connect{
+    border:0;
+    background:#2563eb;
+    color:white;
+}
+
+.message{
+    border:1px solid #d1d5db;
+    background:white;
+    color:#374151;
+}
+
+.profile-btn{
+    width:100%;
+    border:1px solid #2563eb;
+    background:white;
+    color:#2563eb;
+    padding:10px;
+    border-radius:9px;
+    margin-top:8px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.rightbar{
+    padding:18px;
+    height:max-content;
+    position:sticky;
+    top:95px;
+}
+
+.rightbar h3{
+    margin-bottom:15px;
+}
+
+.stat{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid #eef0f4;
+}
+
+.stat:last-child{
+    border-bottom:0;
+}
+
+.stat span:last-child{
+    font-weight:700;
+    color:#2563eb;
+}
+
+.info-box{
+    margin-top:20px;
+    padding:15px;
+    background:#eff6ff;
+    border-radius:12px;
+    color:#374151;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.empty{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    padding:45px 20px;
+    text-align:center;
+    color:#6b7280;
+}
+
+.loading{
+    text-align:center;
+    padding:40px;
+    color:#6b7280;
+}
+
+.error{
+    background:#fef2f2;
+    color:#b91c1c;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:15px;
+    display:none;
+}
+
+.mobile-nav{
+    display:none;
+}
+
+@media(max-width:1050px){
+    .layout{
+        grid-template-columns:190px minmax(0,1fr);
+    }
+
+    .rightbar{
+        display:none;
+    }
+}
+
+@media(max-width:750px){
+    .topbar{
+        padding:0 15px;
+        height:62px;
+    }
+
+    .logo{
+        font-size:21px;
+    }
+
+    .top-actions a{
+        display:none;
+    }
+
+    .layout{
+        display:block;
+        padding:15px;
+        padding-bottom:85px;
+    }
+
+    .sidebar{
+        display:none;
+    }
+
+    .people-grid{
+        grid-template-columns:1fr;
+    }
+
+    .mobile-nav{
+        position:fixed;
+        display:flex;
+        bottom:0;
+        left:0;
+        right:0;
+        height:65px;
+        background:white;
+        border-top:1px solid #e5e7eb;
+        z-index:200;
+        justify-content:space-around;
+        align-items:center;
+    }
+
+    .mobile-nav a{
+        text-decoration:none;
+        color:#6b7280;
+        font-size:12px;
+        text-align:center;
+    }
+
+    .mobile-nav a.active{
+        color:#2563eb;
+        font-weight:700;
+    }
+
+    .mobile-nav span{
+        display:block;
+        font-size:20px;
+        margin-bottom:2px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <a href="index.html" class="logo">CareerCraft</a>
+
+    <div class="search">
+        <span class="search-icon">🔎</span>
+        <input
+            id="globalSearch"
+            type="text"
+            placeholder="Search people, skills or professions..."
+        >
+    </div>
+
+    <div class="top-actions">
+        <a href="jobs.html">Jobs</a>
+        <a href="messages.html">Messages</a>
+        <a href="notifications.html">🔔</a>
+        <img
+            id="topAvatar"
+            class="avatar-small"
+            src=""
+            alt="Profile"
+            onclick="window.location.href='profile.html'"
+        >
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <button class="create-btn"
+            onclick="window.location.href='create.html'">
+            ＋ Create
+        </button>
+
+        <a href="dashboard.html">
+            🏠 Dashboard
+        </a>
+
+        <a href="profile.html">
+            👤 My Profile
+        </a>
+
+        <a href="network.html" class="active">
+            🤝 Network
+        </a>
+
+        <a href="job-finder.html">
+            💼 Jobs
+        </a>
+
+        <a href="applications.html">
+            📄 Applications
+        </a>
+
+        <a href="communities.html">
+            👥 Communities
+        </a>
+
+        <a href="messages.html">
+            💬 Messages
+        </a>
+
+        <a href="notifications.html">
+            🔔 Notifications
+        </a>
+
+    </aside>
+
+
+    <main class="main">
+
+        <div class="page-header">
+            <h1>My Network</h1>
+            <p>Discover professionals, build connections and grow your career.</p>
+        </div>
+
+        <div id="errorBox" class="error"></div>
+
+        <div class="filters">
+
+            <input
+                id="personSearch"
+                type="text"
+                placeholder="Search by name, skill or profession"
+            >
+
+            <select id="countryFilter">
+                <option value="">All countries</option>
+                <option value="United States">United States</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="Canada">Canada</option>
+                <option value="Australia">Australia</option>
+                <option value="Germany">Germany</option>
+                <option value="France">France</option>
+                <option value="India">India</option>
+                <option value="South Africa">South Africa</option>
+                <option value="Ireland">Ireland</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Singapore">Singapore</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="Japan">Japan</option>
+                <option value="Brazil">Brazil</option>
+            </select>
+
+            <button class="filter-btn" onclick="loadPeople()">
+                Search
+            </button>
+
+        </div>
+
+
+        <div id="peopleContainer">
+            <div class="loading">
+                Loading professionals...
+            </div>
+        </div>
+
+    </main>
+
+
+    <aside class="rightbar">
+
+        <h3>Your Network</h3>
+
+        <div class="stat">
+            <span>Connections</span>
+            <span id="connectionCount">0</span>
+        </div>
+
+        <div class="stat">
+            <span>Pending Requests</span>
+            <span id="pendingCount">0</span>
+        </div>
+
+        <div class="stat">
+            <span>People Found</span>
+            <span id="peopleCount">0</span>
+        </div>
+
+        <div class="info-box">
+            <strong>Grow your network</strong><br><br>
+            Connect with professionals who share your skills, interests and career goals.
+        </div>
+
+    </aside>
+
+</div>
+
+
+<nav class="mobile-nav">
+
+    <a href="dashboard.html">
+        <span>🏠</span>
+        Home
+    </a>
+
+    <a href="job-finder.html">
+        <span>💼</span>
+        Jobs
+    </a>
+
+    <a href="network.html" class="active">
+        <span>🤝</span>
+        Network
+    </a>
+
+    <a href="messages.html">
+        <span>💬</span>
+        Messages
+    </a>
+
+    <a href="profile.html">
+        <span>👤</span>
+        Profile
+    </a>
+
+</nav>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+let currentUser = null;
+let allPeople = [];
+
+
+/* -----------------------------
+   HELPERS
+----------------------------- */
+
+function showError(message){
+
+    const box =
+        document.getElementById("errorBox");
+
+    box.textContent = message;
+    box.style.display = "block";
+}
+
+
+function hideError(){
+
+    document.getElementById("errorBox")
+        .style.display = "none";
+}
+
+
+function getValue(row, names, fallback = ""){
+
+    for(const name of names){
+
+        if(
+            Object.prototype.hasOwnProperty.call(
+                row,
+                name
+            ) &&
+            row[name] !== null &&
+            row[name] !== undefined &&
+            String(row[name]).trim() !== ""
+        ){
+            return row[name];
+        }
+
+    }
+
+    return fallback;
+}
+
+
+function escapeHTML(value){
+
+    return String(value || "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+
+function validImage(url){
+
+    if(!url) return false;
+
+    try{
+        new URL(url);
+        return true;
+    }catch{
+        return false;
+    }
+}
+
+
+function avatarFor(row){
+
+    const avatar =
+        getValue(
+            row,
+            [
+                "avatar_url",
+                "avatar",
+                "profile_photo",
+                "photo_url"
+            ]
+        );
+
+    if(validImage(avatar)){
+        return avatar;
+    }
+
+    return "https://ui-avatars.com/api/?name=" +
+        encodeURIComponent(
+            getValue(
+                row,
+                [
+                    "FULL NAME",
+                    "full_name",
+                    "fullName",
+                    "name"
+                ],
+                "CareerCraft User"
+            )
+        );
+}
+
+
+function getName(row){
+
+    return getValue(
+        row,
+        [
+            "FULL NAME",
+            "full_name",
+            "fullName",
+            "name"
+        ],
+        "CareerCraft User"
+    );
+}
+
+
+function getCountry(row){
+
+    return getValue(
+        row,
+        [
+            "country",
+            "Country"
+        ],
+        ""
+    );
+}
+
+
+function getLocation(row){
+
+    const city =
+        getValue(
+            row,
+            [
+                "location",
+                "city"
+            ],
+            ""
+        );
+
+    const country = getCountry(row);
+
+    if(city && country){
+        return city + ", " + country;
+    }
+
+    return city || country || "Location not specified";
+}
+
+
+function getHeadline(row){
+
+    return getValue(
+        row,
+        [
+            "headline",
+            "professional_headline",
+            "professionalHeadline",
+            "job_title",
+            "profession"
+        ],
+        "Professional"
+    );
+}
+
+
+/* -----------------------------
+   LOAD USER
+----------------------------- */
+
+async function loadCurrentUser(){
+
+    const {
+        data: {
+            session
+        }
+    } =
+        await supabaseClient.auth.getSession();
+
+    if(!session){
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+    currentUser =
+        session.user;
+
+    return true;
+}
+
+
+/* -----------------------------
+   LOAD MY AVATAR
+----------------------------- */
+
+async function loadMyProfile(){
+
+    if(!currentUser) return;
+
+    const { data } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq("ID", currentUser.id)
+            .maybeSingle();
+
+    if(data){
+
+        document.getElementById("topAvatar")
+            .src = avatarFor(data);
+
+    }else{
+
+        document.getElementById("topAvatar")
+            .src =
+            "https://ui-avatars.com/api/?name=" +
+            encodeURIComponent(
+                currentUser.email || "User"
+            );
+    }
+}
+
+
+/* -----------------------------
+   LOAD PEOPLE
+----------------------------- */
+
+async function loadPeople(){
+
+    hideError();
+
+    const container =
+        document.getElementById(
+            "peopleContainer"
+        );
+
+    container.innerHTML =
+        `<div class="loading">
+            Searching professionals...
+        </div>`;
+
+    const search =
+        document.getElementById(
+            "personSearch"
+        ).value
+        .trim()
+        .toLowerCase();
+
+    const country =
+        document.getElementById(
+            "countryFilter"
+        ).value
+        .trim()
+        .toLowerCase();
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("profiles")
+                .select("*")
+                .limit(200);
+
+        if(error){
+            throw error;
+        }
+
+        allPeople =
+            (data || []).filter(
+                person =>
+                    person.ID !== currentUser.id
+            );
+
+
+        if(search){
+
+            allPeople =
+                allPeople.filter(person => {
+
+                    const text = [
+                        getName(person),
+                        getHeadline(person),
+                        getCountry(person),
+                        getLocation(person),
+                        getValue(
+                            person,
+                            [
+                                "skills",
+                                "Skills"
+                            ],
+                            ""
+                        ),
+                        getValue(
+                            person,
+                            [
+                                "about",
+                                "bio"
+                            ],
+                            ""
+                        )
+                    ]
+                    .join(" ")
+                    .toLowerCase();
+
+                    return text.includes(search);
+                });
+        }
+
+
+        if(country){
+
+            allPeople =
+                allPeople.filter(person => {
+
+                    return getCountry(person)
+                        .toLowerCase()
+                        .includes(country);
+
+                });
+        }
+
+
+        document.getElementById(
+            "peopleCount"
+        ).textContent =
+            allPeople.length;
+
+
+        renderPeople(allPeople);
+
+    }catch(error){
+
+        console.error(error);
+
+        container.innerHTML = "";
+
+        showError(
+            "We could not load profiles. Please check your Supabase profiles table and try again."
+        );
+    }
+}
+
+
+/* -----------------------------
+   RENDER PEOPLE
+----------------------------- */
+
+function renderPeople(people){
+
+    const container =
+        document.getElementById(
+            "peopleContainer"
+        );
+
+    if(!people.length){
+
+        container.innerHTML = `
+            <div class="empty">
+                <h3>No professionals found</h3>
+                <p style="margin-top:8px">
+                    Try another name, skill, profession or country.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML =
+        `<div class="people-grid">
+            ${
+                people.map(person => {
+
+                    const id =
+                        getValue(
+                            person,
+                            ["ID","id"],
+                            ""
+                        );
+
+                    const name =
+                        escapeHTML(
+                            getName(person)
+                        );
+
+                    const headline =
+                        escapeHTML(
+                            getHeadline(person)
+                        );
+
+                    const location =
+                        escapeHTML(
+                            getLocation(person)
+                        );
+
+                    const avatar =
+                        avatarFor(person);
+
+
+                    return `
+                        <article class="person-card">
+
+                            <div class="cover"></div>
+
+                            <div class="person-content">
+
+                                <img
+                                    class="person-avatar"
+                                    src="${escapeHTML(avatar)}"
+                                    alt="${name}"
+                                >
+
+                                <div class="person-name">
+                                    ${name}
+                                </div>
+
+                                <div class="person-headline">
+                                    ${headline}
+                                </div>
+
+                                <div class="person-location">
+                                    📍 ${location}
+                                </div>
+
+                                <div class="person-actions">
+
+                                    <button
+                                        class="connect"
+                                        onclick="sendConnectionRequest('${escapeHTML(id)}', this)"
+                                    >
+                                        Connect
+                                    </button>
+
+                                    <button
+                                        class="message"
+                                        onclick="openMessage('${escapeHTML(id)}')"
+                                    >
+                                        Message
+                                    </button>
+
+                                </div>
+
+                                <button
+                                    class="profile-btn"
+                                    onclick="viewProfile('${escapeHTML(id)}')"
+                                >
+                                    View Profile
+                                </button>
+
+                            </div>
+
+                        </article>
+                    `;
+
+                }).join("")
+            }
+        </div>`;
+}
+
+
+/* -----------------------------
+   VIEW PROFILE
+----------------------------- */
+
+function viewProfile(id){
+
+    if(!id) return;
+
+    window.location.href =
+        "profile.html?id=" +
+        encodeURIComponent(id);
+}
+
+
+/* -----------------------------
+   MESSAGE
+----------------------------- */
+
+function openMessage(id){
+
+    if(!id) return;
+
+    window.location.href =
+        "messages.html?user=" +
+        encodeURIComponent(id);
+}
+
+
+/* -----------------------------
+   CONNECTION REQUEST
+----------------------------- */
+
+async function sendConnectionRequest(
+    receiverId,
+    button
+){
+
+    if(!receiverId || !currentUser){
+        return;
+    }
+
+
+    button.disabled = true;
+    button.textContent = "Sending...";
+
+
+    try{
+
+        /*
+          This expects a Supabase table named:
+          connections
+
+          Recommended columns:
+
+          id
+          sender_id
+          receiver_id
+          status
+          created_at
+        */
+
+
+        const {
+            data: existing,
+            error: checkError
+        } =
+            await supabaseClient
+                .from("connections")
+                .select("id,status")
+                .or(
+                    `and(sender_id.eq.${currentUser.id},receiver_id.eq.${receiverId}),and(sender_id.eq.${receiverId},receiver_id.eq.${currentUser.id})`
+                )
+                .limit(1);
+
+
+        if(checkError){
+            throw checkError;
+        }
+
+
+        if(existing && existing.length){
+
+            const status =
+                existing[0].status;
+
+            if(status === "accepted"){
+
+                button.textContent =
+                    "Connected";
+
+            }else if(status === "pending"){
+
+                button.textContent =
+                    "Pending";
+
+            }else{
+
+                button.textContent =
+                    "Requested";
+            }
+
+            return;
+        }
+
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("connections")
+                .insert({
+                    sender_id: currentUser.id,
+                    receiver_id: receiverId,
+                    status: "pending"
+                });
+
+
+        if(error){
+            throw error;
+        }
+
+
+        button.textContent =
+            "Request Sent";
+
+        button.style.background =
+            "#16a34a";
+
+        document.getElementById(
+            "pendingCount"
+        ).textContent =
+            Number(
+                document.getElementById(
+                    "pendingCount"
+                ).textContent
+            ) + 1;
+
+
+    }catch(error){
+
+        console.error(error);
+
+        button.disabled = false;
+        button.textContent = "Connect";
+
+        alert(
+            "Connection request could not be sent. Make sure the connections table has been created in Supabase."
+        );
+    }
+}
+
+
+/* -----------------------------
+   LOAD CONNECTION STATS
+----------------------------- */
+
+async function loadConnectionStats(){
+
+    if(!currentUser) return;
+
+
+    try{
+
+        const {
+            count: sentCount
+        } =
+            await supabaseClient
+                .from("connections")
+                .select("*", {
+                    count:"exact",
+                    head:true
+                })
+                .or(
+                    `sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`
+                )
+                .eq(
+                    "status",
+                    "accepted"
+                );
+
+
+        document.getElementById(
+            "connectionCount"
+        ).textContent =
+            sentCount || 0;
+
+
+        const {
+            count: pendingCount
+        } =
+            await supabaseClient
+                .from("connections")
+                .select("*", {
+                    count:"exact",
+                    head:true
+                })
+                .eq(
+                    "receiver_id",
+                    currentUser.id
+                )
+                .eq(
+                    "status",
+                    "pending"
+                );
+
+
+        document.getElementById(
+            "pendingCount"
+        ).textContent =
+            pendingCount || 0;
+
+
+    }catch(error){
+
+        console.log(
+            "Connection statistics unavailable:",
+            error.message
+        );
+
+    }
+}
+
+
+/* -----------------------------
+   SEARCH ENTER KEY
+----------------------------- */
+
+document.getElementById(
+    "personSearch"
+).addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+            loadPeople();
+        }
+
+    }
+);
+
+
+document.getElementById(
+    "globalSearch"
+).addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            document.getElementById(
+                "personSearch"
+            ).value =
+                this.value;
+
+            loadPeople();
+        }
+
+    }
+);
+
+
+/* -----------------------------
+   START
+----------------------------- */
+
+(async function(){
+
+    const loggedIn =
+        await loadCurrentUser();
+
+    if(!loggedIn) return;
+
+    await loadMyProfile();
+
+    await loadPeople();
+
+    await loadConnectionStats();
+
+})();
+
+</script>
+
+</body>
+  </html>
