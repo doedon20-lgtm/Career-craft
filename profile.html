@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
 <title>CareerCraft — Profile</title>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -21,8 +23,6 @@
     --text:#111827;
     --muted:#6b7280;
     --border:#e5e7eb;
-    --sidebar:#ffffff;
-    --success:#16a34a;
 }
 
 body{
@@ -32,7 +32,21 @@ body{
     min-height:100vh;
 }
 
-/* LOADING */
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+
+/* =========================
+   LOADING
+========================= */
 
 .loading-screen{
     position:fixed;
@@ -56,10 +70,15 @@ body{
 }
 
 @keyframes spin{
-    to{transform:rotate(360deg);}
+    to{
+        transform:rotate(360deg);
+    }
 }
 
-/* SIDEBAR */
+
+/* =========================
+   SIDEBAR
+========================= */
 
 .sidebar{
     position:fixed;
@@ -67,7 +86,7 @@ body{
     top:0;
     bottom:0;
     width:245px;
-    background:var(--sidebar);
+    background:#fff;
     border-right:1px solid var(--border);
     padding:22px 15px;
     z-index:100;
@@ -106,19 +125,17 @@ body{
     gap:12px;
     font-size:14px;
     color:#4b5563;
-    cursor:pointer;
     text-align:left;
     transition:.2s;
 }
 
-.nav-item:hover{
+.nav-item:hover,
+.nav-item.active{
     background:#eff6ff;
     color:var(--primary);
 }
 
 .nav-item.active{
-    background:#eff6ff;
-    color:var(--primary);
     font-weight:700;
 }
 
@@ -128,14 +145,20 @@ body{
     font-size:18px;
 }
 
-/* MAIN */
+
+/* =========================
+   MAIN
+========================= */
 
 .main{
     margin-left:245px;
     min-height:100vh;
 }
 
-/* TOPBAR */
+
+/* =========================
+   TOPBAR
+========================= */
 
 .topbar{
     height:70px;
@@ -157,7 +180,6 @@ body{
     border-radius:50%;
     border:1px solid var(--border);
     background:#fff;
-    cursor:pointer;
     font-size:18px;
 }
 
@@ -165,7 +187,10 @@ body{
     background:#f3f4f6;
 }
 
-/* PAGE */
+
+/* =========================
+   PAGE
+========================= */
 
 .page{
     max-width:1150px;
@@ -173,7 +198,10 @@ body{
     padding:28px;
 }
 
-/* PROFILE HERO */
+
+/* =========================
+   PROFILE CARD
+========================= */
 
 .profile-card{
     background:#fff;
@@ -183,11 +211,23 @@ body{
     box-shadow:0 3px 15px rgba(0,0,0,.04);
 }
 
+
+/* =========================
+   COVER
+========================= */
+
 .banner{
     height:220px;
     background:
-        linear-gradient(135deg,#2563eb,#4f46e5,#7c3aed);
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5,
+            #7c3aed
+        );
     position:relative;
+    background-size:cover;
+    background-position:center;
 }
 
 .banner-pattern{
@@ -195,9 +235,21 @@ body{
     inset:0;
     opacity:.15;
     background-image:
-        radial-gradient(circle at 20% 30%,white 0 2px,transparent 3px),
-        radial-gradient(circle at 70% 60%,white 0 2px,transparent 3px),
-        radial-gradient(circle at 50% 15%,white 0 2px,transparent 3px);
+        radial-gradient(
+            circle at 20% 30%,
+            white 0 2px,
+            transparent 3px
+        ),
+        radial-gradient(
+            circle at 70% 60%,
+            white 0 2px,
+            transparent 3px
+        ),
+        radial-gradient(
+            circle at 50% 15%,
+            white 0 2px,
+            transparent 3px
+        );
     background-size:70px 70px;
 }
 
@@ -205,13 +257,18 @@ body{
     position:absolute;
     right:18px;
     top:18px;
-    background:rgba(255,255,255,.9);
+    background:rgba(255,255,255,.94);
     border:0;
     padding:9px 13px;
     border-radius:9px;
-    cursor:pointer;
     font-weight:600;
+    z-index:2;
 }
+
+
+/* =========================
+   PROFILE CONTENT
+========================= */
 
 .profile-content{
     padding:0 30px 28px;
@@ -236,6 +293,13 @@ body{
     font-size:46px;
     font-weight:800;
     color:var(--primary);
+    overflow:hidden;
+}
+
+.profile-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
 .avatar-edit{
@@ -248,7 +312,6 @@ body{
     border:3px solid white;
     background:var(--primary);
     color:white;
-    cursor:pointer;
 }
 
 .profile-main{
@@ -285,7 +348,6 @@ body{
     background:#fff;
     padding:11px 17px;
     border-radius:9px;
-    cursor:pointer;
     font-weight:700;
     transition:.2s;
 }
@@ -312,10 +374,6 @@ body{
     border-top:1px solid var(--border);
 }
 
-.stat{
-    cursor:pointer;
-}
-
 .stat strong{
     font-size:18px;
     display:block;
@@ -326,7 +384,10 @@ body{
     font-size:13px;
 }
 
-/* GRID */
+
+/* =========================
+   GRID
+========================= */
 
 .content-grid{
     display:grid;
@@ -360,8 +421,7 @@ body{
     border-radius:50%;
     border:1px solid var(--border);
     background:white;
-    font-size:20px;
-    cursor:pointer;
+    font-size:18px;
 }
 
 .about-text{
@@ -375,7 +435,10 @@ body{
     font-size:14px;
 }
 
-/* EXPERIENCE */
+
+/* =========================
+   EXPERIENCE
+========================= */
 
 .experience-item{
     display:flex;
@@ -415,7 +478,10 @@ body{
     margin-top:4px;
 }
 
-/* SKILLS */
+
+/* =========================
+   SKILLS
+========================= */
 
 .skills{
     display:flex;
@@ -433,7 +499,10 @@ body{
     font-weight:600;
 }
 
-/* EDUCATION */
+
+/* =========================
+   EDUCATION
+========================= */
 
 .education-item{
     padding:15px 0;
@@ -454,7 +523,10 @@ body{
     margin-top:4px;
 }
 
-/* PROJECT */
+
+/* =========================
+   PROJECTS
+========================= */
 
 .project{
     padding:15px 0;
@@ -476,7 +548,10 @@ body{
     font-size:14px;
 }
 
-/* RIGHT COLUMN */
+
+/* =========================
+   RIGHT COLUMN
+========================= */
 
 .contact-item{
     display:flex;
@@ -516,8 +591,9 @@ body{
 
 .profile-strength div{
     height:100%;
-    width:75%;
+    width:0%;
     background:var(--primary);
+    transition:.4s;
 }
 
 .complete-text{
@@ -525,17 +601,15 @@ body{
     color:#6b7280;
 }
 
-/* ACTIVITY */
+
+/* =========================
+   ACTIVITY
+========================= */
 
 .activity{
     display:flex;
     gap:13px;
     padding:14px 0;
-    border-bottom:1px solid var(--border);
-}
-
-.activity:last-child{
-    border-bottom:0;
 }
 
 .activity-avatar{
@@ -548,6 +622,7 @@ body{
     justify-content:center;
     font-weight:700;
     color:var(--primary);
+    flex-shrink:0;
 }
 
 .activity p{
@@ -556,7 +631,10 @@ body{
     line-height:1.5;
 }
 
-/* MODAL */
+
+/* =========================
+   MODAL
+========================= */
 
 .modal{
     display:none;
@@ -596,7 +674,6 @@ body{
     border:0;
     border-radius:50%;
     background:#f3f4f6;
-    cursor:pointer;
     font-size:18px;
 }
 
@@ -612,24 +689,32 @@ body{
 }
 
 .form-group input,
-.form-group textarea{
+.form-group textarea,
+.form-group select{
     width:100%;
     border:1px solid var(--border);
     border-radius:9px;
     padding:12px;
     font-size:14px;
     outline:none;
-    font-family:inherit;
+    background:#fff;
 }
 
 .form-group input:focus,
-.form-group textarea:focus{
+.form-group textarea:focus,
+.form-group select:focus{
     border-color:var(--primary);
 }
 
 .form-group textarea{
     min-height:100px;
     resize:vertical;
+}
+
+.form-help{
+    font-size:11px;
+    color:#9ca3af;
+    margin-top:5px;
 }
 
 .form-actions{
@@ -639,13 +724,19 @@ body{
     margin-top:20px;
 }
 
-/* MOBILE NAV */
+
+/* =========================
+   MOBILE NAV
+========================= */
 
 .mobile-nav{
     display:none;
 }
 
-/* RESPONSIVE */
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:900px){
 
@@ -737,7 +828,6 @@ body{
         gap:3px;
         color:#6b7280;
         font-size:10px;
-        cursor:pointer;
     }
 
     .mobile-nav button span{
@@ -753,18 +843,28 @@ body{
         color:#fff;
         box-shadow:0 5px 15px rgba(37,99,235,.35);
     }
+
 }
+
 </style>
 </head>
 
+
 <body>
+
 
 <!-- LOADING -->
 
 <div class="loading-screen" id="loadingScreen">
+
     <div class="loader"></div>
-    <strong>Loading your profile...</strong>
+
+    <strong>
+        Loading your profile...
+    </strong>
+
 </div>
+
 
 <!-- SIDEBAR -->
 
@@ -774,107 +874,173 @@ body{
         Career<span>Craft</span>
     </div>
 
-    <div class="nav-title">Main</div>
+    <div class="nav-title">
+        Main
+    </div>
 
-    <button class="nav-item" onclick="go('index.html')">
+    <button class="nav-item"
+            onclick="go('index.html')">
+
         <span class="nav-icon">⌂</span>
         Home
+
     </button>
 
-    <button class="nav-item" onclick="go('job-finder.html')">
+    <button class="nav-item"
+            onclick="go('job-finder.html')">
+
         <span class="nav-icon">💼</span>
         Jobs
+
     </button>
 
-    <button class="nav-item" onclick="go('network.html')">
+    <button class="nav-item"
+            onclick="go('network.html')">
+
         <span class="nav-icon">👥</span>
         Network
+
     </button>
 
-    <button class="nav-item" onclick="go('communities.html')">
+    <button class="nav-item"
+            onclick="go('communities.html')">
+
         <span class="nav-icon">🌐</span>
         Communities
+
     </button>
 
-    <button class="nav-item" onclick="go('messages.html')">
+    <button class="nav-item"
+            onclick="go('messages.html')">
+
         <span class="nav-icon">💬</span>
         Messages
+
     </button>
 
-    <div class="nav-title">Create</div>
 
-    <button class="nav-item" onclick="go('create.html')">
+    <div class="nav-title">
+        Create
+    </div>
+
+    <button class="nav-item"
+            onclick="go('create.html')">
+
         <span class="nav-icon">＋</span>
         Creation Studio
+
     </button>
 
-    <button class="nav-item" onclick="go('cv-builder.html')">
+    <button class="nav-item"
+            onclick="go('cv-builder.html')">
+
         <span class="nav-icon">📄</span>
         CV Builder
+
     </button>
 
-    <button class="nav-item" onclick="go('templates.html')">
+    <button class="nav-item"
+            onclick="go('templates.html')">
+
         <span class="nav-icon">▦</span>
         Templates
+
     </button>
 
-    <div class="nav-title">Career</div>
 
-    <button class="nav-item" onclick="go('saved-jobs.html')">
+    <div class="nav-title">
+        Career
+    </div>
+
+    <button class="nav-item"
+            onclick="go('saved-jobs.html')">
+
         <span class="nav-icon">🔖</span>
         Saved Jobs
+
     </button>
 
-    <button class="nav-item" onclick="go('applications.html')">
+    <button class="nav-item"
+            onclick="go('applications.html')">
+
         <span class="nav-icon">📋</span>
         Applications
+
     </button>
 
 </aside>
+
 
 <!-- MAIN -->
 
 <main class="main">
 
+
     <header class="topbar">
 
-        <button class="top-icon" onclick="go('notifications.html')">
+        <button class="top-icon"
+                onclick="go('notifications.html')">
             🔔
         </button>
 
-        <button class="top-icon" onclick="go('profile.html')">
+        <button class="top-icon"
+                onclick="go('profile.html')">
             👤
         </button>
 
     </header>
 
+
     <div class="page">
+
 
         <!-- PROFILE CARD -->
 
         <section class="profile-card">
 
-            <div class="banner">
+
+            <!-- COVER -->
+
+            <div class="banner"
+                 id="profileBanner">
+
                 <div class="banner-pattern"></div>
 
-                <button class="banner-edit" onclick="editProfile()">
-                    ✏️ Edit
+                <button class="banner-edit"
+                        onclick="editProfile()">
+
+                    ✏️ Edit Cover
+
                 </button>
+
             </div>
+
 
             <div class="profile-content">
 
+
+                <!-- AVATAR -->
+
                 <div class="profile-avatar-wrap">
 
-                    <div class="profile-avatar" id="avatar">
+                    <div class="profile-avatar"
+                         id="avatar">
+
                         CC
+
                     </div>
 
-                    <button class="avatar-edit" onclick="editProfile()">
+                    <button class="avatar-edit"
+                            onclick="editProfile()">
+
                         ✏️
+
                     </button>
 
                 </div>
+
+
+                <!-- PROFILE INFO -->
 
                 <div class="profile-main">
 
@@ -884,47 +1050,80 @@ body{
                             CareerCraft User
                         </h1>
 
-                        <div class="headline" id="profileHeadline">
-                            Professional • Career Builder
+                        <div class="headline"
+                             id="profileHeadline">
+                            Add your professional headline
                         </div>
 
-                        <div class="location" id="profileLocation">
-                            📍 Nigeria
+                        <div class="location"
+                             id="profileLocation">
+                            📍 Add your location
                         </div>
 
                     </div>
+
 
                     <div class="profile-actions">
 
                         <button class="btn btn-primary"
                                 onclick="editProfile()">
+
                             ✏️ Edit Profile
+
                         </button>
 
                         <button class="btn"
                                 onclick="go('create.html')">
+
                             ＋ Create
+
                         </button>
 
                     </div>
 
                 </div>
 
+
+                <!-- STATS -->
+
                 <div class="profile-stats">
 
                     <div class="stat">
-                        <strong id="connectionsCount">0</strong>
-                        <span>Connections</span>
+
+                        <strong id="connectionsCount">
+                            0
+                        </strong>
+
+                        <span>
+                            Connections
+                        </span>
+
                     </div>
 
-                    <div class="stat">
-                        <strong id="followersCount">0</strong>
-                        <span>Followers</span>
-                    </div>
 
                     <div class="stat">
-                        <strong id="followingCount">0</strong>
-                        <span>Following</span>
+
+                        <strong id="followersCount">
+                            0
+                        </strong>
+
+                        <span>
+                            Followers
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <strong id="followingCount">
+                            0
+                        </strong>
+
+                        <span>
+                            Following
+                        </span>
+
                     </div>
 
                 </div>
@@ -933,13 +1132,16 @@ body{
 
         </section>
 
+
         <!-- CONTENT -->
 
         <div class="content-grid">
 
-            <!-- LEFT -->
+
+            <!-- LEFT COLUMN -->
 
             <div>
+
 
                 <!-- ABOUT -->
 
@@ -947,7 +1149,9 @@ body{
 
                     <div class="section-header">
 
-                        <h2>About</h2>
+                        <h2>
+                            About
+                        </h2>
 
                         <button class="add-btn"
                                 onclick="editProfile()">
@@ -956,13 +1160,16 @@ body{
 
                     </div>
 
-                    <p class="about-text" id="aboutText">
-                        Welcome to my CareerCraft profile. I am building my
-                        professional journey and connecting with people,
-                        opportunities and communities.
+                    <p class="about-text"
+                       id="aboutText">
+
+                        Tell people about yourself,
+                        your career and your goals.
+
                     </p>
 
                 </section>
+
 
                 <!-- EXPERIENCE -->
 
@@ -970,10 +1177,12 @@ body{
 
                     <div class="section-header">
 
-                        <h2>Experience</h2>
+                        <h2>
+                            Experience
+                        </h2>
 
                         <button class="add-btn"
-                                onclick="showMessage('Experience editing will be added to your profile editor.')">
+                                onclick="showInfo('Experience')">
                             ＋
                         </button>
 
@@ -989,16 +1198,19 @@ body{
 
                 </section>
 
+
                 <!-- EDUCATION -->
 
                 <section class="section">
 
                     <div class="section-header">
 
-                        <h2>Education</h2>
+                        <h2>
+                            Education
+                        </h2>
 
                         <button class="add-btn"
-                                onclick="showMessage('Education editing will be added to your profile editor.')">
+                                onclick="showInfo('Education')">
                             ＋
                         </button>
 
@@ -1023,38 +1235,36 @@ body{
 
                 </section>
 
+
                 <!-- SKILLS -->
 
                 <section class="section">
 
                     <div class="section-header">
 
-                        <h2>Skills</h2>
+                        <h2>
+                            Skills
+                        </h2>
 
                         <button class="add-btn"
-                                onclick="showMessage('Add skills from Edit Profile.')">
+                                onclick="showInfo('Skills')">
                             ＋
                         </button>
 
                     </div>
 
-                    <div class="skills" id="skillsList">
+                    <div class="skills"
+                         id="skillsList">
 
-                        <span class="skill">
-                            Communication
-                        </span>
-
-                        <span class="skill">
-                            Microsoft Office
-                        </span>
-
-                        <span class="skill">
-                            Computer Skills
+                        <span class="empty">
+                            Add your professional skills
+                            from Edit Profile.
                         </span>
 
                     </div>
 
                 </section>
+
 
                 <!-- PROJECTS -->
 
@@ -1062,10 +1272,12 @@ body{
 
                     <div class="section-header">
 
-                        <h2>Projects</h2>
+                        <h2>
+                            Projects
+                        </h2>
 
                         <button class="add-btn"
-                                onclick="showMessage('Projects can be added from your profile editor.')">
+                                onclick="showInfo('Projects')">
                             ＋
                         </button>
 
@@ -1081,27 +1293,33 @@ body{
 
                 </section>
 
+
                 <!-- ACTIVITY -->
 
                 <section class="section">
 
                     <div class="section-header">
 
-                        <h2>Activity</h2>
+                        <h2>
+                            Activity
+                        </h2>
 
                     </div>
 
                     <div class="activity">
 
-                        <div class="activity-avatar" id="activityAvatar">
+                        <div class="activity-avatar"
+                             id="activityAvatar">
+
                             CC
+
                         </div>
 
                         <div>
 
                             <p>
-                                Your CareerCraft activity will appear here
-                                when you create posts, projects,
+                                Your CareerCraft activity will appear
+                                here when you create posts, projects,
                                 documents or interact with the community.
                             </p>
 
@@ -1113,9 +1331,11 @@ body{
 
             </div>
 
-            <!-- RIGHT -->
+
+            <!-- RIGHT COLUMN -->
 
             <div>
+
 
                 <!-- PROFILE STRENGTH -->
 
@@ -1123,20 +1343,28 @@ body{
 
                     <div class="section-header">
 
-                        <h2>Profile strength</h2>
+                        <h2>
+                            Profile strength
+                        </h2>
 
                     </div>
 
                     <div class="profile-strength">
-                        <div></div>
+
+                        <div id="strengthBar"></div>
+
                     </div>
 
-                    <p class="complete-text">
-                        Your profile is on its way. Add more information
-                        to make your professional profile stronger.
+                    <p class="complete-text"
+                       id="strengthText">
+
+                        Complete your profile to make
+                        it stronger.
+
                     </p>
 
                 </section>
+
 
                 <!-- CONTACT -->
 
@@ -1144,9 +1372,12 @@ body{
 
                     <div class="section-header">
 
-                        <h2>Contact</h2>
+                        <h2>
+                            Contact
+                        </h2>
 
                     </div>
+
 
                     <div class="contact-item">
 
@@ -1156,7 +1387,9 @@ body{
 
                         <div>
 
-                            <small>Email</small>
+                            <small>
+                                Email
+                            </small>
 
                             <span id="profileEmail">
                                 Loading...
@@ -1166,6 +1399,28 @@ body{
 
                     </div>
 
+
+                    <div class="contact-item">
+
+                        <div class="contact-icon">
+                            🌍
+                        </div>
+
+                        <div>
+
+                            <small>
+                                Country
+                            </small>
+
+                            <span id="contactCountry">
+                                Not specified
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
                     <div class="contact-item">
 
                         <div class="contact-icon">
@@ -1174,28 +1429,12 @@ body{
 
                         <div>
 
-                            <small>Location</small>
+                            <small>
+                                Location
+                            </small>
 
                             <span id="contactLocation">
-                                Nigeria
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                    <div class="contact-item">
-
-                        <div class="contact-icon">
-                            🔗
-                        </div>
-
-                        <div>
-
-                            <small>Profile</small>
-
-                            <span>
-                                CareerCraft
+                                Not specified
                             </span>
 
                         </div>
@@ -1204,32 +1443,44 @@ body{
 
                 </section>
 
+
                 <!-- CAREER TOOLS -->
 
                 <section class="section">
 
                     <div class="section-header">
 
-                        <h2>Career Tools</h2>
+                        <h2>
+                            Career Tools
+                        </h2>
 
                     </div>
+
 
                     <button class="btn"
                             style="width:100%;margin-bottom:10px"
                             onclick="go('cv-builder.html')">
+
                         📄 Build a CV
+
                     </button>
+
 
                     <button class="btn"
                             style="width:100%;margin-bottom:10px"
                             onclick="go('cover-letter.html')">
+
                         ✉️ Create Cover Letter
+
                     </button>
+
 
                     <button class="btn"
                             style="width:100%"
                             onclick="go('job-finder.html')">
+
                         💼 Find Jobs
+
                     </button>
 
                 </section>
@@ -1242,116 +1493,257 @@ body{
 
 </main>
 
+
 <!-- MOBILE NAV -->
 
 <nav class="mobile-nav">
 
     <button onclick="go('index.html')">
+
         <span>⌂</span>
         Home
+
     </button>
 
+
     <button onclick="go('job-finder.html')">
+
         <span>💼</span>
         Jobs
+
     </button>
+
 
     <button class="create-button"
             onclick="go('create.html')">
+
         <span>＋</span>
         Create
+
     </button>
+
 
     <button onclick="go('network.html')">
+
         <span>👥</span>
         Network
+
     </button>
 
+
     <button onclick="go('messages.html')">
+
         <span>💬</span>
         Messages
+
     </button>
 
 </nav>
 
+
 <!-- EDIT PROFILE MODAL -->
 
-<div class="modal" id="editModal">
+<div class="modal"
+     id="editModal">
+
 
     <div class="modal-box">
 
+
         <div class="modal-header">
 
-            <h2>Edit Profile</h2>
+            <h2>
+                Edit Profile
+            </h2>
 
             <button class="close"
                     onclick="closeEdit()">
+
                 ×
+
             </button>
 
         </div>
 
+
         <form id="profileForm">
+
+
+            <!-- NAME -->
 
             <div class="form-group">
 
-                <label>Full Name</label>
+                <label>
+                    Full Name
+                </label>
 
                 <input
                     type="text"
                     id="editName"
                     placeholder="Your full name"
-                    required
-                >
+                    required>
 
             </div>
 
+
+            <!-- HEADLINE -->
+
             <div class="form-group">
 
-                <label>Professional Headline</label>
+                <label>
+                    Professional Headline
+                </label>
 
                 <input
                     type="text"
                     id="editHeadline"
-                    placeholder="Example: Software Engineer | Designer | Student"
-                >
+                    placeholder="Software Engineer | Designer | Student">
 
             </div>
 
+
+            <!-- COUNTRY -->
+
             <div class="form-group">
 
-                <label>Location</label>
+                <label>
+                    Country
+                </label>
+
+                <select id="editCountry">
+
+                    <option value="">
+                        Select your country
+                    </option>
+
+                    <option>United States</option>
+                    <option>United Kingdom</option>
+                    <option>Nigeria</option>
+                    <option>Canada</option>
+                    <option>Australia</option>
+                    <option>Germany</option>
+                    <option>France</option>
+                    <option>India</option>
+                    <option>South Africa</option>
+                    <option>Ireland</option>
+                    <option>Netherlands</option>
+                    <option>Singapore</option>
+                    <option>New Zealand</option>
+                    <option>Japan</option>
+                    <option>China</option>
+                    <option>South Korea</option>
+                    <option>Brazil</option>
+                    <option>Mexico</option>
+                    <option>Spain</option>
+                    <option>Italy</option>
+                    <option>Portugal</option>
+                    <option>Switzerland</option>
+                    <option>Sweden</option>
+                    <option>Norway</option>
+                    <option>Denmark</option>
+                    <option>Finland</option>
+                    <option>Poland</option>
+                    <option>Belgium</option>
+                    <option>Austria</option>
+                    <option>Ghana</option>
+                    <option>Kenya</option>
+                    <option>Egypt</option>
+                    <option>United Arab Emirates</option>
+                    <option>Saudi Arabia</option>
+                    <option>Israel</option>
+                    <option>Turkey</option>
+                    <option>Pakistan</option>
+                    <option>Bangladesh</option>
+                    <option>Philippines</option>
+                    <option>Malaysia</option>
+                    <option>Indonesia</option>
+                    <option>Thailand</option>
+                    <option>Vietnam</option>
+                    <option>Ukraine</option>
+                    <option>Romania</option>
+                    <option>Greece</option>
+                    <option>Hungary</option>
+                    <option>Argentina</option>
+                    <option>Chile</option>
+                    <option>Colombia</option>
+                    <option>Peru</option>
+                    <option>Morocco</option>
+
+                </select>
+
+                <div class="form-help">
+                    This is the country displayed on your public profile.
+                </div>
+
+            </div>
+
+
+            <!-- CITY -->
+
+            <div class="form-group">
+
+                <label>
+                    City / Location
+                </label>
 
                 <input
                     type="text"
                     id="editLocation"
-                    placeholder="City, Country"
-                >
+                    placeholder="Example: London, Abuja, New York">
 
             </div>
 
+
+            <!-- ABOUT -->
+
             <div class="form-group">
 
-                <label>About</label>
+                <label>
+                    About
+                </label>
 
                 <textarea
                     id="editAbout"
-                    placeholder="Tell people about yourself, your career and your goals."
-                ></textarea>
+                    placeholder="Tell people about yourself, your career and your goals."></textarea>
 
             </div>
 
+
+            <!-- PROFILE PHOTO -->
+
             <div class="form-group">
 
-                <label>Profile Photo URL</label>
+                <label>
+                    Profile Photo URL
+                </label>
 
                 <input
                     type="url"
                     id="editAvatar"
-                    placeholder="https://..."
-                >
+                    placeholder="https://...">
 
             </div>
+
+
+            <!-- COVER -->
+
+            <div class="form-group">
+
+                <label>
+                    Cover Photo URL
+                </label>
+
+                <input
+                    type="url"
+                    id="editCover"
+                    placeholder="https://...">
+
+                <div class="form-help">
+                    Paste a public image URL for your profile cover.
+                </div>
+
+            </div>
+
 
             <div class="form-actions">
 
@@ -1359,13 +1751,19 @@ body{
                     type="button"
                     class="btn"
                     onclick="closeEdit()">
+
                     Cancel
+
                 </button>
+
 
                 <button
                     type="submit"
-                    class="btn btn-primary">
+                    class="btn btn-primary"
+                    id="saveButton">
+
                     Save Profile
+
                 </button>
 
             </div>
@@ -1376,11 +1774,18 @@ body{
 
 </div>
 
+
+<!-- SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
-/* SUPABASE */
+
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
     "https://upcxmlbgmqhaqieldmyk.supabase.co";
@@ -1399,7 +1804,9 @@ let currentUser = null;
 let currentProfile = null;
 
 
-/* NAVIGATION */
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 function go(page){
 
@@ -1408,23 +1815,27 @@ function go(page){
 }
 
 
-/* INITIALIZE */
+/* =========================================================
+   INITIALIZE
+========================================================= */
 
 async function init(){
 
     try{
 
         const {
-            data:{
-                session
-            },
+            data,
             error
         } =
         await supabaseClient.auth.getSession();
 
+
         if(error){
 
-            console.error(error);
+            console.error(
+                "Session error:",
+                error
+            );
 
             window.location.href =
                 "login.html";
@@ -1433,7 +1844,8 @@ async function init(){
 
         }
 
-        if(!session){
+
+        if(!data.session){
 
             window.location.href =
                 "login.html";
@@ -1441,15 +1853,21 @@ async function init(){
             return;
 
         }
+
 
         currentUser =
-            session.user;
+            data.session.user;
 
-        document.getElementById("profileEmail")
-            .textContent =
-            currentUser.email || "Not provided";
+
+        document.getElementById(
+            "profileEmail"
+        ).textContent =
+            currentUser.email ||
+            "Not provided";
+
 
         await loadProfile();
+
 
     }catch(error){
 
@@ -1458,95 +1876,168 @@ async function init(){
             error
         );
 
+        alert(
+            "Unable to load your profile."
+        );
+
     }finally{
 
         document.getElementById(
             "loadingScreen"
-        ).style.display = "none";
+        ).style.display =
+            "none";
 
     }
 
 }
 
 
-/* LOAD PROFILE */
+/* =========================================================
+   LOAD PROFILE
+========================================================= */
 
 async function loadProfile(){
 
     try{
 
-        let result =
+        /*
+         * Your existing table uses ID.
+         * We deliberately use the logged-in user's
+         * authentication ID so profiles don't mix.
+         */
+
+        const result =
             await supabaseClient
                 .from("profiles")
                 .select("*")
                 .eq("ID", currentUser.id)
                 .maybeSingle();
 
+
         if(result.error){
 
-            console.log(
-                "Could not load profile:",
+            console.error(
+                "Profile database error:",
                 result.error
             );
 
-            return;
-
-        }
-
-        currentProfile =
-            result.data;
-
-        if(!currentProfile){
-
-            console.log(
-                "No profile row found."
+            /*
+             * Don't put a fake country here.
+             */
+            updateProfileDisplay(
+                getUserName(),
+                "",
+                "",
+                "",
+                "",
+                ""
             );
 
-            setDefaultProfile();
-
             return;
 
         }
 
+
+        currentProfile =
+            result.data || {};
+
+
         const name =
-            currentProfile["FULL NAME"] ||
-            currentProfile.full_name ||
-            currentProfile.fullName ||
-            currentProfile.name ||
-            currentUser.user_metadata?.full_name ||
-            currentUser.user_metadata?.name ||
-            "CareerCraft User";
+            getProfileValue(
+                [
+                    "FULL NAME",
+                    "full_name",
+                    "fullName",
+                    "name"
+                ]
+            ) ||
+            getUserName();
+
 
         const headline =
-            currentProfile.headline ||
-            currentProfile.professional_headline ||
-            "Professional • Career Builder";
+            getProfileValue(
+                [
+                    "headline",
+                    "professional_headline",
+                    "professionalHeadline"
+                ]
+            ) || "";
+
+
+        const country =
+            getProfileValue(
+                [
+                    "country",
+                    "Country"
+                ]
+            ) || "";
+
 
         const location =
-            currentProfile.location ||
-            currentProfile.city ||
-            "Nigeria";
+            getProfileValue(
+                [
+                    "location",
+                    "city",
+                    "Location"
+                ]
+            ) || "";
+
 
         const about =
-            currentProfile.about ||
-            currentProfile.bio ||
-            "Welcome to my CareerCraft profile. I am building my professional journey and connecting with people, opportunities and communities.";
+            getProfileValue(
+                [
+                    "about",
+                    "bio"
+                ]
+            ) || "";
+
 
         const avatar =
-            currentProfile.avatar_url ||
-            currentProfile.avatar ||
-            currentProfile.profile_photo ||
-            currentProfile.photo_url ||
+            getProfileValue(
+                [
+                    "avatar_url",
+                    "avatar",
+                    "profile_photo",
+                    "photo_url"
+                ]
+            ) ||
             currentUser.user_metadata?.avatar_url ||
             "";
+
+
+        const cover =
+            getProfileValue(
+                [
+                    "cover_url",
+                    "cover_photo",
+                    "cover_image",
+                    "banner_url",
+                    "banner_image"
+                ]
+            ) || "";
+
 
         updateProfileDisplay(
             name,
             headline,
+            country,
             location,
             about,
-            avatar
+            avatar,
+            cover
         );
+
+
+        updateProfileStrength(
+            name,
+            headline,
+            country,
+            location,
+            about,
+            avatar,
+            cover
+        );
+
 
     }catch(error){
 
@@ -1560,74 +2051,175 @@ async function loadProfile(){
 }
 
 
-/* DEFAULT PROFILE */
+/* =========================================================
+   GET USER NAME
+========================================================= */
 
-function setDefaultProfile(){
+function getUserName(){
 
-    const name =
-        currentUser.user_metadata?.full_name ||
-        currentUser.user_metadata?.name ||
-        "CareerCraft User";
-
-    updateProfileDisplay(
-        name,
-        "Professional • Career Builder",
-        "Nigeria",
-        "Welcome to my CareerCraft profile. I am building my professional journey and connecting with people, opportunities and communities.",
-        ""
+    return (
+        currentUser?.user_metadata?.full_name ||
+        currentUser?.user_metadata?.name ||
+        currentUser?.email?.split("@")[0] ||
+        "CareerCraft User"
     );
 
 }
 
 
-/* UPDATE DISPLAY */
+/* =========================================================
+   GET PROFILE VALUE
+========================================================= */
+
+function getProfileValue(
+    possibleKeys
+){
+
+    if(!currentProfile)
+        return "";
+
+
+    for(
+        const key of possibleKeys
+    ){
+
+        if(
+            Object.prototype.hasOwnProperty.call(
+                currentProfile,
+                key
+            )
+        ){
+
+            const value =
+                currentProfile[key];
+
+
+            if(
+                value !== null &&
+                value !== undefined &&
+                String(value).trim() !== ""
+            ){
+
+                return String(value).trim();
+
+            }
+
+        }
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =========================================================
+   UPDATE DISPLAY
+========================================================= */
 
 function updateProfileDisplay(
     name,
     headline,
+    country,
     location,
     about,
-    avatar
+    avatar,
+    cover
 ){
 
     document.getElementById(
         "profileName"
-    ).textContent = name;
+    ).textContent =
+        name ||
+        "CareerCraft User";
+
 
     document.getElementById(
         "profileHeadline"
-    ).textContent = headline;
+    ).textContent =
+        headline ||
+        "Add your professional headline";
+
+
+    /*
+     * No country is inserted automatically.
+     */
+
+    let locationDisplay = "";
+
+
+    if(location && country){
+
+        locationDisplay =
+            `${location}, ${country}`;
+
+    }else if(location){
+
+        locationDisplay =
+            location;
+
+    }else if(country){
+
+        locationDisplay =
+            country;
+
+    }
+
 
     document.getElementById(
         "profileLocation"
     ).textContent =
-        "📍 " + location;
+        locationDisplay
+            ? "📍 " + locationDisplay
+            : "📍 Add your location";
+
+
+    document.getElementById(
+        "contactCountry"
+    ).textContent =
+        country ||
+        "Not specified";
+
 
     document.getElementById(
         "contactLocation"
     ).textContent =
-        location;
+        location ||
+        "Not specified";
+
 
     document.getElementById(
         "aboutText"
-    ).textContent = about;
+    ).textContent =
+        about ||
+        "Tell people about yourself, your career and your goals.";
+
+
+    /*
+     * Avatar
+     */
 
     const initials =
         getInitials(name);
 
-    const avatarElement =
-        document.getElementById("avatar");
 
-    const activityAvatar =
-        document.getElementById("activityAvatar");
+    const avatarElement =
+        document.getElementById(
+            "avatar"
+        );
+
 
     if(avatar){
 
         avatarElement.innerHTML =
-            `<img src="${escapeAttribute(avatar)}"
-                  alt="Profile photo"
-                  style="width:100%;height:100%;object-fit:cover;border-radius:50%;"
-                  onerror="this.style.display='none';this.parentElement.textContent='${initials}';">`;
+            `
+            <img
+                src="${escapeAttribute(avatar)}"
+                alt="Profile photo"
+                onerror="this.parentElement.innerHTML='${escapeAttribute(initials)}';"
+            >
+            `;
 
     }else{
 
@@ -1636,101 +2228,192 @@ function updateProfileDisplay(
 
     }
 
-    activityAvatar.textContent =
+
+    document.getElementById(
+        "activityAvatar"
+    ).textContent =
         initials;
+
+
+    /*
+     * Cover
+     */
+
+    const banner =
+        document.getElementById(
+            "profileBanner"
+        );
+
+
+    if(cover){
+
+        banner.style.backgroundImage =
+            `url("${escapeCssUrl(cover)}")`;
+
+        banner.querySelector(
+            ".banner-pattern"
+        ).style.display =
+            "none";
+
+    }else{
+
+        banner.style.backgroundImage =
+            "linear-gradient(135deg,#2563eb,#4f46e5,#7c3aed)";
+
+        banner.querySelector(
+            ".banner-pattern"
+        ).style.display =
+            "block";
+
+    }
 
 }
 
 
-/* INITIALS */
+/* =========================================================
+   INITIALS
+========================================================= */
 
 function getInitials(name){
 
     if(!name)
         return "CC";
 
-    return name
-        .trim()
-        .split(/\s+/)
-        .slice(0,2)
-        .map(word =>
-            word.charAt(0).toUpperCase()
-        )
-        .join("");
+
+    const words =
+        name
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean);
+
+
+    if(words.length === 1){
+
+        return words[0]
+            .substring(0,2)
+            .toUpperCase();
+
+    }
+
+
+    return (
+        words[0].charAt(0) +
+        words[1].charAt(0)
+    ).toUpperCase();
 
 }
 
 
-/* ESCAPE ATTRIBUTE */
-
-function escapeAttribute(value){
-
-    return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/"/g,"&quot;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;");
-
-}
-
-
-/* EDIT PROFILE */
+/* =========================================================
+   EDIT PROFILE
+========================================================= */
 
 function editProfile(){
 
     if(!currentUser)
         return;
 
+
     const name =
-        currentProfile?.["FULL NAME"] ||
-        currentProfile?.full_name ||
-        currentProfile?.fullName ||
-        currentProfile?.name ||
-        currentUser.user_metadata?.full_name ||
-        currentUser.user_metadata?.name ||
-        "CareerCraft User";
+        getProfileValue([
+            "FULL NAME",
+            "full_name",
+            "fullName",
+            "name"
+        ]) ||
+        getUserName();
+
 
     const headline =
-        currentProfile?.headline ||
-        currentProfile?.professional_headline ||
-        "";
+        getProfileValue([
+            "headline",
+            "professional_headline",
+            "professionalHeadline"
+        ]);
+
+
+    const country =
+        getProfileValue([
+            "country",
+            "Country"
+        ]);
+
 
     const location =
-        currentProfile?.location ||
-        currentProfile?.city ||
-        "Nigeria";
+        getProfileValue([
+            "location",
+            "city",
+            "Location"
+        ]);
+
 
     const about =
-        currentProfile?.about ||
-        currentProfile?.bio ||
-        "";
+        getProfileValue([
+            "about",
+            "bio"
+        ]);
+
 
     const avatar =
-        currentProfile?.avatar_url ||
-        currentProfile?.avatar ||
-        currentProfile?.profile_photo ||
-        currentProfile?.photo_url ||
-        "";
+        getProfileValue([
+            "avatar_url",
+            "avatar",
+            "profile_photo",
+            "photo_url"
+        ]);
+
+
+    const cover =
+        getProfileValue([
+            "cover_url",
+            "cover_photo",
+            "cover_image",
+            "banner_url",
+            "banner_image"
+        ]);
+
 
     document.getElementById(
         "editName"
-    ).value = name;
+    ).value =
+        name;
+
 
     document.getElementById(
         "editHeadline"
-    ).value = headline;
+    ).value =
+        headline;
+
+
+    document.getElementById(
+        "editCountry"
+    ).value =
+        country;
+
 
     document.getElementById(
         "editLocation"
-    ).value = location;
+    ).value =
+        location;
+
 
     document.getElementById(
         "editAbout"
-    ).value = about;
+    ).value =
+        about;
+
 
     document.getElementById(
         "editAvatar"
-    ).value = avatar;
+    ).value =
+        avatar;
+
+
+    document.getElementById(
+        "editCover"
+    ).value =
+        cover;
+
 
     document.getElementById(
         "editModal"
@@ -1739,7 +2422,9 @@ function editProfile(){
 }
 
 
-/* CLOSE EDIT */
+/* =========================================================
+   CLOSE EDIT
+========================================================= */
 
 function closeEdit(){
 
@@ -1750,7 +2435,9 @@ function closeEdit(){
 }
 
 
-/* SAVE PROFILE */
+/* =========================================================
+   SAVE PROFILE
+========================================================= */
 
 document.getElementById(
     "profileForm"
@@ -1760,111 +2447,152 @@ document.getElementById(
 
         event.preventDefault();
 
-        if(!currentUser)
+
+        if(!currentUser){
+
+            alert(
+                "Your session has expired. Please log in again."
+            );
+
+            window.location.href =
+                "login.html";
+
             return;
+
+        }
+
 
         const name =
             document.getElementById(
                 "editName"
             ).value.trim();
 
+
         const headline =
             document.getElementById(
                 "editHeadline"
             ).value.trim();
+
+
+        const country =
+            document.getElementById(
+                "editCountry"
+            ).value.trim();
+
 
         const location =
             document.getElementById(
                 "editLocation"
             ).value.trim();
 
+
         const about =
             document.getElementById(
                 "editAbout"
             ).value.trim();
+
 
         const avatar =
             document.getElementById(
                 "editAvatar"
             ).value.trim();
 
+
+        const cover =
+            document.getElementById(
+                "editCover"
+            ).value.trim();
+
+
         const saveButton =
-            event.target.querySelector(
-                "button[type='submit']"
+            document.getElementById(
+                "saveButton"
             );
 
-        saveButton.disabled = true;
+
+        saveButton.disabled =
+            true;
 
         saveButton.textContent =
             "Saving...";
 
+
         try{
 
             /*
-             * We first try the column names used
-             * by the current CareerCraft profile setup.
+             * Build the update using only columns
+             * that actually exist in the current
+             * profile row.
+             *
+             * This prevents the page from breaking
+             * if your existing profiles table uses
+             * slightly different column names.
              */
 
-            const profileData = {
-                "ID": currentUser.id,
-                "FULL NAME": name,
-                "full_name": name,
-                "headline": headline,
-                "location": location,
-                "about": about,
-                "avatar_url": avatar
-            };
+            const payload =
+                buildProfilePayload({
+                    name,
+                    headline,
+                    country,
+                    location,
+                    about,
+                    avatar,
+                    cover
+                });
+
 
             /*
-             * Try update first.
+             * IMPORTANT:
+             *
+             * ID MUST always be the currently
+             * authenticated user's ID.
+             *
+             * This is what keeps accounts separate.
+             */
+
+            payload.ID =
+                currentUser.id;
+
+
+            /*
+             * If a profile already exists,
+             * update ONLY that user's row.
              */
 
             let response =
                 await supabaseClient
                     .from("profiles")
-                    .update(profileData)
+                    .update(payload)
                     .eq("ID", currentUser.id);
 
-            /*
-             * If the table has only some of these
-             * columns, retry using the common columns.
-             */
 
             if(response.error){
 
-                console.log(
-                    "First profile update failed:",
+                console.error(
+                    "Profile update error:",
                     response.error
                 );
 
-                const fallbackData = {
-                    "ID": currentUser.id,
-                    "FULL NAME": name
-                };
 
-                if(headline)
-                    fallbackData.headline =
-                        headline;
+                /*
+                 * If no row existed, try inserting
+                 * a profile for this user.
+                 */
 
-                if(location)
-                    fallbackData.location =
-                        location;
+                if(
+                    !currentProfile ||
+                    Object.keys(currentProfile).length === 0
+                ){
 
-                if(about)
-                    fallbackData.about =
-                        about;
+                    response =
+                        await supabaseClient
+                            .from("profiles")
+                            .insert(payload);
 
-                if(avatar)
-                    fallbackData.avatar_url =
-                        avatar;
-
-                response =
-                    await supabaseClient
-                        .from("profiles")
-                        .update(fallbackData)
-                        .eq("ID", currentUser.id);
+                }
 
             }
+
 
             if(response.error){
 
@@ -1872,27 +2600,51 @@ document.getElementById(
 
             }
 
-            currentProfile = {
-                ...(currentProfile || {}),
-                ...profileData
-            };
+
+            /*
+             * Update local copy.
+             */
+
+            currentProfile =
+                {
+                    ...(currentProfile || {}),
+                    ...payload
+                };
+
+
+            /*
+             * Update screen immediately.
+             */
 
             updateProfileDisplay(
                 name,
-                headline ||
-                "Professional • Career Builder",
-                location ||
-                "Nigeria",
-                about ||
-                "Welcome to my CareerCraft profile. I am building my professional journey and connecting with people, opportunities and communities.",
-                avatar
+                headline,
+                country,
+                location,
+                about,
+                avatar,
+                cover
             );
+
+
+            updateProfileStrength(
+                name,
+                headline,
+                country,
+                location,
+                about,
+                avatar,
+                cover
+            );
+
 
             closeEdit();
 
-            showMessage(
-                "Profile saved successfully!"
+
+            alert(
+                "Your profile was saved successfully."
             );
+
 
         }catch(error){
 
@@ -1901,10 +2653,12 @@ document.getElementById(
                 error
             );
 
+
             alert(
                 "Could not save your profile.\n\n" +
-                "Please check that your profiles table contains the required columns."
+                error.message
             );
+
 
         }finally{
 
@@ -1920,16 +2674,334 @@ document.getElementById(
 );
 
 
-/* MESSAGE */
+/* =========================================================
+   BUILD PROFILE PAYLOAD
+========================================================= */
 
-function showMessage(message){
+function buildProfilePayload(data){
 
-    alert(message);
+    const payload = {};
+
+
+    /*
+     * NAME
+     */
+
+    if(
+        hasColumn("FULL NAME")
+    ){
+
+        payload["FULL NAME"] =
+            data.name;
+
+    }else if(
+        hasColumn("full_name")
+    ){
+
+        payload.full_name =
+            data.name;
+
+    }else if(
+        hasColumn("fullName")
+    ){
+
+        payload.fullName =
+            data.name;
+
+    }else if(
+        hasColumn("name")
+    ){
+
+        payload.name =
+            data.name;
+
+    }
+
+
+    /*
+     * HEADLINE
+     */
+
+    if(
+        hasColumn("headline")
+    ){
+
+        payload.headline =
+            data.headline;
+
+    }else if(
+        hasColumn("professional_headline")
+    ){
+
+        payload.professional_headline =
+            data.headline;
+
+    }
+
+
+    /*
+     * COUNTRY
+     */
+
+    if(
+        hasColumn("country")
+    ){
+
+        payload.country =
+            data.country;
+
+    }else if(
+        hasColumn("Country")
+    ){
+
+        payload.Country =
+            data.country;
+
+    }
+
+
+    /*
+     * LOCATION
+     */
+
+    if(
+        hasColumn("location")
+    ){
+
+        payload.location =
+            data.location;
+
+    }else if(
+        hasColumn("city")
+    ){
+
+        payload.city =
+            data.location;
+
+    }
+
+
+    /*
+     * ABOUT
+     */
+
+    if(
+        hasColumn("about")
+    ){
+
+        payload.about =
+            data.about;
+
+    }else if(
+        hasColumn("bio")
+    ){
+
+        payload.bio =
+            data.about;
+
+    }
+
+
+    /*
+     * AVATAR
+     */
+
+    if(
+        hasColumn("avatar_url")
+    ){
+
+        payload.avatar_url =
+            data.avatar;
+
+    }else if(
+        hasColumn("avatar")
+    ){
+
+        payload.avatar =
+            data.avatar;
+
+    }else if(
+        hasColumn("profile_photo")
+    ){
+
+        payload.profile_photo =
+            data.avatar;
+
+    }else if(
+        hasColumn("photo_url")
+    ){
+
+        payload.photo_url =
+            data.avatar;
+
+    }
+
+
+    /*
+     * COVER
+     */
+
+    if(
+        hasColumn("cover_url")
+    ){
+
+        payload.cover_url =
+            data.cover;
+
+    }else if(
+        hasColumn("cover_photo")
+    ){
+
+        payload.cover_photo =
+            data.cover;
+
+    }else if(
+        hasColumn("cover_image")
+    ){
+
+        payload.cover_image =
+            data.cover;
+
+    }else if(
+        hasColumn("banner_url")
+    ){
+
+        payload.banner_url =
+            data.cover;
+
+    }else if(
+        hasColumn("banner_image")
+    ){
+
+        payload.banner_image =
+            data.cover;
+
+    }
+
+
+    return payload;
 
 }
 
 
-/* CLOSE MODAL WHEN CLICKING OUTSIDE */
+/* =========================================================
+   CHECK COLUMN
+========================================================= */
+
+function hasColumn(column){
+
+    if(!currentProfile)
+        return false;
+
+
+    return Object.prototype.hasOwnProperty.call(
+        currentProfile,
+        column
+    );
+
+}
+
+
+/* =========================================================
+   PROFILE STRENGTH
+========================================================= */
+
+function updateProfileStrength(
+    name,
+    headline,
+    country,
+    location,
+    about,
+    avatar,
+    cover
+){
+
+    const fields = [
+        name,
+        headline,
+        country,
+        location,
+        about,
+        avatar,
+        cover
+    ];
+
+
+    const completed =
+        fields.filter(
+            value =>
+                value &&
+                String(value).trim()
+        ).length;
+
+
+    const percentage =
+        Math.round(
+            (completed /
+            fields.length) *
+            100
+        );
+
+
+    document.getElementById(
+        "strengthBar"
+    ).style.width =
+        percentage + "%";
+
+
+    document.getElementById(
+        "strengthText"
+    ).textContent =
+        `Your profile is ${percentage}% complete. Add more information to make your professional profile stronger.`;
+
+}
+
+
+/* =========================================================
+   INFORMATION MESSAGE
+========================================================= */
+
+function showInfo(section){
+
+    alert(
+        `${section} editing will be connected to your full CareerCraft profile system next.`
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML ATTRIBUTE
+========================================================= */
+
+function escapeAttribute(value){
+
+    return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/"/g,"&quot;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;");
+
+}
+
+
+/* =========================================================
+   ESCAPE CSS URL
+========================================================= */
+
+function escapeCssUrl(value){
+
+    return String(value || "")
+        .replace(/\\/g,"\\\\")
+        .replace(/"/g,'\\"')
+        .replace(/\)/g,"\\)");
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL OUTSIDE
+========================================================= */
 
 document.getElementById(
     "editModal"
@@ -1947,11 +3019,13 @@ document.getElementById(
 );
 
 
-/* START */
+/* =========================================================
+   START
+========================================================= */
 
 init();
 
 </script>
 
 </body>
-  </html>
+    </html>
