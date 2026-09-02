@@ -1,7 +1,18 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>CareerCraft | Messages</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CareerCraft | Messages</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -26,6 +37,7 @@ a{
     text-decoration:none;
     color:inherit;
 }
+
 
 /* =========================
    SIDEBAR
@@ -96,6 +108,7 @@ a{
     background:#1d4ed8 !important;
 }
 
+
 /* =========================
    MAIN
 ========================= */
@@ -104,6 +117,7 @@ a{
     margin-left:245px;
     min-height:100vh;
 }
+
 
 /* =========================
    TOPBAR
@@ -170,6 +184,7 @@ a{
     font-size:13px;
 }
 
+
 /* =========================
    CONTENT
 ========================= */
@@ -194,6 +209,7 @@ a{
     font-size:14px;
 }
 
+
 /* =========================
    MESSAGES LAYOUT
 ========================= */
@@ -208,10 +224,6 @@ a{
     display:grid;
     grid-template-columns:340px 1fr;
 }
-
-/* =========================
-   CONVERSATIONS
-========================= */
 
 .conversations{
     border-right:1px solid #e5e9f0;
@@ -316,6 +328,7 @@ a{
     font-size:13px;
     line-height:1.6;
 }
+
 
 /* =========================
    CHAT
@@ -445,6 +458,7 @@ a{
     color:#6b7280;
 }
 
+
 /* =========================
    SEND BOX
 ========================= */
@@ -496,6 +510,7 @@ a{
     cursor:not-allowed;
 }
 
+
 /* =========================
    LOADING
 ========================= */
@@ -524,6 +539,7 @@ a{
         transform:rotate(360deg);
     }
 }
+
 
 /* =========================
    MOBILE
@@ -631,9 +647,21 @@ a{
         font-weight:700;
     }
 }
-</style></head><body><!-- =========================
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =========================
      SIDEBAR
-========================= --><aside class="sidebar"><div class="logo">
+========================= -->
+
+<aside class="sidebar">
+
+<div class="logo">
     Career<span>Craft</span>
 </div>
 
@@ -697,217 +725,235 @@ a{
     🚪 Log out
 </div>
 
-</aside><!-- =========================
+</aside>
+
+
+<!-- =========================
      MAIN
-========================= --><div class="main"><header class="topbar">
+========================= -->
 
-    <input
-        class="search"
-        type="search"
-        placeholder="Search..."
-        onkeydown="handleGlobalSearch(event)"
-    >
+<div class="main">
 
-    <div class="top-right">
+<header class="topbar">
 
-        <button
-            class="icon-btn"
-            onclick="go('notifications.html')"
-            title="Notifications"
-        >
-            🔔
-        </button>
+<input
+    class="search"
+    type="search"
+    placeholder="Search..."
+    onkeydown="handleGlobalSearch(event)"
+>
 
-        <div
-            class="profile-mini"
-            onclick="go('profile.html')"
-        >
+<div class="top-right">
 
-            <img
-                id="profileImage"
-                src=""
-                alt="Profile"
-            >
+<button
+    class="icon-btn"
+    onclick="go('notifications.html')"
+    title="Notifications"
+>
+    🔔
+</button>
 
-            <strong id="profileName">
-                Loading...
-            </strong>
+<div
+    class="profile-mini"
+    onclick="go('profile.html')"
+>
 
-        </div>
+<img
+    id="profileImage"
+    src=""
+    alt="Profile"
+>
 
-    </div>
+<strong id="profileName">
+    Loading...
+</strong>
+
+</div>
+
+</div>
 
 </header>
 
+
 <main class="content">
 
-    <section class="page-title">
+<section class="page-title">
 
-        <h1>
-            Messages
-        </h1>
+<h1>
+    Messages
+</h1>
 
-        <p>
-            Connect and communicate with your professional network.
-        </p>
+<p>
+    Connect and communicate with your professional network.
+</p>
 
-    </section>
-
-    <section
-        id="messagesLayout"
-        class="messages-layout"
-    >
-
-        <!-- =========================
-             CONVERSATIONS
-        ========================= -->
-
-        <div class="conversations">
-
-            <div class="conversation-header">
-
-                <h2>
-                    Conversations
-                </h2>
-
-                <input
-                    id="conversationSearch"
-                    class="conversation-search"
-                    type="search"
-                    placeholder="Search conversations..."
-                    oninput="filterConversations()"
-                >
-
-            </div>
-
-            <div
-                id="conversationList"
-                class="conversation-list"
-            >
-
-                <div class="loading">
-
-                    <div class="spinner"></div>
-
-                    Loading...
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- =========================
-             CHAT
-        ========================= -->
-
-        <div class="chat">
-
-            <div
-                id="chatEmpty"
-                class="chat-empty"
-            >
-
-                <div>
-
-                    <div class="chat-empty-icon">
-                        💬
-                    </div>
-
-                    <h2>
-                        Your messages
-                    </h2>
-
-                    <p>
-                        Select a conversation to start chatting.
-                    </p>
-
-                </div>
-
-            </div>
+</section>
 
 
-            <div
-                id="chatContent"
-                style="display:none;height:100%;flex-direction:column;"
-            >
-
-                <div class="chat-header">
-
-                    <button
-                        class="back-btn"
-                        onclick="closeMobileChat()"
-                    >
-                        ←
-                    </button>
-
-                    <img
-                        id="chatAvatar"
-                        class="avatar"
-                        src=""
-                        alt=""
-                    >
-
-                    <div class="chat-user-info">
-
-                        <strong id="chatName">
-                            User
-                        </strong>
-
-                        <small id="chatStatus">
-                            CareerCraft member
-                        </small>
-
-                    </div>
-
-                </div>
+<section
+    id="messagesLayout"
+    class="messages-layout"
+>
 
 
-                <div
-                    id="messageContainer"
-                    class="messages"
-                >
-                </div>
+<!-- =========================
+     CONVERSATIONS
+========================= -->
+
+<div class="conversations">
+
+<div class="conversation-header">
+
+<h2>
+    Conversations
+</h2>
+
+<input
+    id="conversationSearch"
+    class="conversation-search"
+    type="search"
+    placeholder="Search conversations..."
+    oninput="filterConversations()"
+>
+
+</div>
+
+<div
+    id="conversationList"
+    class="conversation-list"
+>
+
+<div class="loading">
+
+<div class="spinner"></div>
+
+Loading...
+
+</div>
+
+</div>
+
+</div>
 
 
-                <div class="send-area">
+<!-- =========================
+     CHAT
+========================= -->
 
-                    <form
-                        id="sendForm"
-                        class="send-form"
-                    >
+<div class="chat">
 
-                        <textarea
-                            id="messageInput"
-                            class="message-input"
-                            placeholder="Write a message..."
-                            rows="1"
-                            maxlength="5000"
-                        ></textarea>
+<div
+    id="chatEmpty"
+    class="chat-empty"
+>
 
-                        <button
-                            id="sendButton"
-                            class="send-btn"
-                            type="submit"
-                        >
-                            Send
-                        </button>
+<div>
 
-                    </form>
+<div class="chat-empty-icon">
+    💬
+</div>
 
-                </div>
+<h2>
+    Your messages
+</h2>
 
-            </div>
+<p>
+    Select a conversation to start chatting.
+</p>
 
-        </div>
+</div>
 
-    </section>
+</div>
+
+
+<div
+    id="chatContent"
+    style="display:none;height:100%;flex-direction:column;"
+>
+
+<div class="chat-header">
+
+<button
+    class="back-btn"
+    onclick="closeMobileChat()"
+>
+    ←
+</button>
+
+<img
+    id="chatAvatar"
+    class="avatar"
+    src=""
+    alt=""
+>
+
+<div class="chat-user-info">
+
+<strong id="chatName">
+    User
+</strong>
+
+<small id="chatStatus">
+    CareerCraft member
+</small>
+
+</div>
+
+</div>
+
+
+<div
+    id="messageContainer"
+    class="messages"
+>
+</div>
+
+
+<div class="send-area">
+
+<form
+    id="sendForm"
+    class="send-form"
+>
+
+<textarea
+    id="messageInput"
+    class="message-input"
+    placeholder="Write a message..."
+    rows="1"
+    maxlength="5000"
+></textarea>
+
+<button
+    id="sendButton"
+    class="send-btn"
+    type="submit"
+>
+    Send
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
 
 </main>
 
-</div><!-- =========================
+</div>
+
+
+<!-- =========================
      MOBILE NAV
-========================= --><nav class="mobile-bottom"><div
+========================= -->
+
+<nav class="mobile-bottom">
+
+<div
     class="mobile-nav"
     onclick="go('index.html')"
 >
@@ -944,7 +990,10 @@ a{
     Profile
 </div>
 
-</nav><script>
+</nav>
+
+
+<script>
 
 /* =========================================
    SUPABASE
@@ -978,8 +1027,11 @@ let realtimeChannel = null;
 ========================================= */
 
 function go(page){
+
     window.location.href = page;
+
 }
+
 
 function handleGlobalSearch(event){
 
@@ -989,9 +1041,13 @@ function handleGlobalSearch(event){
             event.target.value.trim();
 
         if(value){
+
             go("network.html");
+
         }
+
     }
+
 }
 
 
@@ -1011,6 +1067,7 @@ function createAvatar(name){
     return `
 https://ui-avatars.com/api/?name=${letter}&background=2563eb&color=ffffff&size=100
     `.trim();
+
 }
 
 
@@ -1024,7 +1081,9 @@ function escapeHTML(value){
         value === null ||
         value === undefined
     ){
+
         return "";
+
     }
 
     return String(value)
@@ -1033,6 +1092,7 @@ function escapeHTML(value){
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
+
 }
 
 
@@ -1042,10 +1102,13 @@ function escapeHTML(value){
 
 function formatMessageTime(value){
 
-    const date = new Date(value);
+    const date =
+        new Date(value);
 
     if(Number.isNaN(date.getTime())){
+
         return "";
+
     }
 
     return date.toLocaleTimeString(
@@ -1055,24 +1118,30 @@ function formatMessageTime(value){
             minute:"2-digit"
         }
     );
+
 }
 
 
 function formatConversationTime(value){
 
-    const date = new Date(value);
+    const date =
+        new Date(value);
 
     if(Number.isNaN(date.getTime())){
+
         return "";
+
     }
 
-    const now = new Date();
+    const now =
+        new Date();
 
     const sameDay =
         date.toDateString() ===
         now.toDateString();
 
     if(sameDay){
+
         return date.toLocaleTimeString(
             [],
             {
@@ -1080,6 +1149,7 @@ function formatConversationTime(value){
                 minute:"2-digit"
             }
         );
+
     }
 
     return date.toLocaleDateString(
@@ -1089,6 +1159,7 @@ function formatConversationTime(value){
             day:"numeric"
         }
     );
+
 }
 
 
@@ -1115,12 +1186,14 @@ async function checkAuthentication(){
             "login.html";
 
         return false;
+
     }
 
     currentUser =
         data.session.user;
 
     return true;
+
 }
 
 
@@ -1144,10 +1217,12 @@ async function loadCurrentProfile(){
             .maybeSingle();
 
     if(error){
+
         console.error(
             "Profile error:",
             error
         );
+
     }
 
     const name =
@@ -1170,6 +1245,7 @@ async function loadCurrentProfile(){
     image.src =
         data?.avatar_url ||
         createAvatar(name);
+
 }
 
 
@@ -1207,22 +1283,24 @@ async function loadMessages(){
             "conversationList"
         ).innerHTML = `
 
-            <div class="empty-conversations">
+<div class="empty-conversations">
 
-                Unable to load messages.<br><br>
+Unable to load messages.<br><br>
 
-                ${escapeHTML(error.message)}
+${escapeHTML(error.message)}
 
-            </div>
+</div>
 
-        `;
+`;
 
         return;
+
     }
 
     await buildConversations(
         data || []
     );
+
 }
 
 
@@ -1232,7 +1310,8 @@ async function loadMessages(){
 
 async function buildConversations(messages){
 
-    const map = new Map();
+    const map =
+        new Map();
 
     for(const message of messages){
 
@@ -1256,7 +1335,9 @@ async function buildConversations(messages){
                 otherUserId,
                 message
             );
+
         }
+
     }
 
     const userIds =
@@ -1269,6 +1350,7 @@ async function buildConversations(messages){
         renderConversations();
 
         return;
+
     }
 
     const profiles =
@@ -1316,6 +1398,7 @@ async function buildConversations(messages){
         );
 
     renderConversations();
+
 }
 
 
@@ -1325,10 +1408,13 @@ async function buildConversations(messages){
 
 async function loadProfiles(userIds){
 
-    const map = new Map();
+    const map =
+        new Map();
 
     if(!userIds.length){
+
         return map;
+
     }
 
     const {
@@ -1351,6 +1437,7 @@ async function loadProfiles(userIds){
         );
 
         return map;
+
     }
 
     for(const profile of data || []){
@@ -1359,9 +1446,11 @@ async function loadProfiles(userIds){
             String(profile.ID),
             profile
         );
+
     }
 
     return map;
+
 }
 
 
@@ -1395,23 +1484,24 @@ function renderConversations(){
 
         container.innerHTML = `
 
-            <div class="empty-conversations">
+<div class="empty-conversations">
 
-                ${
-                    allConversations.length
-                    ? "No conversations match your search."
-                    : `
-                        <strong>No messages yet.</strong><br><br>
-                        Visit someone's profile or connect with your network
-                        to start a conversation.
-                    `
-                }
+${
+    allConversations.length
+    ? "No conversations match your search."
+    : `
+        <strong>No messages yet.</strong><br><br>
+        Visit someone's profile or connect with your network
+        to start a conversation.
+    `
+}
 
-            </div>
+</div>
 
-        `;
+`;
 
         return;
+
     }
 
     container.innerHTML =
@@ -1429,43 +1519,44 @@ function renderConversations(){
 
                 return `
 
-                    <div
-                        class="conversation ${active ? "active" : ""}"
-                        onclick="openConversation('${conversation.userId}')"
-                    >
+<div
+    class="conversation ${active ? "active" : ""}"
+    onclick="openConversation('${conversation.userId}')"
+>
 
-                        <img
-                            class="avatar"
-                            src="${escapeHTML(conversation.avatar)}"
-                            alt=""
-                        >
+<img
+    class="avatar"
+    src="${escapeHTML(conversation.avatar)}"
+    alt=""
+>
 
-                        <div class="conversation-info">
+<div class="conversation-info">
 
-                            <div class="conversation-top">
+<div class="conversation-top">
 
-                                <div class="conversation-name">
-                                    ${escapeHTML(conversation.name)}
-                                </div>
+<div class="conversation-name">
+    ${escapeHTML(conversation.name)}
+</div>
 
-                                <div class="conversation-time">
-                                    ${formatConversationTime(conversation.createdAt)}
-                                </div>
+<div class="conversation-time">
+    ${formatConversationTime(conversation.createdAt)}
+</div>
 
-                            </div>
+</div>
 
-                            <div class="last-message">
-                                ${escapeHTML(conversation.lastMessage)}
-                            </div>
+<div class="last-message">
+    ${escapeHTML(conversation.lastMessage)}
+</div>
 
-                        </div>
+</div>
 
-                    </div>
+</div>
 
-                `;
+`;
 
             }
         ).join("");
+
 }
 
 
@@ -1474,7 +1565,9 @@ function renderConversations(){
 ========================================= */
 
 function filterConversations(){
+
     renderConversations();
+
 }
 
 
@@ -1484,50 +1577,115 @@ function filterConversations(){
 
 async function openConversation(userId){
 
-    const conversation =
+    let conversation =
         allConversations.find(
             item =>
                 String(item.userId) ===
                 String(userId)
         );
 
+    /*
+       If there is no previous message with this user,
+       load their profile so a brand-new conversation
+       can still be started.
+    */
+
     if(!conversation){
-        return;
+
+        const profiles =
+            await loadProfiles([userId]);
+
+        const profile =
+            profiles.get(
+                String(userId)
+            );
+
+        if(!profile){
+
+            console.error(
+                "User profile not found:",
+                userId
+            );
+
+            return;
+
+        }
+
+        const name =
+            profile["FULL NAME"] ||
+            profile.full_name ||
+            profile.name ||
+            "CareerCraft User";
+
+        const avatar =
+            profile.avatar_url ||
+            createAvatar(name);
+
+        conversation = {
+
+            userId:userId,
+
+            name:name,
+
+            avatar:avatar,
+
+            lastMessage:"",
+
+            createdAt:null
+
+        };
+
     }
 
+
     currentConversationUser = {
+
         id:userId,
+
         name:conversation.name,
+
         avatar:conversation.avatar
+
     };
+
 
     document.getElementById(
         "chatEmpty"
     ).style.display = "none";
 
+
     document.getElementById(
         "chatContent"
     ).style.display = "flex";
+
 
     document.getElementById(
         "chatName"
     ).textContent =
         conversation.name;
 
+
     document.getElementById(
         "chatAvatar"
     ).src =
         conversation.avatar;
 
+
     document.getElementById(
         "messagesLayout"
-    ).classList.add("chat-open");
+    ).classList.add(
+        "chat-open"
+    );
+
 
     renderConversations();
 
+
     await loadConversationMessages();
 
+
     subscribeToConversation();
+
 }
 
 
@@ -1538,7 +1696,9 @@ async function openConversation(userId){
 async function loadConversationMessages(){
 
     if(!currentConversationUser){
+
         return;
+
     }
 
     const otherId =
@@ -1572,20 +1732,22 @@ async function loadConversationMessages(){
             "messageContainer"
         ).innerHTML = `
 
-            <div class="empty-conversations">
+<div class="empty-conversations">
 
-                ${escapeHTML(error.message)}
+${escapeHTML(error.message)}
 
-            </div>
+</div>
 
-        `;
+`;
 
         return;
+
     }
 
     renderMessages(
         data || []
     );
+
 }
 
 
@@ -1604,16 +1766,17 @@ function renderMessages(messages){
 
         container.innerHTML = `
 
-            <div class="empty-conversations">
+<div class="empty-conversations">
 
-                No messages yet.<br><br>
-                Say hello 👋
+No messages yet.<br><br>
+Say hello 👋
 
-            </div>
+</div>
 
-        `;
+`;
 
         return;
+
     }
 
     container.innerHTML =
@@ -1630,28 +1793,29 @@ function renderMessages(messages){
 
                 return `
 
-                    <div class="message-row ${mine ? "mine" : ""}">
+<div class="message-row ${mine ? "mine" : ""}">
 
-                        <div class="message-bubble">
+<div class="message-bubble">
 
-                            <div class="message-text">
-                                ${escapeHTML(message.content)}
-                            </div>
+<div class="message-text">
+    ${escapeHTML(message.content)}
+</div>
 
-                            <div class="message-time">
-                                ${formatMessageTime(message.created_at)}
-                            </div>
+<div class="message-time">
+    ${formatMessageTime(message.created_at)}
+</div>
 
-                        </div>
+</div>
 
-                    </div>
+</div>
 
-                `;
+`;
 
             }
         ).join("");
 
     scrollMessagesToBottom();
+
 }
 
 
@@ -1668,11 +1832,14 @@ function scrollMessagesToBottom(){
 
     setTimeout(
         () => {
+
             container.scrollTop =
                 container.scrollHeight;
+
         },
         50
     );
+
 }
 
 
@@ -1686,7 +1853,9 @@ async function sendMessage(){
         !currentConversationUser ||
         !currentUser
     ){
+
         return;
+
     }
 
     const input =
@@ -1703,11 +1872,16 @@ async function sendMessage(){
         input.value.trim();
 
     if(!content){
+
         return;
+
     }
 
     button.disabled = true;
-    button.textContent = "Sending...";
+
+    button.textContent =
+        "Sending...";
+
 
     const {
         error
@@ -1715,6 +1889,7 @@ async function sendMessage(){
         await supabaseClient
             .from("messages")
             .insert({
+
                 sender_id:
                     currentUser.id,
 
@@ -1723,10 +1898,15 @@ async function sendMessage(){
 
                 content:
                     content
+
             });
 
+
     button.disabled = false;
-    button.textContent = "Send";
+
+    button.textContent =
+        "Send";
+
 
     if(error){
 
@@ -1741,11 +1921,21 @@ async function sendMessage(){
         );
 
         return;
+
     }
 
     input.value = "";
 
-    input.style.height = "43px";
+    input.style.height =
+        "43px";
+
+    /*
+       Immediately refresh conversations so a
+       brand-new conversation appears in the list.
+    */
+
+    await loadMessages();
+
 }
 
 
@@ -1777,7 +1967,8 @@ document.getElementById(
     "input",
     function(){
 
-        this.style.height = "43px";
+        this.style.height =
+            "43px";
 
         this.style.height =
             Math.min(
@@ -1827,14 +2018,18 @@ function subscribeToConversation(){
         );
 
         realtimeChannel = null;
+
     }
 
     if(!currentConversationUser){
+
         return;
+
     }
 
     const otherId =
         currentConversationUser.id;
+
 
     realtimeChannel =
         supabaseClient
@@ -1871,7 +2066,9 @@ function subscribeToConversation(){
                         );
 
                     if(!belongs){
+
                         return;
+
                     }
 
                     await loadConversationMessages();
@@ -1890,6 +2087,7 @@ function subscribeToConversation(){
 
                 }
             );
+
 }
 
 
@@ -1905,7 +2103,9 @@ function closeMobileChat(){
         "chat-open"
     );
 
-    currentConversationUser = null;
+    currentConversationUser =
+        null;
+
 
     if(realtimeChannel){
 
@@ -1914,17 +2114,22 @@ function closeMobileChat(){
         );
 
         realtimeChannel = null;
+
     }
+
 
     document.getElementById(
         "chatContent"
     ).style.display = "none";
 
+
     document.getElementById(
         "chatEmpty"
     ).style.display = "flex";
 
+
     renderConversations();
+
 }
 
 
@@ -1940,7 +2145,9 @@ async function logout(){
         );
 
     if(!confirmed){
+
         return;
+
     }
 
     const {
@@ -1956,10 +2163,12 @@ async function logout(){
         );
 
         return;
+
     }
 
     window.location.href =
         "login.html";
+
 }
 
 
@@ -1977,6 +2186,7 @@ supabaseClient.auth.onAuthStateChange(
 
             window.location.href =
                 "login.html";
+
         }
 
     }
@@ -1993,15 +2203,49 @@ async function init(){
         await checkAuthentication();
 
     if(!authenticated){
+
         return;
+
     }
+
 
     await loadCurrentProfile();
 
+
     await loadMessages();
+
+
+    /*
+       IMPORTANT:
+       Network.html opens:
+
+       messages.html?user=USER_ID
+
+       This reads that user ID and automatically
+       opens the correct conversation.
+    */
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const userId =
+        params.get("user");
+
+
+    if(userId){
+
+        await openConversation(userId);
+
+    }
+
 }
+
 
 init();
 
-</script></body>
-</html>
+</script>
+
+</body>
+    </html>
