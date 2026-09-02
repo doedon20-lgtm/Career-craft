@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+}
+
+button{
+    font-family:inherit;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:245px;
+    background:#fff;
+    border-right:1px solid #e5e9f0;
+    padding:25px 15px;
+    z-index:100;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:800;
+    padding:0 12px;
+    margin-bottom:30px;
+}
+
+.logo span{
+    color:#2563eb;
+}
+
+.nav-title{
+    font-size:11px;
+    color:#9ca3af;
+    text-transform:uppercase;
+    font-weight:700;
+    padding:0 12px;
+    margin:20px 0 8px;
+}
+
+.nav-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    margin:4px 0;
+    border-radius:10px;
+    color:#4b5563;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.nav-item:hover{
+    background:#f3f6fb;
+}
+
+.nav-item.active{
+    background:#eaf1ff;
+    color:#2563eb;
+}
+
+.create-nav{
+    background:#2563eb;
+    color:#fff !important;
+    justify-content:center;
+    margin-top:15px;
+}
+
+.create-nav:hover{
+    background:#1d4ed8 !important;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:245px;
+    min-height:100vh;
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar{
+    height:72px;
+    background:#fff;
+    border-bottom:1px solid #e5e9f0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 30px;
+    position:sticky;
+    top:0;
+    z-index:90;
+}
+
+.search{
+    width:350px;
+    background:#f3f5f8;
+    border:1px solid #e7ebf0;
+    border-radius:10px;
+    padding:11px 14px;
+    outline:none;
+}
+
+.search:focus{
+    border-color:#2563eb;
+    background:#fff;
+}
+
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.icon-btn{
+    border:0;
+    background:#f3f5f8;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:17px;
+}
+
+.profile-mini{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.profile-mini img{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#e5e7eb;
+}
+
+.profile-mini strong{
+    font-size:13px;
+}
+
+.profile-mini small{
+    display:block;
+    color:#9ca3af;
+    margin-top:2px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    max-width:1450px;
+    margin:auto;
+    padding:35px;
+}
+
+.hero{
+    background:#111827;
+    border-radius:20px;
+    padding:40px;
+    color:#fff;
+    margin-bottom:30px;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero:after{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    border:45px solid rgba(255,255,255,.04);
+    right:-80px;
+    top:-100px;
+}
+
+.hero h1{
+    font-size:34px;
+    margin-bottom:10px;
+    position:relative;
+    z-index:2;
+}
+
+.hero p{
+    max-width:680px;
+    color:#cbd5e1;
+    line-height:1.6;
+    font-size:15px;
+    position:relative;
+    z-index:2;
+}
+
+/* =========================
+   CATEGORY
+========================= */
+
+.category{
+    margin-top:32px;
+}
+
+.category-heading{
+    margin-bottom:16px;
+}
+
+.category-heading h2{
+    font-size:21px;
+    margin-bottom:5px;
+}
+
+.category-heading p{
+    color:#6b7280;
+    font-size:13px;
+}
+
+/* =========================
+   CREATE GRID
+========================= */
+
+.create-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.create-card{
+    background:#fff;
+    border:1px solid #e2e7ef;
+    border-radius:17px;
+    padding:23px;
+    cursor:pointer;
+    transition:.2s;
+    position:relative;
+    min-height:205px;
+}
+
+.create-card:hover{
+    transform:translateY(-4px);
+    border-color:#2563eb;
+    box-shadow:0 15px 35px rgba(0,0,0,.07);
+}
+
+.card-icon{
+    width:52px;
+    height:52px;
+    border-radius:13px;
+    background:#edf3ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+    margin-bottom:18px;
+}
+
+.create-card h3{
+    font-size:16px;
+    margin-bottom:7px;
+}
+
+.create-card p{
+    color:#6b7280;
+    font-size:12px;
+    line-height:1.6;
+    max-width:300px;
+}
+
+.card-arrow{
+    position:absolute;
+    right:20px;
+    bottom:20px;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:#f3f5f8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#2563eb;
+}
+
+/* =========================
+   FEATURED
+========================= */
+
+.featured{
+    background:#fff;
+    border:1px solid #e3e8ef;
+    border-radius:17px;
+    padding:25px;
+    margin-top:30px;
+}
+
+.featured h2{
+    font-size:19px;
+    margin-bottom:5px;
+}
+
+.featured p{
+    color:#6b7280;
+    font-size:13px;
+    margin-bottom:20px;
+}
+
+.feature-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.feature{
+    border:1px solid #e6eaf0;
+    border-radius:12px;
+    padding:17px;
+}
+
+.feature strong{
+    display:block;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.feature span{
+    color:#6b7280;
+    font-size:11px;
+    line-height:1.5;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-bottom{
+    display:none;
+}
+
+@media(max-width:1100px){
+
+    .create-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .feature-row{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:800px){
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+        padding-bottom:75px;
+    }
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .search{
+        width:180px;
+    }
+
+    .profile-mini strong,
+    .profile-mini small{
+        display:none;
+    }
+
+    .content{
+        padding:18px 14px;
+    }
+
+    .hero{
+        padding:28px 22px;
+        border-radius:16px;
+    }
+
+    .hero h1{
+        font-size:27px;
+    }
+
+    .create-grid{
+        grid-template-columns:1fr;
+    }
+
+    .feature-row{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .mobile-bottom{
+        display:flex;
+        position:fixed;
+        bottom:0;
+        left:0;
+        right:0;
+        height:68px;
+        background:#fff;
+        border-top:1px solid #e5e9f0;
+        z-index:200;
+        justify-content:space-around;
+        align-items:center;
+    }
+
+    .mobile-nav{
+        text-align:center;
+        font-size:10px;
+        color:#6b7280;
+        cursor:pointer;
+    }
+
+    .mobile-nav div{
+        font-size:20px;
+        margin-bottom:3px;
+    }
+
+    .mobile-nav.active{
+        color:#2563eb;
+        font-weight:700;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        Career<span>Craft</span>
+    </div>
+
+    <div class="nav-title">
+        Workspace
+    </div>
+
+    <div class="nav-item"
+         onclick="goDashboard()">
+        🏠
+        Home
+    </div>
+
+    <div class="nav-item"
+         onclick="goJobs()">
+        💼
+        Jobs
+    </div>
+
+    <div class="nav-item">
+        👥
+        Network
+    </div>
+
+    <div class="nav-item">
+        🌐
+        Communities
+    </div>
+
+    <div class="nav-item">
+        💬
+        Messages
+    </div>
+
+    <div class="nav-item active create-nav">
+        ＋ Create
+    </div>
+
+    <div class="nav-title">
+        Career Tools
+    </div>
+
+    <div class="nav-item"
+         onclick="createCV()">
+        📄
+        CV Builder
+    </div>
+
+    <div class="nav-item">
+        🎨
+        Templates
+    </div>
+
+    <div class="nav-item">
+        ⭐
+        Saved Jobs
+    </div>
+
+    <div class="nav-item">
+        📋
+        Applications
+    </div>
+
+    <div class="nav-title">
+        Account
+    </div>
+
+    <div class="nav-item">
+        👤
+        Profile
+    </div>
+
+    <div class="nav-item"
+         onclick="logout()">
+        🚪
+        Log out
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<div class="main">
+
+    <header class="topbar">
+
+        <input
+            class="search"
+            type="search"
+            placeholder="Search CareerCraft..."
+        >
+
+        <div class="top-right">
+
+            <button class="icon-btn">
+                🔔
+            </button>
+
+            <div class="profile-mini">
+
+                <img
+                    id="profileImage"
+                    src=""
+                    alt="Profile"
+                >
+
+                <div>
+
+                    <strong id="profileName">
+                        Loading...
+                    </strong>
+
+                    <small>
+                        CareerCraft
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main class="content">
+
+        <!-- =========================
+             HERO
+        ========================= -->
+
+        <section class="hero">
+
+            <h1>
+                What do you want to create?
+            </h1>
+
+            <p>
+                Create professional documents and career assets
+                that help you stand out, apply with confidence,
+                and build your professional brand.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             CAREER DOCUMENTS
+        ========================= -->
+
+        <section class="category">
+
+            <div class="category-heading">
+
+                <h2>
+                    Career Documents
+                </h2>
+
+                <p>
+                    Build professional documents for your next opportunity.
+                </p>
+
+            </div>
+
+
+            <div class="create-grid">
+
+                <div class="create-card"
+                     onclick="createCV()">
+
+                    <div class="card-icon">
+                        📄
+                    </div>
+
+                    <h3>
+                        CV / Resume
+                    </h3>
+
+                    <p>
+                        Build a professional, ATS-friendly CV
+                        tailored for US and UK employers.
+                    </p>
+
+                    <div class="card-arrow">
+                        →
+                    </div>
+
+                </div>
+
+
+                <div class="create-card"
+                     onclick="createCoverLetter()">
+
+                    <div class="card-icon">
+                        ✉️
+                    </div>
+
+                    <h3>
+                        Cover Letter
+                    </h3>
+
+                    <p>
+                        Create a targeted cover letter for a
+                        specific job opportunity.
+                    </p>
+
+                    <div class="card-arrow">
+                        →
+                    </div>
+
+                </div>
+
+
+                <div class="create-card"
+                     onclick="createPortfolio()">
+
+                    <div class="card-icon">
+                        🖥️
+                    </div>
+
+                    <h3>
+                        Portfolio
+                    </h3>
+
+                    <p>
+                        Showcase your projects, skills,
+                        achievements and professional work.
+                    </p>
+
+                    <div class="card-arrow">
+                        →
+                    </div>
+
+                </div>
+
+
+                <div class="create-card"
+                     onclick="createPresentation()">
+
+                    <div class="card-icon">
+                        📊
+                    </div>
+
+                    <h3>
+                        Presentation
+                    </h3>
+
+                    <p>
+                        Create polished presentations for
+                        work, interviews and business.
+                    </p>
+
+                    <div class="card-arrow">
+                        →
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PROFESSIONAL BRANDING
+        ========================= -->
+
+        <section class="category">
+
+            <div class="category-heading">
+
+                <h2>
+                    Professional Branding
+                </h2>
+
+                <p>
+                    Create assets that represent you professionally.
+                </p>
+
+            </div>
+
+
+            <div class="create-grid">
+
+                <div class="create-card"
+                     onclick="createBusinessCard()">
+
+                    <div class="card-icon">
+                        💳
+                    </div>
+
+                    <h3>
+                        Business Card
+                    </h3>
+
+                    <p>
+                        Design a professional digital or printable
+                        business card.
+                    </p>
+
+                    <div class="card-arrow">
+                        →
+                    </div>
+
+                </div>
+
+
+                <div class="create-card"
+                     onclick="createCertificate()">
+
+                    <div class="card-icon">
+                        🏆
+                    </div>
+
+                    <h3>
+                        Certificate
+                    </h3>
+
+                    <p>
+                        Create certificates for achievements,
+                        training and professional recognition.
+                    </p>
+
+                    <div class="card-arrow">
+                        →
+                    </div>
+
+                </div>
+
+
+                <div class="create-card"
+                     onclick="createProfileBanner()">
+
+                    <div class="card-icon">
+                        🖼️
+                    </div>
+
+                    <h3>
+                        Profile Banner
+                    </h3>
+
+                    <p>
+                        Create a professional banner for your
+                        CareerCraft profile.
+                    </p>
+
+                    <div class="card-arrow">
+                        →
+                    </div>
+
+                </div>
+
+
+                <div class="create-card"
+                     onclick="createSocialGraphic()">
+
+                    <div class="card-icon">
+                        📱
+                    </div>
+
+                    <h3>
+                        Social Graphic
+                    </h3>
+
+                    <p>
+                        Create professional graphics for your
+                        career and personal brand.
+                    </p>
+
+                    <div class="card-arrow">
+                        →
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CREATION FEATURES
+        ========================= -->
+
+        <section class="featured">
+
+            <h2>
+                Built for your career
+            </h2>
+
+            <p>
+                CareerCraft brings your professional tools together
+                in one workspace.
+            </p>
+
+
+            <div class="feature-row">
+
+                <div class="feature">
+
+                    <strong>
+                        Professional Templates
+                    </strong>
+
+                    <span>
+                        Modern layouts designed for real
+                        professional use.
+                    </span>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <strong>
+                        ATS-Friendly
+                    </strong>
+
+                    <span>
+                        Build CVs that are easier for applicant
+                        tracking systems to read.
+                    </span>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <strong>
+                        One Workspace
+                    </strong>
+
+                    <span>
+                        Keep your career documents and designs
+                        organized in one place.
+                    </span>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <strong>
+                        US + UK Ready
+                    </strong>
+
+                    <span>
+                        Create professional documents for
+                        employers in the United States and London.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================
+     MOBILE NAV
+========================= -->
+
+<nav class="mobile-bottom">
+
+    <div class="mobile-nav"
+         onclick="goDashboard()">
+
+        <div>🏠</div>
+        Home
+
+    </div>
+
+
+    <div class="mobile-nav"
+         onclick="goJobs()">
+
+        <div>💼</div>
+        Jobs
+
+    </div>
+
+
+    <div class="mobile-nav active">
+
+        <div>＋</div>
+        Create
+
+    </div>
+
+
+    <div class="mobile-nav">
+
+        <div>💬</div>
+        Messages
+
+    </div>
+
+
+    <div class="mobile-nav">
+
+        <div>👤</div>
+        Profile
+
+    </div>
+
+</nav>
+
+
+<script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+    "https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+let currentUser = null;
+
+
+/* =========================================
+   AUTHENTICATION
+========================================= */
+
+async function checkAuthentication(){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.getSession();
+
+
+    if(
+        error ||
+        !data ||
+        !data.session ||
+        !data.session.user
+    ){
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+
+    currentUser =
+        data.session.user;
+
+    return true;
+}
+
+
+/* =========================================
+   PROFILE
+========================================= */
+
+async function loadProfile(){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq("ID", currentUser.id)
+            .maybeSingle();
+
+
+    if(error){
+
+        console.error(
+            "Profile error:",
+            error
+        );
+
+        return;
+    }
+
+
+    const name =
+        data?.["FULL NAME"] ||
+        data?.full_name ||
+        currentUser.user_metadata?.full_name ||
+        currentUser.email?.split("@")[0] ||
+        "CareerCraft User";
+
+
+    document.getElementById(
+        "profileName"
+    ).textContent =
+        name;
+
+
+    const image =
+        document.getElementById(
+            "profileImage"
+        );
+
+
+    if(data?.avatar_url){
+
+        image.src =
+            data.avatar_url;
+
+    }
+    else{
+
+        image.src =
+            "https://ui-avatars.com/api/?name=" +
+            encodeURIComponent(name) +
+            "&background=2563eb&color=ffffff&size=100";
+
+    }
+
+}
+
+
+/* =========================================
+   CREATE CV
+========================================= */
+
+function createCV(){
+
+    window.location.href =
+        "cv-builder.html";
+
+}
+
+
+/* =========================================
+   FUTURE CREATION ROUTES
+========================================= */
+
+function createCoverLetter(){
+
+    window.location.href =
+        "cover-letter.html";
+
+}
+
+
+function createPortfolio(){
+
+    window.location.href =
+        "portfolio.html";
+
+}
+
+
+function createPresentation(){
+
+    window.location.href =
+        "presentation.html";
+
+}
+
+
+function createBusinessCard(){
+
+    window.location.href =
+        "business-card.html";
+
+}
+
+
+function createCertificate(){
+
+    window.location.href =
+        "certificate.html";
+
+}
+
+
+function createProfileBanner(){
+
+    window.location.href =
+        "profile-banner.html";
+
+}
+
+
+function createSocialGraphic(){
+
+    window.location.href =
+        "social-graphic.html";
+
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+function goDashboard(){
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+function goJobs(){
+
+    window.location.href =
+        "job-finder.html";
+
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+async function logout(){
+
+    const {
+        error
+    } =
+        await supabaseClient.auth.signOut();
+
+
+    if(error){
+
+        alert(
+            "Could not log out: " +
+            error.message
+        );
+
+        return;
+    }
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =========================================
+   INIT
+========================================= */
+
+async function init(){
+
+    const authenticated =
+        await checkAuthentication();
+
+
+    if(!authenticated){
+        return;
+    }
+
+
+    await loadProfile();
+
+}
+
+
+init();
+
+</script>
+
+</body>
+</html>
