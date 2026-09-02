@@ -21,13 +21,17 @@ body{
     color:#172033;
 }
 
-button{
+button,input{
     font-family:inherit;
 }
 
 a{
     text-decoration:none;
     color:inherit;
+}
+
+button{
+    cursor:pointer;
 }
 
 /* =========================
@@ -44,6 +48,7 @@ a{
     border-right:1px solid #e5e9f0;
     padding:25px 15px;
     z-index:100;
+    overflow-y:auto;
 }
 
 .logo{
@@ -77,6 +82,7 @@ a{
     font-size:14px;
     font-weight:600;
     cursor:pointer;
+    transition:.2s;
 }
 
 .nav-item:hover{
@@ -151,7 +157,6 @@ a{
     width:40px;
     height:40px;
     border-radius:50%;
-    cursor:pointer;
     font-size:17px;
 }
 
@@ -206,6 +211,7 @@ a{
 .welcome p{
     color:#6b7280;
     font-size:14px;
+    line-height:1.6;
 }
 
 .primary-btn{
@@ -214,12 +220,13 @@ a{
     color:white;
     padding:12px 18px;
     border-radius:10px;
-    cursor:pointer;
     font-weight:700;
+    transition:.2s;
 }
 
 .primary-btn:hover{
     background:#1d4ed8;
+    transform:translateY(-1px);
 }
 
 /* =========================
@@ -385,7 +392,6 @@ a{
     color:#374151;
     padding:8px 10px;
     border-radius:7px;
-    cursor:pointer;
     font-size:11px;
     font-weight:700;
 }
@@ -435,6 +441,7 @@ a{
     color:#6b7280;
     font-size:13px;
     margin-bottom:18px;
+    line-height:1.6;
 }
 
 /* =========================
@@ -459,6 +466,7 @@ a{
 .create-card:hover{
     border-color:#2563eb;
     transform:translateY(-2px);
+    box-shadow:0 8px 22px rgba(0,0,0,.05);
 }
 
 .create-card .big-icon{
@@ -569,10 +577,20 @@ a{
 
     .stats{
         grid-template-columns:repeat(2,1fr);
+        gap:10px;
+    }
+
+    .stat-card{
+        padding:15px;
     }
 
     .create-grid{
         grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .create-card{
+        padding:15px;
     }
 
     .mobile-bottom{
@@ -594,6 +612,7 @@ a{
         font-size:10px;
         color:#6b7280;
         cursor:pointer;
+        min-width:55px;
     }
 
     .mobile-nav div{
@@ -621,72 +640,111 @@ a{
         Career<span>Craft</span>
     </div>
 
-    <div class="nav-title">Workspace</div>
+    <div class="nav-title">
+        Workspace
+    </div>
 
-    <div class="nav-item active"
-         onclick="goHome()">
+    <div
+        class="nav-item active"
+        onclick="goHome()"
+    >
         🏠
         Home
     </div>
 
-    <div class="nav-item"
-         onclick="goJobs()">
+    <div
+        class="nav-item"
+        onclick="goJobs()"
+    >
         💼
         Jobs
     </div>
 
-    <div class="nav-item">
+    <div
+        class="nav-item"
+        onclick="go('network.html')"
+    >
         👥
         Network
     </div>
 
-    <div class="nav-item">
+    <div
+        class="nav-item"
+        onclick="go('communities.html')"
+    >
         🌐
         Communities
     </div>
 
-    <div class="nav-item">
+    <div
+        class="nav-item"
+        onclick="go('messages.html')"
+    >
         💬
         Messages
     </div>
 
-    <div class="nav-item create-nav"
-         onclick="createNewCV()">
+    <!-- EVERY CREATE BUTTON GOES TO CREATE.HTML -->
+
+    <div
+        class="nav-item create-nav"
+        onclick="openCreateStudio()"
+    >
         ＋ Create
     </div>
 
-    <div class="nav-title">Career Tools</div>
+    <div class="nav-title">
+        Career Tools
+    </div>
 
-    <div class="nav-item"
-         onclick="createNewCV()">
+    <div
+        class="nav-item"
+        onclick="openCreateStudio()"
+    >
         📄
         CV Builder
     </div>
 
-    <div class="nav-item">
+    <div
+        class="nav-item"
+        onclick="go('templates.html')"
+    >
         🎨
         Templates
     </div>
 
-    <div class="nav-item">
+    <div
+        class="nav-item"
+        onclick="go('saved-jobs.html')"
+    >
         ⭐
         Saved Jobs
     </div>
 
-    <div class="nav-item">
+    <div
+        class="nav-item"
+        onclick="go('applications.html')"
+    >
         📋
         Applications
     </div>
 
-    <div class="nav-title">Account</div>
+    <div class="nav-title">
+        Account
+    </div>
 
-    <div class="nav-item">
+    <div
+        class="nav-item"
+        onclick="go('profile.html')"
+    >
         👤
         Profile
     </div>
 
-    <div class="nav-item"
-         onclick="logout()">
+    <div
+        class="nav-item"
+        onclick="logout()"
+    >
         🚪
         Log out
     </div>
@@ -700,6 +758,8 @@ a{
 
 <div class="main">
 
+    <!-- TOPBAR -->
+
     <header class="topbar">
 
         <input
@@ -712,11 +772,18 @@ a{
 
         <div class="top-right">
 
-            <button class="icon-btn">
+            <button
+                class="icon-btn"
+                onclick="go('notifications.html')"
+                title="Notifications"
+            >
                 🔔
             </button>
 
-            <div class="profile-mini">
+            <div
+                class="profile-mini"
+                onclick="go('profile.html')"
+            >
 
                 <img
                     id="profileImage"
@@ -725,6 +792,7 @@ a{
                 >
 
                 <div>
+
                     <strong id="profileName">
                         Loading...
                     </strong>
@@ -732,6 +800,7 @@ a{
                     <small>
                         CareerCraft
                     </small>
+
                 </div>
 
             </div>
@@ -741,6 +810,8 @@ a{
     </header>
 
 
+    <!-- CONTENT -->
+
     <main class="content">
 
         <!-- WELCOME -->
@@ -748,6 +819,7 @@ a{
         <section class="welcome">
 
             <div>
+
                 <h1 id="welcomeTitle">
                     Welcome to CareerCraft
                 </h1>
@@ -756,14 +828,17 @@ a{
                     Build your professional career, discover opportunities,
                     and create work that gets noticed.
                 </p>
+
             </div>
+
+
+            <!-- CREATE BUTTON -->
 
             <button
                 class="primary-btn"
-                onclick="createNewCV()">
-
-                ＋ Create CV
-
+                onclick="openCreateStudio()"
+            >
+                ＋ Create
             </button>
 
         </section>
@@ -855,10 +930,9 @@ a{
 
                 <span
                     class="view-all"
-                    onclick="showAllCVs()">
-
+                    onclick="showAllCVs()"
+                >
                     View all
-
                 </span>
 
             </div>
@@ -889,13 +963,25 @@ a{
                     Create something
                 </h2>
 
+                <span
+                    class="view-all"
+                    onclick="openCreateStudio()"
+                >
+                    View all
+                </span>
+
             </div>
 
 
             <div class="create-grid">
 
-                <div class="create-card"
-                     onclick="createNewCV()">
+
+                <!-- CV -->
+
+                <div
+                    class="create-card"
+                    onclick="openCreateStudio()"
+                >
 
                     <div class="big-icon">
                         📄
@@ -912,8 +998,12 @@ a{
                 </div>
 
 
-                <div class="create-card"
-                     onclick="notReady('Cover Letter')">
+                <!-- COVER LETTER -->
+
+                <div
+                    class="create-card"
+                    onclick="openCreateStudio()"
+                >
 
                     <div class="big-icon">
                         ✉️
@@ -930,8 +1020,12 @@ a{
                 </div>
 
 
-                <div class="create-card"
-                     onclick="notReady('Portfolio')">
+                <!-- PORTFOLIO -->
+
+                <div
+                    class="create-card"
+                    onclick="openCreateStudio()"
+                >
 
                     <div class="big-icon">
                         🖥️
@@ -948,8 +1042,12 @@ a{
                 </div>
 
 
-                <div class="create-card"
-                     onclick="notReady('Business Card')">
+                <!-- BUSINESS CARD -->
+
+                <div
+                    class="create-card"
+                    onclick="openCreateStudio()"
+                >
 
                     <div class="big-icon">
                         💳
@@ -974,35 +1072,65 @@ a{
 </div>
 
 
-<!-- MOBILE NAV -->
+<!-- =========================
+     MOBILE NAVIGATION
+========================= -->
 
 <nav class="mobile-bottom">
 
-    <div class="mobile-nav active"
-         onclick="goHome()">
-        <div>🏠</div>
+    <div
+        class="mobile-nav active"
+        onclick="goHome()"
+    >
+        <div>
+            🏠
+        </div>
         Home
     </div>
 
-    <div class="mobile-nav"
-         onclick="goJobs()">
-        <div>💼</div>
+
+    <div
+        class="mobile-nav"
+        onclick="goJobs()"
+    >
+        <div>
+            💼
+        </div>
         Jobs
     </div>
 
-    <div class="mobile-nav"
-         onclick="createNewCV()">
-        <div>＋</div>
+
+    <!-- MOBILE CREATE -->
+
+    <div
+        class="mobile-nav"
+        onclick="openCreateStudio()"
+    >
+        <div>
+            ＋
+        </div>
         Create
     </div>
 
-    <div class="mobile-nav">
-        <div>💬</div>
+
+    <div
+        class="mobile-nav"
+        onclick="go('messages.html')"
+    >
+        <div>
+            💬
+        </div>
         Messages
     </div>
 
-    <div class="mobile-nav">
-        <div>👤</div>
+
+    <div
+        class="mobile-nav"
+        onclick="go('profile.html')"
+    >
+        <div>
+            👤
+        </div>
         Profile
     </div>
 
@@ -1037,6 +1165,53 @@ let allCVs = [];
 
 
 /* =========================================
+   UNIVERSAL NAVIGATION
+========================================= */
+
+function go(page){
+
+    window.location.href = page;
+
+}
+
+
+/* =========================================
+   CREATE STUDIO
+========================================= */
+
+function openCreateStudio(){
+
+    window.location.href =
+        "create.html";
+
+}
+
+
+/* =========================================
+   HOME
+========================================= */
+
+function goHome(){
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* =========================================
+   JOBS
+========================================= */
+
+function goJobs(){
+
+    window.location.href =
+        "job-finder.html";
+
+}
+
+
+/* =========================================
    AUTH
 ========================================= */
 
@@ -1066,7 +1241,9 @@ async function checkAuthentication(){
     currentUser =
         data.session.user;
 
+
     return true;
+
 }
 
 
@@ -1083,7 +1260,10 @@ async function loadProfile(){
         await supabaseClient
             .from("profiles")
             .select("*")
-            .eq("ID", currentUser.id)
+            .eq(
+                "ID",
+                currentUser.id
+            )
             .maybeSingle();
 
 
@@ -1094,7 +1274,6 @@ async function loadProfile(){
             error
         );
 
-        return;
     }
 
 
@@ -1102,23 +1281,28 @@ async function loadProfile(){
         data?.["FULL NAME"] ||
         data?.full_name ||
         currentUser.user_metadata?.full_name ||
+        currentUser.user_metadata?.name ||
         currentUser.email?.split("@")[0] ||
         "CareerCraft User";
 
 
-    document.getElementById("profileName")
-        .textContent = name;
+    document.getElementById(
+        "profileName"
+    ).textContent = name;
 
 
-    document.getElementById("welcomeTitle")
-        .textContent =
-            "Welcome back, " +
-            name.split(" ")[0] +
-            "!";
+    document.getElementById(
+        "welcomeTitle"
+    ).textContent =
+        "Welcome back, " +
+        name.split(" ")[0] +
+        "!";
 
 
     const image =
-        document.getElementById("profileImage");
+        document.getElementById(
+            "profileImage"
+        );
 
 
     if(data?.avatar_url){
@@ -1154,6 +1338,7 @@ function createAvatar(name){
     return `
         https://ui-avatars.com/api/?name=${letter}&background=2563eb&color=ffffff&size=100
     `;
+
 }
 
 
@@ -1210,10 +1395,9 @@ async function loadCVs(){
 
                 <button
                     class="primary-btn"
-                    onclick="loadCVs()">
-
+                    onclick="loadCVs()"
+                >
                     Try again
-
                 </button>
 
             </div>
@@ -1221,6 +1405,7 @@ async function loadCVs(){
         `;
 
         return;
+
     }
 
 
@@ -1228,9 +1413,10 @@ async function loadCVs(){
         data || [];
 
 
-    document.getElementById("cvCount")
-        .textContent =
-            allCVs.length;
+    document.getElementById(
+        "cvCount"
+    ).textContent =
+        allCVs.length;
 
 
     renderCVs(allCVs);
@@ -1271,10 +1457,9 @@ function renderCVs(cvs){
 
                 <button
                     class="primary-btn"
-                    onclick="createNewCV()">
-
-                    ＋ Create My First CV
-
+                    onclick="openCreateStudio()"
+                >
+                    ＋ Start Creating
                 </button>
 
             </div>
@@ -1282,6 +1467,7 @@ function renderCVs(cvs){
         `;
 
         return;
+
     }
 
 
@@ -1415,34 +1601,30 @@ function renderCVCard(cv){
 
                     <button
                         class="cv-action open"
-                        onclick="openCV('${escapeJS(cv.id)}')">
-
+                        onclick="openCV('${escapeJS(cv.id)}')"
+                    >
                         Open
-
                     </button>
 
                     <button
                         class="cv-action"
-                        onclick="editCV('${escapeJS(cv.id)}')">
-
+                        onclick="editCV('${escapeJS(cv.id)}')"
+                    >
                         Edit
-
                     </button>
 
                     <button
                         class="cv-action"
-                        onclick="duplicateCV('${escapeJS(cv.id)}')">
-
+                        onclick="duplicateCV('${escapeJS(cv.id)}')"
+                    >
                         Duplicate
-
                     </button>
 
                     <button
                         class="cv-action delete"
-                        onclick="deleteCV('${escapeJS(cv.id)}')">
-
+                        onclick="deleteCV('${escapeJS(cv.id)}')"
+                    >
                         Delete
-
                     </button>
 
                 </div>
@@ -1490,7 +1672,9 @@ async function duplicateCV(id){
 
     const original =
         allCVs.find(
-            cv => String(cv.id) === String(id)
+            cv =>
+                String(cv.id) ===
+                String(id)
         );
 
 
@@ -1499,17 +1683,7 @@ async function duplicateCV(id){
     }
 
 
-    const content =
-        original.content || {};
-
-
-    const newId =
-        generateId();
-
-
     const duplicate = {
-
-        id:newId,
 
         user_id:
             String(currentUser.id),
@@ -1552,7 +1726,7 @@ async function duplicateCV(id){
             original.languages,
 
         content:
-            content,
+            original.content || {},
 
         template:
             original.template ||
@@ -1580,6 +1754,7 @@ async function duplicateCV(id){
         );
 
         return;
+
     }
 
 
@@ -1642,6 +1817,7 @@ async function deleteCV(id){
         );
 
         return;
+
     }
 
 
@@ -1651,7 +1827,7 @@ async function deleteCV(id){
 
 
 /* =========================================
-   SEARCH CVS
+   SEARCH
 ========================================= */
 
 function searchCVs(){
@@ -1669,6 +1845,7 @@ function searchCVs(){
         renderCVs(allCVs);
 
         return;
+
     }
 
 
@@ -1719,54 +1896,17 @@ function showAllCVs(){
         "searchInput"
     ).value = "";
 
+
     renderCVs(allCVs);
 
+
     window.scrollTo({
+
         top:350,
+
         behavior:"smooth"
+
     });
-
-}
-
-
-/* =========================================
-   CREATE NEW CV
-========================================= */
-
-function createNewCV(){
-
-    window.location.href =
-        "cv-builder.html";
-
-}
-
-
-/* =========================================
-   OTHER NAVIGATION
-========================================= */
-
-function goHome(){
-
-    window.location.href =
-        "index.html";
-
-}
-
-
-function goJobs(){
-
-    window.location.href =
-        "job-finder.html";
-
-}
-
-
-function notReady(name){
-
-    alert(
-        name +
-        " is part of the CareerCraft Creation Studio. We'll build it next."
-    );
 
 }
 
@@ -1791,6 +1931,7 @@ async function logout(){
         );
 
         return;
+
     }
 
 
@@ -1803,27 +1944,6 @@ async function logout(){
 /* =========================================
    HELPERS
 ========================================= */
-
-function generateId(){
-
-    if(
-        window.crypto &&
-        typeof window.crypto.randomUUID ===
-        "function"
-    ){
-
-        return window.crypto.randomUUID();
-
-    }
-
-
-    return Date.now().toString(36) +
-           Math.random()
-               .toString(36)
-               .substring(2,10);
-
-}
-
 
 function formatDate(value){
 
@@ -1953,6 +2073,7 @@ function escapeJS(value){
     return String(value)
         .replace(/\\/g,"\\\\")
         .replace(/'/g,"\\'");
+
 }
 
 
@@ -1983,4 +2104,4 @@ init();
 </script>
 
 </body>
-    </html>    
+    </html>
