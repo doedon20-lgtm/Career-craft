@@ -1,0 +1,2172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cover Letter Creator | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Inter,Arial,Helvetica,sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+}
+
+button,input,textarea,select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.app{
+    min-height:100vh;
+    display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:250px;
+    background:#fff;
+    border-right:1px solid #e5e9f2;
+    padding:24px 16px;
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    z-index:20;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:5px 10px 30px;
+}
+
+.logo-mark{
+    width:38px;
+    height:38px;
+    border-radius:11px;
+    background:#5b4bdb;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+}
+
+.logo-text{
+    font-size:20px;
+    font-weight:800;
+}
+
+.logo-text span{
+    color:#5b4bdb;
+}
+
+.nav{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.nav a{
+    text-decoration:none;
+    color:#667085;
+    padding:12px 14px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.nav a:hover,
+.nav a.active{
+    background:#f0edff;
+    color:#5b4bdb;
+}
+
+.sidebar-bottom{
+    position:absolute;
+    left:16px;
+    right:16px;
+    bottom:20px;
+}
+
+.profile-mini{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px;
+    border:1px solid #e7eaf1;
+    border-radius:14px;
+}
+
+.avatar{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:#ece9ff;
+    color:#5b4bdb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    overflow:hidden;
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.profile-name{
+    font-size:13px;
+    font-weight:700;
+}
+
+.profile-email{
+    font-size:11px;
+    color:#8b93a5;
+    margin-top:2px;
+}
+
+/* MAIN */
+
+.main{
+    margin-left:250px;
+    width:calc(100% - 250px);
+    min-height:100vh;
+}
+
+.topbar{
+    height:72px;
+    background:#fff;
+    border-bottom:1px solid #e5e9f2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.topbar-title{
+    font-size:18px;
+    font-weight:800;
+}
+
+.top-actions{
+    display:flex;
+    gap:10px;
+}
+
+.btn{
+    border:0;
+    border-radius:10px;
+    padding:11px 16px;
+    font-weight:700;
+    font-size:13px;
+}
+
+.btn-light{
+    background:#f2f4f8;
+    color:#344054;
+}
+
+.btn-primary{
+    background:#5b4bdb;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#4b3dc5;
+}
+
+.content{
+    padding:28px;
+    max-width:1500px;
+    margin:auto;
+}
+
+.hero{
+    margin-bottom:25px;
+}
+
+.hero h1{
+    font-size:30px;
+    margin-bottom:7px;
+}
+
+.hero p{
+    color:#667085;
+    font-size:14px;
+}
+
+/* LAYOUT */
+
+.workspace{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 390px;
+    gap:24px;
+    align-items:start;
+}
+
+.panel{
+    background:#fff;
+    border:1px solid #e5e9f2;
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:20px;
+}
+
+.panel-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.panel-title h2{
+    font-size:17px;
+}
+
+.panel-title p{
+    font-size:12px;
+    color:#8a93a5;
+    margin-top:4px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    color:#475467;
+    margin-bottom:7px;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    border:1px solid #dce1ea;
+    background:#fff;
+    border-radius:10px;
+    padding:12px 13px;
+    outline:none;
+    color:#172033;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#5b4bdb;
+    box-shadow:0 0 0 3px rgba(91,75,219,.09);
+}
+
+textarea{
+    resize:vertical;
+    min-height:130px;
+    line-height:1.6;
+}
+
+/* CV SELECT */
+
+.cv-select{
+    display:flex;
+    gap:10px;
+}
+
+.cv-select select{
+    flex:1;
+}
+
+.import-btn{
+    white-space:nowrap;
+}
+
+/* EDITOR */
+
+.editor{
+    min-height:350px;
+    font-family:Georgia,serif;
+    font-size:15px;
+}
+
+.editor-help{
+    display:flex;
+    justify-content:space-between;
+    color:#98a2b3;
+    font-size:11px;
+    margin-top:7px;
+}
+
+/* TEMPLATES */
+
+.templates{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+
+.template-card{
+    border:2px solid #e5e7ee;
+    border-radius:14px;
+    padding:12px;
+    background:#fff;
+    cursor:pointer;
+    position:relative;
+}
+
+.template-card.selected{
+    border-color:#5b4bdb;
+    background:#faf9ff;
+}
+
+.template-check{
+    display:none;
+    position:absolute;
+    right:9px;
+    top:9px;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:#5b4bdb;
+    color:#fff;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+}
+
+.template-card.selected .template-check{
+    display:flex;
+}
+
+.mini-letter{
+    background:white;
+    border:1px solid #e5e7eb;
+    min-height:145px;
+    padding:12px;
+    color:#202938;
+}
+
+.mini-name{
+    font-size:9px;
+    font-weight:800;
+}
+
+.mini-contact{
+    font-size:6px;
+    color:#667085;
+    margin:4px 0 10px;
+}
+
+.mini-heading{
+    font-size:8px;
+    font-weight:800;
+    margin-bottom:8px;
+}
+
+.mini-lines{
+    font-size:6px;
+    line-height:1.7;
+    color:#667085;
+}
+
+.template-name{
+    font-size:12px;
+    font-weight:800;
+    margin-top:10px;
+}
+
+.template-description{
+    font-size:10px;
+    color:#8a93a5;
+    margin-top:3px;
+}
+
+/* RIGHT PREVIEW */
+
+.preview-panel{
+    position:sticky;
+    top:96px;
+}
+
+.preview-paper{
+    background:white;
+    min-height:600px;
+    border:1px solid #e0e4eb;
+    box-shadow:0 10px 35px rgba(16,24,40,.08);
+    padding:42px;
+    color:#202938;
+}
+
+.preview-header{
+    margin-bottom:30px;
+}
+
+.preview-name{
+    font-size:24px;
+    font-weight:800;
+}
+
+.preview-contact{
+    color:#667085;
+    font-size:11px;
+    margin-top:6px;
+    line-height:1.7;
+}
+
+.preview-date{
+    margin-top:25px;
+    font-size:12px;
+}
+
+.preview-company{
+    margin-top:20px;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.preview-body{
+    margin-top:22px;
+    white-space:pre-wrap;
+    font-family:Georgia,serif;
+    font-size:13px;
+    line-height:1.8;
+}
+
+.preview-footer{
+    margin-top:35px;
+    font-size:13px;
+    line-height:1.7;
+}
+
+/* STATUS */
+
+.status{
+    display:none;
+    padding:11px 14px;
+    border-radius:10px;
+    font-size:12px;
+    margin-bottom:15px;
+}
+
+.status.show{
+    display:block;
+}
+
+.status.success{
+    background:#ecfdf3;
+    color:#027a48;
+}
+
+.status.error{
+    background:#fef3f2;
+    color:#b42318;
+}
+
+.status.info{
+    background:#eff8ff;
+    color:#175cd3;
+}
+
+/* MOBILE */
+
+.mobile-nav{
+    display:none;
+}
+
+@media(max-width:1100px){
+    .workspace{
+        grid-template-columns:1fr;
+    }
+
+    .preview-panel{
+        position:static;
+    }
+}
+
+@media(max-width:800px){
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+        width:100%;
+        padding-bottom:75px;
+    }
+
+    .topbar{
+        padding:0 16px;
+        height:64px;
+    }
+
+    .content{
+        padding:20px 15px;
+    }
+
+    .hero h1{
+        font-size:25px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+    .templates{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .preview-paper{
+        padding:28px 22px;
+    }
+
+    .mobile-nav{
+        position:fixed;
+        bottom:0;
+        left:0;
+        right:0;
+        height:65px;
+        background:#fff;
+        border-top:1px solid #e5e9f2;
+        display:flex;
+        justify-content:space-around;
+        align-items:center;
+        z-index:50;
+    }
+
+    .mobile-nav a{
+        text-decoration:none;
+        color:#667085;
+        font-size:10px;
+        font-weight:700;
+        text-align:center;
+    }
+
+    .mobile-nav a.active{
+        color:#5b4bdb;
+    }
+
+    .mobile-icon{
+        display:block;
+        font-size:19px;
+        margin-bottom:2px;
+    }
+}
+
+@media(max-width:500px){
+    .top-actions .btn-light{
+        display:none;
+    }
+
+    .panel{
+        padding:16px;
+        border-radius:14px;
+    }
+
+    .templates{
+        grid-template-columns:1fr;
+    }
+
+    .cv-select{
+        flex-direction:column;
+    }
+}
+
+/* PRINT */
+
+@media print{
+    body{
+        background:white;
+    }
+
+    .sidebar,
+    .topbar,
+    .hero,
+    .editor-area,
+    .builder-panel,
+    .mobile-nav,
+    .preview-controls{
+        display:none!important;
+    }
+
+    .main{
+        margin:0;
+        width:100%;
+    }
+
+    .content{
+        padding:0;
+    }
+
+    .workspace{
+        display:block;
+    }
+
+    .preview-panel{
+        display:block;
+    }
+
+    .preview-paper{
+        border:0;
+        box-shadow:none;
+        min-height:auto;
+        padding:35px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-mark">C</div>
+            <div class="logo-text">Career<span>Craft</span></div>
+        </div>
+
+        <nav class="nav">
+
+            <a href="index.html">🏠 Dashboard</a>
+
+            <a href="job-finder.html">💼 Jobs</a>
+
+            <a href="network.html">🤝 Network</a>
+
+            <a href="communities.html">👥 Communities</a>
+
+            <a href="messages.html">💬 Messages</a>
+
+            <a href="create.html" class="active">＋ Create</a>
+
+            <a href="cv-builder.html">📄 CV Builder</a>
+
+            <a href="templates.html">🎨 Templates</a>
+
+            <a href="saved-jobs.html">🔖 Saved Jobs</a>
+
+            <a href="applications.html">📋 Applications</a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="profile-mini">
+
+                <div class="avatar" id="avatar">
+                    C
+                </div>
+
+                <div>
+                    <div class="profile-name" id="profileName">
+                        CareerCraft User
+                    </div>
+
+                    <div class="profile-email" id="profileEmail">
+                        Loading...
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div class="topbar-title">
+                Cover Letter Creator
+            </div>
+
+            <div class="top-actions">
+
+                <button class="btn btn-light" onclick="goDashboard()">
+                    Dashboard
+                </button>
+
+                <button class="btn btn-primary" onclick="saveCoverLetter()">
+                    Save Cover Letter
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <section class="content">
+
+            <div class="hero">
+
+                <h1>Create a Cover Letter</h1>
+
+                <p>
+                    Build a polished, job-specific cover letter for employers in the US and UK.
+                </p>
+
+            </div>
+
+
+            <div id="status" class="status"></div>
+
+
+            <div class="workspace">
+
+
+                <!-- BUILDER -->
+
+                <div class="builder-panel">
+
+
+                    <!-- JOB INFORMATION -->
+
+                    <div class="panel">
+
+                        <div class="panel-title">
+
+                            <div>
+                                <h2>Job Information</h2>
+                                <p>Tell CareerCraft what position you're applying for.</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>Cover Letter Title</label>
+
+                                <input
+                                    id="letterTitle"
+                                    type="text"
+                                    placeholder="Marketing Manager Application"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Job Title</label>
+
+                                <input
+                                    id="jobTitle"
+                                    type="text"
+                                    placeholder="Marketing Manager"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Company</label>
+
+                                <input
+                                    id="companyName"
+                                    type="text"
+                                    placeholder="Google"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Job URL</label>
+
+                                <input
+                                    id="jobUrl"
+                                    type="url"
+                                    placeholder="https://..."
+                                >
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label>Job Description</label>
+
+                                <textarea
+                                    id="jobDescription"
+                                    placeholder="Paste the job description here. This helps you tailor your letter to the role."
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CV -->
+
+                    <div class="panel">
+
+                        <div class="panel-title">
+
+                            <div>
+                                <h2>Use Your CareerCraft CV</h2>
+                                <p>Pull your saved CV information into the cover letter.</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="cv-select">
+
+                            <select id="cvSelect">
+
+                                <option value="">
+                                    Select a saved CV
+                                </option>
+
+                            </select>
+
+                            <button
+                                class="btn btn-light import-btn"
+                                onclick="importCV()"
+                            >
+                                Import CV
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PERSONAL INFO -->
+
+                    <div class="panel">
+
+                        <div class="panel-title">
+
+                            <div>
+                                <h2>Your Information</h2>
+                                <p>This appears at the top of your letter.</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>Full Name</label>
+
+                                <input id="fullName" type="text" placeholder="Alex Morgan">
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Email</label>
+
+                                <input id="email" type="email" placeholder="alex@example.com">
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Phone</label>
+
+                                <input id="phone" type="text" placeholder="+44 20 0000 0000">
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Location</label>
+
+                                <input id="location" type="text" placeholder="London, UK">
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label>Professional Headline</label>
+
+                                <input
+                                    id="headline"
+                                    type="text"
+                                    placeholder="Marketing & Growth Professional"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- LETTER -->
+
+                    <div class="panel editor-area">
+
+                        <div class="panel-title">
+
+                            <div>
+                                <h2>Letter</h2>
+                                <p>Write a personalized message for the employer.</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Greeting</label>
+
+                            <input
+                                id="greeting"
+                                type="text"
+                                value="Dear Hiring Manager,"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Cover Letter Content</label>
+
+                            <textarea
+                                id="letterBody"
+                                class="editor"
+                                placeholder="Write your cover letter here...
+
+Example:
+
+I am excited to apply for the Marketing Manager position at your company. With several years of experience developing digital campaigns and growing customer engagement, I believe I can contribute meaningful results to your team.
+
+In my current role, I have led marketing initiatives across multiple channels, collaborated with cross-functional teams, and used performance data to improve campaign results.
+
+I would welcome the opportunity to discuss how my experience could support your organisation.
+
+Thank you for your consideration."
+                            ></textarea>
+
+                            <div class="editor-help">
+
+                                <span>
+                                    Keep it focused and specific to the role.
+                                </span>
+
+                                <span id="wordCount">
+                                    0 words
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Closing</label>
+
+                            <input
+                                id="closing"
+                                type="text"
+                                value="Kind regards,"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TEMPLATE -->
+
+                    <div class="panel">
+
+                        <div class="panel-title">
+
+                            <div>
+                                <h2>Choose Your Letter Style</h2>
+                                <p>Select a professional layout.</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="templates">
+
+
+                            <div
+                                class="template-card selected"
+                                data-template="professional"
+                                onclick="selectTemplate('professional')"
+                            >
+
+                                <div class="template-check">✓</div>
+
+                                <div class="mini-letter">
+
+                                    <div class="mini-name">Alex Morgan</div>
+
+                                    <div class="mini-contact">
+                                        London, UK · alex@email.com · +44 20 0000 0000
+                                    </div>
+
+                                    <div class="mini-heading">
+                                        Marketing Manager
+                                    </div>
+
+                                    <div class="mini-lines">
+                                        Dear Hiring Manager,<br>
+                                        I am excited to apply for this opportunity...
+                                        <br><br>
+                                        My experience in marketing and growth...
+                                        <br><br>
+                                        Kind regards,<br>
+                                        Alex Morgan
+                                    </div>
+
+                                </div>
+
+                                <div class="template-name">
+                                    Professional
+                                </div>
+
+                                <div class="template-description">
+                                    Balanced and suitable for most careers
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="template-card"
+                                data-template="modern"
+                                onclick="selectTemplate('modern')"
+                            >
+
+                                <div class="template-check">✓</div>
+
+                                <div class="mini-letter">
+
+                                    <div class="mini-name">
+                                        ALEX MORGAN
+                                    </div>
+
+                                    <div class="mini-contact">
+                                        NEW YORK, NY · ALEX@EMAIL.COM
+                                    </div>
+
+                                    <div class="mini-heading">
+                                        MARKETING MANAGER
+                                    </div>
+
+                                    <div class="mini-lines">
+                                        Dear Hiring Manager,<br>
+                                        I am writing to express my interest...
+                                        <br><br>
+                                        My background combines strategy...
+                                        <br><br>
+                                        Best regards,<br>
+                                        Alex Morgan
+                                    </div>
+
+                                </div>
+
+                                <div class="template-name">
+                                    Modern
+                                </div>
+
+                                <div class="template-description">
+                                    Clean contemporary business style
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="template-card"
+                                data-template="executive"
+                                onclick="selectTemplate('executive')"
+                            >
+
+                                <div class="template-check">✓</div>
+
+                                <div class="mini-letter">
+
+                                    <div class="mini-name">
+                                        Alex Morgan
+                                    </div>
+
+                                    <div class="mini-contact">
+                                        CHICAGO, IL · alex@email.com
+                                    </div>
+
+                                    <div class="mini-heading">
+                                        SENIOR PROFESSIONAL
+                                    </div>
+
+                                    <div class="mini-lines">
+                                        Dear Hiring Manager,<br>
+                                        I am pleased to submit my application...
+                                        <br><br>
+                                        Throughout my career, I have...
+                                        <br><br>
+                                        Sincerely,<br>
+                                        Alex Morgan
+                                    </div>
+
+                                </div>
+
+                                <div class="template-name">
+                                    Executive
+                                </div>
+
+                                <div class="template-description">
+                                    Premium leadership presentation
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="template-card"
+                                data-template="minimal"
+                                onclick="selectTemplate('minimal')"
+                            >
+
+                                <div class="template-check">✓</div>
+
+                                <div class="mini-letter">
+
+                                    <div class="mini-name">
+                                        Alex Morgan
+                                    </div>
+
+                                    <div class="mini-contact">
+                                        London, UK
+                                    </div>
+
+                                    <div class="mini-heading">
+                                        Application
+                                    </div>
+
+                                    <div class="mini-lines">
+                                        Dear Hiring Manager,<br>
+                                        I am interested in the position...
+                                        <br><br>
+                                        I believe my experience...
+                                        <br><br>
+                                        Kind regards,<br>
+                                        Alex Morgan
+                                    </div>
+
+                                </div>
+
+                                <div class="template-name">
+                                    Minimal
+                                </div>
+
+                                <div class="template-description">
+                                    Simple, elegant and distraction-free
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- PREVIEW -->
+
+                <aside class="preview-panel">
+
+                    <div class="panel">
+
+                        <div class="panel-title preview-controls">
+
+                            <div>
+                                <h2>Live Preview</h2>
+                                <p>Your finished cover letter.</p>
+                            </div>
+
+                            <button
+                                class="btn btn-light"
+                                onclick="printLetter()"
+                            >
+                                Print / PDF
+                            </button>
+
+                        </div>
+
+
+                        <div id="previewPaper" class="preview-paper">
+
+                            <div class="preview-header">
+
+                                <div
+                                    id="previewName"
+                                    class="preview-name"
+                                >
+                                    Alex Morgan
+                                </div>
+
+                                <div
+                                    id="previewHeadline"
+                                    class="preview-contact"
+                                >
+                                    Marketing & Growth Professional
+                                </div>
+
+                                <div
+                                    id="previewContact"
+                                    class="preview-contact"
+                                >
+                                    London, UK · alex@example.com · +44 20 0000 0000
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                id="previewDate"
+                                class="preview-date"
+                            ></div>
+
+
+                            <div
+                                id="previewCompany"
+                                class="preview-company"
+                            >
+                                Hiring Team<br>
+                                Company Name
+                            </div>
+
+
+                            <div
+                                id="previewGreeting"
+                                class="preview-body"
+                            >
+                                Dear Hiring Manager,
+                            </div>
+
+
+                            <div
+                                id="previewBody"
+                                class="preview-body"
+                            >
+                                Your cover letter will appear here.
+                            </div>
+
+
+                            <div
+                                id="previewFooter"
+                                class="preview-footer"
+                            >
+                                Kind regards,<br><br>
+                                Alex Morgan
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </aside>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- MOBILE NAV -->
+
+<nav class="mobile-nav">
+
+    <a href="index.html">
+        <span class="mobile-icon">🏠</span>
+        Home
+    </a>
+
+    <a href="job-finder.html">
+        <span class="mobile-icon">💼</span>
+        Jobs
+    </a>
+
+    <a href="create.html" class="active">
+        <span class="mobile-icon">＋</span>
+        Create
+    </a>
+
+    <a href="network.html">
+        <span class="mobile-icon">🤝</span>
+        Network
+    </a>
+
+    <a href="messages.html">
+        <span class="mobile-icon">💬</span>
+        Messages
+    </a>
+
+</nav>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+let currentUser = null;
+let currentLetterId = null;
+let currentCVId = null;
+let selectedTemplate = "professional";
+let savedCVs = [];
+
+
+/* ELEMENT HELPER */
+
+function $(id){
+    return document.getElementById(id);
+}
+
+
+/* STATUS */
+
+function showStatus(message,type="info"){
+
+    const box = $("status");
+
+    box.textContent = message;
+
+    box.className =
+        "status show " + type;
+
+    setTimeout(()=>{
+        box.classList.remove("show");
+    },4000);
+}
+
+
+/* DASHBOARD */
+
+function goDashboard(){
+
+    window.location.href = "index.html";
+
+}
+
+
+/* AUTH */
+
+async function checkAuth(){
+
+    const {
+        data:{
+            session
+        }
+    } = await supabaseClient.auth.getSession();
+
+
+    if(!session){
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+
+    currentUser =
+        session.user;
+
+
+    $("profileEmail").textContent =
+        currentUser.email || "";
+
+
+    await loadProfile();
+
+    return true;
+}
+
+
+/* PROFILE */
+
+async function loadProfile(){
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("ID",currentUser.id)
+        .maybeSingle();
+
+
+    if(error){
+
+        console.error(error);
+
+        return;
+    }
+
+
+    const name =
+        data?.["FULL NAME"] ||
+        data?.full_name ||
+        currentUser.user_metadata?.full_name ||
+        currentUser.email?.split("@")[0] ||
+        "CareerCraft User";
+
+
+    $("profileName").textContent =
+        name;
+
+
+    $("fullName").value =
+        name;
+
+
+    const avatar =
+        data?.avatar_url;
+
+
+    if(avatar){
+
+        $("avatar").innerHTML =
+            `<img src="${avatar}" alt="Profile">`;
+
+    }else{
+
+        $("avatar").textContent =
+            name.charAt(0).toUpperCase();
+
+    }
+
+}
+
+
+/* LOAD CVS */
+
+async function loadCVs(){
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("cvs")
+        .select("*")
+        .eq("user_id",String(currentUser.id))
+        .order("updated_at",{ascending:false});
+
+
+    if(error){
+
+        console.error(error);
+
+        showStatus(
+            "Unable to load your saved CVs.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    savedCVs = data || [];
+
+
+    const select =
+        $("cvSelect");
+
+
+    select.innerHTML =
+        `<option value="">Select a saved CV</option>`;
+
+
+    savedCVs.forEach(cv=>{
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            cv.id;
+
+        option.textContent =
+            cv.title ||
+            "Untitled CV";
+
+
+        select.appendChild(option);
+
+    });
+
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const requestedId =
+        params.get("id");
+
+
+    if(requestedId){
+
+        await loadExistingLetter(
+            requestedId
+        );
+
+    }
+
+}
+
+
+/* IMPORT CV */
+
+function importCV(){
+
+    const id =
+        $("cvSelect").value;
+
+
+    if(!id){
+
+        showStatus(
+            "Select a CV first.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const cv =
+        savedCVs.find(
+            item => String(item.id) === String(id)
+        );
+
+
+    if(!cv){
+
+        showStatus(
+            "CV could not be found.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    currentCVId =
+        cv.id;
+
+
+    const content =
+        cv.content || {};
+
+
+    $("fullName").value =
+        content.fullName ||
+        cv.full_name ||
+        "";
+
+
+    $("email").value =
+        content.email ||
+        cv.email ||
+        "";
+
+
+    $("phone").value =
+        content.phone ||
+        cv.phone ||
+        "";
+
+
+    $("location").value =
+        content.location ||
+        cv.location ||
+        "";
+
+
+    $("headline").value =
+        content.headline ||
+        content.professionalHeadline ||
+        "";
+
+
+    showStatus(
+        "CV information imported.",
+        "success"
+    );
+
+
+    updatePreview();
+
+}
+
+
+/* TEMPLATE */
+
+function selectTemplate(template){
+
+    selectedTemplate =
+        template;
+
+
+    document
+        .querySelectorAll(".template-card")
+        .forEach(card=>{
+
+            card.classList.toggle(
+                "selected",
+                card.dataset.template === template
+            );
+
+        });
+
+
+    updatePreview();
+
+}
+
+
+/* WORD COUNT */
+
+function updateWordCount(){
+
+    const text =
+        $("letterBody").value.trim();
+
+
+    const words =
+        text
+        ? text.split(/\s+/).length
+        : 0;
+
+
+    $("wordCount").textContent =
+        words + (words === 1 ? " word" : " words");
+
+}
+
+
+/* PREVIEW */
+
+function updatePreview(){
+
+    const name =
+        $("fullName").value.trim()
+        || "Alex Morgan";
+
+
+    const headline =
+        $("headline").value.trim()
+        || "Professional";
+
+
+    const email =
+        $("email").value.trim()
+        || "alex@example.com";
+
+
+    const phone =
+        $("phone").value.trim()
+        || "+44 20 0000 0000";
+
+
+    const location =
+        $("location").value.trim()
+        || "London, UK";
+
+
+    const jobTitle =
+        $("jobTitle").value.trim()
+        || "Your Target Position";
+
+
+    const company =
+        $("companyName").value.trim()
+        || "Company Name";
+
+
+    const greeting =
+        $("greeting").value.trim()
+        || "Dear Hiring Manager,";
+
+
+    const body =
+        $("letterBody").value.trim()
+        || "Your cover letter will appear here.";
+
+
+    const closing =
+        $("closing").value.trim()
+        || "Kind regards,";
+
+
+    $("previewName").textContent =
+        name;
+
+
+    $("previewHeadline").textContent =
+        headline;
+
+
+    $("previewContact").textContent =
+        `${location} · ${email} · ${phone}`;
+
+
+    $("previewDate").textContent =
+        new Date().toLocaleDateString(
+            "en-US",
+            {
+                year:"numeric",
+                month:"long",
+                day:"numeric"
+            }
+        );
+
+
+    $("previewCompany").innerHTML =
+        `Hiring Team<br>${escapeHTML(company)}<br><br><strong>${escapeHTML(jobTitle)}</strong>`;
+
+
+    $("previewGreeting").textContent =
+        greeting;
+
+
+    $("previewBody").textContent =
+        body;
+
+
+    $("previewFooter").innerHTML =
+        `${escapeHTML(closing)}<br><br>${escapeHTML(name)}`;
+
+
+    updateWordCount();
+
+}
+
+
+/* HTML ESCAPE */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* SAVE */
+
+async function saveCoverLetter(){
+
+    if(!currentUser){
+
+        showStatus(
+            "Please log in first.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const title =
+        $("letterTitle").value.trim()
+        || "My Cover Letter";
+
+
+    const content = {
+
+        fullName:
+            $("fullName").value.trim(),
+
+        email:
+            $("email").value.trim(),
+
+        phone:
+            $("phone").value.trim(),
+
+        location:
+            $("location").value.trim(),
+
+        headline:
+            $("headline").value.trim(),
+
+        greeting:
+            $("greeting").value.trim(),
+
+        body:
+            $("letterBody").value.trim(),
+
+        closing:
+            $("closing").value.trim(),
+
+        jobDescription:
+            $("jobDescription").value.trim()
+
+    };
+
+
+    const payload = {
+
+        user_id:
+            String(currentUser.id),
+
+        cv_id:
+            currentCVId
+                ? String(currentCVId)
+                : null,
+
+        title,
+
+        job_title:
+            $("jobTitle").value.trim(),
+
+        company_name:
+            $("companyName").value.trim(),
+
+        job_url:
+            $("jobUrl").value.trim(),
+
+        content,
+
+        template:
+            selectedTemplate,
+
+        updated_at:
+            new Date().toISOString()
+
+    };
+
+
+    showStatus(
+        "Saving your cover letter...",
+        "info"
+    );
+
+
+    let result;
+
+
+    if(currentLetterId){
+
+        result =
+            await supabaseClient
+                .from("cover_letters")
+                .update(payload)
+                .eq("id",String(currentLetterId))
+                .eq("user_id",String(currentUser.id));
+
+    }else{
+
+        const newId =
+            typeof crypto !== "undefined" &&
+            crypto.randomUUID
+                ? crypto.randomUUID()
+                : Date.now().toString();
+
+
+        payload.id =
+            newId;
+
+
+        result =
+            await supabaseClient
+                .from("cover_letters")
+                .insert(payload);
+
+
+        if(!result.error){
+
+            currentLetterId =
+                newId;
+
+        }
+
+    }
+
+
+    if(result.error){
+
+        console.error(result.error);
+
+        showStatus(
+            "Could not save the cover letter: " +
+            result.error.message,
+            "error"
+        );
+
+        return;
+    }
+
+
+    showStatus(
+        "Cover letter saved successfully.",
+        "success"
+    );
+
+}
+
+
+/* LOAD EXISTING LETTER */
+
+async function loadExistingLetter(id){
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("cover_letters")
+        .select("*")
+        .eq("id",id)
+        .eq("user_id",String(currentUser.id))
+        .maybeSingle();
+
+
+    if(error){
+
+        console.error(error);
+
+        showStatus(
+            "Could not load the cover letter.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(!data){
+
+        showStatus(
+            "Cover letter not found.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    currentLetterId =
+        data.id;
+
+
+    $("letterTitle").value =
+        data.title || "";
+
+
+    $("jobTitle").value =
+        data.job_title || "";
+
+
+    $("companyName").value =
+        data.company_name || "";
+
+
+    $("jobUrl").value =
+        data.job_url || "";
+
+
+    selectedTemplate =
+        data.template || "professional";
+
+
+    selectTemplate(
+        selectedTemplate
+    );
+
+
+    const content =
+        data.content || {};
+
+
+    $("fullName").value =
+        content.fullName || "";
+
+
+    $("email").value =
+        content.email || "";
+
+
+    $("phone").value =
+        content.phone || "";
+
+
+    $("location").value =
+        content.location || "";
+
+
+    $("headline").value =
+        content.headline || "";
+
+
+    $("greeting").value =
+        content.greeting ||
+        "Dear Hiring Manager,";
+
+
+    $("letterBody").value =
+        content.body || "";
+
+
+    $("closing").value =
+        content.closing ||
+        "Kind regards,";
+
+
+    $("jobDescription").value =
+        content.jobDescription || "";
+
+
+    if(data.cv_id){
+
+        $("cvSelect").value =
+            String(data.cv_id);
+
+        currentCVId =
+            data.cv_id;
+
+    }
+
+
+    updatePreview();
+
+}
+
+
+/* PRINT */
+
+function printLetter(){
+
+    updatePreview();
+
+    window.print();
+
+}
+
+
+/* LIVE UPDATES */
+
+[
+    "letterTitle",
+    "jobTitle",
+    "companyName",
+    "jobUrl",
+    "jobDescription",
+    "fullName",
+    "email",
+    "phone",
+    "location",
+    "headline",
+    "greeting",
+    "letterBody",
+    "closing"
+].forEach(id=>{
+
+    $(id).addEventListener(
+        "input",
+        updatePreview
+    );
+
+});
+
+
+/* START */
+
+(async function(){
+
+    const authenticated =
+        await checkAuth();
+
+
+    if(!authenticated)
+        return;
+
+
+    await loadCVs();
+
+
+    updatePreview();
+
+})();
+
+</script>
+
+</body>
+</html>
