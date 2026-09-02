@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Notifications | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,Arial,sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    color:#172033;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar{
+    height:64px;
+    background:white;
+    border-bottom:1px solid #e6e9ef;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1000;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:800;
+    color:#2563eb;
+    text-decoration:none;
+}
+
+.search{
+    width:360px;
+    height:40px;
+    background:#f1f4f8;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    padding:0 14px;
+}
+
+.search input{
+    border:none;
+    outline:none;
+    background:transparent;
+    width:100%;
+    font-size:14px;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:22px;
+}
+
+.top-link{
+    color:#526071;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+}
+
+.top-link:hover{
+    color:#2563eb;
+}
+
+.profile-mini{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    object-fit:cover;
+    cursor:pointer;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+    top:64px;
+    left:0;
+    bottom:0;
+    width:235px;
+    background:white;
+    border-right:1px solid #e6e9ef;
+    padding:22px 14px;
+}
+
+.side-title{
+    font-size:11px;
+    font-weight:800;
+    color:#98a1af;
+    text-transform:uppercase;
+    padding:0 12px;
+    margin-bottom:10px;
+}
+
+.side-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    margin-bottom:4px;
+    color:#526071;
+    text-decoration:none;
+    border-radius:9px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.side-link:hover{
+    background:#f1f5ff;
+    color:#2563eb;
+}
+
+.side-link.active{
+    background:#eaf1ff;
+    color:#2563eb;
+}
+
+.side-icon{
+    width:22px;
+    text-align:center;
+    font-size:17px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:235px;
+    padding:94px 35px 100px;
+    max-width:1050px;
+}
+
+.page-header{
+    margin-bottom:24px;
+}
+
+.page-header h1{
+    font-size:28px;
+    margin-bottom:6px;
+}
+
+.page-header p{
+    color:#7a8493;
+    font-size:14px;
+}
+
+/* =========================
+   NOTIFICATION CARD
+========================= */
+
+.notifications-card{
+    background:white;
+    border:1px solid #e5e9ef;
+    border-radius:14px;
+    overflow:hidden;
+}
+
+.notification{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:18px 20px;
+    border-bottom:1px solid #edf0f4;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.notification:last-child{
+    border-bottom:none;
+}
+
+.notification:hover{
+    background:#f8faff;
+}
+
+.notification.unread{
+    background:#f0f6ff;
+}
+
+.avatar{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    object-fit:cover;
+    flex-shrink:0;
+}
+
+.notification-content{
+    flex:1;
+}
+
+.notification-content strong{
+    color:#182235;
+}
+
+.notification-text{
+    color:#526071;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.notification-time{
+    font-size:12px;
+    color:#9aa3b1;
+    margin-top:4px;
+}
+
+.notification-arrow{
+    font-size:20px;
+    color:#a2aab5;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+    text-align:center;
+    padding:70px 20px;
+}
+
+.empty-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.empty h3{
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.empty p{
+    color:#8993a2;
+    font-size:14px;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+    text-align:center;
+    padding:60px;
+    color:#7c8797;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-nav{
+    display:none;
+}
+
+@media(max-width:850px){
+
+    .topbar{
+        padding:0 16px;
+    }
+
+    .search{
+        display:none;
+    }
+
+    .top-link{
+        display:none;
+    }
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+        padding:84px 15px 90px;
+    }
+
+    .page-header h1{
+        font-size:24px;
+    }
+
+    .mobile-nav{
+        display:flex;
+        position:fixed;
+        bottom:0;
+        left:0;
+        right:0;
+        height:65px;
+        background:white;
+        border-top:1px solid #e5e8ed;
+        z-index:1000;
+        justify-content:space-around;
+        align-items:center;
+    }
+
+    .mobile-nav a{
+        text-decoration:none;
+        color:#687384;
+        font-size:11px;
+        text-align:center;
+    }
+
+    .mobile-nav a.active{
+        color:#2563eb;
+    }
+
+    .mobile-nav span{
+        display:block;
+        font-size:19px;
+        margin-bottom:3px;
+    }
+
+    .notification{
+        padding:15px;
+    }
+
+    .avatar{
+        width:43px;
+        height:43px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     TOP BAR
+========================= -->
+
+<header class="topbar">
+
+    <a href="index.html" class="logo">
+        CareerCraft
+    </a>
+
+    <div class="search">
+        🔎
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search notifications..."
+        >
+    </div>
+
+    <div class="top-actions">
+
+        <a href="job-finder.html" class="top-link">
+            Jobs
+        </a>
+
+        <a href="messages.html" class="top-link">
+            Messages
+        </a>
+
+        <a href="notifications.html" class="top-link">
+            🔔
+        </a>
+
+        <img
+            id="topAvatar"
+            class="profile-mini"
+            src=""
+            onclick="window.location.href='profile.html'"
+        >
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+    <div class="side-title">
+        CareerCraft
+    </div>
+
+    <a href="dashboard.html" class="side-link">
+        <span class="side-icon">🏠</span>
+        Dashboard
+    </a>
+
+    <a href="profile.html" class="side-link">
+        <span class="side-icon">👤</span>
+        My Profile
+    </a>
+
+    <a href="network.html" class="side-link">
+        <span class="side-icon">👥</span>
+        Network
+    </a>
+
+    <a href="job-finder.html" class="side-link">
+        <span class="side-icon">💼</span>
+        Jobs
+    </a>
+
+    <a href="applications.html" class="side-link">
+        <span class="side-icon">📄</span>
+        Applications
+    </a>
+
+    <a href="communities.html" class="side-link">
+        <span class="side-icon">🌐</span>
+        Communities
+    </a>
+
+    <a href="messages.html" class="side-link">
+        <span class="side-icon">💬</span>
+        Messages
+    </a>
+
+    <a href="notifications.html" class="side-link active">
+        <span class="side-icon">🔔</span>
+        Notifications
+    </a>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+    <div class="page-header">
+
+        <h1>Notifications</h1>
+
+        <p>
+            Stay updated with activity on your CareerCraft account.
+        </p>
+
+    </div>
+
+
+    <div class="notifications-card">
+
+        <div id="loading" class="loading">
+            Loading notifications...
+        </div>
+
+        <div
+            id="notificationsList"
+            style="display:none;"
+        ></div>
+
+        <div
+            id="empty"
+            class="empty"
+            style="display:none;"
+        >
+
+            <div class="empty-icon">
+                🔔
+            </div>
+
+            <h3>
+                You're all caught up
+            </h3>
+
+            <p>
+                New activity will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =========================
+     MOBILE NAV
+========================= -->
+
+<nav class="mobile-nav">
+
+    <a href="dashboard.html">
+        <span>🏠</span>
+        Home
+    </a>
+
+    <a href="network.html">
+        <span>👥</span>
+        Network
+    </a>
+
+    <a href="create.html">
+        <span>➕</span>
+        Create
+    </a>
+
+    <a href="messages.html">
+        <span>💬</span>
+        Messages
+    </a>
+
+    <a href="notifications.html" class="active">
+        <span>🔔</span>
+        Alerts
+    </a>
+
+</nav>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+let currentUser = null;
+let allNotifications = [];
+
+
+/* =========================
+   AVATAR
+========================= */
+
+function createAvatar(name){
+
+    const letter =
+        encodeURIComponent(
+            (name || "U")
+            .charAt(0)
+            .toUpperCase()
+        );
+
+    return `
+https://ui-avatars.com/api/?name=${letter}&background=2563eb&color=ffffff&size=100
+`;
+}
+
+
+/* =========================
+   AUTHENTICATION
+========================= */
+
+async function checkAuthentication(){
+
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.getUser();
+
+    if(error || !data.user){
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+    currentUser =
+        data.user;
+
+    return true;
+}
+
+
+/* =========================
+   CURRENT PROFILE
+========================= */
+
+async function loadCurrentProfile(){
+
+    const {
+        data
+    } =
+    await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("ID", currentUser.id)
+        .maybeSingle();
+
+    const name =
+        data?.["FULL NAME"] ||
+        data?.full_name ||
+        data?.fullName ||
+        data?.name ||
+        currentUser
+            .user_metadata
+            ?.full_name ||
+        currentUser.email
+            ?.split("@")[0] ||
+        "CareerCraft User";
+
+    const avatar =
+        data?.avatar_url ||
+        createAvatar(name);
+
+    document.getElementById(
+        "topAvatar"
+    ).src = avatar;
+}
+
+
+/* =========================
+   LOAD INCOMING MESSAGES
+========================= */
+
+async function loadNotifications(){
+
+    const {
+        data: messages,
+        error
+    } =
+    await supabaseClient
+        .from("messages")
+        .select("*")
+        .eq(
+            "receiver_id",
+            currentUser.id
+        )
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
+
+    if(error){
+
+        console.error(
+            "Notification error:",
+            error
+        );
+
+        showEmpty();
+
+        return;
+    }
+
+    if(!messages ||
+       messages.length === 0){
+
+        showEmpty();
+
+        return;
+    }
+
+
+    /*
+       Get sender IDs
+    */
+
+    const senderIds =
+        [
+            ...new Set(
+                messages.map(
+                    message =>
+                        message.sender_id
+                )
+            )
+        ];
+
+
+    /*
+       Load sender profiles
+    */
+
+    let profileMap =
+        new Map();
+
+    if(senderIds.length){
+
+        const {
+            data: profiles
+        } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .in(
+                "ID",
+                senderIds
+            );
+
+        (profiles || [])
+            .forEach(profile => {
+
+                profileMap.set(
+                    String(profile.ID),
+                    profile
+                );
+
+            });
+    }
+
+
+    /*
+       Build notifications
+    */
+
+    allNotifications =
+        messages.map(message => {
+
+            const profile =
+                profileMap.get(
+                    String(
+                        message.sender_id
+                    )
+                );
+
+            const name =
+                profile?.["FULL NAME"] ||
+                profile?.full_name ||
+                profile?.fullName ||
+                profile?.name ||
+                "CareerCraft User";
+
+            const avatar =
+                profile?.avatar_url ||
+                createAvatar(name);
+
+            return {
+
+                id:message.id,
+
+                senderId:
+                    message.sender_id,
+
+                name:name,
+
+                avatar:avatar,
+
+                content:
+                    message.content,
+
+                createdAt:
+                    message.created_at
+
+            };
+
+        });
+
+
+    renderNotifications();
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function renderNotifications(){
+
+    const list =
+        document.getElementById(
+            "notificationsList"
+        );
+
+    const search =
+        document.getElementById(
+            "searchInput"
+        )
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const filtered =
+        allNotifications.filter(
+            notification => {
+
+                return (
+                    notification.name
+                        .toLowerCase()
+                        .includes(search)
+                    ||
+                    notification.content
+                        .toLowerCase()
+                        .includes(search)
+                );
+
+            }
+        );
+
+
+    if(filtered.length === 0){
+
+        list.style.display =
+            "none";
+
+        document.getElementById(
+            "empty"
+        ).style.display =
+            "block";
+
+        document.getElementById(
+            "loading"
+        ).style.display =
+            "none";
+
+        return;
+    }
+
+
+    list.innerHTML =
+        filtered
+        .map(notification => {
+
+            return `
+
+            <div
+                class="notification unread"
+                onclick="openMessage('${notification.senderId}')"
+            >
+
+                <img
+                    class="avatar"
+                    src="${notification.avatar}"
+                    alt=""
+                >
+
+                <div class="notification-content">
+
+                    <div class="notification-text">
+
+                        <strong>
+                            ${escapeHtml(
+                                notification.name
+                            )}
+                        </strong>
+
+                        sent you a message.
+
+                    </div>
+
+                    <div class="notification-text">
+
+                        ${escapeHtml(
+                            notification.content
+                        )}
+
+                    </div>
+
+                    <div class="notification-time">
+
+                        ${formatTime(
+                            notification.createdAt
+                        )}
+
+                    </div>
+
+                </div>
+
+                <div class="notification-arrow">
+                    ›
+                </div>
+
+            </div>
+
+            `;
+
+        })
+        .join("");
+
+
+    document.getElementById(
+        "loading"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "empty"
+    ).style.display =
+        "none";
+
+    list.style.display =
+        "block";
+}
+
+
+/* =========================
+   OPEN MESSAGE
+========================= */
+
+function openMessage(userId){
+
+    if(!userId){
+        return;
+    }
+
+    window.location.href =
+        "messages.html?user=" +
+        encodeURIComponent(userId);
+}
+
+
+/* =========================
+   TIME FORMAT
+========================= */
+
+function formatTime(dateString){
+
+    if(!dateString){
+        return "";
+    }
+
+    const date =
+        new Date(dateString);
+
+    const now =
+        new Date();
+
+    const difference =
+        now - date;
+
+    const seconds =
+        Math.floor(
+            difference / 1000
+        );
+
+    if(seconds < 60){
+
+        return "Just now";
+
+    }
+
+    const minutes =
+        Math.floor(
+            seconds / 60
+        );
+
+    if(minutes < 60){
+
+        return (
+            minutes +
+            " minute" +
+            (minutes === 1 ? "" : "s") +
+            " ago"
+        );
+
+    }
+
+    const hours =
+        Math.floor(
+            minutes / 60
+        );
+
+    if(hours < 24){
+
+        return (
+            hours +
+            " hour" +
+            (hours === 1 ? "" : "s") +
+            " ago"
+        );
+
+    }
+
+    const days =
+        Math.floor(
+            hours / 24
+        );
+
+    if(days < 7){
+
+        return (
+            days +
+            " day" +
+            (days === 1 ? "" : "s") +
+            " ago"
+        );
+
+    }
+
+    return date.toLocaleDateString(
+        undefined,
+        {
+            day:"numeric",
+            month:"short",
+            year:"numeric"
+        }
+    );
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHtml(value){
+
+    return String(value || "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
+
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+function showEmpty(){
+
+    document.getElementById(
+        "loading"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "notificationsList"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "empty"
+    ).style.display =
+        "block";
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+document.getElementById(
+    "searchInput"
+)
+.addEventListener(
+    "input",
+    renderNotifications
+);
+
+
+/* =========================
+   REAL-TIME NOTIFICATIONS
+========================= */
+
+function subscribeToNotifications(){
+
+    supabaseClient
+        .
