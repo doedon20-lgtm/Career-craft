@@ -1,0 +1,2007 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>CareerCraft | Messages</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+}
+
+button,input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:245px;
+    background:#fff;
+    border-right:1px solid #e5e9f0;
+    padding:25px 15px;
+    z-index:100;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:800;
+    padding:0 12px;
+    margin-bottom:30px;
+}
+
+.logo span{
+    color:#2563eb;
+}
+
+.nav-title{
+    font-size:11px;
+    color:#9ca3af;
+    text-transform:uppercase;
+    font-weight:700;
+    padding:0 12px;
+    margin:20px 0 8px;
+}
+
+.nav-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    margin:4px 0;
+    border-radius:10px;
+    color:#4b5563;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.nav-item:hover{
+    background:#f3f6fb;
+}
+
+.nav-item.active{
+    background:#eaf1ff;
+    color:#2563eb;
+}
+
+.create-nav{
+    background:#2563eb;
+    color:white !important;
+    justify-content:center;
+    margin-top:15px;
+}
+
+.create-nav:hover{
+    background:#1d4ed8 !important;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:245px;
+    min-height:100vh;
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar{
+    height:72px;
+    background:#fff;
+    border-bottom:1px solid #e5e9f0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 30px;
+    position:sticky;
+    top:0;
+    z-index:90;
+}
+
+.search{
+    width:350px;
+    background:#f3f5f8;
+    border:1px solid #e7ebf0;
+    border-radius:10px;
+    padding:11px 14px;
+    outline:none;
+}
+
+.search:focus{
+    border-color:#2563eb;
+    background:#fff;
+}
+
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.icon-btn{
+    border:0;
+    background:#f3f5f8;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    font-size:17px;
+}
+
+.profile-mini{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+}
+
+.profile-mini img{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#e5e7eb;
+}
+
+.profile-mini strong{
+    font-size:13px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    padding:25px 30px;
+    max-width:1500px;
+    margin:auto;
+}
+
+.page-title{
+    margin-bottom:20px;
+}
+
+.page-title h1{
+    font-size:28px;
+    margin-bottom:6px;
+}
+
+.page-title p{
+    color:#6b7280;
+    font-size:14px;
+}
+
+/* =========================
+   MESSAGES LAYOUT
+========================= */
+
+.messages-layout{
+    height:calc(100vh - 145px);
+    min-height:500px;
+    background:#fff;
+    border:1px solid #e2e7ef;
+    border-radius:16px;
+    overflow:hidden;
+    display:grid;
+    grid-template-columns:340px 1fr;
+}
+
+/* =========================
+   CONVERSATIONS
+========================= */
+
+.conversations{
+    border-right:1px solid #e5e9f0;
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+}
+
+.conversation-header{
+    padding:18px;
+    border-bottom:1px solid #e5e9f0;
+}
+
+.conversation-header h2{
+    font-size:18px;
+    margin-bottom:13px;
+}
+
+.conversation-search{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid #dfe4ec;
+    border-radius:9px;
+    outline:none;
+    background:#f8fafc;
+}
+
+.conversation-search:focus{
+    border-color:#2563eb;
+    background:#fff;
+}
+
+.conversation-list{
+    overflow-y:auto;
+    flex:1;
+}
+
+.conversation{
+    display:flex;
+    gap:11px;
+    padding:14px 16px;
+    border-bottom:1px solid #f0f2f5;
+    cursor:pointer;
+    transition:.15s;
+}
+
+.conversation:hover{
+    background:#f8faff;
+}
+
+.conversation.active{
+    background:#edf3ff;
+}
+
+.avatar{
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#e5e7eb;
+    flex-shrink:0;
+}
+
+.conversation-info{
+    min-width:0;
+    flex:1;
+}
+
+.conversation-top{
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    margin-bottom:5px;
+}
+
+.conversation-name{
+    font-size:14px;
+    font-weight:700;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.conversation-time{
+    color:#9ca3af;
+    font-size:10px;
+    white-space:nowrap;
+}
+
+.last-message{
+    color:#6b7280;
+    font-size:12px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.empty-conversations{
+    padding:45px 20px;
+    text-align:center;
+    color:#9ca3af;
+    font-size:13px;
+    line-height:1.6;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+}
+
+.chat-empty{
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px;
+}
+
+.chat-empty-icon{
+    width:70px;
+    height:70px;
+    background:#edf3ff;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+    margin:0 auto 15px;
+}
+
+.chat-empty h2{
+    margin-bottom:7px;
+}
+
+.chat-empty p{
+    color:#6b7280;
+    font-size:13px;
+}
+
+.chat-header{
+    height:72px;
+    border-bottom:1px solid #e5e9f0;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 18px;
+}
+
+.back-btn{
+    display:none;
+    border:0;
+    background:#f3f5f8;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+}
+
+.chat-user-info{
+    min-width:0;
+}
+
+.chat-user-info strong{
+    display:block;
+    font-size:14px;
+}
+
+.chat-user-info small{
+    display:block;
+    color:#9ca3af;
+    font-size:11px;
+    margin-top:3px;
+}
+
+.messages{
+    flex:1;
+    overflow-y:auto;
+    padding:22px;
+    background:#f8fafc;
+}
+
+.message-row{
+    display:flex;
+    margin-bottom:12px;
+}
+
+.message-row.mine{
+    justify-content:flex-end;
+}
+
+.message-bubble{
+    max-width:min(70%,520px);
+    padding:10px 13px;
+    border-radius:15px;
+    background:#fff;
+    border:1px solid #e5e9f0;
+    box-shadow:0 1px 2px rgba(0,0,0,.03);
+}
+
+.message-row.mine .message-bubble{
+    background:#2563eb;
+    color:#fff;
+    border-color:#2563eb;
+    border-bottom-right-radius:5px;
+}
+
+.message-row:not(.mine) .message-bubble{
+    border-bottom-left-radius:5px;
+}
+
+.message-text{
+    font-size:13px;
+    line-height:1.5;
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+.message-time{
+    margin-top:5px;
+    font-size:9px;
+    opacity:.65;
+    text-align:right;
+}
+
+.message-row:not(.mine) .message-time{
+    color:#6b7280;
+}
+
+/* =========================
+   SEND BOX
+========================= */
+
+.send-area{
+    padding:13px;
+    border-top:1px solid #e5e9f0;
+    background:#fff;
+}
+
+.send-form{
+    display:flex;
+    align-items:flex-end;
+    gap:9px;
+}
+
+.message-input{
+    flex:1;
+    resize:none;
+    min-height:43px;
+    max-height:120px;
+    border:1px solid #dfe4ec;
+    border-radius:11px;
+    padding:12px;
+    outline:none;
+    font-size:13px;
+}
+
+.message-input:focus{
+    border-color:#2563eb;
+}
+
+.send-btn{
+    border:0;
+    background:#2563eb;
+    color:white;
+    min-width:85px;
+    height:43px;
+    border-radius:10px;
+    font-weight:700;
+}
+
+.send-btn:hover{
+    background:#1d4ed8;
+}
+
+.send-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:250px;
+    color:#6b7280;
+    font-size:13px;
+}
+
+.spinner{
+    width:24px;
+    height:24px;
+    border:3px solid #e5e7eb;
+    border-top-color:#2563eb;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    margin-right:10px;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-bottom{
+    display:none;
+}
+
+@media(max-width:800px){
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+        padding-bottom:70px;
+    }
+
+    .topbar{
+        padding:0 14px;
+    }
+
+    .search{
+        width:170px;
+    }
+
+    .profile-mini strong{
+        display:none;
+    }
+
+    .content{
+        padding:18px 12px;
+    }
+
+    .page-title{
+        margin-bottom:15px;
+    }
+
+    .page-title h1{
+        font-size:24px;
+    }
+
+    .messages-layout{
+        height:calc(100vh - 145px);
+        min-height:450px;
+        border-radius:13px;
+        grid-template-columns:1fr;
+    }
+
+    .conversations{
+        border-right:0;
+    }
+
+    .chat{
+        display:none;
+    }
+
+    .messages-layout.chat-open .conversations{
+        display:none;
+    }
+
+    .messages-layout.chat-open .chat{
+        display:flex;
+    }
+
+    .back-btn{
+        display:block;
+    }
+
+    .message-bubble{
+        max-width:82%;
+    }
+
+    .mobile-bottom{
+        display:flex;
+        position:fixed;
+        left:0;
+        right:0;
+        bottom:0;
+        height:68px;
+        background:#fff;
+        border-top:1px solid #e5e9f0;
+        z-index:200;
+        align-items:center;
+        justify-content:space-around;
+    }
+
+    .mobile-nav{
+        text-align:center;
+        font-size:10px;
+        color:#6b7280;
+        cursor:pointer;
+        min-width:55px;
+    }
+
+    .mobile-nav div{
+        font-size:20px;
+        margin-bottom:3px;
+    }
+
+    .mobile-nav.active{
+        color:#2563eb;
+        font-weight:700;
+    }
+}
+</style></head><body><!-- =========================
+     SIDEBAR
+========================= --><aside class="sidebar"><div class="logo">
+    Career<span>Craft</span>
+</div>
+
+<div class="nav-title">
+    Workspace
+</div>
+
+<div class="nav-item" onclick="go('index.html')">
+    🏠 Home
+</div>
+
+<div class="nav-item" onclick="go('job-finder.html')">
+    💼 Jobs
+</div>
+
+<div class="nav-item" onclick="go('network.html')">
+    👥 Network
+</div>
+
+<div class="nav-item" onclick="go('communities.html')">
+    🌐 Communities
+</div>
+
+<div class="nav-item active">
+    💬 Messages
+</div>
+
+<div class="nav-item create-nav" onclick="go('create.html')">
+    ＋ Create
+</div>
+
+<div class="nav-title">
+    Career Tools
+</div>
+
+<div class="nav-item" onclick="go('create.html')">
+    📄 CV Builder
+</div>
+
+<div class="nav-item" onclick="go('templates.html')">
+    🎨 Templates
+</div>
+
+<div class="nav-item" onclick="go('saved-jobs.html')">
+    ⭐ Saved Jobs
+</div>
+
+<div class="nav-item" onclick="go('applications.html')">
+    📋 Applications
+</div>
+
+<div class="nav-title">
+    Account
+</div>
+
+<div class="nav-item" onclick="go('profile.html')">
+    👤 Profile
+</div>
+
+<div class="nav-item" onclick="logout()">
+    🚪 Log out
+</div>
+
+</aside><!-- =========================
+     MAIN
+========================= --><div class="main"><header class="topbar">
+
+    <input
+        class="search"
+        type="search"
+        placeholder="Search..."
+        onkeydown="handleGlobalSearch(event)"
+    >
+
+    <div class="top-right">
+
+        <button
+            class="icon-btn"
+            onclick="go('notifications.html')"
+            title="Notifications"
+        >
+            🔔
+        </button>
+
+        <div
+            class="profile-mini"
+            onclick="go('profile.html')"
+        >
+
+            <img
+                id="profileImage"
+                src=""
+                alt="Profile"
+            >
+
+            <strong id="profileName">
+                Loading...
+            </strong>
+
+        </div>
+
+    </div>
+
+</header>
+
+<main class="content">
+
+    <section class="page-title">
+
+        <h1>
+            Messages
+        </h1>
+
+        <p>
+            Connect and communicate with your professional network.
+        </p>
+
+    </section>
+
+    <section
+        id="messagesLayout"
+        class="messages-layout"
+    >
+
+        <!-- =========================
+             CONVERSATIONS
+        ========================= -->
+
+        <div class="conversations">
+
+            <div class="conversation-header">
+
+                <h2>
+                    Conversations
+                </h2>
+
+                <input
+                    id="conversationSearch"
+                    class="conversation-search"
+                    type="search"
+                    placeholder="Search conversations..."
+                    oninput="filterConversations()"
+                >
+
+            </div>
+
+            <div
+                id="conversationList"
+                class="conversation-list"
+            >
+
+                <div class="loading">
+
+                    <div class="spinner"></div>
+
+                    Loading...
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- =========================
+             CHAT
+        ========================= -->
+
+        <div class="chat">
+
+            <div
+                id="chatEmpty"
+                class="chat-empty"
+            >
+
+                <div>
+
+                    <div class="chat-empty-icon">
+                        💬
+                    </div>
+
+                    <h2>
+                        Your messages
+                    </h2>
+
+                    <p>
+                        Select a conversation to start chatting.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="chatContent"
+                style="display:none;height:100%;flex-direction:column;"
+            >
+
+                <div class="chat-header">
+
+                    <button
+                        class="back-btn"
+                        onclick="closeMobileChat()"
+                    >
+                        ←
+                    </button>
+
+                    <img
+                        id="chatAvatar"
+                        class="avatar"
+                        src=""
+                        alt=""
+                    >
+
+                    <div class="chat-user-info">
+
+                        <strong id="chatName">
+                            User
+                        </strong>
+
+                        <small id="chatStatus">
+                            CareerCraft member
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="messageContainer"
+                    class="messages"
+                >
+                </div>
+
+
+                <div class="send-area">
+
+                    <form
+                        id="sendForm"
+                        class="send-form"
+                    >
+
+                        <textarea
+                            id="messageInput"
+                            class="message-input"
+                            placeholder="Write a message..."
+                            rows="1"
+                            maxlength="5000"
+                        ></textarea>
+
+                        <button
+                            id="sendButton"
+                            class="send-btn"
+                            type="submit"
+                        >
+                            Send
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+</div><!-- =========================
+     MOBILE NAV
+========================= --><nav class="mobile-bottom"><div
+    class="mobile-nav"
+    onclick="go('index.html')"
+>
+    <div>🏠</div>
+    Home
+</div>
+
+<div
+    class="mobile-nav"
+    onclick="go('job-finder.html')"
+>
+    <div>💼</div>
+    Jobs
+</div>
+
+<div
+    class="mobile-nav"
+    onclick="go('create.html')"
+>
+    <div>＋</div>
+    Create
+</div>
+
+<div class="mobile-nav active">
+    <div>💬</div>
+    Messages
+</div>
+
+<div
+    class="mobile-nav"
+    onclick="go('profile.html')"
+>
+    <div>👤</div>
+    Profile
+</div>
+
+</nav><script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+    "https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================================
+   STATE
+========================================= */
+
+let currentUser = null;
+let currentConversationUser = null;
+let allConversations = [];
+let realtimeChannel = null;
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+function go(page){
+    window.location.href = page;
+}
+
+function handleGlobalSearch(event){
+
+    if(event.key === "Enter"){
+
+        const value =
+            event.target.value.trim();
+
+        if(value){
+            go("network.html");
+        }
+    }
+}
+
+
+/* =========================================
+   AVATAR
+========================================= */
+
+function createAvatar(name){
+
+    const letter =
+        encodeURIComponent(
+            (name || "U")
+                .charAt(0)
+                .toUpperCase()
+        );
+
+    return `
+https://ui-avatars.com/api/?name=${letter}&background=2563eb&color=ffffff&size=100
+    `.trim();
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* =========================================
+   FORMAT TIME
+========================================= */
+
+function formatMessageTime(value){
+
+    const date = new Date(value);
+
+    if(Number.isNaN(date.getTime())){
+        return "";
+    }
+
+    return date.toLocaleTimeString(
+        [],
+        {
+            hour:"numeric",
+            minute:"2-digit"
+        }
+    );
+}
+
+
+function formatConversationTime(value){
+
+    const date = new Date(value);
+
+    if(Number.isNaN(date.getTime())){
+        return "";
+    }
+
+    const now = new Date();
+
+    const sameDay =
+        date.toDateString() ===
+        now.toDateString();
+
+    if(sameDay){
+        return date.toLocaleTimeString(
+            [],
+            {
+                hour:"numeric",
+                minute:"2-digit"
+            }
+        );
+    }
+
+    return date.toLocaleDateString(
+        [],
+        {
+            month:"short",
+            day:"numeric"
+        }
+    );
+}
+
+
+/* =========================================
+   AUTHENTICATION
+========================================= */
+
+async function checkAuthentication(){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.getSession();
+
+    if(
+        error ||
+        !data ||
+        !data.session ||
+        !data.session.user
+    ){
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+    currentUser =
+        data.session.user;
+
+    return true;
+}
+
+
+/* =========================================
+   LOAD CURRENT PROFILE
+========================================= */
+
+async function loadCurrentProfile(){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq(
+                "ID",
+                currentUser.id
+            )
+            .maybeSingle();
+
+    if(error){
+        console.error(
+            "Profile error:",
+            error
+        );
+    }
+
+    const name =
+        data?.["FULL NAME"] ||
+        data?.full_name ||
+        currentUser.user_metadata?.full_name ||
+        currentUser.user_metadata?.name ||
+        currentUser.email?.split("@")[0] ||
+        "CareerCraft User";
+
+    document.getElementById(
+        "profileName"
+    ).textContent = name;
+
+    const image =
+        document.getElementById(
+            "profileImage"
+        );
+
+    image.src =
+        data?.avatar_url ||
+        createAvatar(name);
+}
+
+
+/* =========================================
+   LOAD MESSAGES
+========================================= */
+
+async function loadMessages(){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("messages")
+            .select("*")
+            .or(
+                `sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`
+            )
+            .order(
+                "created_at",
+                {
+                    ascending:true
+                }
+            );
+
+    if(error){
+
+        console.error(
+            "Messages error:",
+            error
+        );
+
+        document.getElementById(
+            "conversationList"
+        ).innerHTML = `
+
+            <div class="empty-conversations">
+
+                Unable to load messages.<br><br>
+
+                ${escapeHTML(error.message)}
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+    await buildConversations(
+        data || []
+    );
+}
+
+
+/* =========================================
+   BUILD CONVERSATIONS
+========================================= */
+
+async function buildConversations(messages){
+
+    const map = new Map();
+
+    for(const message of messages){
+
+        const otherUserId =
+            String(
+                message.sender_id === currentUser.id
+                    ? message.receiver_id
+                    : message.sender_id
+            );
+
+        const existing =
+            map.get(otherUserId);
+
+        if(
+            !existing ||
+            new Date(message.created_at) >
+            new Date(existing.created_at)
+        ){
+
+            map.set(
+                otherUserId,
+                message
+            );
+        }
+    }
+
+    const userIds =
+        [...map.keys()];
+
+    if(!userIds.length){
+
+        allConversations = [];
+
+        renderConversations();
+
+        return;
+    }
+
+    const profiles =
+        await loadProfiles(userIds);
+
+    allConversations =
+        userIds.map(userId => {
+
+            const lastMessage =
+                map.get(userId);
+
+            const profile =
+                profiles.get(userId) || {};
+
+            const name =
+                profile["FULL NAME"] ||
+                profile.full_name ||
+                profile.name ||
+                "CareerCraft User";
+
+            const avatar =
+                profile.avatar_url ||
+                createAvatar(name);
+
+            return {
+
+                userId,
+
+                name,
+
+                avatar,
+
+                lastMessage:
+                    lastMessage.content,
+
+                createdAt:
+                    lastMessage.created_at
+
+            };
+
+        }).sort(
+            (a,b) =>
+                new Date(b.createdAt) -
+                new Date(a.createdAt)
+        );
+
+    renderConversations();
+}
+
+
+/* =========================================
+   LOAD PROFILES
+========================================= */
+
+async function loadProfiles(userIds){
+
+    const map = new Map();
+
+    if(!userIds.length){
+        return map;
+    }
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .in(
+                "ID",
+                userIds
+            );
+
+    if(error){
+
+        console.error(
+            "Profiles loading error:",
+            error
+        );
+
+        return map;
+    }
+
+    for(const profile of data || []){
+
+        map.set(
+            String(profile.ID),
+            profile
+        );
+    }
+
+    return map;
+}
+
+
+/* =========================================
+   RENDER CONVERSATIONS
+========================================= */
+
+function renderConversations(){
+
+    const container =
+        document.getElementById(
+            "conversationList"
+        );
+
+    const query =
+        document.getElementById(
+            "conversationSearch"
+        ).value
+        .trim()
+        .toLowerCase();
+
+    const conversations =
+        allConversations.filter(
+            conversation =>
+                conversation.name
+                    .toLowerCase()
+                    .includes(query)
+        );
+
+    if(!conversations.length){
+
+        container.innerHTML = `
+
+            <div class="empty-conversations">
+
+                ${
+                    allConversations.length
+                    ? "No conversations match your search."
+                    : `
+                        <strong>No messages yet.</strong><br><br>
+                        Visit someone's profile or connect with your network
+                        to start a conversation.
+                    `
+                }
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+    container.innerHTML =
+        conversations.map(
+            conversation => {
+
+                const active =
+                    currentConversationUser &&
+                    String(
+                        currentConversationUser.id
+                    ) ===
+                    String(
+                        conversation.userId
+                    );
+
+                return `
+
+                    <div
+                        class="conversation ${active ? "active" : ""}"
+                        onclick="openConversation('${conversation.userId}')"
+                    >
+
+                        <img
+                            class="avatar"
+                            src="${escapeHTML(conversation.avatar)}"
+                            alt=""
+                        >
+
+                        <div class="conversation-info">
+
+                            <div class="conversation-top">
+
+                                <div class="conversation-name">
+                                    ${escapeHTML(conversation.name)}
+                                </div>
+
+                                <div class="conversation-time">
+                                    ${formatConversationTime(conversation.createdAt)}
+                                </div>
+
+                            </div>
+
+                            <div class="last-message">
+                                ${escapeHTML(conversation.lastMessage)}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+}
+
+
+/* =========================================
+   FILTER CONVERSATIONS
+========================================= */
+
+function filterConversations(){
+    renderConversations();
+}
+
+
+/* =========================================
+   OPEN CONVERSATION
+========================================= */
+
+async function openConversation(userId){
+
+    const conversation =
+        allConversations.find(
+            item =>
+                String(item.userId) ===
+                String(userId)
+        );
+
+    if(!conversation){
+        return;
+    }
+
+    currentConversationUser = {
+        id:userId,
+        name:conversation.name,
+        avatar:conversation.avatar
+    };
+
+    document.getElementById(
+        "chatEmpty"
+    ).style.display = "none";
+
+    document.getElementById(
+        "chatContent"
+    ).style.display = "flex";
+
+    document.getElementById(
+        "chatName"
+    ).textContent =
+        conversation.name;
+
+    document.getElementById(
+        "chatAvatar"
+    ).src =
+        conversation.avatar;
+
+    document.getElementById(
+        "messagesLayout"
+    ).classList.add("chat-open");
+
+    renderConversations();
+
+    await loadConversationMessages();
+
+    subscribeToConversation();
+}
+
+
+/* =========================================
+   LOAD CONVERSATION MESSAGES
+========================================= */
+
+async function loadConversationMessages(){
+
+    if(!currentConversationUser){
+        return;
+    }
+
+    const otherId =
+        currentConversationUser.id;
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("messages")
+            .select("*")
+            .or(
+                `and(sender_id.eq.${currentUser.id},receiver_id.eq.${otherId}),and(sender_id.eq.${otherId},receiver_id.eq.${currentUser.id})`
+            )
+            .order(
+                "created_at",
+                {
+                    ascending:true
+                }
+            );
+
+    if(error){
+
+        console.error(
+            "Conversation error:",
+            error
+        );
+
+        document.getElementById(
+            "messageContainer"
+        ).innerHTML = `
+
+            <div class="empty-conversations">
+
+                ${escapeHTML(error.message)}
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+    renderMessages(
+        data || []
+    );
+}
+
+
+/* =========================================
+   RENDER MESSAGES
+========================================= */
+
+function renderMessages(messages){
+
+    const container =
+        document.getElementById(
+            "messageContainer"
+        );
+
+    if(!messages.length){
+
+        container.innerHTML = `
+
+            <div class="empty-conversations">
+
+                No messages yet.<br><br>
+                Say hello 👋
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+    container.innerHTML =
+        messages.map(
+            message => {
+
+                const mine =
+                    String(
+                        message.sender_id
+                    ) ===
+                    String(
+                        currentUser.id
+                    );
+
+                return `
+
+                    <div class="message-row ${mine ? "mine" : ""}">
+
+                        <div class="message-bubble">
+
+                            <div class="message-text">
+                                ${escapeHTML(message.content)}
+                            </div>
+
+                            <div class="message-time">
+                                ${formatMessageTime(message.created_at)}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+    scrollMessagesToBottom();
+}
+
+
+/* =========================================
+   SCROLL
+========================================= */
+
+function scrollMessagesToBottom(){
+
+    const container =
+        document.getElementById(
+            "messageContainer"
+        );
+
+    setTimeout(
+        () => {
+            container.scrollTop =
+                container.scrollHeight;
+        },
+        50
+    );
+}
+
+
+/* =========================================
+   SEND MESSAGE
+========================================= */
+
+async function sendMessage(){
+
+    if(
+        !currentConversationUser ||
+        !currentUser
+    ){
+        return;
+    }
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+    const button =
+        document.getElementById(
+            "sendButton"
+        );
+
+    const content =
+        input.value.trim();
+
+    if(!content){
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Sending...";
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("messages")
+            .insert({
+                sender_id:
+                    currentUser.id,
+
+                receiver_id:
+                    currentConversationUser.id,
+
+                content:
+                    content
+            });
+
+    button.disabled = false;
+    button.textContent = "Send";
+
+    if(error){
+
+        console.error(
+            "Send message error:",
+            error
+        );
+
+        alert(
+            "Could not send message: " +
+            error.message
+        );
+
+        return;
+    }
+
+    input.value = "";
+
+    input.style.height = "43px";
+}
+
+
+/* =========================================
+   SEND FORM
+========================================= */
+
+document.getElementById(
+    "sendForm"
+).addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+        await sendMessage();
+
+    }
+);
+
+
+/* =========================================
+   TEXTAREA AUTO HEIGHT
+========================================= */
+
+document.getElementById(
+    "messageInput"
+).addEventListener(
+    "input",
+    function(){
+
+        this.style.height = "43px";
+
+        this.style.height =
+            Math.min(
+                this.scrollHeight,
+                120
+            ) + "px";
+
+    }
+);
+
+
+/* =========================================
+   ENTER TO SEND
+========================================= */
+
+document.getElementById(
+    "messageInput"
+).addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Enter" &&
+            !event.shiftKey
+        ){
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   REALTIME
+========================================= */
+
+function subscribeToConversation(){
+
+    if(realtimeChannel){
+
+        supabaseClient.removeChannel(
+            realtimeChannel
+        );
+
+        realtimeChannel = null;
+    }
+
+    if(!currentConversationUser){
+        return;
+    }
+
+    const otherId =
+        currentConversationUser.id;
+
+    realtimeChannel =
+        supabaseClient
+            .channel(
+                "messages-" +
+                currentUser.id +
+                "-" +
+                otherId
+            )
+            .on(
+                "postgres_changes",
+                {
+                    event:"INSERT",
+                    schema:"public",
+                    table:"messages"
+                },
+                async payload => {
+
+                    const message =
+                        payload.new;
+
+                    const belongs =
+                        (
+                            String(message.sender_id) ===
+                            String(currentUser.id) &&
+                            String(message.receiver_id) ===
+                            String(otherId)
+                        ) ||
+                        (
+                            String(message.sender_id) ===
+                            String(otherId) &&
+                            String(message.receiver_id) ===
+                            String(currentUser.id)
+                        );
+
+                    if(!belongs){
+                        return;
+                    }
+
+                    await loadConversationMessages();
+
+                    await loadMessages();
+
+                }
+            )
+            .subscribe(
+                status => {
+
+                    console.log(
+                        "Realtime:",
+                        status
+                    );
+
+                }
+            );
+}
+
+
+/* =========================================
+   MOBILE CHAT CLOSE
+========================================= */
+
+function closeMobileChat(){
+
+    document.getElementById(
+        "messagesLayout"
+    ).classList.remove(
+        "chat-open"
+    );
+
+    currentConversationUser = null;
+
+    if(realtimeChannel){
+
+        supabaseClient.removeChannel(
+            realtimeChannel
+        );
+
+        realtimeChannel = null;
+    }
+
+    document.getElementById(
+        "chatContent"
+    ).style.display = "none";
+
+    document.getElementById(
+        "chatEmpty"
+    ).style.display = "flex";
+
+    renderConversations();
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+async function logout(){
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to log out?"
+        );
+
+    if(!confirmed){
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient.auth.signOut();
+
+    if(error){
+
+        alert(
+            "Could not log out: " +
+            error.message
+        );
+
+        return;
+    }
+
+    window.location.href =
+        "login.html";
+}
+
+
+/* =========================================
+   AUTH STATE
+========================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event, session){
+
+        if(
+            event === "SIGNED_OUT" ||
+            !session
+        ){
+
+            window.location.href =
+                "login.html";
+        }
+
+    }
+);
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+async function init(){
+
+    const authenticated =
+        await checkAuthentication();
+
+    if(!authenticated){
+        return;
+    }
+
+    await loadCurrentProfile();
+
+    await loadMessages();
+}
+
+init();
+
+</script></body>
+</html>
