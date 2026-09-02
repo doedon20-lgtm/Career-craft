@@ -1,356 +1,427 @@
 export default async function handler(req, res) {
 
-    /*
-     * CareerCraft Worldwide Job API
-     *
-     * Sources:
-     * 1. Adzuna       → UK jobs
-     * 2. Himalayas    → Worldwide remote jobs
-     * 3. Jobicy       → Worldwide remote jobs
-     *
-     * Adzuna still uses:
-     * ADZUNA_APP_ID
-     * ADZUNA_APP_KEY
-     */
+const keyword =
+    String(req.query.keyword || "").trim();
 
-    const keyword =
-        (req.query.keyword || "").trim();
+const location =
+    String(req.query.location || "").trim();
 
-    const location =
-        (req.query.location || "").trim();
+const country =
+    String(req.query.country || "").trim();
 
-    const country =
-        (req.query.country || "").trim();
 
+if(!keyword && !location && !country){
 
-    /*
-     * Don't allow completely empty searches.
-     */
-
-    if (!keyword && !location && !country) {
-
-        return res.status(400).json({
-
-            error:
-                "Please enter a job title, skill, country or location."
-
-        });
-
-    }
-
-
-    /*
-     * Search values
-     */
-
-    const searchKeyword =
-        keyword || "jobs";
-
-    const searchLocation =
-        location || country || "";
-
-
-    /*
-     * Run the job providers independently.
-     *
-     * If one provider fails, the others can
-     * still return jobs.
-     */
-
-    const results = await Promise.allSettled([
-
-        getAdzunaJobs(
-            searchKeyword,
-            searchLocation,
-            country
-        ),
-
-        getHimalayasJobs(
-            searchKeyword,
-            searchLocation,
-            country
-        ),
-
-        getJobicyJobs(
-            searchKeyword,
-            searchLocation,
-            country
-        )
-
-    ]);
-
-
-    /*
-     * Collect successful results.
-     */
-
-    let jobs = [];
-
-    let providerStatus = {};
-
-
-    /*
-     * Adzuna
-     */
-
-    if (results[0].status === "fulfilled") {
-
-        const adzunaResults =
-            results[0].value || [];
-
-        jobs.push(
-            ...adzunaResults
-        );
-
-        providerStatus.adzuna =
-            "ok";
-
-    } else {
-
-        console.error(
-            "Adzuna provider failed:",
-            results[0].reason
-        );
-
-        providerStatus.adzuna =
-            "error";
-
-    }
-
-
-    /*
-     * Himalayas
-     */
-
-    if (results[1].status === "fulfilled") {
-
-        const himalayasResults =
-            results[1].value || [];
-
-        jobs.push(
-            ...himalayasResults
-        );
-
-        providerStatus.himalayas =
-            "ok";
-
-    } else {
-
-        console.error(
-            "Himalayas provider failed:",
-            results[1].reason
-        );
-
-        providerStatus.himalayas =
-            "error";
-
-    }
-
-
-    /*
-     * Jobicy
-     */
-
-    if (results[2].status === "fulfilled") {
-
-        const jobicyResults =
-            results[2].value || [];
-
-        jobs.push(
-            ...jobicyResults
-        );
-
-        providerStatus.jobicy =
-            "ok";
-
-    } else {
-
-        console.error(
-            "Jobicy provider failed:",
-            results[2].reason
-        );
-
-        providerStatus.jobicy =
-            "error";
-
-    }
-
-
-    /*
-     * Remove duplicate jobs.
-     */
-
-    jobs =
-        removeDuplicates(jobs);
-
-
-    /*
-     * Sort newest jobs first when dates
-     * are available.
-     */
-
-    jobs.sort(
-        (a, b) => {
-
-            const dateA =
-                new Date(
-                    a.created || 0
-                ).getTime();
-
-            const dateB =
-                new Date(
-                    b.created || 0
-                ).getTime();
-
-            return dateB - dateA;
-
-        }
-    );
-
-
-    /*
-     * Limit the response.
-     */
-
-    jobs =
-        jobs.slice(0, 100);
-
-
-    /*
-     * Return unified response.
-     */
-
-    return res.status(200).json({
-
-        results:
-            jobs,
-
-        count:
-            jobs.length,
-
-        providers:
-            providerStatus
-
+    return res.status(400).json({
+        error:
+            "Please enter a job title, skill, location or country."
     });
 
 }
 
 
-/* =========================================================
-   ADZUNA
-========================================================= */
+/*
+------------------------------------------------
+COUNTRY NORMALIZATION
+------------------------------------------------
+*/
+
+const countryAliases = {
+
+    usa: "United States",
+    us: "United States",
+    america: "United States",
+    "united states": "United States",
+
+    uk: "United Kingdom",
+    britain: "United Kingdom",
+    england: "United Kingdom",
+    "great britain": "United Kingdom",
+    "united kingdom": "United Kingdom",
+
+    nigeria: "Nigeria",
+
+    canada: "Canada",
+
+    australia: "Australia",
+
+    germany: "Germany",
+
+    france: "France",
+
+    spain: "Spain",
+
+    italy: "Italy",
+
+    netherlands: "Netherlands",
+
+    ireland: "Ireland",
+
+    "south africa": "South Africa",
+
+    india: "India",
+
+    singapore: "Singapore",
+
+    "new zealand": "New Zealand",
+
+    brazil: "Brazil",
+
+    mexico: "Mexico",
+
+    japan: "Japan",
+
+    china: "China",
+
+    "south korea": "South Korea",
+
+    sweden: "Sweden",
+
+    norway: "Norway",
+
+    denmark: "Denmark",
+
+    switzerland: "Switzerland",
+
+    portugal: "Portugal",
+
+    poland: "Poland",
+
+    belgium: "Belgium",
+
+    austria: "Austria",
+
+    finland: "Finland",
+
+    "united arab emirates": "United Arab Emirates",
+    uae: "United Arab Emirates"
+
+};
+
+
+function normalizeCountry(value){
+
+    const cleaned =
+        String(value || "")
+            .trim()
+            .toLowerCase();
+
+    if(!cleaned){
+
+        return "";
+
+    }
+
+    return (
+        countryAliases[cleaned] ||
+        String(value).trim()
+    );
+
+}
+
+
+/*
+------------------------------------------------
+DETERMINE COUNTRY
+------------------------------------------------
+*/
+
+let selectedCountry =
+    normalizeCountry(country);
+
+
+/*
+   If the user typed the country in the
+   location box, detect it automatically.
+*/
+
+if(!selectedCountry && location){
+
+    selectedCountry =
+        normalizeCountry(location);
+
+}
+
+
+/*
+------------------------------------------------
+SEARCH ALL PROVIDERS
+------------------------------------------------
+*/
+
+const searches = await Promise.allSettled([
+
+    getAdzunaJobs(
+        keyword,
+        location,
+        selectedCountry
+    ),
+
+    getHimalayasJobs(
+        keyword,
+        location,
+        selectedCountry
+    ),
+
+    getJobicyJobs(
+        keyword,
+        location,
+        selectedCountry
+    )
+
+]);
+
+
+let results = [];
+
+let providers = {
+    adzuna: 0,
+    himalayas: 0,
+    jobicy: 0
+};
+
+
+searches.forEach(function(result, index){
+
+    if(
+        result.status !== "fulfilled" ||
+        !Array.isArray(result.value)
+    ){
+
+        return;
+
+    }
+
+
+    const jobs =
+        result.value;
+
+
+    if(index === 0){
+
+        providers.adzuna =
+            jobs.length;
+
+    }
+
+    if(index === 1){
+
+        providers.himalayas =
+            jobs.length;
+
+    }
+
+    if(index === 2){
+
+        providers.jobicy =
+            jobs.length;
+
+    }
+
+
+    results.push(
+        ...jobs
+    );
+
+});
+
+
+/*
+------------------------------------------------
+REMOVE DUPLICATES
+------------------------------------------------
+*/
+
+const seen =
+    new Set();
+
+
+results =
+    results.filter(function(job){
+
+        const id =
+            job.id ||
+            job.redirect_url ||
+            job.url ||
+            (
+                String(job.title || "") +
+                "|" +
+                String(
+                    job.company?.name ||
+                    job.company?.display_name ||
+                    job.company_name ||
+                    ""
+                )
+            );
+
+
+        if(seen.has(id)){
+
+            return false;
+
+        }
+
+
+        seen.add(id);
+
+        return true;
+
+    });
+
+
+/*
+------------------------------------------------
+SORT NEWEST FIRST
+------------------------------------------------
+*/
+
+results.sort(function(a,b){
+
+    const dateA =
+        new Date(
+            a.created ||
+            a.date ||
+            0
+        ).getTime();
+
+
+    const dateB =
+        new Date(
+            b.created ||
+            b.date ||
+            0
+        ).getTime();
+
+
+    return dateB - dateA;
+
+});
+
+
+/*
+------------------------------------------------
+RETURN RESULTS
+------------------------------------------------
+*/
+
+return res.status(200).json({
+
+    results:
+        results.slice(0,100),
+
+    count:
+        results.length,
+
+    country:
+        selectedCountry || null,
+
+    providers
+
+});
+
+}
+
+/*
+
+ADZUNA
+
+*/
 
 async function getAdzunaJobs(
-    keyword,
-    location,
-    country
-) {
+keyword,
+location,
+country
+){
 
-    /*
-     * Adzuna implementation is intentionally UK-only.
-     */
+/*
+   Adzuna is currently being used for UK jobs.
+*/
 
-    const appId =
-        process.env.ADZUNA_APP_ID;
+const appId =
+    process.env.ADZUNA_APP_ID;
 
-    const appKey =
-        process.env.ADZUNA_APP_KEY;
-
-
-    /*
-     * If credentials aren't available,
-     * simply skip Adzuna.
-     */
-
-    if (!appId || !appKey) {
-
-        console.warn(
-            "Adzuna credentials are missing."
-        );
-
-        return [];
-
-    }
+const appKey =
+    process.env.ADZUNA_APP_KEY;
 
 
-    /*
-     * Only use Adzuna when the user is
-     * searching the UK or has not selected
-     * another country.
-     */
+if(!appId || !appKey){
 
-    const requestedCountry =
-        country.toLowerCase();
+    return [];
+
+}
 
 
-    const locationLower =
-        location.toLowerCase();
+const normalizedCountry =
+    String(country || "")
+        .toLowerCase();
 
 
-    const isUK =
-        requestedCountry === "uk" ||
-        requestedCountry === "united kingdom" ||
-        requestedCountry === "gb" ||
-        requestedCountry === "great britain" ||
-        requestedCountry === "england" ||
-        requestedCountry === "";
+/*
+   Only use Adzuna when the search is
+   intended for the UK.
+
+   If no country was supplied, we can
+   still search UK because this is our
+   existing Adzuna source.
+*/
+
+const isUK =
+    !normalizedCountry ||
+    normalizedCountry === "united kingdom" ||
+    normalizedCountry === "uk";
 
 
-    /*
-     * If another country is specifically selected,
-     * don't send that search to the UK endpoint.
-     */
+if(!isUK){
 
-    if (
-        !isUK &&
-        requestedCountry !== ""
-    ) {
+    return [];
 
-        return [];
-
-    }
+}
 
 
-    const params =
-        new URLSearchParams({
+const params =
+    new URLSearchParams({
 
-            app_id:
-                appId,
+        app_id:
+            appId,
 
-            app_key:
-                appKey,
+        app_key:
+            appKey,
 
-            results_per_page:
-                "30",
+        results_per_page:
+            "20",
 
-            what:
-                keyword || "jobs",
+        what:
+            keyword || "jobs",
 
-            where:
-                location || "United Kingdom",
+        where:
+            location ||
+            "United Kingdom",
 
-            "content-type":
-                "application/json"
+        "content-type":
+            "application/json"
 
-        });
+    });
 
 
-    const url =
-        `https://api.adzuna.com/v1/api/jobs/gb/search/1?${params.toString()}`;
+const url =
+    "https://api.adzuna.com/v1/api/jobs/gb/search/1?" +
+    params.toString();
 
+
+try{
 
     const response =
         await fetch(url);
 
 
-    if (!response.ok) {
+    if(!response.ok){
 
-        const text =
-            await response.text();
-
-        throw new Error(
-            `Adzuna HTTP ${response.status}: ${text.substring(0,300)}`
+        console.error(
+            "Adzuna HTTP",
+            response.status
         );
+
+        return [];
 
     }
 
@@ -359,100 +430,130 @@ async function getAdzunaJobs(
         await response.json();
 
 
-    if (!Array.isArray(data.results)) {
+    if(
+        !data ||
+        !Array.isArray(data.results)
+    ){
 
         return [];
 
     }
 
 
-    return data.results.map(
-        job => ({
+    return data.results.map(function(job){
+
+        return {
 
             id:
-                `adzuna-${job.id}`,
+                "adzuna-" +
+                String(job.id || ""),
 
             title:
-                job.title || "Job",
+                job.title ||
+                "Untitled Job",
 
-            company:
+            company: {
+
+                name:
+                    job.company?.display_name ||
+                    job.company?.name ||
+                    ""
+
+            },
+
+            company_name:
                 job.company?.display_name ||
-                "Company",
+                job.company?.name ||
+                "",
 
-            location:
-                job.location?.display_name ||
-                "United Kingdom",
+            location: {
+
+                display_name:
+                    job.location?.display_name ||
+                    "United Kingdom"
+
+            },
 
             description:
-                stripHTML(
-                    job.description || ""
-                ),
+                job.description ||
+                "",
 
-            salary:
-                formatSalary(
-                    job.salary_min,
-                    job.salary_max,
-                    job.salary_is_predicted
-                ),
+            contract_time:
+                job.contract_time ||
+                "",
+
+            salary_min:
+                job.salary_min ||
+                null,
+
+            salary_max:
+                job.salary_max ||
+                null,
+
+            salary_currency:
+                "GBP",
+
+            redirect_url:
+                job.redirect_url ||
+                "",
 
             created:
                 job.created ||
                 "",
 
-            url:
-                job.redirect_url ||
-                "#",
-
             source:
-                "Adzuna",
+                "Adzuna"
 
-            country:
-                "United Kingdom",
+        };
 
-            remote:
-                false
+    });
 
-        })
+
+}catch(error){
+
+    console.error(
+        "Adzuna error:",
+        error
     );
+
+    return [];
 
 }
 
+}
 
-/* =========================================================
-   HIMALAYAS
-========================================================= */
+/*
+
+HIMALAYAS
+
+*/
 
 async function getHimalayasJobs(
-    keyword,
-    location,
-    country
-) {
+keyword,
+location,
+country
+){
 
-    /*
-     * Himalayas is a public API.
-     *
-     * No API key is required.
-     */
+try{
 
     const params =
-        new URLSearchParams();
+        new URLSearchParams({
 
+            q:
+                keyword || "",
 
-    if(keyword){
+            page:
+                "1",
 
-        params.set(
-            "q",
-            keyword
-        );
+            limit:
+                "20"
 
-    }
+        });
 
 
     /*
-     * Himalayas supports country filtering.
-     * Only add it when the user actually
-     * selected a country.
-     */
+       Himalayas supports country filtering.
+    */
 
     if(country){
 
@@ -464,43 +565,29 @@ async function getHimalayasJobs(
     }
 
 
-    params.set(
-        "page",
-        "1"
-    );
-
-
-    params.set(
-        "limit",
-        "50"
-    );
+    /*
+       If no country is supplied, don't
+       artificially restrict the search.
+    */
 
 
     const url =
-        `https://himalayas.app/jobs/api/search?${params.toString()}`;
+        "https://himalayas.app/jobs/api/search?" +
+        params.toString();
 
 
     const response =
-        await fetch(url, {
-
-            headers: {
-
-                "Accept":
-                    "application/json"
-
-            }
-
-        });
+        await fetch(url);
 
 
     if(!response.ok){
 
-        const text =
-            await response.text();
-
-        throw new Error(
-            `Himalayas HTTP ${response.status}: ${text.substring(0,300)}`
+        console.error(
+            "Himalayas HTTP",
+            response.status
         );
+
+        return [];
 
     }
 
@@ -509,98 +596,141 @@ async function getHimalayasJobs(
         await response.json();
 
 
-    /*
-     * Different API versions can expose
-     * the jobs array under different names.
-     */
-
-    const list =
-        Array.isArray(data.jobs)
-            ? data.jobs
-            : Array.isArray(data.results)
-                ? data.results
+    const jobs =
+        Array.isArray(data)
+            ? data
+            : Array.isArray(data.jobs)
+                ? data.jobs
                 : [];
 
 
-    return list.map(
-        job => ({
+    return jobs.map(function(job){
+
+        const companyName =
+            job.company?.name ||
+            job.company_name ||
+            job.company ||
+            job.employer ||
+            "";
+
+
+        const jobLocation =
+            job.location ||
+            job.country ||
+            job.location_name ||
+            "Remote";
+
+
+        return {
 
             id:
-                `himalayas-${job.id || job.slug || Math.random()}`,
+                "himalayas-" +
+                String(
+                    job.id ||
+                    job.slug ||
+                    Math.random()
+                ),
 
             title:
                 job.title ||
-                job.position ||
-                "Remote Job",
+                "Untitled Job",
 
-            company:
-                job.companyName ||
-                job.company ||
-                "Company",
+            company: {
 
-            location:
-                job.location ||
-                job.locationName ||
-                "Worldwide",
+                name:
+                    companyName
+
+            },
+
+            company_name:
+                companyName,
+
+            location: {
+
+                display_name:
+                    jobLocation
+
+            },
 
             description:
-                stripHTML(
-                    job.description ||
-                    job.excerpt ||
-                    ""
-                ),
-
-            salary:
-                formatHimalayasSalary(
-                    job
-                ),
-
-            created:
-                job.createdAt ||
-                job.publishedAt ||
-                job.created ||
+                job.description ||
                 "",
 
-            url:
+            contract_time:
+                job.employmentType ||
+                job.employment_type ||
+                job.type ||
+                "",
+
+            salary_min:
+                job.minSalary ||
+                job.salary_min ||
+                null,
+
+            salary_max:
+                job.maxSalary ||
+                job.salary_max ||
+                null,
+
+            salary_currency:
+                job.currency ||
+                "",
+
+            redirect_url:
                 job.applicationLink ||
+                job.application_url ||
                 job.url ||
                 job.link ||
-                "#",
+                "",
+
+            created:
+                job.pubDate ||
+                job.created ||
+                job.date ||
+                "",
 
             source:
-                "Himalayas",
+                "Himalayas"
 
-            country:
-                country ||
-                "Worldwide",
+        };
 
-            remote:
-                true
+    });
 
-        })
+
+}catch(error){
+
+    console.error(
+        "Himalayas error:",
+        error
     );
+
+    return [];
 
 }
 
+}
 
-/* =========================================================
-   JOBICY
-========================================================= */
+/*
+
+JOBICY
+
+*/
 
 async function getJobicyJobs(
-    keyword,
-    location,
-    country
-) {
+keyword,
+location,
+country
+){
 
-    /*
-     * Jobicy public API.
-     *
-     * No API key required.
-     */
+try{
 
     const params =
-        new URLSearchParams();
+        new URLSearchParams({
+
+            count:
+                "50"
+
+        });
 
 
     if(keyword){
@@ -614,9 +744,15 @@ async function getJobicyJobs(
 
 
     /*
-     * Jobicy uses geo for location/country
-     * filtering.
-     */
+       Jobicy uses geo for geographical
+       targeting.
+
+       When a country is selected, send
+       that country.
+
+       When no country is selected,
+       leave it open for worldwide remote jobs.
+    */
 
     if(country){
 
@@ -629,7 +765,8 @@ async function getJobicyJobs(
 
 
     const url =
-        `https://jobicy.com/api/v2/remote-jobs?${params.toString()}`;
+        "https://jobicy.com/api/v2/remote-jobs?" +
+        params.toString();
 
 
     const response =
@@ -638,12 +775,12 @@ async function getJobicyJobs(
 
     if(!response.ok){
 
-        const text =
-            await response.text();
-
-        throw new Error(
-            `Jobicy HTTP ${response.status}: ${text.substring(0,300)}`
+        console.error(
+            "Jobicy HTTP",
+            response.status
         );
+
+        return [];
 
     }
 
@@ -652,240 +789,117 @@ async function getJobicyJobs(
         await response.json();
 
 
-    const list =
-        Array.isArray(data.jobs)
-            ? data.jobs
-            : [];
+    const jobs =
+        Array.isArray(data)
+            ? data
+            : Array.isArray(data.jobs)
+                ? data.jobs
+                : [];
 
 
-    return list.map(
-        job => ({
+    return jobs.map(function(job){
+
+        const companyName =
+            job.companyName ||
+            job.company_name ||
+            job.company?.name ||
+            job.company?.display_name ||
+            job.employer ||
+            "";
+
+
+        const jobLocation =
+            job.jobGeo ||
+            job.geo ||
+            job.location ||
+            job.country ||
+            "Remote";
+
+
+        return {
 
             id:
-                `jobicy-${job.id || Math.random()}`,
+                "jobicy-" +
+                String(
+                    job.id ||
+                    job.jobId ||
+                    job.slug ||
+                    Math.random()
+                ),
 
             title:
                 job.jobTitle ||
                 job.title ||
-                "Remote Job",
+                "Untitled Job",
 
-            company:
-                job.companyName ||
-                job.company ||
-                "Company",
+            company: {
 
-            location:
-                job.jobGeo ||
-                job.location ||
-                "Worldwide",
+                name:
+                    companyName
+
+            },
+
+            company_name:
+                companyName,
+
+            location: {
+
+                display_name:
+                    jobLocation
+
+            },
 
             description:
-                stripHTML(
-                    job.jobDescription ||
-                    job.description ||
-                    ""
-                ),
+                job.jobDescription ||
+                job.description ||
+                "",
 
-            salary:
-                job.annualSalary ||
-                job.salary ||
-                "Salary not specified",
+            contract_time:
+                job.jobType ||
+                job.type ||
+                "",
+
+            salary_min:
+                job.salaryMin ||
+                null,
+
+            salary_max:
+                job.salaryMax ||
+                null,
+
+            salary_currency:
+                job.salaryCurrency ||
+                "",
+
+            redirect_url:
+                job.url ||
+                job.applyUrl ||
+                job.applicationUrl ||
+                "",
 
             created:
                 job.pubDate ||
+                job.date ||
                 job.created ||
                 "",
 
-            url:
-                job.url ||
-                job.jobUrl ||
-                "#",
-
             source:
-                "Jobicy",
+                "Jobicy"
 
-            country:
-                country ||
-                "Worldwide",
+        };
 
-            remote:
-                true
+    });
 
-        })
+
+}catch(error){
+
+    console.error(
+        "Jobicy error:",
+        error
     );
 
-}
-
-
-/* =========================================================
-   DUPLICATE REMOVAL
-========================================================= */
-
-function removeDuplicates(jobs){
-
-    const seen =
-        new Set();
-
-    return jobs.filter(
-        job => {
-
-            const key =
-                (
-                    job.title +
-                    "|" +
-                    job.company +
-                    "|" +
-                    job.location
-                )
-                .toLowerCase()
-                .replace(/\s+/g," ")
-                .trim();
-
-
-            if(seen.has(key)){
-
-                return false;
-
-            }
-
-
-            seen.add(key);
-
-            return true;
-
-        }
-    );
+    return [];
 
 }
 
-
-/* =========================================================
-   HTML CLEANER
-========================================================= */
-
-function stripHTML(value){
-
-    if(!value)
-        return "";
-
-    return String(value)
-        .replace(/<[^>]*>/g," ")
-        .replace(/&nbsp;/gi," ")
-        .replace(/&amp;/gi,"&")
-        .replace(/&quot;/gi,'"')
-        .replace(/&#39;/gi,"'")
-        .replace(/\s+/g," ")
-        .trim();
-
-}
-
-
-/* =========================================================
-   SALARY FORMATTER
-========================================================= */
-
-function formatSalary(
-    minimum,
-    maximum,
-    predicted
-){
-
-    if(
-        !minimum &&
-        !maximum
-    ){
-
-        return "Salary not specified";
-
-    }
-
-
-    if(
-        minimum &&
-        maximum
-    ){
-
-        return `£${Number(minimum).toLocaleString()} - £${Number(maximum).toLocaleString()}${predicted ? " (estimated)" : ""}`;
-
-    }
-
-
-    if(minimum){
-
-        return `From £${Number(minimum).toLocaleString()}${predicted ? " (estimated)" : ""}`;
-
-    }
-
-
-    if(maximum){
-
-        return `Up to £${Number(maximum).toLocaleString()}${predicted ? " (estimated)" : ""}`;
-
-    }
-
-
-    return "Salary not specified";
-
-}
-
-
-/* =========================================================
-   HIMALAYAS SALARY
-========================================================= */
-
-function formatHimalayasSalary(job){
-
-    if(
-        job.salary
-    ){
-
-        if(
-            typeof job.salary === "string"
-        ){
-
-            return job.salary;
-
-        }
-
-        if(
-            typeof job.salary === "object"
-        ){
-
-            const min =
-                job.salary.min ||
-                job.salary.minimum;
-
-            const max =
-                job.salary.max ||
-                job.salary.maximum;
-
-            const currency =
-                job.salary.currency ||
-                "";
-
-            if(min && max){
-
-                return `${currency} ${Number(min).toLocaleString()} - ${Number(max).toLocaleString()}`;
-
-            }
-
-            if(min){
-
-                return `${currency} ${Number(min).toLocaleString()}`;
-
-            }
-
-            if(max){
-
-                return `${currency} ${Number(max).toLocaleString()}`;
-
-            }
-
-        }
-
-    }
-
-
-    return "Salary not specified";
-
-                }
+                    }
