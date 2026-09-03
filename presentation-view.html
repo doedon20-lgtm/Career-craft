@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Presentation | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+--dark:#0f172a;
+--muted:#64748b;
+--white:#fff;
+--border:#e5e7eb;
+--primary:#2563eb;
+}
+
+body{
+font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:#0f172a;
+color:#fff;
+min-height:100vh;
+overflow:hidden
+}
+
+button{
+font:inherit;
+cursor:pointer
+}
+
+.app{
+height:100vh;
+display:flex;
+flex-direction:column
+}
+
+.topbar{
+height:64px;
+background:rgba(15,23,42,.96);
+border-bottom:1px solid rgba(255,255,255,.1);
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 18px;
+gap:15px;
+z-index:10
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:9px;
+font-weight:800;
+min-width:0
+}
+
+.logo{
+width:34px;
+height:34px;
+display:grid;
+place-items:center;
+border-radius:9px;
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+flex:none
+}
+
+.presentation-info{
+min-width:0
+}
+
+.presentation-info h1{
+font-size:15px;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis
+}
+
+.presentation-info p{
+font-size:11px;
+color:#94a3b8;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis
+}
+
+.actions{
+display:flex;
+gap:7px;
+align-items:center;
+flex:none
+}
+
+.btn{
+border:0;
+border-radius:8px;
+padding:9px 12px;
+font-weight:700;
+background:#1e293b;
+color:#fff;
+border:1px solid rgba(255,255,255,.1)
+}
+
+.btn:hover{
+background:#334155
+}
+
+.primary{
+background:#2563eb;
+border-color:#2563eb
+}
+
+.viewer{
+flex:1;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:30px;
+min-height:0;
+position:relative
+}
+
+.slide-wrap{
+width:min(1100px,92vw);
+aspect-ratio:16/9;
+position:relative;
+box-shadow:0 25px 80px rgba(0,0,0,.4);
+border-radius:8px;
+overflow:hidden
+}
+
+.slide{
+width:100%;
+height:100%;
+padding:8%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+position:relative;
+overflow:hidden
+}
+
+.title{
+font-size:clamp(27px,5vw,64px);
+font-weight:850;
+line-height:1.08;
+white-space:pre-wrap;
+max-width:90%
+}
+
+.subtitle{
+font-size:clamp(14px,2vw,26px);
+margin-top:16px;
+white-space:pre-wrap;
+opacity:.78;
+max-width:85%
+}
+
+.content{
+font-size:clamp(13px,1.8vw,21px);
+line-height:1.65;
+margin-top:20px;
+white-space:pre-wrap;
+max-width:90%
+}
+
+.image{
+max-width:80%;
+max-height:42%;
+object-fit:contain;
+border-radius:10px;
+margin-top:20px
+}
+
+.light{
+background:#fff;
+color:#111827
+}
+
+.blue{
+background:linear-gradient(135deg,#1d4ed8,#4f46e5);
+color:#fff
+}
+
+.purple{
+background:linear-gradient(135deg,#6d28d9,#9333ea);
+color:#fff
+}
+
+.green{
+background:linear-gradient(135deg,#047857,#059669);
+color:#fff
+}
+
+.dark{
+background:#111827;
+color:#fff
+}
+
+.blue .subtitle,
+.purple .subtitle,
+.green .subtitle,
+.dark .subtitle{
+color:rgba(255,255,255,.8)
+}
+
+.navigation{
+position:absolute;
+left:50%;
+bottom:18px;
+transform:translateX(-50%);
+display:flex;
+align-items:center;
+gap:8px;
+background:rgba(15,23,42,.85);
+border:1px solid rgba(255,255,255,.12);
+padding:7px;
+border-radius:12px;
+backdrop-filter:blur(10px)
+}
+
+.nav-btn{
+border:0;
+background:#1e293b;
+color:#fff;
+width:38px;
+height:36px;
+border-radius:8px;
+font-size:17px
+}
+
+.nav-btn:hover{
+background:#334155
+}
+
+.counter{
+font-size:12px;
+font-weight:750;
+padding:0 9px;
+white-space:nowrap
+}
+
+.loading,
+.error{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+text-align:center
+}
+
+.message{
+max-width:450px
+}
+
+.message h2{
+margin-bottom:8px
+}
+
+.message p{
+color:#94a3b8;
+line-height:1.6;
+margin-bottom:20px
+}
+
+.back{
+display:inline-block;
+border:0;
+border-radius:9px;
+padding:11px 16px;
+background:#2563eb;
+color:#fff;
+font-weight:750
+}
+
+@media(max-width:700px){
+
+.topbar{
+height:58px;
+padding:0 10px
+}
+
+.brand{
+gap:7px
+}
+
+.logo{
+width:30px;
+height:30px
+}
+
+.presentation-info h1{
+font-size:13px
+}
+
+.presentation-info p{
+display:none
+}
+
+.actions .optional{
+display:none
+}
+
+.viewer{
+padding:12px
+}
+
+.slide-wrap{
+width:96vw
+}
+
+.navigation{
+bottom:8px
+}
+
+.nav-btn{
+width:34px;
+height:33px
+}
+}
+
+@media(max-height:550px){
+
+.viewer{
+padding:10px
+}
+
+.topbar{
+height:54px
+}
+
+.navigation{
+bottom:5px
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app" id="app">
+
+<header class="topbar">
+
+<div class="brand">
+
+<div class="logo">C</div>
+
+<div class="presentation-info">
+
+<h1 id="presentationTitle">
+Loading presentation...
+</h1>
+
+<p id="presentationDescription"></p>
+
+</div>
+
+</div>
+
+
+<div class="actions">
+
+<button
+class="btn optional"
+onclick="sharePresentation()"
+>
+Share
+</button>
+
+<button
+class="btn optional"
+onclick="printPresentation()"
+>
+Print
+</button>
+
+<button
+class="btn primary"
+onclick="toggleFullscreen()"
+>
+Fullscreen
+</button>
+
+</div>
+
+</header>
+
+
+<main class="viewer">
+
+<div class="slide-wrap">
+
+<div
+id="slide"
+class="slide light"
+>
+
+<div
+id="slideTitle"
+class="title"
+></div>
+
+<div
+id="slideSubtitle"
+class="subtitle"
+></div>
+
+<div
+id="slideContent"
+class="content"
+></div>
+
+<img
+id="slideImage"
+class="image"
+style="display:none"
+>
+
+</div>
+
+
+<div class="navigation">
+
+<button
+class="nav-btn"
+onclick="previousSlide()"
+>
+‹
+</button>
+
+<span
+id="counter"
+class="counter"
+>
+1 / 1
+</span>
+
+<button
+class="nav-btn"
+onclick="nextSlide()"
+>
+›
+</button>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+
+<script>
+const SUPABASE_URL="YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY="YOUR_SUPABASE_ANON_KEY";
+
+const supabaseClient=supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY
+);
+
+let presentation=null;
+let slides=[];
+let current=0;
+
+
+document.addEventListener(
+"DOMContentLoaded",
+loadPresentation
+);
+
+
+async function loadPresentation(){
+
+const id=
+new URLSearchParams(location.search)
+.get("id");
+
+if(!id){
+
+showError(
+"Presentation not found",
+"No presentation ID was provided."
+);
+
+return;
+}
+
+
+const {data,error}=
+await supabaseClient
+.from("presentations")
+.select("id,title,description,is_published,created_at")
+.eq("id",id)
+.eq("is_published",true)
+.single();
+
+
+if(error||!data){
+
+showError(
+"Presentation unavailable",
+"This presentation does not exist or has not been published."
+);
+
+return;
+}
+
+
+presentation=data;
+
+
+const {
+data:slideData,
+error:slideError
+}=
+await supabaseClient
+.from("presentation_slides")
+.select("*")
+.eq("presentation_id",id)
+.order("slide_order",{ascending:true});
+
+
+if(slideError){
+
+showError(
+"Unable to load slides",
+slideError.message
+);
+
+return;
+}
+
+
+slides=slideData||[];
+
+
+if(!slides.length){
+
+showError(
+"No slides available",
+"This presentation does not contain any slides yet."
+);
+
+return;
+}
+
+
+document
+.getElementById("presentationTitle")
+.textContent=
+presentation.title||"Presentation";
+
+
+document
+.getElementById("presentationDescription")
+.textContent=
+presentation.description||"";
+
+
+renderSlide();
+}
+
+
+function renderSlide(){
+
+const slide=slides[current];
+
+if(!slide)return;
+
+
+const element=
+document.getElementById("slide");
+
+
+element.className=
+"slide "+
+(slide.background||"light");
+
+
+document
+.getElementById("slideTitle")
+.textContent=
+slide.title||"";
+
+
+document
+.getElementById("slideSubtitle")
+.textContent=
+slide.subtitle||"";
+
+
+document
+.getElementById("slideContent")
+.textContent=
+slide.content||"";
+
+
+const image=
+document.getElementById("slideImage");
+
+
+if(slide.image_url){
+
+image.src=slide.image_url;
+
+image.style.display="block";
+
+}else{
+
+image.removeAttribute("src");
+
+image.style.display="none";
+
+}
+
+
+document
+.getElementById("counter")
+.textContent=
+`${current+1} / ${slides.length}`;
+}
+
+
+function nextSlide(){
+
+if(current<slides.length-1){
+
+current++;
+
+renderSlide();
+
+}
+
+}
+
+
+function previousSlide(){
+
+if(current>0){
+
+current--;
+
+renderSlide();
+
+}
+
+}
+
+
+function goToSlide(index){
+
+if(
+index<0 ||
+index>=slides.length
+)return;
+
+current=index;
+
+renderSlide();
+
+}
+
+
+async function sharePresentation(){
+
+const url=location.href;
+
+
+if(navigator.share){
+
+try{
+
+await navigator.share({
+
+title:presentation?.title||"CareerCraft Presentation",
+
+text:"View this CareerCraft presentation",
+
+url
+
+});
+
+return;
+
+}catch(error){}
+
+}
+
+
+try{
+
+await navigator.clipboard.writeText(url);
+
+alert("Presentation link copied.");
+
+}catch(error){
+
+prompt(
+"Copy this presentation link:",
+url
+);
+
+}
+
+}
+
+
+function toggleFullscreen(){
+
+const element=document.documentElement;
+
+
+if(!document.fullscreenElement){
+
+if(element.requestFullscreen){
+
+element.requestFullscreen();
+
+}
+
+}else{
+
+if(document.exitFullscreen){
+
+document.exitFullscreen();
+
+}
+
+}
+
+}
+
+
+function printPresentation(){
+
+const printWindow=
+window.open(
+"",
+"_blank",
+"width=1200,height=800"
+);
+
+
+if(!printWindow){
+
+alert("Please allow pop-ups to print the presentation.");
+
+return;
+}
+
+
+const pages=
+slides.map(slide=>`
+
+<section
+style="
+width:100vw;
+height:100vh;
+padding:8%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+page-break-after:always;
+font-family:Arial,sans-serif;
+background:${getBackground(slide.background)};
+color:${getTextColor(slide.background)};
+"
+>
+
+<h1
+style="
+font-size:55px;
+line-height:1.1;
+margin:0 0 18px;
+white-space:pre-wrap;
+"
+>
+${escapeHtml(slide.title||"")}
+</h1>
+
+<h2
+style="
+font-size:25px;
+font-weight:400;
+opacity:.75;
+margin:0 0 18px;
+white-space:pre-wrap;
+"
+>
+${escapeHtml(slide.subtitle||"")}
+</h2>
+
+<div
+style="
+font-size:20px;
+line-height:1.6;
+white-space:pre-wrap;
+"
+>
+${escapeHtml(slide.content||"")}
+</div>
+
+${
+slide.image_url
+?
+`<img
+src="${escapeAttribute(slide.image_url)}"
+style="
+max-width:70%;
+max-height:35%;
+object-fit:contain;
+margin-top:20px;
+"
+/>`
+:""
+}
+
+</section>
+
+`).join("");
+
+
+printWindow.document.write(`
+<!DOCTYPE html>
+<html>
+<head>
+<title>${escapeHtml(presentation?.title||"Presentation")}</title>
+<style>
+@page{
+margin:0
+}
+body{
+margin:0
+}
+</style>
+</head>
+
+<body>
+
+${pages}
+
+<script>
+window.onload=function(){
+window.print();
+}
+<\/script>
+
+</body>
+</html>
+`);
+
+
+printWindow.document.close();
+}
+
+
+function getBackground(background){
+
+switch(background){
+
+case"blue":
+return"linear-gradient(135deg,#1d4ed8,#4f46e5)";
+
+case"purple":
+return"linear-gradient(135deg,#6d28d9,#9333ea)";
+
+case"green":
+return"linear-gradient(135deg,#047857,#059669)";
+
+case"dark":
+return"#111827";
+
+default:
+return"#ffffff";
+
+}
+
+}
+
+
+function getTextColor(background){
+
+return background==="light"
+?"#111827"
+:"#ffffff";
+
+}
+
+
+function showError(title,message){
+
+document.body.innerHTML=`
+
+<div class="error">
+
+<div class="message">
+
+<h2>${escapeHtml(title)}</h2>
+
+<p>${escapeHtml(message)}</p>
+
+<button
+class="back"
+onclick="history.back()"
+>
+Go Back
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+function escapeHtml(value){
+
+return String(value||"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+}
+
+
+function escapeAttribute(value){
+
+return escapeHtml(value);
+}
+
+
+document.addEventListener(
+"keydown",
+event=>{
+
+if(
+event.key==="ArrowRight" ||
+event.key===" " ||
+event.key==="PageDown"
+){
+
+event.preventDefault();
+
+nextSlide();
+
+}
+
+if(
+event.key==="ArrowLeft" ||
+event.key==="PageUp"
+){
+
+event.preventDefault();
+
+previousSlide();
+
+}
+
+if(event.key==="Home"){
+
+goToSlide(0);
+
+}
+
+if(event.key==="End"){
+
+goToSlide(slides.length-1);
+
+}
+
+if(event.key==="Escape"){
+
+if(document.fullscreenElement){
+
+document.exitFullscreen();
+
+}
+
+}
+
+}
+);
+</script>
+
+</body>
+  </html>
