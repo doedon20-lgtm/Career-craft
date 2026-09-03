@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Presentations | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+--primary:#2563eb;
+--dark:#0f172a;
+--text:#111827;
+--muted:#64748b;
+--bg:#f5f7fb;
+--white:#fff;
+--border:#e5e7eb;
+--danger:#dc2626;
+}
+
+body{
+font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:var(--bg);
+color:var(--text);
+min-height:100vh
+}
+
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+
+.app{min-height:100vh;display:flex}
+
+.sidebar{
+width:240px;
+position:fixed;
+inset:0 auto 0 0;
+background:#fff;
+border-right:1px solid var(--border);
+padding:22px 15px;
+z-index:20
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:9px;
+font-weight:800;
+font-size:21px;
+margin-bottom:30px
+}
+
+.logo-icon{
+width:38px;
+height:38px;
+display:grid;
+place-items:center;
+border-radius:11px;
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+color:#fff
+}
+
+.nav{display:grid;gap:5px}
+
+.nav button{
+border:0;
+background:transparent;
+padding:12px;
+border-radius:10px;
+text-align:left;
+font-weight:650;
+color:#475569
+}
+
+.nav button:hover,
+.nav button.active{
+background:#eff6ff;
+color:#2563eb
+}
+
+.main{
+margin-left:240px;
+width:calc(100% - 240px);
+min-height:100vh
+}
+
+.topbar{
+height:68px;
+background:#fff;
+border-bottom:1px solid var(--border);
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 25px;
+position:sticky;
+top:0;
+z-index:15
+}
+
+.top-left{
+display:flex;
+align-items:center;
+gap:12px
+}
+
+.menu{
+display:none;
+border:0;
+background:#f1f5f9;
+border-radius:9px;
+width:38px;
+height:38px
+}
+
+.user{
+display:flex;
+align-items:center;
+gap:9px;
+font-weight:650
+}
+
+.avatar{
+width:37px;
+height:37px;
+border-radius:50%;
+background:#dbeafe;
+color:#1d4ed8;
+display:grid;
+place-items:center;
+font-weight:800
+}
+
+.content{padding:25px}
+
+.container{
+max-width:1200px;
+margin:auto
+}
+
+.hero{
+background:linear-gradient(135deg,#1d4ed8,#4f46e5);
+color:#fff;
+border-radius:20px;
+padding:30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+margin-bottom:25px
+}
+
+.hero h2{font-size:29px;margin-bottom:8px}
+.hero p{color:#dbeafe;max-width:650px}
+
+.btn{
+border:0;
+border-radius:9px;
+padding:10px 15px;
+font-weight:750
+}
+
+.primary{background:#2563eb;color:#fff}
+.secondary{background:#f1f5f9;color:#334155}
+.white{background:#fff;color:#1d4ed8}
+.danger{background:#fee2e2;color:#b91c1c}
+
+.hero .white{white-space:nowrap}
+
+.heading{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(275px,1fr));
+gap:18px
+}
+
+.card{
+background:#fff;
+border:1px solid var(--border);
+border-radius:16px;
+overflow:hidden
+}
+
+.card-cover{
+height:165px;
+padding:25px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+background:linear-gradient(135deg,#eff6ff,#eef2ff)
+}
+
+.card-cover h3{
+font-size:21px;
+margin-bottom:7px
+}
+
+.card-cover p{
+color:#64748b;
+font-size:13px
+}
+
+.card-body{padding:16px}
+
+.card-meta{
+font-size:12px;
+color:#64748b;
+margin:6px 0 15px
+}
+
+.actions{
+display:flex;
+gap:7px;
+flex-wrap:wrap
+}
+
+.actions .btn{flex:1}
+
+.empty{
+background:#fff;
+border:1px dashed #cbd5e1;
+border-radius:16px;
+padding:55px 20px;
+text-align:center
+}
+
+.empty-icon{font-size:42px;margin-bottom:10px}
+.empty p{color:#64748b;margin:8px 0 18px}
+
+.builder{
+display:none;
+height:calc(100vh - 68px)
+}
+
+.builder.active{display:flex}
+
+.slides{
+width:230px;
+background:#fff;
+border-right:1px solid var(--border);
+padding:15px;
+overflow:auto
+}
+
+.slides h3{margin-bottom:12px}
+
+.slide-list{display:grid;gap:9px}
+
+.thumb{
+background:#f8fafc;
+border:2px solid transparent;
+border-radius:9px;
+padding:10px;
+min-height:75px;
+cursor:pointer
+}
+
+.thumb.active{border-color:#2563eb}
+
+.thumb small{
+display:block;
+color:#64748b;
+margin-bottom:5px
+}
+
+.thumb strong{font-size:13px}
+
+.add{
+width:100%;
+margin-top:12px
+}
+
+.workspace{
+flex:1;
+display:flex;
+flex-direction:column;
+min-width:0
+}
+
+.toolbar{
+background:#fff;
+border-bottom:1px solid var(--border);
+padding:10px 15px;
+display:flex;
+justify-content:space-between;
+gap:10px;
+flex-wrap:wrap
+}
+
+.toolbar-group{
+display:flex;
+gap:7px;
+align-items:center
+}
+
+.status{
+font-size:12px;
+font-weight:700;
+color:#059669
+}
+
+.canvas-area{
+flex:1;
+overflow:auto;
+padding:30px;
+display:flex;
+justify-content:center;
+align-items:flex-start
+}
+
+.canvas{
+width:min(900px,100%);
+aspect-ratio:16/9;
+border-radius:6px;
+box-shadow:0 20px 55px rgba(15,23,42,.16);
+overflow:hidden
+}
+
+.canvas-inner{
+width:100%;
+height:100%;
+padding:8%;
+display:flex;
+flex-direction:column;
+justify-content:center
+}
+
+.canvas-title{
+font-size:clamp(25px,4vw,55px);
+font-weight:850;
+line-height:1.1;
+margin-bottom:16px;
+white-space:pre-wrap
+}
+
+.canvas-subtitle{
+font-size:clamp(14px,2vw,24px);
+color:#64748b;
+white-space:pre-wrap;
+margin-bottom:16px
+}
+
+.canvas-body{
+font-size:clamp(13px,1.7vw,19px);
+line-height:1.6;
+white-space:pre-wrap
+}
+
+.canvas-image{
+display:block;
+max-width:100%;
+max-height:40%;
+object-fit:contain;
+border-radius:10px;
+margin-top:18px
+}
+
+.light{background:#fff;color:#111827}
+.blue{background:linear-gradient(135deg,#1d4ed8,#4f46e5);color:#fff}
+.purple{background:linear-gradient(135deg,#6d28d9,#9333ea);color:#fff}
+.green{background:linear-gradient(135deg,#047857,#059669);color:#fff}
+.dark{background:#111827;color:#fff}
+
+.blue .canvas-subtitle,
+.purple .canvas-subtitle,
+.green .canvas-subtitle,
+.dark .canvas-subtitle{
+color:rgba(255,255,255,.75)
+}
+
+.inspector{
+width:290px;
+background:#fff;
+border-left:1px solid var(--border);
+padding:18px;
+overflow:auto
+}
+
+.inspector h3{margin-bottom:18px}
+
+.field{margin-bottom:15px}
+
+.field label{
+display:block;
+font-size:12px;
+font-weight:800;
+margin-bottom:6px
+}
+
+.field input,
+.field textarea,
+.field select{
+width:100%;
+padding:10px;
+border:1px solid #d1d5db;
+border-radius:8px;
+outline:0
+}
+
+.field textarea{
+height:115px;
+resize:vertical
+}
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(15,23,42,.6);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:100
+}
+
+.modal.show{display:flex}
+
+.modal-box{
+background:#fff;
+width:min(550px,100%);
+border-radius:17px;
+padding:23px
+}
+
+.modal-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px
+}
+
+.close{
+border:0;
+background:#f1f5f9;
+width:35px;
+height:35px;
+border-radius:50%
+}
+
+@media(max-width:950px){
+.sidebar{transform:translateX(-100%);transition:.2s}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0;width:100%}
+.menu{display:block}
+.inspector{width:260px}
+}
+
+@media(max-width:700px){
+.content{padding:15px}
+.hero{padding:22px;flex-direction:column;align-items:flex-start}
+.hero h2{font-size:24px}
+.builder{height:auto;min-height:calc(100vh - 68px);flex-direction:column}
+.slides,.inspector{width:100%;border:0;border-bottom:1px solid var(--border)}
+.slides{max-height:190px}
+.inspector{order:3}
+.canvas-area{padding:15px}
+.user span{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar" id="sidebar">
+
+<div class="logo">
+<div class="logo-icon">C</div>
+CareerCraft
+</div>
+
+<nav class="nav">
+<button onclick="go('index.html')">🏠 Dashboard</button>
+<button onclick="go('cv-builder.html')">📄 CV Builder</button>
+<button onclick="go('job-finder.html')">💼 Jobs</button>
+<button onclick="go('portfolio-dashboard.html')">🖼️ Portfolio</button>
+<button class="active">📊 Presentations</button>
+<button onclick="go('communities.html')">👥 Communities</button>
+<button onclick="go('messages.html')">💬 Messages</button>
+</nav>
+
+</aside>
+
+<main class="main">
+
+<header class="topbar">
+
+<div class="top-left">
+<button class="menu" onclick="toggleMenu()">☰</button>
+<h1 id="pageTitle">Presentations</h1>
+</div>
+
+<div class="user">
+<div class="avatar" id="avatar">C</div>
+<span id="email"></span>
+</div>
+
+</header>
+
+
+<section class="content" id="dashboard">
+
+<div class="container">
+
+<div class="hero">
+
+<div>
+<h2>Create professional presentations</h2>
+<p>
+Build presentations for projects, interviews,
+business ideas, portfolios and professional work.
+</p>
+</div>
+
+<button class="btn white" onclick="showCreate()">
+＋ Create Presentation
+</button>
+
+</div>
+
+<div class="heading">
+<h2>Your presentations</h2>
+
+<button class="btn primary" onclick="showCreate()">
+＋ New
+</button>
+</div>
+
+<div id="list"></div>
+
+</div>
+
+</section>
+
+
+<section class="builder" id="builder">
+
+<aside class="slides">
+
+<h3>Slides</h3>
+
+<div class="slide-list" id="slideList"></div>
+
+<button class="btn primary add" onclick="addSlide()">
+＋ Add Slide
+</button>
+
+</aside>
+
+
+<section class="workspace">
+
+<div class="toolbar">
+
+<div class="toolbar-group">
+
+<button class="btn secondary" onclick="back()">
+← Back
+</button>
+
+<button class="btn secondary" onclick="openPreview()">
+▶ Preview
+</button>
+
+<button class="btn secondary" onclick="sharePresentation()">
+Share
+</button>
+
+</div>
+
+<div class="toolbar-group">
+
+<span class="status" id="status">
+Ready
+</span>
+
+<button class="btn primary" onclick="save()">
+Save
+</button>
+
+<button class="btn primary" onclick="publish()">
+Publish
+</button>
+
+</div>
+
+</div>
+
+
+<div class="canvas-area">
+
+<div id="canvas" class="canvas light">
+
+<div class="canvas-inner">
+
+<div id="canvasTitle" class="canvas-title"></div>
+
+<div id="canvasSubtitle" class="canvas-subtitle"></div>
+
+<div id="canvasBody" class="canvas-body"></div>
+
+<img id="canvasImage" class="canvas-image" style="display:none">
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<aside class="inspector">
+
+<h3>Slide settings</h3>
+
+<div class="field">
+<label>Layout</label>
+
+<select id="layout" onchange="updateSlide()">
+<option value="title_content">Title & Content</option>
+<option value="title">Title Slide</option>
+<option value="two_column">Two Column</option>
+<option value="image">Image & Content</option>
+</select>
+</div>
+
+<div class="field">
+<label>Title</label>
+<input id="title" oninput="updateSlide()" placeholder="Slide title">
+</div>
+
+<div class="field">
+<label>Subtitle</label>
+<input id="subtitle" oninput="updateSlide()" placeholder="Subtitle">
+</div>
+
+<div class="field">
+<label>Content</label>
+<textarea id="content" oninput="updateSlide()" placeholder="Write your content"></textarea>
+</div>
+
+<div class="field">
+<label>Image URL</label>
+<input id="image" oninput="updateSlide()" placeholder="https://...">
+</div>
+
+<div class="field">
+<label>Background</label>
+
+<select id="background" onchange="updateSlide()">
+<option value="light">Light</option>
+<option value="blue">Blue</option>
+<option value="purple">Purple</option>
+<option value="green">Green</option>
+<option value="dark">Dark</option>
+</select>
+
+</div>
+
+<button class="btn danger" style="width:100%" onclick="deleteSlide()">
+Delete Slide
+</button>
+
+</aside>
+
+</section>
+
+</main>
+</div>
+
+
+<div class="modal" id="createModal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+<h2>New Presentation</h2>
+<button class="close" onclick="hideCreate()">×</button>
+</div>
+
+<div class="field">
+<label>Title</label>
+<input id="newTitle" placeholder="My Presentation">
+</div>
+
+<div class="field">
+<label>Description</label>
+<textarea id="newDescription" placeholder="Describe your presentation"></textarea>
+</div>
+
+<button class="btn primary" style="width:100%" onclick="create()">
+Create Presentation
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+const SUPABASE_URL="YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY="YOUR_SUPABASE_ANON_KEY";
+
+const supabaseClient=supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY
+);
+
+let user=null;
+let presentation=null;
+let slides=[];
+let current=0;
+
+document.addEventListener("DOMContentLoaded",init);
+
+async function init(){
+
+const {data:{session}}=
+await supabaseClient.auth.getSession();
+
+if(!session){
+location.href="login.html";
+return;
+}
+
+user=session.user;
+
+document.getElementById("email").textContent=user.email||"";
+document.getElementById("avatar").textContent=
+(user.email||"C")[0].toUpperCase();
+
+loadPresentations();
+}
+
+async function loadPresentations(){
+
+const list=document.getElementById("list");
+
+list.innerHTML=
+`<div class="empty">
+<div class="empty-icon">⏳</div>
+<p>Loading presentations...</p>
+</div>`;
+
+const {data,error}=await supabaseClient
+.from("presentations")
+.select("*")
+.eq("user_id",user.id)
+.order("created_at",{ascending:false});
+
+if(error){
+list.innerHTML=
+`<div class="empty">
+<h3>Unable to load presentations</h3>
+<p>${esc(error.message)}</p>
+</div>`;
+return;
+}
+
+if(!data.length){
+
+list.innerHTML=
+`<div class="empty">
+<div class="empty-icon">📊</div>
+<h3>No presentations yet</h3>
+<p>Create your first presentation.</p>
+<button class="btn primary" onclick="showCreate()">Create Presentation</button>
+</div>`;
+
+return;
+}
+
+list.innerHTML=
+`<div class="grid">${data.map(card).join("")}</div>`;
+}
+
+function card(p){
+
+return `
+<article class="card">
+
+<div class="card-cover">
+<h3>${esc(p.title||"Untitled Presentation")}</h3>
+<p>${esc(p.description||"Professional presentation")}</p>
+</div>
+
+<div class="card-body">
+
+<strong>${esc(p.title||"Untitled Presentation")}</strong>
+
+<div class="card-meta">
+${p.is_published?"Published":"Draft"} · ${date(p.created_at)}
+</div>
+
+<div class="actions">
+
+<button class="btn primary"
+onclick="openPresentation('${p.id}')">
+Edit
+</button>
+
+<button class="btn secondary"
+onclick="publicPreview('${p.id}')">
+Preview
+</button>
+
+<button class="btn danger"
+onclick="removePresentation('${p.id}')">
+Delete
+</button>
+
+</div>
+
+</div>
+</article>`;
+}
+
+function showCreate(){
+document.getElementById("createModal").classList.add("show");
+}
+
+function hideCreate(){
+document.getElementById("createModal").classList.remove("show");
+}
+
+async function create(){
+
+const title=document.getElementById("newTitle").value.trim();
+const description=document.getElementById("newDescription").value.trim();
+
+if(!title){
+alert("Enter a presentation title.");
+return;
+}
+
+const {data,error}=await supabaseClient
+.from("presentations")
+.insert({
+user_id:user.id,
+title,
+description,
+template:"modern",
+is_published:false
+})
+.select()
+.single();
+
+if(error){
+alert(error.message);
+return;
+}
+
+const {error:slideError}=await supabaseClient
+.from("presentation_slides")
+.insert({
+presentation_id:data.id,
+slide_order:0,
+layout:"title",
+title,
+subtitle:"",
+content:"",
+image_url:"",
+background:"light"
+});
+
+if(slideError){
+alert(slideError.message);
+return;
+}
+
+hideCreate();
+
+await openPresentation(data.id);
+}
+
+async function openPresentation(id){
+
+const {data,error}=await supabaseClient
+.from("presentations")
+.select("*")
+.eq("id",id)
+.eq("user_id",user.id)
+.single();
+
+if(error){
+alert(error.message);
+return;
+}
+
+presentation=data;
+
+const {data:slideData,error:slideError}=
+await supabaseClient
+.from("presentation_slides")
+.select("*")
+.eq("presentation_id",id)
+.order("slide_order");
+
+if(slideError){
+alert(slideError.message);
+return;
+}
+
+slides=slideData||[];
+current=0;
+
+document.getElementById("dashboard").style.display="none";
+document.getElementById("builder").classList.add("active");
+document.getElementById("pageTitle").textContent=
+presentation.title||"Presentation";
+
+renderList();
+renderSlide();
+}
+
+function renderList(){
+
+document.getElementById("slideList").innerHTML=
+slides.map((s,i)=>`
+
+<div class="thumb ${i===current?"active":""}"
+onclick="selectSlide(${i})">
+
+<small>Slide ${i+1}</small>
+<strong>${esc(s.title||"Untitled Slide")}</strong>
+
+</div>
+
+`).join("");
+}
+
+function selectSlide(i){
+
+current=i;
+renderList();
+renderSlide();
+}
+
+function renderSlide(){
+
+const s=slides[current];
+
+if(!s)return;
+
+document.getElementById("title").value=s.title||"";
+document.getElementById("subtitle").value=s.subtitle||"";
+document.getElementById("content").value=s.content||"";
+document.getElementById("image").value=s.image_url||"";
+document.getElementById("layout").value=s.layout||"title_content";
+document.getElementById("background").value=s.background||"light";
+
+renderCanvas();
+}
+
+function updateSlide(){
+
+const s=slides[current];
+
+if(!s)return;
+
+s.title=document.getElementById("title").value;
+s.subtitle=document.getElementById("subtitle").value;
+s.content=document.getElementById("content").value;
+s.image_url=document.getElementById("image").value;
+s.layout=document.getElementById("layout").value;
+s.background=document.getElementById("background").value;
+
+renderList();
+renderCanvas();
+}
+
+function renderCanvas(){
+
+const s=slides[current];
+
+const canvas=document.getElementById("canvas");
+
+canvas.className="canvas "+(s.background||"light");
+
+document.getElementById("canvasTitle").textContent=
+s.title||"";
+
+document.getElementById("canvasSubtitle").textContent=
+s.subtitle||"";
+
+document.getElementById("canvasBody").textContent=
+s.content||"";
+
+const img=document.getElementById("canvasImage");
+
+if(s.image_url){
+
+img.src=s.image_url;
+img.style.display="block";
+
+}else{
+
+img.style.display="none";
+}
+
+}
+
+async function addSlide(){
+
+const {data,error}=await supabaseClient
+.from("presentation_slides")
+.insert({
+presentation_id:presentation.id,
+slide_order:slides.length,
+layout:"title_content",
+title:"New Slide",
+subtitle:"",
+content:"",
+image_url:"",
+background:"light"
+})
+.select()
+.single();
+
+if(error){
+alert(error.message);
+return;
+}
+
+slides.push(data);
+current=slides.length-1;
+
+renderList();
+renderSlide();
+}
+
+async function deleteSlide(){
+
+if(slides.length===1){
+alert("A presentation must have at least one slide.");
+return;
+}
+
+if(!confirm("Delete this slide?"))return;
+
+const id=slides[current].id;
+
+const {error}=await supabaseClient
+.from("presentation_slides")
+.delete()
+.eq("id",id);
+
+if(error){
+alert(error.message);
+return;
+}
+
+slides.splice(current,1);
+
+if(current>=slides.length)
+current=slides.length-1;
+
+for(let i=0;i<slides.length;i++){
+
+slides[i].slide_order=i;
+
+await supabaseClient
+.from("presentation_slides")
+.update({slide_order:i})
+.eq("id",slides[i].id);
+
+}
+
+renderList();
+renderSlide();
+}
+
+async function save(){
+
+if(!presentation)return;
+
+setStatus("Saving...");
+
+const {error}=await supabaseClient
+.from("presentations")
+.update({
+title:presentation.title,
+description:presentation.description,
+updated_at:new Date().toISOString()
+})
+.eq("id",presentation.id)
+.eq("user_id",user.id);
+
+if(error){
+setStatus("Save failed");
+alert(error.message);
+return;
+}
+
+for(const s of slides){
+
+const {error}=await supabaseClient
+.from("presentation_slides")
+.update({
+slide_order:s.slide_order,
+layout:s.layout,
+title:s.title,
+subtitle:s.subtitle,
+content:s.content,
+image_url:s.image_url,
+background:s.background
+})
+.eq("id",s.id);
+
+if(error){
+setStatus("Save failed");
+alert(error.message);
+return;
+}
+}
+
+setStatus("Saved");
+}
+
+async function publish(){
+
+await save();
+
+const newStatus=!presentation.is_published;
+
+const {data,error}=await supabaseClient
+.from("presentations")
+.update({
+is_published:newStatus,
+published_at:newStatus?new Date().toISOString():null,
+updated_at:new Date().toISOString()
+})
+.eq("id",presentation.id)
+.eq("user_id",user.id)
+.select()
+.single();
+
+if(error){
+alert(error.message);
+return;
+}
+
+presentation=data;
+
+alert(
+newStatus
+?"Presentation published successfully."
+:"Presentation unpublished."
+);
+
+}
+
+function openPreview(){
+
+if(!presentation)return;
+
+location.href=
+"presentation-preview.html?id="+
+encodeURIComponent(presentation.id);
+}
+
+function publicPreview(id){
+
+location.href=
+"presentation-preview.html?id="+
+encodeURIComponent(id);
+}
+
+async function sharePresentation(){
+
+if(!presentation)return;
+
+await save();
+
+const url=
+location.origin+
+location.pathname.replace(
+"presentations.html",
+"presentation-preview.html"
+)+
+"?id="+encodeURIComponent(presentation.id);
+
+if(navigator.share){
+
+try{
+
+await navigator.share({
+title:presentation.title,
+text:"View my CareerCraft presentation",
+url
+});
+
+return;
+
+}catch(e){}
+
+}
+
+try{
+
+await navigator.clipboard.writeText(url);
+alert("Presentation link copied.");
+
+}catch(e){
+
+prompt("Copy this link:",url);
+}
+}
+
+async function removePresentation(id){
+
+if(!confirm(
+"Delete this presentation and all its slides?"
+))return;
+
+const {error}=await supabaseClient
+.from("presentations")
+.delete()
+.eq("id",id)
+.eq("user_id",user.id);
+
+if(error){
+alert(error.message);
+return;
+}
+
+loadPresentations();
+}
+
+function back(){
+
+document.getElementById("builder")
+.classList.remove("active");
+
+document.getElementById("dashboard").style.display="block";
+
+document.getElementById("pageTitle").textContent=
+"Presentations";
+
+loadPresentations();
+}
+
+function setStatus(text){
+document.getElementById("status").textContent=text;
+}
+
+function toggleMenu(){
+document.getElementById("sidebar").classList.toggle("open");
+}
+
+function go(page){
+location.href=page;
+}
+
+function date(value){
+
+if(!value)return"";
+
+return new Date(value).toLocaleDateString(
+undefined,
+{
+year:"numeric",
+month:"short",
+day:"numeric"
+}
+);
+}
+
+function esc(value){
+
+if(value===null||value===undefined)return"";
+
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+}
+</script>
+
+</body>
+</html>
