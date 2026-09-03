@@ -1,1938 +1,2680 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#2563eb">
-
-  <title>Portfolio | CareerCraft</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --primary-soft: #eff6ff;
-      --bg: #f6f8fc;
-      --surface: #ffffff;
-      --text: #111827;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --success: #16a34a;
-      --warning: #d97706;
-      --danger: #dc2626;
-      --sidebar: 250px;
-      --radius: 18px;
-      --shadow: 0 8px 30px rgba(15, 23, 42, .06);
-    }
-
-    body {
-      font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    button,
-    input,
-    select {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* =========================
-       SIDEBAR
-    ========================= */
-
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: var(--sidebar);
-      background: #fff;
-      border-right: 1px solid var(--border);
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      padding: 22px 15px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      padding: 0 10px 25px;
-    }
-
-    .brand-logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
-      background: linear-gradient(135deg, #2563eb, #7c3aed);
-      color: #fff;
-      display: grid;
-      place-items: center;
-      font-size: 19px;
-      font-weight: 800;
-      box-shadow: 0 8px 18px rgba(37, 99, 235, .22);
-    }
-
-    .brand-name {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: -.5px;
-    }
-
-    .brand-name span {
-      color: var(--primary);
-    }
-
-    .nav-label {
-      color: #9ca3af;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      padding: 0 12px;
-      margin: 8px 0 8px;
-    }
-
-    .nav {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .nav a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 11px 12px;
-      border-radius: 11px;
-      color: #667085;
-      font-size: 14px;
-      font-weight: 600;
-      transition: .2s ease;
-    }
-
-    .nav a:hover {
-      background: #f8fafc;
-      color: var(--text);
-    }
-
-    .nav a.active {
-      background: var(--primary-soft);
-      color: var(--primary);
-    }
-
-    .nav-icon {
-      width: 20px;
-      text-align: center;
-      font-size: 17px;
-    }
-
-    .sidebar-bottom {
-      margin-top: auto;
-    }
-
-    .create-box {
-      background: linear-gradient(145deg, #eff6ff, #f5f3ff);
-      border: 1px solid #dbeafe;
-      border-radius: 15px;
-      padding: 15px;
-      margin-bottom: 15px;
-    }
-
-    .create-box h4 {
-      font-size: 13px;
-      margin-bottom: 5px;
-    }
-
-    .create-box p {
-      font-size: 11px;
-      line-height: 1.5;
-      color: var(--muted);
-      margin-bottom: 11px;
-    }
-
-    .create-box button {
-      border: 0;
-      background: var(--primary);
-      color: #fff;
-      width: 100%;
-      padding: 9px;
-      border-radius: 9px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .profile-mini {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-    }
-
-    .avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #2563eb, #9333ea);
-      color: #fff;
-      display: grid;
-      place-items: center;
-      font-size: 13px;
-      font-weight: 800;
-      flex-shrink: 0;
-    }
-
-    .profile-mini-info {
-      min-width: 0;
-    }
-
-    .profile-mini strong {
-      display: block;
-      font-size: 12px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .profile-mini span {
-      display: block;
-      color: var(--muted);
-      font-size: 10px;
-      margin-top: 2px;
-    }
-
-    /* =========================
-       MAIN
-    ========================= */
-
-    .main {
-      margin-left: var(--sidebar);
-      min-height: 100vh;
-    }
-
-    .topbar {
-      height: 72px;
-      background: rgba(255,255,255,.9);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 32px;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-
-    .page-title {
-      font-size: 18px;
-      font-weight: 750;
-      letter-spacing: -.3px;
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .icon-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: #fff;
-      display: grid;
-      place-items: center;
-      color: #64748b;
-      font-size: 16px;
-    }
-
-    .top-profile {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-left: 5px;
-    }
-
-    .top-profile .avatar {
-      width: 34px;
-      height: 34px;
-    }
-
-    .content {
-      max-width: 1450px;
-      margin: auto;
-      padding: 32px;
-    }
-
-    /* =========================
-       HERO
-    ========================= */
-
-    .hero {
-      background:
-        radial-gradient(circle at 85% 20%, rgba(96,165,250,.28), transparent 28%),
-        linear-gradient(135deg, #172554, #1e3a8a 55%, #2563eb);
-      color: #fff;
-      border-radius: 24px;
-      padding: 34px;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 25px;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      border: 1px solid rgba(255,255,255,.13);
-      border-radius: 50%;
-      right: -60px;
-      bottom: -110px;
-    }
-
-    .hero-content {
-      max-width: 690px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: rgba(255,255,255,.11);
-      border: 1px solid rgba(255,255,255,.15);
-      padding: 7px 11px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 700;
-      margin-bottom: 15px;
-    }
-
-    .hero h1 {
-      font-size: clamp(27px, 4vw, 40px);
-      line-height: 1.1;
-      letter-spacing: -1.3px;
-      margin-bottom: 12px;
-    }
-
-    .hero p {
-      color: rgba(255,255,255,.82);
-      line-height: 1.65;
-      max-width: 600px;
-      font-size: 14px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 22px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      border: 0;
-      border-radius: 10px;
-      padding: 11px 16px;
-      font-size: 13px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: .2s ease;
-    }
-
-    .btn-primary {
-      background: #fff;
-      color: #1d4ed8;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-outline-light {
-      background: rgba(255,255,255,.08);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.2);
-    }
-
-    /* =========================
-       STATS
-    ========================= */
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 28px;
-    }
-
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 19px;
-      box-shadow: var(--shadow);
-    }
-
-    .stat-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .stat-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: var(--primary-soft);
-      color: var(--primary);
-      display: grid;
-      place-items: center;
-      font-size: 17px;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    .stat-value {
-      font-size: 25px;
-      font-weight: 800;
-      letter-spacing: -.6px;
-    }
-
-    .stat-change {
-      font-size: 10px;
-      color: var(--success);
-      font-weight: 700;
-      margin-top: 5px;
-    }
-
-    /* =========================
-       SECTION HEADER
-    ========================= */
-
-    .section {
-      margin-bottom: 30px;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 15px;
-    }
-
-    .section-title h2 {
-      font-size: 18px;
-      letter-spacing: -.3px;
-    }
-
-    .section-title p {
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 4px;
-    }
-
-    .text-btn {
-      background: none;
-      border: 0;
-      color: var(--primary);
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    /* =========================
-       TOOLBAR
-    ========================= */
-
-    .toolbar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 17px;
-      flex-wrap: wrap;
-    }
-
-    .search {
-      position: relative;
-      flex: 1;
-      min-width: 210px;
-    }
-
-    .search span {
-      position: absolute;
-      left: 13px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #9ca3af;
-      font-size: 14px;
-    }
-
-    .search input {
-      width: 100%;
-      height: 40px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0 14px 0 37px;
-      background: #fff;
-      outline: none;
-      font-size: 12px;
-    }
-
-    .search input:focus {
-      border-color: #93c5fd;
-      box-shadow: 0 0 0 3px #eff6ff;
-    }
-
-    .filter {
-      height: 40px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #fff;
-      padding: 0 12px;
-      font-size: 12px;
-      color: #475569;
-      outline: none;
-    }
-
-    /* =========================
-       PORTFOLIO GRID
-    ========================= */
-
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .portfolio-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 17px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: .25s ease;
-    }
-
-    .portfolio-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 35px rgba(15,23,42,.1);
-    }
-
-    .portfolio-cover {
-      height: 170px;
-      position: relative;
-      padding: 16px;
-      overflow: hidden;
-    }
-
-    .cover-modern {
-      background:
-        radial-gradient(circle at 80% 25%, rgba(255,255,255,.25), transparent 20%),
-        linear-gradient(135deg, #172554, #2563eb);
-    }
-
-    .cover-creative {
-      background:
-        radial-gradient(circle at 25% 30%, #f472b6, transparent 25%),
-        radial-gradient(circle at 75% 70%, #60a5fa, transparent 25%),
-        #312e81;
-    }
-
-    .cover-minimal {
-      background: #f1f5f9;
-    }
-
-    .cover-executive {
-      background: linear-gradient(135deg, #111827, #374151);
-    }
-
-    .cover-preview {
-      background: rgba(255,255,255,.94);
-      border-radius: 8px;
-      height: 100%;
-      width: 76%;
-      margin: auto;
-      padding: 13px;
-      box-shadow: 0 10px 20px rgba(0,0,0,.12);
-    }
-
-    .cover-preview .line {
-      height: 5px;
-      border-radius: 5px;
-      background: #dbeafe;
-      margin-bottom: 7px;
-    }
-
-    .cover-preview .line.big {
-      width: 65%;
-      height: 8px;
-      background: #2563eb;
-    }
-
-    .cover-preview .line.short {
-      width: 45%;
-    }
-
-    .cover-status {
-      position: absolute;
-      left: 13px;
-      top: 13px;
-      padding: 6px 9px;
-      border-radius: 999px;
-      font-size: 9px;
-      font-weight: 800;
-      background: #dcfce7;
-      color: #15803d;
-      z-index: 2;
-    }
-
-    .cover-status.draft {
-      background: #fef3c7;
-      color: #a16207;
-    }
-
-    .card-menu {
-      position: absolute;
-      right: 12px;
-      top: 12px;
-      width: 31px;
-      height: 31px;
-      border: 0;
-      border-radius: 8px;
-      background: rgba(255,255,255,.9);
-      font-size: 15px;
-      z-index: 2;
-    }
-
-    .portfolio-info {
-      padding: 16px;
-    }
-
-    .portfolio-info h3 {
-      font-size: 15px;
-      margin-bottom: 5px;
-    }
-
-    .portfolio-description {
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.5;
-      min-height: 32px;
-    }
-
-    .portfolio-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid #f1f5f9;
-    }
-
-    .views {
-      color: var(--muted);
-      font-size: 10px;
-    }
-
-    .card-actions {
-      display: flex;
-      gap: 6px;
-    }
-
-    .small-btn {
-      border: 1px solid var(--border);
-      background: #fff;
-      border-radius: 8px;
-      padding: 7px 9px;
-      font-size: 10px;
-      font-weight: 700;
-      color: #475569;
-    }
-
-    .small-btn.primary {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
-    /* =========================
-       TEMPLATES
-    ========================= */
-
-    .templates {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-    }
-
-    .template {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 10px;
-      transition: .2s;
-      cursor: pointer;
-    }
-
-    .template:hover {
-      border-color: #93c5fd;
-      transform: translateY(-2px);
-    }
-
-    .template-preview {
-      height: 145px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      padding: 12px;
-      overflow: hidden;
-    }
-
-    .template-modern {
-      background: linear-gradient(135deg, #dbeafe, #eff6ff);
-    }
-
-    .template-executive {
-      background: linear-gradient(135deg, #e5e7eb, #f9fafb);
-    }
-
-    .template-minimal {
-      background: #f8fafc;
-    }
-
-    .template-creative {
-      background: linear-gradient(135deg, #fce7f3, #ede9fe);
-    }
-
-    .mock-page {
-      background: #fff;
-      height: 100%;
-      border-radius: 5px;
-      padding: 10px;
-      box-shadow: 0 5px 12px rgba(0,0,0,.06);
-    }
-
-    .mock-title {
-      height: 7px;
-      width: 48%;
-      border-radius: 5px;
-      background: #2563eb;
-      margin-bottom: 8px;
-    }
-
-    .mock-line {
-      height: 4px;
-      background: #e5e7eb;
-      border-radius: 4px;
-      margin-bottom: 6px;
-    }
-
-    .mock-line.w70 {
-      width: 70%;
-    }
-
-    .mock-line.w50 {
-      width: 50%;
-    }
-
-    .template-name {
-      font-size: 12px;
-      font-weight: 750;
-    }
-
-    .template-type {
-      color: var(--muted);
-      font-size: 10px;
-      margin-top: 3px;
-    }
-
-    /* =========================
-       LOWER GRID
-    ========================= */
-
-    .lower-grid {
-      display: grid;
-      grid-template-columns: 1.35fr .65fr;
-      gap: 18px;
-    }
-
-    .panel {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 17px;
-      box-shadow: var(--shadow);
-      padding: 20px;
-    }
-
-    .activity {
-      display: flex;
-      gap: 12px;
-      padding: 13px 0;
-      border-bottom: 1px solid #f1f5f9;
-    }
-
-    .activity:last-child {
-      border-bottom: 0;
-    }
-
-    .activity-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 9px;
-      background: var(--primary-soft);
-      color: var(--primary);
-      display: grid;
-      place-items: center;
-      font-size: 13px;
-      flex-shrink: 0;
-    }
-
-    .activity-content {
-      min-width: 0;
-    }
-
-    .activity-content strong {
-      display: block;
-      font-size: 11px;
-      line-height: 1.4;
-    }
-
-    .activity-content span {
-      color: var(--muted);
-      font-size: 10px;
-      display: block;
-      margin-top: 3px;
-    }
-
-    .tip {
-      background: linear-gradient(135deg, #eff6ff, #f5f3ff);
-      border: 1px solid #dbeafe;
-      border-radius: 13px;
-      padding: 14px;
-      margin-top: 13px;
-    }
-
-    .tip strong {
-      font-size: 11px;
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .tip p {
-      color: var(--muted);
-      font-size: 10px;
-      line-height: 1.6;
-    }
-
-    /* =========================
-       EMPTY STATE
-    ========================= */
-
-    .empty {
-      display: none;
-      text-align: center;
-      padding: 50px 20px;
-      background: #fff;
-      border: 1px dashed #cbd5e1;
-      border-radius: 17px;
-    }
-
-    .empty-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 15px;
-      background: var(--primary-soft);
-      color: var(--primary);
-      display: grid;
-      place-items: center;
-      margin: 0 auto 13px;
-      font-size: 22px;
-    }
-
-    .empty h3 {
-      font-size: 16px;
-      margin-bottom: 5px;
-    }
-
-    .empty p {
-      color: var(--muted);
-      font-size: 11px;
-      margin-bottom: 15px;
-    }
-
-    /* =========================
-       MOBILE NAV
-    ========================= */
-
-    .mobile-nav {
-      display: none;
-    }
-
-    /* =========================
-       RESPONSIVE
-    ========================= */
-
-    @media (max-width: 1150px) {
-      .portfolio-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .templates {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .lower-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 850px) {
-      :root {
-        --sidebar: 0px;
-      }
-
-      .sidebar {
-        display: none;
-      }
-
-      .main {
-        margin-left: 0;
-        padding-bottom: 72px;
-      }
-
-      .topbar {
-        padding: 0 17px;
-        height: 62px;
-      }
-
-      .content {
-        padding: 18px 15px;
-      }
-
-      .top-profile {
-        display: none;
-      }
-
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .hero {
-        padding: 25px 21px;
-        border-radius: 19px;
-      }
-
-      .hero h1 {
-        font-size: 28px;
-      }
-
-      .mobile-nav {
-        position: fixed;
-        display: flex;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 64px;
-        background: rgba(255,255,255,.96);
-        backdrop-filter: blur(12px);
-        border-top: 1px solid var(--border);
-        z-index: 200;
-        justify-content: space-around;
-        align-items: center;
-      }
-
-      .mobile-nav a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-        font-size: 9px;
-        color: #94a3b8;
-        font-weight: 700;
-      }
-
-      .mobile-nav a.active {
-        color: var(--primary);
-      }
-
-      .mobile-create {
-        width: 45px;
-        height: 45px;
-        margin-top: -24px;
-        border-radius: 14px;
-        background: var(--primary);
-        color: #fff !important;
-        box-shadow: 0 7px 18px rgba(37,99,235,.3);
-        justify-content: center;
-        font-size: 18px !important;
-      }
-
-      .mobile-create span:last-child {
-        display: none;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .templates {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .section-header {
-        align-items: flex-start;
-      }
-
-      .hero-actions .btn {
-        flex: 1;
-      }
-
-      .toolbar {
-        display: grid;
-        grid-template-columns: 1fr 110px;
-      }
-
-      .search {
-        min-width: 0;
-      }
-
-      .filter {
-        width: 100%;
-      }
-
-      .portfolio-cover {
-        height: 190px;
-      }
-    }
-
-    @media (max-width: 420px) {
-      .stats {
-        gap: 9px;
-      }
-
-      .stat-card {
-        padding: 14px;
-      }
-
-      .stat-value {
-        font-size: 21px;
-      }
-
-      .templates {
-        gap: 9px;
-      }
-
-      .template-preview {
-        height: 120px;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-      }
-
-      .hero-actions .btn {
-        width: 100%;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2563eb">
+<title>Portfolio | CareerCraft</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --blue:#2563eb;
+  --blue-dark:#1d4ed8;
+  --blue-light:#eff6ff;
+  --bg:#f5f7fb;
+  --white:#fff;
+  --text:#111827;
+  --muted:#667085;
+  --border:#e6eaf0;
+  --green:#16a34a;
+  --sidebar:250px;
+  --shadow:0 8px 30px rgba(15,23,42,.06);
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,input,select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  width:var(--sidebar);
+  background:#fff;
+  border-right:1px solid var(--border);
+  padding:22px 15px;
+  display:flex;
+  flex-direction:column;
+  z-index:100;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 10px 26px;
+}
+
+.logo{
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-weight:800;
+  font-size:19px;
+  background:linear-gradient(135deg,#2563eb,#7c3aed);
+}
+
+.brand strong{
+  font-size:20px;
+  letter-spacing:-.5px;
+}
+
+.brand strong span{
+  color:var(--blue);
+}
+
+.nav-title{
+  color:#98a2b3;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  padding:0 12px;
+  margin:6px 0 9px;
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.nav a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:11px 12px;
+  border-radius:11px;
+  color:#667085;
+  font-size:13px;
+  font-weight:600;
+  transition:.2s;
+}
+
+.nav a:hover{
+  background:#f8fafc;
+  color:#111827;
+}
+
+.nav a.active{
+  color:var(--blue);
+  background:#eff6ff;
+}
+
+.nav-icon{
+  width:20px;
+  text-align:center;
+  font-size:16px;
+}
+
+.sidebar-bottom{
+  margin-top:auto;
+}
+
+.create-card{
+  padding:15px;
+  border-radius:15px;
+  background:linear-gradient(145deg,#eff6ff,#f5f3ff);
+  border:1px solid #dbeafe;
+  margin-bottom:14px;
+}
+
+.create-card h4{
+  font-size:12px;
+  margin-bottom:5px;
+}
+
+.create-card p{
+  font-size:10px;
+  line-height:1.5;
+  color:var(--muted);
+  margin-bottom:11px;
+}
+
+.create-card button{
+  width:100%;
+  border:0;
+  background:var(--blue);
+  color:#fff;
+  border-radius:9px;
+  padding:9px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.mini-profile{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:9px;
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+
+.avatar{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  background:linear-gradient(135deg,#2563eb,#9333ea);
+  color:#fff;
+  font-weight:800;
+  font-size:12px;
+}
+
+.mini-profile strong{
+  display:block;
+  font-size:11px;
+}
+
+.mini-profile span{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:2px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+  margin-left:var(--sidebar);
+  min-height:100vh;
+}
+
+.topbar{
+  height:70px;
+  background:rgba(255,255,255,.94);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 32px;
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter:blur(12px);
+}
+
+.page-title{
+  font-size:18px;
+  font-weight:800;
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.icon-btn{
+  width:37px;
+  height:37px;
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  color:#667085;
+}
+
+.content{
+  max-width:1450px;
+  margin:auto;
+  padding:30px 32px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  border-radius:23px;
+  padding:35px;
+  color:#fff;
+  background:
+    radial-gradient(circle at 88% 18%,rgba(255,255,255,.18),transparent 22%),
+    radial-gradient(circle at 70% 100%,rgba(96,165,250,.2),transparent 28%),
+    linear-gradient(135deg,#172554,#1d4ed8);
+  margin-bottom:24px;
+}
+
+.hero-content{
+  max-width:700px;
+  position:relative;
+  z-index:2;
+}
+
+.hero-badge{
+  display:inline-flex;
+  padding:7px 11px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.1);
+  border-radius:999px;
+  font-size:10px;
+  font-weight:800;
+  margin-bottom:15px;
+}
+
+.hero h1{
+  font-size:clamp(28px,4vw,40px);
+  line-height:1.08;
+  letter-spacing:-1.5px;
+  margin-bottom:12px;
+}
+
+.hero p{
+  color:rgba(255,255,255,.82);
+  font-size:13px;
+  line-height:1.65;
+  max-width:620px;
+}
+
+.hero-actions{
+  display:flex;
+  gap:10px;
+  margin-top:22px;
+}
+
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:11px 16px;
+  font-size:12px;
+  font-weight:750;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+}
+
+.btn-white{
+  background:#fff;
+  color:#1d4ed8;
+}
+
+.btn-blue{
+  background:var(--blue);
+  color:#fff;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:29px;
+}
+
+.stat{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:var(--shadow);
+}
+
+.stat-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:13px;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:11px;
+  font-weight:650;
+}
+
+.stat-icon{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  background:#eff6ff;
+  color:var(--blue);
+  display:grid;
+  place-items:center;
+  font-size:15px;
+}
+
+.stat-number{
+  font-size:25px;
+  font-weight:850;
+  letter-spacing:-.7px;
+}
+
+.stat-note{
+  color:var(--green);
+  font-size:9px;
+  font-weight:700;
+  margin-top:4px;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+  margin-bottom:30px;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:15px;
+  margin-bottom:15px;
+}
+
+.section-head h2{
+  font-size:18px;
+  letter-spacing:-.4px;
+}
+
+.section-head p{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+.text-button{
+  border:0;
+  background:none;
+  color:var(--blue);
+  font-size:11px;
+  font-weight:750;
+}
+
+/* =========================
+   TOOLBAR
+========================= */
+
+.toolbar{
+  display:flex;
+  gap:9px;
+  margin-bottom:16px;
+}
+
+.search{
+  position:relative;
+  flex:1;
+}
+
+.search span{
+  position:absolute;
+  left:13px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#98a2b3;
+}
+
+.search input{
+  width:100%;
+  height:40px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  outline:0;
+  padding:0 13px 0 35px;
+  background:#fff;
+  font-size:11px;
+}
+
+.search input:focus{
+  border-color:#93c5fd;
+  box-shadow:0 0 0 3px #eff6ff;
+}
+
+.filter{
+  height:40px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#fff;
+  padding:0 11px;
+  color:#475467;
+  font-size:11px;
+  outline:0;
+}
+
+/* =========================
+   PORTFOLIO CARDS
+========================= */
+
+.portfolio-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:17px;
+}
+
+.portfolio-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:17px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:.25s;
+}
+
+.portfolio-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 35px rgba(15,23,42,.1);
+}
+
+.cover{
+  height:180px;
+  position:relative;
+  overflow:hidden;
+  padding:13px;
+}
+
+.cover-one{
+  background:
+    radial-gradient(circle at 85% 20%,#60a5fa,transparent 20%),
+    linear-gradient(135deg,#172554,#2563eb);
+}
+
+.cover-two{
+  background:
+    radial-gradient(circle at 20% 20%,#f472b6,transparent 22%),
+    radial-gradient(circle at 85% 80%,#818cf8,transparent 25%),
+    #312e81;
+}
+
+.cover-badge{
+  position:absolute;
+  left:12px;
+  top:12px;
+  z-index:4;
+  padding:5px 8px;
+  border-radius:999px;
+  background:#dcfce7;
+  color:#15803d;
+  font-size:8px;
+  font-weight:800;
+}
+
+.cover-badge.draft{
+  background:#fef3c7;
+  color:#a16207;
+}
+
+.cover-menu{
+  position:absolute;
+  right:12px;
+  top:12px;
+  z-index:4;
+  width:30px;
+  height:30px;
+  border:0;
+  border-radius:8px;
+  background:rgba(255,255,255,.92);
+}
+
+/* REAL PORTFOLIO PREVIEW */
+
+.mini-site{
+  position:absolute;
+  left:16%;
+  right:16%;
+  top:14px;
+  bottom:-12px;
+  border-radius:9px 9px 0 0;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 15px 30px rgba(0,0,0,.2);
+}
+
+.mini-nav{
+  height:25px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 10px;
+  font-size:5px;
+  color:#64748b;
+}
+
+.mini-logo{
+  font-weight:900;
+  font-size:6px;
+  color:#111827;
+}
+
+.mini-links{
+  display:flex;
+  gap:7px;
+}
+
+.mini-hero{
+  padding:18px 13px 15px;
+  background:#f8fafc;
+  min-height:72px;
+}
+
+.mini-hero h4{
+  font-size:13px;
+  line-height:1;
+  letter-spacing:-.5px;
+  margin-bottom:5px;
+  color:#111827;
+}
+
+.mini-hero p{
+  font-size:5px;
+  color:#64748b;
+  max-width:100px;
+  line-height:1.5;
+}
+
+.mini-button{
+  display:inline-block;
+  margin-top:7px;
+  padding:4px 7px;
+  border-radius:4px;
+  background:#2563eb;
+  color:#fff;
+  font-size:5px;
+}
+
+.mini-content{
+  padding:10px 13px;
+}
+
+.mini-section-title{
+  font-size:6px;
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+.mini-projects{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+}
+
+.mini-project{
+  height:37px;
+  border-radius:4px;
+  background:linear-gradient(135deg,#dbeafe,#bfdbfe);
+}
+
+.mini-project:nth-child(2){
+  background:linear-gradient(135deg,#ede9fe,#ddd6fe);
+}
+
+.mini-project:nth-child(3){
+  background:linear-gradient(135deg,#fce7f3,#fbcfe8);
+}
+
+.mini-profile-site .mini-hero{
+  background:linear-gradient(135deg,#eff6ff,#fff);
+}
+
+.mini-profile-site .mini-hero h4{
+  color:#1e3a8a;
+}
+
+.portfolio-info{
+  padding:16px;
+}
+
+.portfolio-info h3{
+  font-size:14px;
+  margin-bottom:5px;
+}
+
+.portfolio-info p{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.5;
+  min-height:30px;
+}
+
+.portfolio-bottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-top:1px solid #f1f5f9;
+  margin-top:13px;
+  padding-top:12px;
+}
+
+.views{
+  color:var(--muted);
+  font-size:9px;
+}
+
+.card-actions{
+  display:flex;
+  gap:6px;
+}
+
+.small{
+  padding:7px 9px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:#fff;
+  color:#475467;
+  font-size:9px;
+  font-weight:750;
+}
+
+.small.primary{
+  color:#fff;
+  background:var(--blue);
+  border-color:var(--blue);
+}
+
+/* =========================
+   TEMPLATE GALLERY
+========================= */
+
+.templates{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.template{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:9px;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.template:hover{
+  transform:translateY(-3px);
+  border-color:#93c5fd;
+  box-shadow:0 12px 28px rgba(15,23,42,.08);
+}
+
+.template-preview{
+  height:175px;
+  border-radius:10px;
+  overflow:hidden;
+  position:relative;
+}
+
+/* MODERN TEMPLATE */
+
+.preview-modern{
+  background:linear-gradient(135deg,#dbeafe,#eff6ff);
+}
+
+.design-modern{
+  position:absolute;
+  inset:10px 14%;
+  background:#fff;
+  border-radius:6px;
+  overflow:hidden;
+  box-shadow:0 8px 18px rgba(30,64,175,.1);
+}
+
+.design-modern .d-nav{
+  height:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 8px;
+  font-size:4px;
+  color:#64748b;
+}
+
+.design-modern .d-brand{
+  font-weight:900;
+  color:#1d4ed8;
+  font-size:5px;
+}
+
+.design-modern .d-hero{
+  padding:16px 10px;
+  background:#f8fafc;
+  position:relative;
+}
+
+.design-modern .d-name{
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:-.3px;
+}
+
+.design-modern .d-role{
+  color:#2563eb;
+  font-size:5px;
+  margin-top:3px;
+}
+
+.design-modern .d-photo{
+  position:absolute;
+  right:9px;
+  top:12px;
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#93c5fd,#c4b5fd);
+}
+
+.design-modern .d-work{
+  padding:9px;
+}
+
+.design-modern .d-work-title{
+  font-size:5px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.d-cards{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:4px;
+}
+
+.d-card{
+  height:35px;
+  border-radius:4px;
+  background:linear-gradient(135deg,#bfdbfe,#dbeafe);
+}
+
+.d-card:nth-child(2){
+  background:linear-gradient(135deg,#ddd6fe,#ede9fe);
+}
+
+.d-card:nth-child(3){
+  background:linear-gradient(135deg,#fbcfe8,#fce7f3);
+}
+
+/* EXECUTIVE */
+
+.preview-executive{
+  background:#e5e7eb;
+}
+
+.design-executive{
+  position:absolute;
+  inset:9px 14%;
+  background:#fff;
+  box-shadow:0 8px 18px rgba(0,0,0,.12);
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:34% 66%;
+}
+
+.exec-side{
+  background:#111827;
+  padding:11px 8px;
+  color:#fff;
+}
+
+.exec-avatar{
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#d1d5db,#9ca3af);
+  margin-bottom:8px;
+}
+
+.exec-name{
+  font-size:7px;
+  font-weight:800;
+}
+
+.exec-role{
+  font-size:4px;
+  color:#9ca3af;
+  margin-top:2px;
+}
+
+.exec-contact{
+  margin-top:18px;
+  font-size:4px;
+  line-height:2;
+  color:#d1d5db;
+}
+
+.exec-main{
+  padding:12px 9px;
+}
+
+.exec-main h4{
+  font-size:10px;
+  letter-spacing:-.3px;
+}
+
+.exec-main span{
+  color:#6b7280;
+  font-size:4px;
+}
+
+.exec-line{
+  height:3px;
+  background:#e5e7eb;
+  margin-top:8px;
+  border-radius:3px;
+}
+
+.exec-work{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:4px;
+  margin-top:10px;
+}
+
+.exec-work div{
+  height:31px;
+  background:#f3f4f6;
+  border-radius:3px;
+}
+
+.exec-work div:nth-child(2){
+  background:#e5e7eb;
+}
+
+/* MINIMAL */
+
+.preview-minimal{
+  background:#f8fafc;
+}
+
+.design-minimal{
+  position:absolute;
+  inset:9px 14%;
+  background:#fff;
+  padding:17px 13px;
+  box-shadow:0 8px 18px rgba(0,0,0,.07);
+}
+
+.minimal-name{
+  font-size:13px;
+  font-weight:850;
+  letter-spacing:-.6px;
+}
+
+.minimal-role{
+  font-size:5px;
+  color:#6b7280;
+  margin-top:3px;
+}
+
+.minimal-nav{
+  position:absolute;
+  right:10px;
+  top:10px;
+  font-size:4px;
+  color:#6b7280;
+}
+
+.minimal-about{
+  margin-top:19px;
+  font-size:5px;
+  color:#6b7280;
+  line-height:1.6;
+}
+
+.minimal-projects{
+  display:flex;
+  gap:5px;
+  margin-top:12px;
+}
+
+.minimal-projects div{
+  flex:1;
+  height:40px;
+  background:#f3f4f6;
+  border-radius:3px;
+}
+
+.minimal-projects div:nth-child(2){
+  background:#e5e7eb;
+}
+
+/* CREATIVE */
+
+.preview-creative{
+  background:
+    radial-gradient(circle at 20% 25%,#f9a8d4,transparent 25%),
+    radial-gradient(circle at 80% 70%,#a5b4fc,transparent 28%),
+    #ede9fe;
+}
+
+.design-creative{
+  position:absolute;
+  inset:8px 13%;
+  border-radius:7px;
+  background:#18181b;
+  color:#fff;
+  padding:13px;
+  overflow:hidden;
+}
+
+.creative-nav{
+  display:flex;
+  justify-content:space-between;
+  font-size:4px;
+  color:#d4d4d8;
+}
+
+.creative-title{
+  margin-top:20px;
+  font-size:15px;
+  line-height:.95;
+  font-weight:900;
+  letter-spacing:-.8px;
+}
+
+.creative-title span{
+  color:#f9a8d4;
+}
+
+.creative-role{
+  margin-top:5px;
+  font-size:5px;
+  color:#a1a1aa;
+}
+
+.creative-image{
+  position:absolute;
+  right:-4px;
+  bottom:-4px;
+  width:52px;
+  height:60px;
+  border-radius:30px 0 0 0;
+  background:linear-gradient(135deg,#f9a8d4,#818cf8);
+}
+
+.creative-work{
+  position:absolute;
+  left:13px;
+  right:13px;
+  bottom:12px;
+  display:flex;
+  gap:4px;
+}
+
+.creative-work div{
+  height:18px;
+  flex:1;
+  border-radius:3px;
+  background:#27272a;
+}
+
+.creative-work div:nth-child(2){
+  background:#3f3f46;
+}
+
+/* TEMPLATE TEXT */
+
+.template-name{
+  font-size:11px;
+  font-weight:800;
+  margin:10px 2px 2px;
+}
+
+.template-type{
+  font-size:9px;
+  color:var(--muted);
+  margin:0 2px 3px;
+}
+
+/* =========================
+   LOWER CONTENT
+========================= */
+
+.lower-grid{
+  display:grid;
+  grid-template-columns:1.3fr .7fr;
+  gap:17px;
+}
+
+.panel{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+
+.activity{
+  display:flex;
+  gap:11px;
+  padding:12px 0;
+  border-bottom:1px solid #f1f5f9;
+}
+
+.activity:last-child{
+  border-bottom:0;
+}
+
+.activity-icon{
+  width:31px;
+  height:31px;
+  border-radius:9px;
+  background:#eff6ff;
+  color:var(--blue);
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  flex-shrink:0;
+}
+
+.activity strong{
+  display:block;
+  font-size:10px;
+}
+
+.activity span{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:3px;
+}
+
+.tip{
+  padding:13px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#eff6ff,#f5f3ff);
+  border:1px solid #dbeafe;
+  margin-top:10px;
+}
+
+.tip strong{
+  display:block;
+  font-size:10px;
+  margin-bottom:4px;
+}
+
+.tip p{
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.55;
+}
+
+/* EMPTY */
+
+.empty{
+  display:none;
+  padding:45px 20px;
+  background:#fff;
+  border:1px dashed #cbd5e1;
+  border-radius:17px;
+  text-align:center;
+}
+
+.empty-icon{
+  width:48px;
+  height:48px;
+  margin:0 auto 12px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  background:#eff6ff;
+  color:var(--blue);
+}
+
+.empty h3{
+  font-size:15px;
+}
+
+.empty p{
+  color:var(--muted);
+  font-size:10px;
+  margin:5px 0 14px;
+}
+
+/* MOBILE NAV */
+
+.mobile-nav{
+  display:none;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1150px){
+
+  .portfolio-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .templates{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .lower-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:850px){
+
+  :root{
+    --sidebar:0px;
+  }
+
+  .sidebar{
+    display:none;
+  }
+
+  .main{
+    margin-left:0;
+    padding-bottom:70px;
+  }
+
+  .topbar{
+    height:62px;
+    padding:0 16px;
+  }
+
+  .content{
+    padding:18px 15px;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .mobile-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    background:rgba(255,255,255,.96);
+    border-top:1px solid var(--border);
+    z-index:200;
+    backdrop-filter:blur(12px);
+  }
+
+  .mobile-nav a{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+    color:#98a2b3;
+    font-size:9px;
+    font-weight:700;
+  }
+
+  .mobile-nav a.active{
+    color:var(--blue);
+  }
+
+  .mobile-create{
+    width:44px;
+    height:44px;
+    margin-top:-22px;
+    border-radius:14px;
+    background:var(--blue);
+    color:#fff!important;
+    display:grid!important;
+    place-items:center;
+    box-shadow:0 8px 20px rgba(37,99,235,.3);
+    font-size:18px!important;
+  }
+
+  .mobile-create span:last-child{
+    display:none;
+  }
+}
+
+@media(max-width:600px){
+
+  .portfolio-grid{
+    grid-template-columns:1fr;
+  }
+
+  .toolbar{
+    display:grid;
+    grid-template-columns:1fr 105px;
+  }
+
+  .templates{
+    grid-template-columns:repeat(2,1fr);
+    gap:9px;
+  }
+
+  .template-preview{
+    height:145px;
+  }
+
+  .hero{
+    padding:25px 21px;
+    border-radius:19px;
+  }
+
+  .hero-actions{
+    flex-direction:column;
+  }
+
+  .hero-actions .btn{
+    width:100%;
+  }
+
+  .section-head{
+    align-items:flex-start;
+  }
+}
+
+@media(max-width:400px){
+
+  .stats{
+    gap:9px;
+  }
+
+  .stat{
+    padding:14px;
+  }
+
+  .stat-number{
+    font-size:21px;
+  }
+
+  .template-preview{
+    height:130px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
+<!-- SIDEBAR -->
 
-    <a href="index.html" class="brand">
-      <div class="brand-logo">C</div>
-      <div class="brand-name">Career<span>Craft</span></div>
-    </a>
+<aside class="sidebar">
 
-    <div class="nav-label">Workspace</div>
+  <a href="index.html" class="brand">
+    <div class="logo">C</div>
+    <strong>Career<span>Craft</span></strong>
+  </a>
 
-    <nav class="nav">
-      <a href="index.html">
-        <span class="nav-icon">⌂</span>
-        Dashboard
-      </a>
+  <div class="nav-title">Workspace</div>
 
-      <a href="cv-builder.html">
-        <span class="nav-icon">▤</span>
-        CV & Resume
-      </a>
-
-      <a href="job-finder.html">
-        <span class="nav-icon">⌕</span>
-        Jobs
-      </a>
-
-      <a href="portfolio.html" class="active">
-        <span class="nav-icon">▣</span>
-        Portfolio
-      </a>
-
-      <a href="communities.html">
-        <span class="nav-icon">♧</span>
-        Communities
-      </a>
-
-      <a href="messages.html">
-        <span class="nav-icon">✉</span>
-        Messages
-      </a>
-    </nav>
-
-    <div class="nav-label" style="margin-top:22px;">Account</div>
-
-    <nav class="nav">
-      <a href="profile.html">
-        <span class="nav-icon">◉</span>
-        Profile
-      </a>
-
-      <a href="settings.html">
-        <span class="nav-icon">⚙</span>
-        Settings
-      </a>
-    </nav>
-
-    <div class="sidebar-bottom">
-
-      <div class="create-box">
-        <h4>Create something new</h4>
-        <p>Build a CV, portfolio, cover letter or professional document.</p>
-        <button onclick="location.href='create.html'">+ Create</button>
-      </div>
-
-      <a href="profile.html" class="profile-mini">
-        <div class="avatar" id="sideAvatar">CC</div>
-
-        <div class="profile-mini-info">
-          <strong id="sideName">CareerCraft User</strong>
-          <span>View profile</span>
-        </div>
-      </a>
-
-    </div>
-
-  </aside>
-
-  <!-- MAIN -->
-  <main class="main">
-
-    <!-- TOPBAR -->
-    <header class="topbar">
-
-      <div class="page-title">Portfolio</div>
-
-      <div class="top-actions">
-
-        <button class="icon-btn" title="Search" onclick="focusSearch()">⌕</button>
-
-        <button class="icon-btn" title="Notifications">♢</button>
-
-        <a href="profile.html" class="top-profile">
-          <div class="avatar" id="topAvatar">CC</div>
-        </a>
-
-      </div>
-
-    </header>
-
-    <div class="content">
-
-      <!-- HERO -->
-      <section class="hero">
-
-        <div class="hero-content">
-
-          <div class="hero-badge">
-            ✦ Professional Portfolio
-          </div>
-
-          <h1>Showcase your work.<br>Build your professional brand.</h1>
-
-          <p>
-            Create a beautiful portfolio that highlights your skills,
-            experience, projects and achievements — and share it with
-            employers, clients and your professional network.
-          </p>
-
-          <div class="hero-actions">
-
-            <button class="btn btn-primary" onclick="createPortfolio()">
-              + Create Portfolio
-            </button>
-
-            <button class="btn btn-outline-light" onclick="browseTemplates()">
-              Explore Templates
-            </button>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- STATS -->
-      <section class="stats">
-
-        <div class="stat-card">
-
-          <div class="stat-top">
-            <div class="stat-label">Total Portfolios</div>
-            <div class="stat-icon">▣</div>
-          </div>
-
-          <div class="stat-value" id="totalPortfolios">2</div>
-          <div class="stat-change">Your portfolio collection</div>
-
-        </div>
-
-        <div class="stat-card">
-
-          <div class="stat-top">
-            <div class="stat-label">Published</div>
-            <div class="stat-icon">✓</div>
-          </div>
-
-          <div class="stat-value" id="publishedPortfolios">1</div>
-          <div class="stat-change">Visible to employers</div>
-
-        </div>
-
-        <div class="stat-card">
-
-          <div class="stat-top">
-            <div class="stat-label">Portfolio Views</div>
-            <div class="stat-icon">◉</div>
-          </div>
-
-          <div class="stat-value" id="portfolioViews">248</div>
-          <div class="stat-change">↗ Growing visibility</div>
-
-        </div>
-
-        <div class="stat-card">
-
-          <div class="stat-top">
-            <div class="stat-label">Projects</div>
-            <div class="stat-icon">◇</div>
-          </div>
-
-          <div class="stat-value" id="projectCount">8</div>
-          <div class="stat-change">Across your portfolios</div>
-
-        </div>
-
-      </section>
-
-      <!-- MY PORTFOLIOS -->
-      <section class="section" id="my-portfolios">
-
-        <div class="section-header">
-
-          <div class="section-title">
-            <h2>My Portfolios</h2>
-            <p>Manage and showcase your professional work.</p>
-          </div>
-
-          <button class="text-btn" onclick="createPortfolio()">
-            + New Portfolio
-          </button>
-
-        </div>
-
-        <div class="toolbar">
-
-          <div class="search">
-            <span>⌕</span>
-            <input
-              type="search"
-              id="portfolioSearch"
-              placeholder="Search portfolios..."
-              oninput="filterPortfolios()"
-            >
-          </div>
-
-          <select class="filter" id="portfolioFilter" onchange="filterPortfolios()">
-            <option value="all">All</option>
-            <option value="published">Published</option>
-            <option value="draft">Drafts</option>
-          </select>
-
-          <select class="filter" id="portfolioSort" onchange="sortPortfolios()">
-            <option value="recent">Most Recent</option>
-            <option value="name">Name</option>
-            <option value="views">Views</option>
-          </select>
-
-        </div>
-
-        <div class="portfolio-grid" id="portfolioGrid">
-
-          <!-- PORTFOLIO 1 -->
-          <article
-            class="portfolio-card"
-            data-name="My Professional Portfolio"
-            data-status="published"
-            data-views="186"
-          >
-
-            <div class="portfolio-cover cover-modern">
-
-              <span class="cover-status">Published</span>
-
-              <button
-                class="card-menu"
-                onclick="showMenu(event,'professional')"
-              >⋮</button>
-
-              <div class="cover-preview">
-                <div class="line big"></div>
-                <div class="line short"></div>
-                <div class="line"></div>
-                <br>
-                <div class="line"></div>
-                <div class="line w70"></div>
-                <div class="line w50"></div>
-              </div>
-
-            </div>
-
-            <div class="portfolio-info">
-
-              <h3>My Professional Portfolio</h3>
-
-              <p class="portfolio-description">
-                Professional profile, projects, experience and career journey.
-              </p>
-
-              <div class="portfolio-meta">
-
-                <span class="views">◉ 186 views</span>
-
-                <div class="card-actions">
-
-                  <button
-                    class="small-btn"
-                    onclick="previewPortfolio('professional')"
-                  >
-                    Preview
-                  </button>
-
-                  <button
-                    class="small-btn primary"
-                    onclick="editPortfolio('professional')"
-                  >
-                    Edit
-                  </button>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </article>
-
-          <!-- PORTFOLIO 2 -->
-          <article
-            class="portfolio-card"
-            data-name="Creative Portfolio"
-            data-status="draft"
-            data-views="62"
-          >
-
-            <div class="portfolio-cover cover-creative">
-
-              <span class="cover-status draft">Draft</span>
-
-              <button
-                class="card-menu"
-                onclick="showMenu(event,'creative')"
-              >⋮</button>
-
-              <div class="cover-preview">
-                <div class="line big"></div>
-                <div class="line short"></div>
-                <br>
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line w70"></div>
-                <br>
-                <div class="line w50"></div>
-              </div>
-
-            </div>
-
-            <div class="portfolio-info">
-
-              <h3>Creative Portfolio</h3>
-
-              <p class="portfolio-description">
-                A visual collection focused on creative projects and work.
-              </p>
-
-              <div class="portfolio-meta">
-
-                <span class="views">◉ 62 views</span>
-
-                <div class="card-actions">
-
-                  <button
-                    class="small-btn"
-                    onclick="previewPortfolio('creative')"
-                  >
-                    Preview
-                  </button>
-
-                  <button
-                    class="small-btn primary"
-                    onclick="editPortfolio('creative')"
-                  >
-                    Edit
-                  </button>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </article>
-
-        </div>
-
-        <div class="empty" id="emptyState">
-
-          <div class="empty-icon">▣</div>
-
-          <h3>No portfolios found</h3>
-
-          <p>
-            Try another search or create a new portfolio.
-          </p>
-
-          <button class="btn btn-primary" onclick="createPortfolio()">
-            + Create Portfolio
-          </button>
-
-        </div>
-
-      </section>
-
-      <!-- TEMPLATES -->
-      <section class="section" id="templates">
-
-        <div class="section-header">
-
-          <div class="section-title">
-            <h2>Start with a professional template</h2>
-            <p>Choose a design and customize every part of your portfolio.</p>
-          </div>
-
-          <button class="text-btn" onclick="createPortfolio()">
-            View all
-          </button>
-
-        </div>
-
-        <div class="templates">
-
-          <div class="template" onclick="useTemplate('Modern')">
-
-            <div class="template-preview template-modern">
-
-              <div class="mock-page">
-                <div class="mock-title"></div>
-                <div class="mock-line w70"></div>
-                <div class="mock-line w50"></div>
-                <br>
-                <div class="mock-line"></div>
-                <div class="mock-line w70"></div>
-              </div>
-
-            </div>
-
-            <div class="template-name">Modern</div>
-            <div class="template-type">Professional & clean</div>
-
-          </div>
-
-          <div class="template" onclick="useTemplate('Executive')">
-
-            <div class="template-preview template-executive">
-
-              <div class="mock-page">
-                <div class="mock-title"></div>
-                <div class="mock-line"></div>
-                <div class="mock-line w70"></div>
-                <br>
-                <div class="mock-line"></div>
-                <div class="mock-line w50"></div>
-              </div>
-
-            </div>
-
-            <div class="template-name">Executive</div>
-            <div class="template-type">Corporate & elegant</div>
-
-          </div>
-
-          <div class="template" onclick="useTemplate('Minimal')">
-
-            <div class="template-preview template-minimal">
-
-              <div class="mock-page">
-                <div class="mock-title"></div>
-                <div class="mock-line w50"></div>
-                <br>
-                <div class="mock-line"></div>
-                <div class="mock-line w70"></div>
-                <div class="mock-line w50"></div>
-              </div>
-
-            </div>
-
-            <div class="template-name">Minimal</div>
-            <div class="template-type">Simple & refined</div>
-
-          </div>
-
-          <div class="template" onclick="useTemplate('Creative')">
-
-            <div class="template-preview template-creative">
-
-              <div class="mock-page">
-                <div class="mock-title"></div>
-                <div class="mock-line w70"></div>
-                <div class="mock-line w50"></div>
-                <br>
-                <div class="mock-line"></div>
-                <div class="mock-line w70"></div>
-              </div>
-
-            </div>
-
-            <div class="template-name">Creative</div>
-            <div class="template-type">Bold & expressive</div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- LOWER CONTENT -->
-      <section class="lower-grid">
-
-        <!-- ACTIVITY -->
-        <div class="panel">
-
-          <div class="section-header">
-            <div class="section-title">
-              <h2>Recent Activity</h2>
-              <p>Your latest portfolio activity.</p>
-            </div>
-          </div>
-
-          <div class="activity">
-
-            <div class="activity-icon">✓</div>
-
-            <div class="activity-content">
-              <strong>My Professional Portfolio was published</strong>
-              <span>Today · Portfolio is now publicly accessible</span>
-            </div>
-
-          </div>
-
-          <div class="activity">
-
-            <div class="activity-icon">✎</div>
-
-            <div class="activity-content">
-              <strong>Creative Portfolio was updated</strong>
-              <span>Yesterday · Added a new project</span>
-            </div>
-
-          </div>
-
-          <div class="activity">
-
-            <div class="activity-icon">◉</div>
-
-            <div class="activity-content">
-              <strong>Your portfolio received new views</strong>
-              <span>2 days ago · 34 new views</span>
-            </div>
-
-          </div>
-
-          <div class="activity">
-
-            <div class="activity-icon">✦</div>
-
-            <div class="activity-content">
-              <strong>Portfolio profile was completed</strong>
-              <span>3 days ago · Your profile is looking stronger</span>
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- TIPS -->
-        <div class="panel">
-
-          <div class="section-header">
-            <div class="section-title">
-              <h2>Portfolio Tips</h2>
-              <p>Make your portfolio stand out.</p>
-            </div>
-          </div>
-
-          <div class="tip">
-            <strong>✦ Start with a strong introduction</strong>
-            <p>
-              Clearly explain who you are, what you do and the type of
-              opportunities you are looking for.
-            </p>
-          </div>
-
-          <div class="tip">
-            <strong>◇ Showcase your best projects</strong>
-            <p>
-              Focus on projects that demonstrate your skills and the value
-              you can bring to an employer or client.
-            </p>
-          </div>
-
-          <div class="tip">
-            <strong>✓ Keep your portfolio updated</strong>
-            <p>
-              Add recent work, achievements and experience as your career
-              develops.
-            </p>
-          </div>
-
-        </div>
-
-      </section>
-
-    </div>
-
-  </main>
-
-  <!-- MOBILE NAV -->
-  <nav class="mobile-nav">
+  <nav class="nav">
 
     <a href="index.html">
-      <span>⌂</span>
-      <span>Home</span>
+      <span class="nav-icon">⌂</span>
+      Dashboard
+    </a>
+
+    <a href="cv-builder.html">
+      <span class="nav-icon">▤</span>
+      CV & Resume
     </a>
 
     <a href="job-finder.html">
-      <span>⌕</span>
-      <span>Jobs</span>
+      <span class="nav-icon">⌕</span>
+      Jobs
     </a>
 
-    <a href="create.html" class="mobile-create">
-      <span>+</span>
-      <span>Create</span>
+    <a href="portfolio.html" class="active">
+      <span class="nav-icon">▣</span>
+      Portfolio
+    </a>
+
+    <a href="communities.html">
+      <span class="nav-icon">♧</span>
+      Communities
     </a>
 
     <a href="messages.html">
-      <span>✉</span>
-      <span>Messages</span>
-    </a>
-
-    <a href="profile.html">
-      <span>◉</span>
-      <span>Profile</span>
+      <span class="nav-icon">✉</span>
+      Messages
     </a>
 
   </nav>
 
-  <script>
+  <div class="nav-title" style="margin-top:22px">
+    Account
+  </div>
 
-    /* =========================
-       PROFILE
-    ========================= */
+  <nav class="nav">
 
-    function loadProfile() {
-      try {
-        const profile =
-          JSON.parse(localStorage.getItem("careercraft_profile")) || {};
+    <a href="profile.html">
+      <span class="nav-icon">◉</span>
+      Profile
+    </a>
 
-        const name =
-          profile.name ||
-          profile.fullName ||
-          "CareerCraft User";
+    <a href="settings.html">
+      <span class="nav-icon">⚙</span>
+      Settings
+    </a>
 
-        const initials = name
-          .split(" ")
-          .filter(Boolean)
-          .slice(0, 2)
-          .map(word => word[0])
-          .join("")
-          .toUpperCase();
+  </nav>
 
-        document.getElementById("sideName").textContent = name;
-        document.getElementById("sideAvatar").textContent = initials || "CC";
-        document.getElementById("topAvatar").textContent = initials || "CC";
+  <div class="sidebar-bottom">
 
-      } catch (error) {
-        console.log("Profile loading skipped.");
-      }
+    <div class="create-card">
+
+      <h4>Create something new</h4>
+
+      <p>
+        Build a CV, portfolio, cover letter or professional document.
+      </p>
+
+      <button onclick="createPortfolio()">
+        + Create
+      </button>
+
+    </div>
+
+    <a href="profile.html" class="mini-profile">
+
+      <div class="avatar" id="sideAvatar">CC</div>
+
+      <div>
+        <strong id="sideName">CareerCraft User</strong>
+        <span>View profile</span>
+      </div>
+
+    </a>
+
+  </div>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+  <header class="topbar">
+
+    <div class="page-title">
+      Portfolio
+    </div>
+
+    <div class="top-actions">
+
+      <button
+        class="icon-btn"
+        onclick="focusSearch()"
+        aria-label="Search"
+      >
+        ⌕
+      </button>
+
+      <button
+        class="icon-btn"
+        aria-label="Notifications"
+      >
+        ♢
+      </button>
+
+      <a href="profile.html">
+        <div class="avatar" id="topAvatar">CC</div>
+      </a>
+
+    </div>
+
+  </header>
+
+  <div class="content">
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <div class="hero-badge">
+          ✦ Professional Portfolio
+        </div>
+
+        <h1>
+          Show your work.<br>
+          Build your reputation.
+        </h1>
+
+        <p>
+          Create a professional portfolio that brings together your
+          projects, skills, experience and achievements in one beautiful
+          place.
+        </p>
+
+        <div class="hero-actions">
+
+          <button
+            class="btn btn-white"
+            onclick="createPortfolio()"
+          >
+            + Create Portfolio
+          </button>
+
+          <button
+            class="btn"
+            style="background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)"
+            onclick="browseTemplates()"
+          >
+            Explore Templates
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- STATS -->
+
+    <section class="stats">
+
+      <div class="stat">
+
+        <div class="stat-head">
+          <span class="stat-label">
+            Total Portfolios
+          </span>
+
+          <div class="stat-icon">
+            ▣
+          </div>
+        </div>
+
+        <div class="stat-number">
+          2
+        </div>
+
+        <div class="stat-note">
+          Your portfolio collection
+        </div>
+
+      </div>
+
+      <div class="stat">
+
+        <div class="stat-head">
+          <span class="stat-label">
+            Published
+          </span>
+
+          <div class="stat-icon">
+            ✓
+          </div>
+        </div>
+
+        <div class="stat-number">
+          1
+        </div>
+
+        <div class="stat-note">
+          Visible to employers
+        </div>
+
+      </div>
+
+      <div class="stat">
+
+        <div class="stat-head">
+          <span class="stat-label">
+            Portfolio Views
+          </span>
+
+          <div class="stat-icon">
+            ◉
+          </div>
+        </div>
+
+        <div class="stat-number">
+          248
+        </div>
+
+        <div class="stat-note">
+          ↗ Growing visibility
+        </div>
+
+      </div>
+
+      <div class="stat">
+
+        <div class="stat-head">
+          <span class="stat-label">
+            Projects
+          </span>
+
+          <div class="stat-icon">
+            ◇
+          </div>
+        </div>
+
+        <div class="stat-number">
+          8
+        </div>
+
+        <div class="stat-note">
+          Across your portfolios
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- MY PORTFOLIOS -->
+
+    <section class="section" id="my-portfolios">
+
+      <div class="section-head">
+
+        <div>
+          <h2>My Portfolios</h2>
+          <p>
+            Manage your professional portfolios.
+          </p>
+        </div>
+
+        <button
+          class="text-button"
+          onclick="createPortfolio()"
+        >
+          + New Portfolio
+        </button>
+
+      </div>
+
+      <div class="toolbar">
+
+        <div class="search">
+
+          <span>⌕</span>
+
+          <input
+            id="portfolioSearch"
+            type="search"
+            placeholder="Search portfolios..."
+            oninput="filterPortfolios()"
+          >
+
+        </div>
+
+        <select
+          id="portfolioFilter"
+          class="filter"
+          onchange="filterPortfolios()"
+        >
+          <option value="all">All</option>
+          <option value="published">Published</option>
+          <option value="draft">Drafts</option>
+        </select>
+
+        <select
+          id="portfolioSort"
+          class="filter"
+          onchange="sortPortfolios()"
+        >
+          <option value="recent">Recent</option>
+          <option value="name">Name</option>
+          <option value="views">Views</option>
+        </select>
+
+      </div>
+
+      <div
+        class="portfolio-grid"
+        id="portfolioGrid"
+      >
+
+        <!-- PORTFOLIO ONE -->
+
+        <article
+          class="portfolio-card"
+          data-name="My Professional Portfolio"
+          data-status="published"
+          data-views="186"
+        >
+
+          <div class="cover cover-one">
+
+            <span class="cover-badge">
+              Published
+            </span>
+
+            <button
+              class="cover-menu"
+              onclick="showMenu(event,'professional')"
+            >
+              ⋮
+            </button>
+
+            <div class="mini-site">
+
+              <div class="mini-nav">
+
+                <div class="mini-logo">
+                  YOUR NAME
+                </div>
+
+                <div class="mini-links">
+                  <span>About</span>
+                  <span>Work</span>
+                  <span>Contact</span>
+                </div>
+
+              </div>
+
+              <div class="mini-hero">
+
+                <h4>
+                  Hello, I'm a<br>
+                  Creative Professional.
+                </h4>
+
+                <p>
+                  I create meaningful digital experiences
+                  and solve real problems.
+                </p>
+
+                <span class="mini-button">
+                  View my work
+                </span>
+
+              </div>
+
+              <div class="mini-content">
+
+                <div class="mini-section-title">
+                  Selected Work
+                </div>
+
+                <div class="mini-projects">
+
+                  <div class="mini-project"></div>
+                  <div class="mini-project"></div>
+                  <div class="mini-project"></div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="portfolio-info">
+
+            <h3>
+              My Professional Portfolio
+            </h3>
+
+            <p>
+              Professional profile, projects,
+              experience and career journey.
+            </p>
+
+            <div class="portfolio-bottom">
+
+              <span class="views">
+                ◉ 186 views
+              </span>
+
+              <div class="card-actions">
+
+                <button
+                  class="small"
+                  onclick="previewPortfolio('professional')"
+                >
+                  Preview
+                </button>
+
+                <button
+                  class="small primary"
+                  onclick="editPortfolio('professional')"
+                >
+                  Edit
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+        <!-- PORTFOLIO TWO -->
+
+        <article
+          class="portfolio-card"
+          data-name="Creative Portfolio"
+          data-status="draft"
+          data-views="62"
+        >
+
+          <div class="cover cover-two">
+
+            <span class="cover-badge draft">
+              Draft
+            </span>
+
+            <button
+              class="cover-menu"
+              onclick="showMenu(event,'creative')"
+            >
+              ⋮
+            </button>
+
+            <div class="mini-site">
+
+              <div class="mini-nav">
+
+                <div class="mini-logo">
+                  CREATIVE
+                </div>
+
+                <div class="mini-links">
+                  <span>Work</span>
+                  <span>About</span>
+                </div>
+
+              </div>
+
+              <div class="mini-hero">
+
+                <h4>
+                  Designer.<br>
+                  Creator.
+                </h4>
+
+                <p>
+                  Visual designer crafting bold
+                  digital experiences.
+                </p>
+
+                <span class="mini-button">
+                  Explore work
+                </span>
+
+              </div>
+
+              <div class="mini-content">
+
+                <div class="mini-section-title">
+                  Featured Projects
+                </div>
+
+                <div class="mini-projects">
+
+                  <div class="mini-project"></div>
+                  <div class="mini-project"></div>
+                  <div class="mini-project"></div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="portfolio-info">
+
+            <h3>
+              Creative Portfolio
+            </h3>
+
+            <p>
+              A visual collection focused on
+              creative projects and work.
+            </p>
+
+            <div class="portfolio-bottom">
+
+              <span class="views">
+                ◉ 62 views
+              </span>
+
+              <div class="card-actions">
+
+                <button
+                  class="small"
+                  onclick="previewPortfolio('creative')"
+                >
+                  Preview
+                </button>
+
+                <button
+                  class="small primary"
+                  onclick="editPortfolio('creative')"
+                >
+                  Edit
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      </div>
+
+      <div
+        class="empty"
+        id="emptyState"
+      >
+
+        <div class="empty-icon">
+          ▣
+        </div>
+
+        <h3>
+          No portfolios found
+        </h3>
+
+        <p>
+          Try another search or create a new portfolio.
+        </p>
+
+        <button
+          class="btn btn-blue"
+          onclick="createPortfolio()"
+        >
+          + Create Portfolio
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- TEMPLATE GALLERY -->
+
+    <section
+      class="section"
+      id="templates"
+    >
+
+      <div class="section-head">
+
+        <div>
+          <h2>
+            Professional Templates
+          </h2>
+
+          <p>
+            Start with a design and make it your own.
+          </p>
+        </div>
+
+        <button
+          class="text-button"
+          onclick="createPortfolio()"
+        >
+          View all
+        </button>
+
+      </div>
+
+      <div class="templates">
+
+        <!-- MODERN -->
+
+        <div
+          class="template"
+          onclick="useTemplate('Modern')"
+        >
+
+          <div class="template-preview preview-modern">
+
+            <div class="design-modern">
+
+              <div class="d-nav">
+
+                <span class="d-brand">
+                  CAREERCRAFT
+                </span>
+
+                <span>
+                  About &nbsp; Work &nbsp; Contact
+                </span>
+
+              </div>
+
+              <div class="d-hero">
+
+                <div class="d-name">
+                  Alex Morgan
+                </div>
+
+                <div class="d-role">
+                  Product Designer
+                </div>
+
+                <div class="d-photo"></div>
+
+              </div>
+
+              <div class="d-work">
+
+                <div class="d-work-title">
+                  Selected Work
+                </div>
+
+                <div class="d-cards">
+
+                  <div class="d-card"></div>
+                  <div class="d-card"></div>
+                  <div class="d-card"></div>
+                  <div class="d-card"></div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="template-name">
+            Modern
+          </div>
+
+          <div class="template-type">
+            Clean · Professional
+          </div>
+
+        </div>
+
+        <!-- EXECUTIVE -->
+
+        <div
+          class="template"
+          onclick="useTemplate('Executive')"
+        >
+
+          <div class="template-preview preview-executive">
+
+            <div class="design-executive">
+
+              <div class="exec-side">
+
+                <div class="exec-avatar"></div>
+
+                <div class="exec-name">
+                  Jordan Lee
+                </div>
+
+                <div class="exec-role">
+                  Business Strategist
+                </div>
+
+                <div class="exec-contact">
+                  New York<br>
+                  hello@email.com<br>
+                  LinkedIn<br>
+                  Website
+                </div>
+
+              </div>
+
+              <div class="exec-main">
+
+                <h4>
+                  Professional Profile
+                </h4>
+
+                <span>
+                  Strategy · Leadership · Growth
+                </span>
+
+                <div class="exec-line"></div>
+
+                <div class="exec-work">
+
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="template-name">
+            Executive
+          </div>
+
+          <div class="template-type">
+            Corporate · Elegant
+          </div>
+
+        </div>
+
+        <!-- MINIMAL -->
+
+        <div
+          class="template"
+          onclick="useTemplate('Minimal')"
+        >
+
+          <div class="template-preview preview-minimal">
+
+            <div class="design-minimal">
+
+              <div class="minimal-nav">
+                WORK &nbsp; ABOUT &nbsp; CONTACT
+              </div>
+
+              <div class="minimal-name">
+                Taylor Smith
+              </div>
+
+              <div class="minimal-role">
+                Software Engineer
+              </div>
+
+              <div class="minimal-about">
+                I build thoughtful digital products
+                and solve complex problems through
+                technology.
+              </div>
+
+              <div class="minimal-projects">
+
+                <div></div>
+                <div></div>
+                <div></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="template-name">
+            Minimal
+          </div>
+
+          <div class="template-type">
+            Simple · Refined
+          </div>
+
+        </div>
+
+        <!-- CREATIVE -->
+
+        <div
+          class="template"
+          onclick="useTemplate('Creative')"
+        >
+
+          <div class="template-preview preview-creative">
+
+            <div class="design-creative">
+
+              <div class="creative-nav">
+
+                <span>
+                  STUDIO
+                </span>
+
+                <span>
+                  WORK &nbsp; ABOUT
+                </span>
+
+              </div>
+
+              <div class="creative-title">
+                Creative<br>
+                <span>Designer.</span>
+              </div>
+
+              <div class="creative-role">
+                Brand · Digital · Art Direction
+              </div>
+
+              <div class="creative-image"></div>
+
+              <div class="creative-work">
+
+                <div></div>
+                <div></div>
+                <div></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="template-name">
+            Creative
+          </div>
+
+          <div class="template-type">
+            Bold · Expressive
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- LOWER CONTENT -->
+
+    <section class="lower-grid">
+
+      <div class="panel">
+
+        <div class="section-head">
+
+          <div>
+            <h2>
+              Recent Activity
+            </h2>
+
+            <p>
+              Your latest portfolio activity.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="activity">
+
+          <div class="activity-icon">
+            ✓
+          </div>
+
+          <div>
+            <strong>
+              My Professional Portfolio was published
+            </strong>
+
+            <span>
+              Today · Portfolio is publicly accessible
+            </span>
+          </div>
+
+        </div>
+
+        <div class="activity">
+
+          <div class="activity-icon">
+            ✎
+          </div>
+
+          <div>
+            <strong>
+              Creative Portfolio was updated
+            </strong>
+
+            <span>
+              Yesterday · Added a new project
+            </span>
+          </div>
+
+        </div>
+
+        <div class="activity">
+
+          <div class="activity-icon">
+            ◉
+          </div>
+
+          <div>
+            <strong>
+              Your portfolio received new views
+            </strong>
+
+            <span>
+              2 days ago · 34 new views
+            </span>
+          </div>
+
+        </div>
+
+        <div class="activity">
+
+          <div class="activity-icon">
+            ✦
+          </div>
+
+          <div>
+            <strong>
+              Your portfolio profile was completed
+            </strong>
+
+            <span>
+              3 days ago · Profile is looking stronger
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="panel">
+
+        <div class="section-head">
+
+          <div>
+            <h2>
+              Portfolio Tips
+            </h2>
+
+            <p>
+              Make your portfolio stronger.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="tip">
+
+          <strong>
+            ✦ Start with a strong introduction
+          </strong>
+
+          <p>
+            Tell visitors who you are, what you do
+            and what opportunities you are interested in.
+          </p>
+
+        </div>
+
+        <div class="tip">
+
+          <strong>
+            ◇ Showcase your strongest work
+          </strong>
+
+          <p>
+            Choose projects that demonstrate your
+            skills and the value you can provide.
+          </p>
+
+        </div>
+
+        <div class="tip">
+
+          <strong>
+            ✓ Keep it updated
+          </strong>
+
+          <p>
+            Add recent projects, achievements and
+            experience as your career develops.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</main>
+
+<!-- MOBILE NAV -->
+
+<nav class="mobile-nav">
+
+  <a href="index.html">
+    <span>⌂</span>
+    <span>Home</span>
+  </a>
+
+  <a href="job-finder.html">
+    <span>⌕</span>
+    <span>Jobs</span>
+  </a>
+
+  <a
+    href="create.html"
+    class="mobile-create"
+  >
+    <span>+</span>
+    <span>Create</span>
+  </a>
+
+  <a href="messages.html">
+    <span>✉</span>
+    <span>Messages</span>
+  </a>
+
+  <a
+    href="portfolio.html"
+    class="active"
+  >
+    <span>▣</span>
+    <span>Portfolio</span>
+  </a>
+
+</nav>
+
+<script>
+
+/* =========================
+   PROFILE
+========================= */
+
+function loadProfile(){
+
+  try{
+
+    const profile =
+      JSON.parse(
+        localStorage.getItem("careercraft_profile")
+      ) || {};
+
+    const name =
+      profile.name ||
+      profile.fullName ||
+      "CareerCraft User";
+
+    const initials =
+      name
+        .split(" ")
+        .filter(Boolean)
+        .slice(0,2)
+        .map(word => word[0])
+        .join("")
+        .toUpperCase();
+
+    document.getElementById("sideName").textContent =
+      name;
+
+    document.getElementById("sideAvatar").textContent =
+      initials || "CC";
+
+    document.getElementById("topAvatar").textContent =
+      initials || "CC";
+
+  }catch(error){
+
+    console.log("Profile unavailable.");
+
+  }
+
+}
+
+
+/* =========================
+   CREATE PORTFOLIO
+========================= */
+
+function createPortfolio(){
+
+  localStorage.removeItem(
+    "careercraft_editing_portfolio"
+  );
+
+  window.location.href =
+    "portfolio-builder.html";
+
+}
+
+
+/* =========================
+   EDIT PORTFOLIO
+========================= */
+
+function editPortfolio(id){
+
+  localStorage.setItem(
+    "careercraft_editing_portfolio",
+    id
+  );
+
+  window.location.href =
+    "portfolio-builder.html";
+
+}
+
+
+/* =========================
+   PREVIEW PORTFOLIO
+========================= */
+
+function previewPortfolio(id){
+
+  localStorage.setItem(
+    "careercraft_preview_portfolio",
+    id
+  );
+
+  window.location.href =
+    "portfolio-preview.html";
+
+}
+
+
+/* =========================
+   USE TEMPLATE
+========================= */
+
+function useTemplate(template){
+
+  localStorage.setItem(
+    "careercraft_selected_template",
+    template
+  );
+
+  window.location.href =
+    "portfolio-builder.html";
+
+}
+
+
+/* =========================
+   TEMPLATE SECTION
+========================= */
+
+function browseTemplates(){
+
+  document
+    .getElementById("templates")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function focusSearch(){
+
+  const search =
+    document.getElementById("portfolioSearch");
+
+  search.focus();
+
+  document
+    .getElementById("my-portfolios")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+}
+
+
+/* =========================
+   FILTER
+========================= */
+
+function filterPortfolios(){
+
+  const query =
+    document
+      .getElementById("portfolioSearch")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const filter =
+    document
+      .getElementById("portfolioFilter")
+      .value;
+
+  const cards =
+    Array.from(
+      document.querySelectorAll(".portfolio-card")
+    );
+
+  let visible = 0;
+
+  cards.forEach(card => {
+
+    const name =
+      card.dataset.name.toLowerCase();
+
+    const status =
+      card.dataset.status;
+
+    const searchMatch =
+      !query ||
+      name.includes(query);
+
+    const filterMatch =
+      filter === "all" ||
+      status === filter;
+
+    if(searchMatch && filterMatch){
+
+      card.style.display = "";
+      visible++;
+
+    }else{
+
+      card.style.display = "none";
+
     }
 
+  });
 
-    /* =========================
-       CREATE
-    ========================= */
+  document.getElementById("emptyState").style.display =
+    visible === 0 ? "block" : "none";
 
-    function createPortfolio() {
-      window.location.href = "portfolio-builder.html";
-    }
+}
 
 
-    /* =========================
-       EDIT
-    ========================= */
+/* =========================
+   SORT
+========================= */
 
-    function editPortfolio(id) {
+function sortPortfolios(){
 
-      localStorage.setItem(
-        "careercraft_editing_portfolio",
-        id
+  const type =
+    document
+      .getElementById("portfolioSort")
+      .value;
+
+  const grid =
+    document.getElementById("portfolioGrid");
+
+  const cards =
+    Array.from(
+      grid.querySelectorAll(".portfolio-card")
+    );
+
+  cards.sort((a,b) => {
+
+    if(type === "name"){
+
+      return a.dataset.name.localeCompare(
+        b.dataset.name
       );
 
-      window.location.href = "portfolio-builder.html";
     }
 
+    if(type === "views"){
 
-    /* =========================
-       PREVIEW
-    ========================= */
+      return Number(b.dataset.views) -
+             Number(a.dataset.views);
 
-    function previewPortfolio(id) {
-
-      localStorage.setItem(
-        "careercraft_preview_portfolio",
-        id
-      );
-
-      window.location.href = "portfolio-preview.html";
     }
 
+    return 0;
 
-    /* =========================
-       TEMPLATE
-    ========================= */
+  });
 
-    function useTemplate(template) {
+  cards.forEach(card => {
+    grid.appendChild(card);
+  });
 
-      localStorage.setItem(
-        "careercraft_selected_template",
-        template
-      );
-
-      window.location.href = "portfolio-builder.html";
-    }
+}
 
 
-    function browseTemplates() {
+/* =========================
+   CARD MENU
+========================= */
 
-      document.getElementById("templates")
-        .scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-    }
+function showMenu(event,id){
 
+  event.stopPropagation();
 
-    /* =========================
-       SEARCH
-    ========================= */
+  const edit =
+    confirm(
+      "Open this portfolio for editing?"
+    );
 
-    function focusSearch() {
+  if(edit){
+    editPortfolio(id);
+  }
 
-      const search =
-        document.getElementById("portfolioSearch");
-
-      search.focus();
-
-      document
-        .getElementById("my-portfolios")
-        .scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-    }
+}
 
 
-    function filterPortfolios() {
+/* =========================
+   INITIALIZE
+========================= */
 
-      const query =
-        document
-          .getElementById("portfolioSearch")
-          .value
-          .toLowerCase()
-          .trim();
+loadProfile();
 
-      const filter =
-        document.getElementById("portfolioFilter").value;
-
-      const cards =
-        Array.from(
-          document.querySelectorAll(".portfolio-card")
-        );
-
-      let visible = 0;
-
-      cards.forEach(card => {
-
-        const name =
-          card.dataset.name.toLowerCase();
-
-        const status =
-          card.dataset.status;
-
-        const matchesSearch =
-          !query || name.includes(query);
-
-        const matchesFilter =
-          filter === "all" ||
-          status === filter;
-
-        if (matchesSearch && matchesFilter) {
-
-          card.style.display = "";
-
-          visible++;
-
-        } else {
-
-          card.style.display = "none";
-
-        }
-
-      });
-
-      document.getElementById("emptyState").style.display =
-        visible === 0 ? "block" : "none";
-    }
-
-
-    /* =========================
-       SORT
-    ========================= */
-
-    function sortPortfolios() {
-
-      const sort =
-        document.getElementById("portfolioSort").value;
-
-      const grid =
-        document.getElementById("portfolioGrid");
-
-      const cards =
-        Array.from(
-          grid.querySelectorAll(".portfolio-card")
-        );
-
-      cards.sort((a, b) => {
-
-        if (sort === "name") {
-
-          return a.dataset.name.localeCompare(
-            b.dataset.name
-          );
-
-        }
-
-        if (sort === "views") {
-
-          return Number(b.dataset.views) -
-                 Number(a.dataset.views);
-
-        }
-
-        return 0;
-
-      });
-
-      cards.forEach(card => grid.appendChild(card));
-    }
-
-
-    /* =========================
-       CARD MENU
-    ========================= */
-
-    function showMenu(event, id) {
-
-      event.stopPropagation();
-
-      const action =
-        confirm(
-          "Would you like to edit this portfolio?"
-        );
-
-      if (action) {
-        editPortfolio(id);
-      }
-    }
-
-
-    /* =========================
-       INITIALIZE
-    ========================= */
-
-    loadProfile();
-
-  </script>
+</script>
 
 </body>
   </html>
