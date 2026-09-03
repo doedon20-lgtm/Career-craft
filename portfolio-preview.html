@@ -1,1419 +1,2439 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="CareerCraft Portfolio">
-<title>Portfolio | CareerCraft</title>
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --primary:#2563eb;
-  --primary-dark:#1d4ed8;
-  --text:#111827;
-  --muted:#667085;
-  --border:#e5e7eb;
-  --surface:#fff;
-  --soft:#f8fafc;
-  --dark:#0f172a;
-  --radius:18px;
-}
-html{scroll-behavior:smooth}
-body{
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:var(--soft);
-  color:var(--text);
-  line-height:1.6;
-}
-a{text-decoration:none;color:inherit}
-button{font:inherit}
-img{max-width:100%;display:block}
-
-.topbar{
-  height:72px;
-  background:rgba(255,255,255,.94);
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 5%;
-  position:sticky;
-  top:0;
-  z-index:50;
-  backdrop-filter:blur(14px);
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-weight:800;
-  font-size:19px;
-}
-
-.brand-mark{
-  width:38px;
-  height:38px;
-  border-radius:11px;
-  background:linear-gradient(135deg,#2563eb,#7c3aed);
-  color:white;
-  display:grid;
-  place-items:center;
-  font-weight:900;
-}
-
-.top-actions{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.btn{
-  border:1px solid var(--border);
-  background:white;
-  color:var(--text);
-  padding:10px 16px;
-  border-radius:11px;
-  cursor:pointer;
-  font-weight:700;
-  transition:.2s;
-}
-
-.btn:hover{
-  transform:translateY(-1px);
-  border-color:#cbd5e1;
-}
-
-.btn.primary{
-  background:var(--primary);
-  color:white;
-  border-color:var(--primary);
-}
-
-.btn.primary:hover{
-  background:var(--primary-dark);
-}
-
-.page{
-  width:min(1180px,92%);
-  margin:0 auto;
-}
-
-/* HERO */
-
-.hero{
-  background:white;
-  border-bottom:1px solid var(--border);
-  padding:76px 0 72px;
-}
-
-.hero-inner{
-  display:grid;
-  grid-template-columns:1fr 240px;
-  gap:70px;
-  align-items:center;
-}
-
-.hero-content{
-  min-width:0;
-}
-
-.eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:7px 12px;
-  background:#eff6ff;
-  color:#1d4ed8;
-  border-radius:999px;
-  font-size:13px;
-  font-weight:800;
-  margin-bottom:20px;
-}
-
-.eyebrow span{
-  width:7px;
-  height:7px;
-  background:#22c55e;
-  border-radius:50%;
-}
-
-.hero h1{
-  font-size:clamp(38px,6vw,72px);
-  line-height:1.02;
-  letter-spacing:-3px;
-  margin-bottom:16px;
-}
-
-.hero h2{
-  font-size:clamp(20px,3vw,30px);
-  color:#475467;
-  font-weight:600;
-  margin-bottom:20px;
-}
-
-.hero-intro{
-  font-size:18px;
-  max-width:700px;
-  color:var(--muted);
-  white-space:pre-line;
-}
-
-.profile-photo{
-  width:220px;
-  height:220px;
-  border-radius:50%;
-  object-fit:cover;
-  border:7px solid white;
-  box-shadow:0 20px 55px rgba(15,23,42,.14);
-  background:#eef2f7;
-}
-
-.avatar-fallback{
-  width:220px;
-  height:220px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,#dbeafe,#ede9fe);
-  color:#1e3a8a;
-  font-size:70px;
-  font-weight:900;
-  box-shadow:0 20px 55px rgba(15,23,42,.14);
-}
-
-/* NAV */
-
-.portfolio-nav{
-  background:white;
-  border-bottom:1px solid var(--border);
-}
-
-.nav-inner{
-  width:min(1180px,92%);
-  margin:auto;
-  display:flex;
-  align-items:center;
-  gap:28px;
-  overflow-x:auto;
-}
-
-.nav-inner a{
-  padding:17px 0;
-  color:#667085;
-  font-size:14px;
-  font-weight:700;
-  white-space:nowrap;
-}
-
-.nav-inner a:hover{
-  color:var(--primary);
-}
-
-/* CONTENT */
-
-.content{
-  padding:72px 0;
-}
-
-.section{
-  margin-bottom:88px;
-}
-
-.section-heading{
-  margin-bottom:30px;
-}
-
-.section-heading h2{
-  font-size:32px;
-  letter-spacing:-1px;
-  margin-bottom:7px;
-}
-
-.section-heading p{
-  color:var(--muted);
-}
-
-.about-text{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:30px;
-  color:#475467;
-  font-size:17px;
-  white-space:pre-line;
-}
-
-.info-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-  margin-top:18px;
-}
-
-.info-card{
-  background:white;
-  border:1px solid var(--border);
-  padding:20px;
-  border-radius:16px;
-}
-
-.info-card small{
-  display:block;
-  color:#98a2b3;
-  font-size:12px;
-  font-weight:800;
-  text-transform:uppercase;
-  margin-bottom:5px;
-}
-
-.info-card a{
-  color:var(--primary);
-  font-weight:700;
-  word-break:break-word;
-}
-
-/* PROJECTS */
-
-.projects-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:22px;
-}
-
-.project-card{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  overflow:hidden;
-  transition:.25s;
-}
-
-.project-card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 18px 45px rgba(15,23,42,.08);
-}
-
-.project-visual{
-  min-height:210px;
-  background:linear-gradient(135deg,#dbeafe,#ede9fe);
-  padding:28px;
-  display:flex;
-  align-items:flex-end;
-}
-
-.project-visual-inner{
-  width:100%;
-  min-height:145px;
-  border-radius:14px;
-  background:white;
-  padding:20px;
-  box-shadow:0 10px 30px rgba(15,23,42,.09);
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
-
-.project-icon{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  background:#eff6ff;
-  color:#2563eb;
-  display:grid;
-  place-items:center;
-  font-weight:900;
-}
-
-.project-name-preview{
-  font-weight:800;
-  font-size:18px;
-}
-
-.project-body{
-  padding:25px;
-}
-
-.project-body h3{
-  font-size:21px;
-  margin-bottom:8px;
-}
-
-.project-description{
-  color:var(--muted);
-  margin-bottom:18px;
-  white-space:pre-line;
-}
-
-.project-role{
-  font-size:13px;
-  font-weight:800;
-  color:#475467;
-  margin-bottom:12px;
-}
-
-.tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-bottom:20px;
-}
-
-.tag{
-  padding:6px 10px;
-  border-radius:8px;
-  background:#f1f5f9;
-  color:#475467;
-  font-size:12px;
-  font-weight:700;
-}
-
-.project-link{
-  color:var(--primary);
-  font-weight:800;
-  font-size:14px;
-}
-
-/* EXPERIENCE */
-
-.timeline{
-  position:relative;
-  margin-left:8px;
-}
-
-.timeline-item{
-  position:relative;
-  padding:0 0 35px 35px;
-  border-left:2px solid #e5e7eb;
-}
-
-.timeline-item:last-child{
-  border-left-color:transparent;
-}
-
-.timeline-dot{
-  position:absolute;
-  left:-7px;
-  top:2px;
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  background:var(--primary);
-  border:3px solid white;
-  box-shadow:0 0 0 2px #bfdbfe;
-}
-
-.timeline-item h3{
-  font-size:20px;
-  margin-bottom:3px;
-}
-
-.company{
-  font-weight:700;
-  color:var(--primary);
-}
-
-.date{
-  font-size:13px;
-  color:#98a2b3;
-  margin:7px 0 12px;
-}
-
-.experience-description{
-  color:var(--muted);
-  white-space:pre-line;
-}
-
-/* SKILLS */
-
-.skills{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-
-.skill{
-  background:white;
-  border:1px solid var(--border);
-  padding:11px 15px;
-  border-radius:12px;
-  font-weight:700;
-}
-
-/* CONTACT */
-
-.contact-box{
-  background:#0f172a;
-  color:white;
-  border-radius:26px;
-  padding:48px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:30px;
-}
-
-.contact-box h2{
-  font-size:35px;
-  letter-spacing:-1px;
-  margin-bottom:8px;
-}
-
-.contact-box p{
-  color:#cbd5e1;
-}
-
-.contact-box .btn{
-  background:white;
-  color:#0f172a;
-  border-color:white;
-}
-
-/* FOOTER */
-
-footer{
-  border-top:1px solid var(--border);
-  background:white;
-  padding:30px 0;
-}
-
-.footer-inner{
-  width:min(1180px,92%);
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-}
-
-.footer-name{
-  font-weight:800;
-}
-
-.footer-note{
-  color:#98a2b3;
-  font-size:13px;
-}
-
-/* EMPTY */
-
-.empty{
-  display:none;
-}
-
-/* MODAL */
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(15,23,42,.5);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  z-index:100;
-}
-
-.modal.active{
-  display:flex;
-}
-
-.modal-card{
-  width:min(460px,100%);
-  background:white;
-  border-radius:20px;
-  padding:28px;
-  box-shadow:0 25px 80px rgba(0,0,0,.2);
-}
-
-.modal-card h3{
-  margin-bottom:8px;
-  font-size:23px;
-}
-
-.modal-card p{
-  color:var(--muted);
-  margin-bottom:22px;
-}
-
-.share-url{
-  display:flex;
-  gap:8px;
-}
-
-.share-url input{
-  flex:1;
-  min-width:0;
-  padding:12px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  outline:none;
-}
-
-.modal-actions{
-  display:flex;
-  justify-content:flex-end;
-  margin-top:18px;
-}
-
-/* MOBILE */
-
-@media(max-width:800px){
-  .topbar{
-    height:64px;
-    padding:0 4%;
-  }
-
-  .top-actions .btn:first-child{
-    display:none;
-  }
-
-  .hero{
-    padding:48px 0;
-  }
-
-  .hero-inner{
-    grid-template-columns:1fr;
-    gap:32px;
-    text-align:center;
-  }
-
-  .hero-content{
-    order:2;
-  }
-
-  .hero-photo-wrap{
-    order:1;
-    display:flex;
-    justify-content:center;
-  }
-
-  .profile-photo,
-  .avatar-fallback{
-    width:155px;
-    height:155px;
-  }
-
-  .avatar-fallback{
-    font-size:50px;
-  }
-
-  .hero h1{
-    letter-spacing:-2px;
-  }
-
-  .hero-intro{
-    margin:auto;
-  }
-
-  .nav-inner{
-    gap:22px;
-  }
-
-  .content{
-    padding:50px 0;
-  }
-
-  .section{
-    margin-bottom:60px;
-  }
-
-  .projects-grid,
-  .info-grid{
-    grid-template-columns:1fr;
-  }
-
-  .contact-box{
-    padding:32px 24px;
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .contact-box h2{
-    font-size:29px;
-  }
-
-  .footer-inner{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-}
-
-@media print{
-  .topbar,
-  .portfolio-nav,
-  .top-actions{
-    display:none!important;
-  }
-
-  body{
-    background:white;
-  }
-
-  .hero{
-    padding-top:30px;
-  }
-
-  .content{
-    padding-top:35px;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Portfolio | CareerCraft</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --surface:#ffffff;
+      --surface-2:#f0f2f7;
+      --text:#101828;
+      --muted:#667085;
+      --border:#e4e7ec;
+      --primary:#2563eb;
+      --primary-dark:#1d4ed8;
+      --success:#16a34a;
+      --shadow:0 18px 50px rgba(16,24,40,.08);
+      --radius:24px;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    a{
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    button{
+      font:inherit;
+    }
+
+    .page{
+      min-height:100vh;
+    }
+
+    /* LOADING */
+
+    .loading-screen{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      background:var(--bg);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+
+    .loading-card{
+      width:min(420px,100%);
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:28px;
+      padding:36px 28px;
+      text-align:center;
+      box-shadow:var(--shadow);
+    }
+
+    .loading-logo{
+      width:56px;
+      height:56px;
+      border-radius:18px;
+      margin:0 auto 18px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      font-size:23px;
+      font-weight:800;
+      background:linear-gradient(135deg,#2563eb,#7c3aed);
+    }
+
+    .spinner{
+      width:28px;
+      height:28px;
+      border:3px solid #dbe4ff;
+      border-top-color:var(--primary);
+      border-radius:50%;
+      animation:spin .8s linear infinite;
+      margin:20px auto 0;
+    }
+
+    @keyframes spin{
+      to{transform:rotate(360deg)}
+    }
+
+    .loading-card h2{
+      font-size:22px;
+      margin-bottom:6px;
+    }
+
+    .loading-card p{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* UNAVAILABLE */
+
+    .unavailable{
+      min-height:100vh;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+
+    .unavailable-card{
+      width:min(520px,100%);
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:28px;
+      padding:42px 28px;
+      text-align:center;
+      box-shadow:var(--shadow);
+    }
+
+    .unavailable-icon{
+      width:68px;
+      height:68px;
+      margin:0 auto 20px;
+      border-radius:22px;
+      background:#eef2ff;
+      color:#4f46e5;
+      display:grid;
+      place-items:center;
+      font-size:28px;
+    }
+
+    .unavailable-card h1{
+      font-size:28px;
+      margin-bottom:10px;
+    }
+
+    .unavailable-card p{
+      color:var(--muted);
+      margin-bottom:24px;
+    }
+
+    .primary-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      border:0;
+      cursor:pointer;
+      background:var(--primary);
+      color:#fff;
+      padding:12px 18px;
+      border-radius:13px;
+      font-weight:700;
+      transition:.2s ease;
+    }
+
+    .primary-btn:hover{
+      background:var(--primary-dark);
+      transform:translateY(-1px);
+    }
+
+    /* TOPBAR */
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:100;
+      height:72px;
+      background:rgba(255,255,255,.9);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(228,231,236,.9);
+    }
+
+    .topbar-inner{
+      width:min(1180px,calc(100% - 32px));
+      height:100%;
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:-.3px;
+    }
+
+    .brand-mark{
+      width:36px;
+      height:36px;
+      border-radius:11px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      font-size:16px;
+      background:linear-gradient(135deg,#2563eb,#7c3aed);
+    }
+
+    .brand-text{
+      font-size:17px;
+    }
+
+    .top-actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .icon-btn{
+      width:40px;
+      height:40px;
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      color:#344054;
+      transition:.2s ease;
+    }
+
+    .icon-btn:hover{
+      border-color:#c7d2fe;
+      background:#f8faff;
+    }
+
+    .edit-btn{
+      display:none;
+      align-items:center;
+      gap:7px;
+      background:#111827;
+      color:#fff;
+      border:0;
+      padding:10px 15px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    .edit-btn:hover{
+      background:#000;
+    }
+
+    /* MAIN */
+
+    main{
+      width:min(1180px,calc(100% - 32px));
+      margin:auto;
+    }
+
+    /* HERO */
+
+    .hero{
+      padding:76px 0 58px;
+    }
+
+    .hero-card{
+      position:relative;
+      overflow:hidden;
+      background:#101828;
+      color:#fff;
+      border-radius:32px;
+      padding:64px;
+      box-shadow:0 25px 70px rgba(16,24,40,.18);
+    }
+
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      width:420px;
+      height:420px;
+      border-radius:50%;
+      background:rgba(37,99,235,.32);
+      filter:blur(20px);
+      right:-150px;
+      top:-180px;
+    }
+
+    .hero-card::after{
+      content:"";
+      position:absolute;
+      width:300px;
+      height:300px;
+      border-radius:50%;
+      background:rgba(124,58,237,.24);
+      filter:blur(25px);
+      left:-150px;
+      bottom:-180px;
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:1fr 260px;
+      gap:60px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:#b9c8ff;
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+
+    .eyebrow-dot{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:#60a5fa;
+    }
+
+    .hero h1{
+      font-size:clamp(42px,6vw,76px);
+      line-height:1.02;
+      letter-spacing:-.055em;
+      max-width:800px;
+      margin-bottom:18px;
+      word-break:break-word;
+    }
+
+    .hero-headline{
+      font-size:clamp(19px,2.2vw,27px);
+      font-weight:600;
+      color:#d7def0;
+      max-width:760px;
+      margin-bottom:18px;
+    }
+
+    .hero-intro{
+      color:#aeb9cc;
+      font-size:16px;
+      max-width:720px;
+      white-space:pre-line;
+    }
+
+    .profile-photo{
+      width:230px;
+      height:230px;
+      border-radius:34px;
+      overflow:hidden;
+      background:linear-gradient(135deg,#2563eb,#7c3aed);
+      border:1px solid rgba(255,255,255,.15);
+      box-shadow:0 20px 50px rgba(0,0,0,.25);
+      margin-left:auto;
+    }
+
+    .profile-photo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .profile-initials{
+      width:100%;
+      height:100%;
+      display:grid;
+      place-items:center;
+      font-size:70px;
+      font-weight:800;
+      color:#fff;
+    }
+
+    .draft-badge{
+      display:none;
+      margin-top:24px;
+      width:max-content;
+      max-width:100%;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(245,158,11,.15);
+      border:1px solid rgba(245,158,11,.3);
+      color:#fbbf24;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    /* NAV */
+
+    .portfolio-nav{
+      display:none;
+      position:sticky;
+      top:72px;
+      z-index:50;
+      background:rgba(246,247,251,.92);
+      backdrop-filter:blur(15px);
+      border-bottom:1px solid var(--border);
+    }
+
+    .nav-inner{
+      width:min(1180px,calc(100% - 32px));
+      margin:auto;
+      display:flex;
+      gap:6px;
+      overflow-x:auto;
+      scrollbar-width:none;
+    }
+
+    .nav-inner::-webkit-scrollbar{
+      display:none;
+    }
+
+    .nav-link{
+      flex:none;
+      padding:15px 14px;
+      color:var(--muted);
+      font-size:14px;
+      font-weight:700;
+      border-bottom:2px solid transparent;
+    }
+
+    .nav-link:hover{
+      color:var(--text);
+    }
+
+    /* SECTIONS */
+
+    .section{
+      padding:72px 0;
+      border-bottom:1px solid var(--border);
+    }
+
+    .section-header{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:20px;
+      margin-bottom:34px;
+    }
+
+    .section-kicker{
+      color:var(--primary);
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      font-size:12px;
+      font-weight:800;
+      margin-bottom:7px;
+    }
+
+    .section-title{
+      font-size:clamp(30px,4vw,44px);
+      line-height:1.1;
+      letter-spacing:-.035em;
+    }
+
+    .section-description{
+      max-width:580px;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    /* ABOUT */
+
+    .about-layout{
+      display:grid;
+      grid-template-columns:1.25fr .75fr;
+      gap:60px;
+    }
+
+    .about-text{
+      font-size:18px;
+      color:#344054;
+      white-space:pre-line;
+    }
+
+    .info-grid{
+      display:grid;
+      gap:12px;
+    }
+
+    .info-card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:17px;
+      padding:17px;
+    }
+
+    .info-label{
+      font-size:11px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#98a2b3;
+      margin-bottom:4px;
+    }
+
+    .info-value{
+      color:#344054;
+      font-size:14px;
+      word-break:break-word;
+    }
+
+    .info-value.link{
+      color:var(--primary);
+    }
+
+    /* PROJECTS */
+
+    .projects-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:22px;
+    }
+
+    .project-card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:22px;
+      overflow:hidden;
+      transition:.25s ease;
+    }
+
+    .project-card:hover{
+      transform:translateY(-4px);
+      box-shadow:var(--shadow);
+    }
+
+    .project-visual{
+      height:230px;
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(135deg,#e0e7ff,#f3e8ff);
+    }
+
+    .project-visual img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .project-visual-pattern{
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 30%,rgba(37,99,235,.22),transparent 28%),
+        radial-gradient(circle at 80% 65%,rgba(124,58,237,.25),transparent 32%);
+    }
+
+    .project-number{
+      position:absolute;
+      left:20px;
+      top:18px;
+      width:42px;
+      height:42px;
+      border-radius:13px;
+      display:grid;
+      place-items:center;
+      background:rgba(255,255,255,.82);
+      backdrop-filter:blur(10px);
+      font-weight:800;
+      color:#344054;
+    }
+
+    .project-body{
+      padding:24px;
+    }
+
+    .project-title{
+      font-size:22px;
+      letter-spacing:-.02em;
+      margin-bottom:8px;
+    }
+
+    .project-description{
+      color:var(--muted);
+      font-size:14px;
+      white-space:pre-line;
+      margin-bottom:18px;
+    }
+
+    .project-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+      margin-bottom:18px;
+    }
+
+    .tag{
+      padding:6px 9px;
+      border-radius:8px;
+      background:#f2f4f7;
+      color:#475467;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .project-role{
+      font-size:13px;
+      color:#667085;
+      margin-bottom:14px;
+    }
+
+    .project-role strong{
+      color:#344054;
+    }
+
+    .project-link{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      color:var(--primary);
+      font-size:14px;
+      font-weight:800;
+    }
+
+    /* EXPERIENCE */
+
+    .timeline{
+      position:relative;
+      margin-left:10px;
+    }
+
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left:8px;
+      top:8px;
+      bottom:8px;
+      width:2px;
+      background:#e4e7ec;
+    }
+
+    .experience-item{
+      position:relative;
+      padding-left:42px;
+      margin-bottom:36px;
+    }
+
+    .experience-item:last-child{
+      margin-bottom:0;
+    }
+
+    .timeline-dot{
+      position:absolute;
+      left:0;
+      top:6px;
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      background:#fff;
+      border:4px solid var(--primary);
+      z-index:2;
+    }
+
+    .experience-title{
+      font-size:21px;
+      margin-bottom:3px;
+    }
+
+    .experience-company{
+      color:var(--primary);
+      font-weight:700;
+      margin-bottom:4px;
+    }
+
+    .experience-date{
+      color:#98a2b3;
+      font-size:13px;
+      margin-bottom:12px;
+    }
+
+    .experience-description{
+      color:#667085;
+      white-space:pre-line;
+      font-size:14px;
+      max-width:800px;
+    }
+
+    /* SKILLS */
+
+    .skills-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .skill-pill{
+      padding:11px 15px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--border);
+      color:#344054;
+      font-weight:700;
+      font-size:14px;
+      transition:.2s ease;
+    }
+
+    .skill-pill:hover{
+      border-color:#b8c6ff;
+      background:#f8faff;
+      color:var(--primary);
+    }
+
+    /* CONTACT */
+
+    .contact-section{
+      padding:76px 0;
+      border-bottom:1px solid var(--border);
+    }
+
+    .contact-card{
+      position:relative;
+      overflow:hidden;
+      background:#111827;
+      color:#fff;
+      border-radius:28px;
+      padding:52px;
+    }
+
+    .contact-card::after{
+      content:"";
+      position:absolute;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      right:-100px;
+      top:-120px;
+      background:rgba(37,99,235,.35);
+      filter:blur(20px);
+    }
+
+    .contact-content{
+      position:relative;
+      z-index:2;
+      max-width:700px;
+    }
+
+    .contact-card .section-kicker{
+      color:#93c5fd;
+    }
+
+    .contact-card h2{
+      font-size:clamp(32px,5vw,50px);
+      line-height:1.05;
+      letter-spacing:-.04em;
+      margin-bottom:14px;
+    }
+
+    .contact-text{
+      color:#b8c2d3;
+      margin-bottom:26px;
+      white-space:pre-line;
+    }
+
+    .contact-button{
+      display:none;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      background:#fff;
+      color:#111827;
+      border-radius:13px;
+      padding:12px 18px;
+      font-weight:800;
+      width:max-content;
+      max-width:100%;
+    }
+
+    .contact-button:hover{
+      background:#eef2ff;
+    }
+
+    /* FOOTER */
+
+    footer{
+      padding:30px 0 42px;
+    }
+
+    .footer-inner{
+      width:min(1180px,calc(100% - 32px));
+      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      color:#98a2b3;
+      font-size:13px;
+    }
+
+    .footer-name{
+      color:#475467;
+      font-weight:700;
+    }
+
+    /* SHARE MODAL */
+
+    .modal{
+      position:fixed;
+      inset:0;
+      z-index:1000;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      background:rgba(15,23,42,.55);
+      backdrop-filter:blur(5px);
+    }
+
+    .modal.open{
+      display:flex;
+    }
+
+    .modal-card{
+      width:min(500px,100%);
+      background:#fff;
+      border-radius:25px;
+      padding:28px;
+      box-shadow:0 30px 80px rgba(0,0,0,.2);
+    }
+
+    .modal-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+      margin-bottom:18px;
+    }
+
+    .modal-head h3{
+      font-size:22px;
+    }
+
+    .close-btn{
+      width:38px;
+      height:38px;
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:11px;
+      cursor:pointer;
+      font-size:20px;
+    }
+
+    .share-input{
+      width:100%;
+      padding:13px 14px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#f8fafc;
+      outline:none;
+      font-size:13px;
+      margin-bottom:12px;
+    }
+
+    .share-copy{
+      width:100%;
+    }
+
+    .private-note{
+      display:none;
+      margin-top:12px;
+      padding:11px 13px;
+      border-radius:12px;
+      background:#fffbeb;
+      color:#92400e;
+      font-size:13px;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:850px){
+      .hero-card{
+        padding:42px 30px;
+      }
+
+      .hero-content{
+        grid-template-columns:1fr;
+        gap:34px;
+      }
+
+      .profile-photo{
+        width:170px;
+        height:170px;
+        margin:0;
+        border-radius:26px;
+      }
+
+      .about-layout{
+        grid-template-columns:1fr;
+        gap:30px;
+      }
+
+      .projects-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media(max-width:620px){
+      .topbar{
+        height:64px;
+      }
+
+      .topbar-inner{
+        width:min(100% - 22px,1180px);
+      }
+
+      .brand-text{
+        display:none;
+      }
+
+      .edit-btn{
+        padding:9px 11px;
+      }
+
+      .edit-btn span{
+        display:none;
+      }
+
+      .portfolio-nav{
+        top:64px;
+      }
+
+      main{
+        width:min(100% - 22px,1180px);
+      }
+
+      .hero{
+        padding:24px 0 30px;
+      }
+
+      .hero-card{
+        border-radius:24px;
+        padding:34px 24px;
+      }
+
+      .hero h1{
+        font-size:43px;
+      }
+
+      .section{
+        padding:54px 0;
+      }
+
+      .section-header{
+        display:block;
+      }
+
+      .section-description{
+        margin-top:10px;
+      }
+
+      .contact-card{
+        padding:36px 24px;
+        border-radius:23px;
+      }
+
+      .footer-inner{
+        width:min(100% - 22px,1180px);
+        display:block;
+      }
+
+      .footer-inner div+div{
+        margin-top:7px;
+      }
+
+      .project-visual{
+        height:190px;
+      }
+
+      .profile-photo{
+        width:140px;
+        height:140px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="topbar">
-  <a href="portfolio.html" class="brand">
-    <div class="brand-mark">C</div>
-    <span>CareerCraft</span>
-  </a>
-
-  <div class="top-actions">
-    <button class="btn" onclick="editPortfolio()">Edit</button>
-    <button class="btn" onclick="printPortfolio()">Print</button>
-    <button class="btn primary" onclick="sharePortfolio()">Share</button>
-  </div>
-</header>
-
-<main>
-
-<section class="hero">
-  <div class="page hero-inner">
-
-    <div class="hero-content">
-      <div class="eyebrow">
-        <span></span>
-        Professional Portfolio
-      </div>
-
-      <h1 id="name"></h1>
-      <h2 id="headline"></h2>
-      <p class="hero-intro" id="intro"></p>
-    </div>
-
-    <div class="hero-photo-wrap" id="photoWrap"></div>
-
-  </div>
-</section>
-
-<nav class="portfolio-nav">
-  <div class="nav-inner" id="navigation"></div>
-</nav>
-
-<div class="page content">
-
-  <section class="section" id="aboutSection">
-    <div class="section-heading">
-      <h2>About</h2>
-      <p>A little about my professional background.</p>
-    </div>
-
-    <div class="about-text" id="aboutText"></div>
-
-    <div class="info-grid" id="infoGrid"></div>
-  </section>
-
-
-  <section class="section" id="projectsSection">
-    <div class="section-heading">
-      <h2>Selected Work</h2>
-      <p>Projects and work I have created.</p>
-    </div>
-
-    <div class="projects-grid" id="projectsGrid"></div>
-  </section>
-
-
-  <section class="section" id="experienceSection">
-    <div class="section-heading">
-      <h2>Experience</h2>
-      <p>Professional experience and career history.</p>
-    </div>
-
-    <div class="timeline" id="experienceTimeline"></div>
-  </section>
-
-
-  <section class="section" id="skillsSection">
-    <div class="section-heading">
-      <h2>Skills</h2>
-      <p>Tools and capabilities I work with.</p>
-    </div>
-
-    <div class="skills" id="skillsList"></div>
-  </section>
-
-
-  <section class="section" id="contactSection">
-    <div class="contact-box">
-      <div>
-        <h2>Let's work together.</h2>
-        <p id="contactText">
-          Interested in working together? Get in touch.
-        </p>
-      </div>
-
-      <a class="btn" id="contactButton" href="#">
-        Contact Me
-      </a>
-    </div>
-  </section>
-
-</div>
-</main>
-
-<footer>
-  <div class="footer-inner">
-    <div class="footer-name" id="footerName">CareerCraft Portfolio</div>
-    <div class="footer-note">Created with CareerCraft</div>
-  </div>
-</footer>
-
-
-<div class="modal" id="shareModal">
-  <div class="modal-card">
-    <h3>Share portfolio</h3>
-    <p>Copy the portfolio link or share it with someone directly.</p>
-
-    <div class="share-url">
-      <input id="shareInput" readonly>
-      <button class="btn primary" onclick="copyShareLink()">Copy</button>
-    </div>
-
-    <div class="modal-actions">
-      <button class="btn" onclick="closeShare()">Close</button>
+  <!-- LOADING -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-card">
+      <div class="loading-logo">C</div>
+      <h2>Loading portfolio</h2>
+      <p>Getting the latest portfolio information.</p>
+      <div class="spinner"></div>
     </div>
   </div>
-</div>
 
+  <!-- UNAVAILABLE -->
+  <section class="unavailable" id="unavailable">
+    <div class="unavailable-card">
+      <div class="unavailable-icon">⌁</div>
+      <h1 id="unavailableTitle">Portfolio unavailable</h1>
+      <p id="unavailableText">
+        This portfolio could not be found or is not currently available.
+      </p>
+      <a class="primary-btn" href="index.html">Go to CareerCraft</a>
+    </div>
+  </section>
 
-<script>
-const STORAGE_KEY = "careercraft_editing_portfolio";
+  <!-- APP -->
+  <div class="page" id="portfolioPage" style="display:none;">
 
-let portfolio = null;
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-inner">
 
-function getPortfolio(){
-  try{
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if(saved){
-      return JSON.parse(saved);
-    }
-  }catch(error){
-    console.error(error);
-  }
-
-  const fallback = localStorage.getItem("careercraft_portfolio");
-
-  if(fallback){
-    try{
-      return JSON.parse(fallback);
-    }catch(error){}
-  }
-
-  return null;
-}
-
-function text(value){
-  return typeof value === "string" ? value.trim() : "";
-}
-
-function escapeHTML(value){
-  return String(value || "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
-
-function getNameInitials(name){
-  const parts = text(name).split(/\s+/).filter(Boolean);
-
-  if(!parts.length) return "C";
-
-  if(parts.length === 1){
-    return parts[0].substring(0,2).toUpperCase();
-  }
-
-  return (
-    parts[0].charAt(0) +
-    parts[parts.length - 1].charAt(0)
-  ).toUpperCase();
-}
-
-function formatDate(start,end){
-  const s = text(start);
-  const e = text(end);
-
-  if(!s && !e) return "";
-
-  if(s && e) return `${s} — ${e}`;
-  if(s) return `${s} — Present`;
-  return e;
-}
-
-function render(){
-  portfolio = getPortfolio();
-
-  if(!portfolio){
-    showEmptyPortfolio();
-    return;
-  }
-
-  const name =
-    text(portfolio.name) ||
-    text(portfolio.fullName) ||
-    "Your Name";
-
-  const headline =
-    text(portfolio.headline) ||
-    text(portfolio.title);
-
-  const intro =
-    text(portfolio.intro) ||
-    text(portfolio.description);
-
-  const about =
-    text(portfolio.about) ||
-    text(portfolio.aboutMe);
-
-  document.title =
-    `${name}${headline ? " — " + headline : ""} | CareerCraft`;
-
-  document.getElementById("name").textContent = name;
-
-  const headlineEl = document.getElementById("headline");
-
-  if(headline){
-    headlineEl.textContent = headline;
-  }else{
-    headlineEl.style.display = "none";
-  }
-
-  const introEl = document.getElementById("intro");
-
-  if(intro){
-    introEl.textContent = intro;
-  }else{
-    introEl.style.display = "none";
-  }
-
-  document.getElementById("footerName").textContent = name;
-
-  renderPhoto(portfolio,name);
-  renderNavigation();
-  renderAbout(about);
-  renderProjects();
-  renderExperience();
-  renderSkills();
-  renderContact();
-}
-
-function renderPhoto(data,name){
-  const wrap = document.getElementById("photoWrap");
-
-  const photo =
-    text(data.profilePhoto) ||
-    text(data.photo) ||
-    text(data.avatar);
-
-  if(photo){
-    const img = document.createElement("img");
-
-    img.className = "profile-photo";
-    img.src = photo;
-    img.alt = name;
-
-    img.onerror = function(){
-      wrap.innerHTML =
-        `<div class="avatar-fallback">${escapeHTML(getNameInitials(name))}</div>`;
-    };
-
-    wrap.appendChild(img);
-  }else{
-    wrap.innerHTML =
-      `<div class="avatar-fallback">${escapeHTML(getNameInitials(name))}</div>`;
-  }
-}
-
-function renderNavigation(){
-  const nav = document.getElementById("navigation");
-
-  nav.innerHTML = `
-    <a href="#aboutSection">About</a>
-    <a href="#projectsSection">Work</a>
-    <a href="#experienceSection">Experience</a>
-    <a href="#skillsSection">Skills</a>
-    <a href="#contactSection">Contact</a>
-  `;
-}
-
-function renderAbout(about){
-  const section = document.getElementById("aboutSection");
-  const aboutText = document.getElementById("aboutText");
-  const infoGrid = document.getElementById("infoGrid");
-
-  if(!about){
-    aboutText.style.display = "none";
-  }else{
-    aboutText.textContent = about;
-  }
-
-  const cards = [];
-
-  const location = text(portfolio.location);
-  const email = text(portfolio.email);
-  const website = text(portfolio.website);
-  const linkedin = text(portfolio.linkedin);
-  const github = text(portfolio.github);
-
-  if(location){
-    cards.push(`
-      <div class="info-card">
-        <small>Location</small>
-        <div>${escapeHTML(location)}</div>
-      </div>
-    `);
-  }
-
-  if(email){
-    cards.push(`
-      <div class="info-card">
-        <small>Email</small>
-        <a href="mailto:${escapeHTML(email)}">${escapeHTML(email)}</a>
-      </div>
-    `);
-  }
-
-  if(website){
-    const url = normalizeUrl(website);
-
-    cards.push(`
-      <div class="info-card">
-        <small>Website</small>
-        <a href="${escapeHTML(url)}" target="_blank" rel="noopener">
-          ${escapeHTML(website)}
+        <a class="brand" href="index.html">
+          <span class="brand-mark">C</span>
+          <span class="brand-text">CareerCraft</span>
         </a>
+
+        <div class="top-actions">
+
+          <button
+            class="edit-btn"
+            id="editButton"
+            onclick="editPortfolio()"
+            type="button">
+            ✎ <span>Edit</span>
+          </button>
+
+          <button
+            class="icon-btn"
+            onclick="printPortfolio()"
+            type="button"
+            aria-label="Print portfolio">
+            ⎙
+          </button>
+
+          <button
+            class="icon-btn"
+            onclick="sharePortfolio()"
+            type="button"
+            aria-label="Share portfolio">
+            ↗
+          </button>
+
+        </div>
       </div>
-    `);
-  }
+    </header>
 
-  if(linkedin){
-    const url = normalizeUrl(linkedin);
+    <!-- NAV -->
+    <nav class="portfolio-nav" id="portfolioNav">
+      <div class="nav-inner" id="navigation"></div>
+    </nav>
 
-    cards.push(`
-      <div class="info-card">
-        <small>LinkedIn</small>
-        <a href="${escapeHTML(url)}" target="_blank" rel="noopener">
-          LinkedIn Profile
-        </a>
-      </div>
-    `);
-  }
+    <main>
 
-  if(github){
-    const url = normalizeUrl(github);
+      <!-- HERO -->
+      <section class="hero" id="heroSection">
+        <div class="hero-card">
 
-    cards.push(`
-      <div class="info-card">
-        <small>GitHub</small>
-        <a href="${escapeHTML(url)}" target="_blank" rel="noopener">
-          GitHub Profile
-        </a>
-      </div>
-    `);
-  }
+          <div class="hero-content">
 
-  infoGrid.innerHTML = cards.join("");
+            <div>
 
-  if(!about && !cards.length){
-    section.style.display = "none";
-  }
-}
+              <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                Professional Portfolio
+              </div>
 
-function getProjects(){
-  if(!Array.isArray(portfolio.projects)){
-    return [];
-  }
+              <h1 id="name"></h1>
 
-  return portfolio.projects.filter(project =>
-    project &&
-    (
-      text(project.title) ||
-      text(project.name) ||
-      text(project.description)
-    )
-  );
-}
+              <div
+                class="hero-headline"
+                id="headline"
+                style="display:none;">
+              </div>
 
-function renderProjects(){
-  const projects = getProjects();
-  const section = document.getElementById("projectsSection");
-  const grid = document.getElementById("projectsGrid");
+              <div
+                class="hero-intro"
+                id="intro"
+                style="display:none;">
+              </div>
 
-  if(!projects.length){
-    section.style.display = "none";
-    return;
-  }
+              <div
+                class="draft-badge"
+                id="draftBadge">
+                Private draft · only you can view this portfolio
+              </div>
 
-  grid.innerHTML = projects.map((project,index)=>{
-    const title =
-      text(project.title) ||
-      text(project.name) ||
-      `Project ${index + 1}`;
-
-    const description =
-      text(project.description) ||
-      text(project.summary);
-
-    const role = text(project.role);
-
-    const tools =
-      text(project.tools) ||
-      text(project.technologies) ||
-      text(project.skills);
-
-    const link =
-      text(project.link) ||
-      text(project.url);
-
-    const tags = tools
-      ? tools.split(",").map(x=>x.trim()).filter(Boolean)
-      : [];
-
-    return `
-      <article class="project-card">
-
-        <div class="project-visual">
-          <div class="project-visual-inner">
-            <div class="project-icon">
-              ${escapeHTML(title.substring(0,1).toUpperCase())}
             </div>
 
-            <div class="project-name-preview">
-              ${escapeHTML(title)}
+            <div
+              class="profile-photo"
+              id="photoWrap"
+              style="display:none;">
             </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section
+        class="section"
+        id="aboutSection"
+        style="display:none;">
+
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">About</div>
+            <h2 class="section-title">A little about me</h2>
           </div>
         </div>
 
-        <div class="project-body">
+        <div class="about-layout">
 
-          <h3>${escapeHTML(title)}</h3>
+          <div
+            class="about-text"
+            id="aboutText">
+          </div>
 
-          ${
-            description
-            ? `<div class="project-description">${escapeHTML(description)}</div>`
-            : ""
-          }
-
-          ${
-            role
-            ? `<div class="project-role">${escapeHTML(role)}</div>`
-            : ""
-          }
-
-          ${
-            tags.length
-            ? `
-              <div class="tags">
-                ${tags.map(tag =>
-                  `<span class="tag">${escapeHTML(tag)}</span>`
-                ).join("")}
-              </div>
-            `
-            : ""
-          }
-
-          ${
-            link
-            ? `
-              <a
-                class="project-link"
-                href="${escapeHTML(normalizeUrl(link))}"
-                target="_blank"
-                rel="noopener"
-              >
-                View project →
-              </a>
-            `
-            : ""
-          }
+          <div
+            class="info-grid"
+            id="infoGrid">
+          </div>
 
         </div>
-      </article>
-    `;
-  }).join("");
-}
+      </section>
 
-function getExperience(){
-  if(!Array.isArray(portfolio.experience)){
-    return [];
-  }
+      <!-- PROJECTS -->
+      <section
+        class="section"
+        id="projectsSection"
+        style="display:none;">
 
-  return portfolio.experience.filter(item =>
-    item &&
-    (
-      text(item.jobTitle) ||
-      text(item.title) ||
-      text(item.company) ||
-      text(item.description)
-    )
-  );
-}
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Selected Work</div>
+            <h2 class="section-title">Projects</h2>
+          </div>
 
-function renderExperience(){
-  const experience = getExperience();
-  const section = document.getElementById("experienceSection");
-  const timeline = document.getElementById("experienceTimeline");
+          <p class="section-description">
+            A selection of work and projects from this portfolio.
+          </p>
+        </div>
 
-  if(!experience.length){
-    section.style.display = "none";
-    return;
-  }
+        <div
+          class="projects-grid"
+          id="projectsGrid">
+        </div>
 
-  timeline.innerHTML = experience.map(item=>{
-    const title =
-      text(item.jobTitle) ||
-      text(item.title);
+      </section>
 
-    const company = text(item.company);
+      <!-- EXPERIENCE -->
+      <section
+        class="section"
+        id="experienceSection"
+        style="display:none;">
 
-    const description = text(item.description);
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Career</div>
+            <h2 class="section-title">Experience</h2>
+          </div>
+        </div>
 
-    const date = formatDate(
-      item.start,
-      item.end
+        <div
+          class="timeline"
+          id="experienceTimeline">
+        </div>
+
+      </section>
+
+      <!-- SKILLS -->
+      <section
+        class="section"
+        id="skillsSection"
+        style="display:none;">
+
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Capabilities</div>
+            <h2 class="section-title">Skills</h2>
+          </div>
+        </div>
+
+        <div
+          class="skills-list"
+          id="skillsList">
+        </div>
+
+      </section>
+
+      <!-- CONTACT -->
+      <section
+        class="contact-section"
+        id="contactSection"
+        style="display:none;">
+
+        <div class="contact-card">
+
+          <div class="contact-content">
+
+            <div class="section-kicker">
+              Get in touch
+            </div>
+
+            <h2>Let's connect.</h2>
+
+            <p
+              class="contact-text"
+              id="contactText">
+            </p>
+
+            <a
+              class="contact-button"
+              id="contactButton"
+              target="_blank"
+              rel="noopener">
+              Contact me →
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+
+        <div>
+          © <span id="footerYear"></span>
+          <span class="footer-name" id="footerName"></span>
+        </div>
+
+        <div>
+          Built with CareerCraft
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- SHARE MODAL -->
+  <div
+    class="modal"
+    id="shareModal"
+    onclick="closeShareOutside(event)">
+
+    <div class="modal-card">
+
+      <div class="modal-head">
+        <h3>Share portfolio</h3>
+
+        <button
+          class="close-btn"
+          onclick="closeShare()"
+          type="button">
+          ×
+        </button>
+      </div>
+
+      <input
+        class="share-input"
+        id="shareInput"
+        readonly>
+
+      <button
+        class="primary-btn share-copy"
+        onclick="copyPortfolioLink()"
+        type="button">
+        Copy portfolio link
+      </button>
+
+      <div
+        class="private-note"
+        id="privateNote">
+        This portfolio is currently private. Publishing it from the Portfolio Builder will allow other people to view this link.
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================
+       CAREERCRAFT SUPABASE CONFIG
+       Use the SAME credentials as your other CareerCraft pages.
+       ========================================================= */
+
+    const SUPABASE_URL = "https://upcxmlbgmqhaqieldmyk.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
     );
 
-    return `
-      <div class="timeline-item">
+    /* =========================================================
+       STATE
+       ========================================================= */
 
-        <div class="timeline-dot"></div>
+    const params = new URLSearchParams(window.location.search);
 
-        ${
-          title
-          ? `<h3>${escapeHTML(title)}</h3>`
-          : ""
-        }
+    const portfolioId = params.get("id");
 
-        ${
-          company
-          ? `<div class="company">${escapeHTML(company)}</div>`
-          : ""
-        }
+    let portfolio = null;
+    let projects = [];
+    let experience = [];
+    let skills = [];
 
-        ${
-          date
-          ? `<div class="date">${escapeHTML(date)}</div>`
-          : ""
-        }
+    let currentUser = null;
+    let isOwner = false;
 
-        ${
-          description
-          ? `<div class="experience-description">${escapeHTML(description)}</div>`
-          : ""
-        }
+    /* =========================================================
+       HELPERS
+       ========================================================= */
 
-      </div>
-    `;
-  }).join("");
-}
-
-function getSkills(){
-  if(Array.isArray(portfolio.skills)){
-    return portfolio.skills
-      .map(skill=>{
-        if(typeof skill === "string") return skill.trim();
-
-        if(skill && typeof skill === "object"){
-          return text(skill.name) || text(skill.title);
-        }
-
-        return "";
-      })
-      .filter(Boolean);
-  }
-
-  if(typeof portfolio.skills === "string"){
-    return portfolio.skills
-      .split(",")
-      .map(x=>x.trim())
-      .filter(Boolean);
-  }
-
-  return [];
-}
-
-function renderSkills(){
-  const skills = getSkills();
-  const section = document.getElementById("skillsSection");
-  const list = document.getElementById("skillsList");
-
-  if(!skills.length){
-    section.style.display = "none";
-    return;
-  }
-
-  list.innerHTML = skills.map(skill =>
-    `<span class="skill">${escapeHTML(skill)}</span>`
-  ).join("");
-}
-
-function renderContact(){
-  const section = document.getElementById("contactSection");
-  const button = document.getElementById("contactButton");
-
-  const email = text(portfolio.email);
-
-  const customAction =
-    text(portfolio.contactAction) ||
-    text(portfolio.contactText);
-
-  if(!email && !customAction){
-    section.style.display = "none";
-    return;
-  }
-
-  if(email){
-    button.href = `mailto:${email}`;
-  }else{
-    button.href = "#";
-  }
-
-  if(customAction){
-    document.getElementById("contactText").textContent =
-      customAction;
-  }
-}
-
-function normalizeUrl(url){
-  if(!url) return "#";
-
-  if(/^https?:\/\//i.test(url)){
-    return url;
-  }
-
-  return "https://" + url;
-}
-
-function editPortfolio(){
-  localStorage.setItem(
-    "careercraft_editing_portfolio",
-    JSON.stringify(portfolio)
-  );
-
-  window.location.href = "portfolio-builder.html";
-}
-
-function printPortfolio(){
-  window.print();
-}
-
-function sharePortfolio(){
-  const modal = document.getElementById("shareModal");
-  const input = document.getElementById("shareInput");
-
-  input.value = window.location.href;
-  modal.classList.add("active");
-}
-
-function closeShare(){
-  document.getElementById("shareModal")
-    .classList.remove("active");
-}
-
-async function copyShareLink(){
-  const input = document.getElementById("shareInput");
-
-  try{
-    await navigator.clipboard.writeText(input.value);
-
-    const button =
-      document.querySelector(".share-url .btn");
-
-    const oldText = button.textContent;
-
-    button.textContent = "Copied";
-
-    setTimeout(()=>{
-      button.textContent = oldText;
-    },1500);
-
-  }catch(error){
-    input.select();
-    document.execCommand("copy");
-  }
-}
-
-function showEmptyPortfolio(){
-  document.body.innerHTML = `
-    <div style="
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      padding:25px;
-      background:#f8fafc;
-      font-family:Inter,system-ui,sans-serif;
-    ">
-      <div style="
-        width:min(500px,100%);
-        background:white;
-        border:1px solid #e5e7eb;
-        border-radius:22px;
-        padding:40px;
-        text-align:center;
-        box-shadow:0 20px 60px rgba(15,23,42,.08);
-      ">
-        <div style="
-          width:60px;
-          height:60px;
-          margin:0 auto 20px;
-          border-radius:17px;
-          background:linear-gradient(135deg,#2563eb,#7c3aed);
-          color:white;
-          display:grid;
-          place-items:center;
-          font-size:25px;
-          font-weight:900;
-        ">C</div>
-
-        <h2 style="margin-bottom:10px">
-          No portfolio found
-        </h2>
-
-        <p style="
-          color:#667085;
-          margin-bottom:25px;
-        ">
-          Create your portfolio first and your finished portfolio will appear here.
-        </p>
-
-        <a href="portfolio-builder.html" style="
-          display:inline-block;
-          background:#2563eb;
-          color:white;
-          padding:12px 20px;
-          border-radius:11px;
-          font-weight:800;
-        ">
-          Create Portfolio
-        </a>
-      </div>
-    </div>
-  `;
-}
-
-document.getElementById("shareModal")
-  .addEventListener("click",function(e){
-    if(e.target === this){
-      closeShare();
+    function $(id){
+      return document.getElementById(id);
     }
-  });
 
-render();
-</script>
+    function text(value){
+      return typeof value === "string"
+        ? value.trim()
+        : "";
+    }
+
+    function escapeHTML(value){
+      return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+    }
+
+    function normalizeUrl(url){
+      const value = text(url);
+
+      if(!value){
+        return "";
+      }
+
+      if(/^https?:\/\//i.test(value)){
+        return value;
+      }
+
+      return "https://" + value;
+    }
+
+    function initials(name){
+      const value = text(name);
+
+      if(!value){
+        return "C";
+      }
+
+      const parts = value.split(/\s+/).filter(Boolean);
+
+      if(parts.length === 1){
+        return parts[0].substring(0,2).toUpperCase();
+      }
+
+      return (
+        parts[0].charAt(0) +
+        parts[parts.length - 1].charAt(0)
+      ).toUpperCase();
+    }
+
+    function showLoading(show){
+      $("loadingScreen").style.display = show
+        ? "flex"
+        : "none";
+    }
+
+    function showUnavailable(title,message){
+      showLoading(false);
+
+      $("portfolioPage").style.display = "none";
+      $("unavailable").style.display = "flex";
+
+      $("unavailableTitle").textContent =
+        title || "Portfolio unavailable";
+
+      $("unavailableText").textContent =
+        message ||
+        "This portfolio could not be found or is not currently available.";
+    }
+
+    function sectionHasContent(id,hasContent){
+      $(id).style.display = hasContent
+        ? ""
+        : "none";
+    }
+
+    /* =========================================================
+       LOAD PORTFOLIO
+       ========================================================= */
+
+    async function loadPortfolio(){
+
+      try{
+
+        if(!portfolioId){
+          showUnavailable(
+            "Portfolio link is incomplete",
+            "This portfolio link does not contain a valid portfolio ID."
+          );
+          return;
+        }
+
+        /*
+          First try the public published version.
+
+          This works for anonymous visitors because the
+          public_view_published_portfolios policy allows SELECT
+          when is_published = true.
+        */
+
+        let portfolioResult =
+          await supabaseClient
+            .from("portfolios")
+            .select("*")
+            .eq("id",portfolioId)
+            .eq("is_published",true)
+            .maybeSingle();
+
+        if(portfolioResult.error){
+          console.error(
+            "Public portfolio error:",
+            portfolioResult.error
+          );
+        }
+
+        portfolio = portfolioResult.data || null;
+
+        /*
+          If it was not found publicly, check whether the current
+          visitor is the owner.
+
+          This allows the owner to preview an unpublished draft.
+        */
+
+        const userResult =
+          await supabaseClient.auth.getUser();
+
+        currentUser =
+          userResult.data?.user || null;
+
+        if(!portfolio && currentUser){
+
+          const ownerResult =
+            await supabaseClient
+              .from("portfolios")
+              .select("*")
+              .eq("id",portfolioId)
+              .eq("user_id",currentUser.id)
+              .maybeSingle();
+
+          if(ownerResult.error){
+            console.error(
+              "Owner portfolio error:",
+              ownerResult.error
+            );
+          }
+
+          portfolio =
+            ownerResult.data || null;
+
+          isOwner = !!portfolio;
+        }
+
+        if(!portfolio){
+
+          showUnavailable(
+            "Portfolio unavailable",
+            "This portfolio may not exist, or it may not have been published yet."
+          );
+
+          return;
+        }
+
+        isOwner =
+          !!currentUser &&
+          currentUser.id === portfolio.user_id;
+
+        /*
+          Load the three child tables.
+        */
+
+        const [
+          projectsResult,
+          experienceResult,
+          skillsResult
+        ] = await Promise.all([
+
+          supabaseClient
+            .from("portfolio_projects")
+            .select("*")
+            .eq("portfolio_id",portfolio.id)
+            .order("sort_order",{ascending:true}),
+
+          supabaseClient
+            .from("portfolio_experience")
+            .select("*")
+            .eq("portfolio_id",portfolio.id)
+            .order("sort_order",{ascending:true}),
+
+          supabaseClient
+            .from("portfolio_skills")
+            .select("*")
+            .eq("portfolio_id",portfolio.id)
+            .order("sort_order",{ascending:true})
+
+        ]);
+
+        if(projectsResult.error){
+          console.error(
+            "Projects error:",
+            projectsResult.error
+          );
+        }
+
+        if(experienceResult.error){
+          console.error(
+            "Experience error:",
+            experienceResult.error
+          );
+        }
+
+        if(skillsResult.error){
+          console.error(
+            "Skills error:",
+            skillsResult.error
+          );
+        }
+
+        projects =
+          projectsResult.data || [];
+
+        experience =
+          experienceResult.data || [];
+
+        skills =
+          skillsResult.data || [];
+
+        renderPortfolio();
+
+      }catch(error){
+
+        console.error(
+          "Portfolio loading error:",
+          error
+        );
+
+        showUnavailable(
+          "Unable to load portfolio",
+          "Something went wrong while loading this portfolio. Please try again."
+        );
+      }
+    }
+
+    /* =========================================================
+       RENDER
+       ========================================================= */
+
+    function renderPortfolio(){
+
+      /*
+        The current portfolios table does not have a separate
+        display-name column.
+
+        username is therefore used as the public portfolio name.
+        No fake "Your Name" fallback is used.
+      */
+
+      const displayName =
+        text(portfolio.username) ||
+        "CareerCraft Portfolio";
+
+      document.title =
+        `${displayName} | CareerCraft Portfolio`;
+
+      /* HERO */
+
+      $("name").textContent =
+        displayName;
+
+      const headline =
+        text(portfolio.headline);
+
+      if(headline){
+
+        $("headline").textContent =
+          headline;
+
+        $("headline").style.display =
+          "block";
+
+      }else{
+
+        $("headline").style.display =
+          "none";
+      }
+
+      const intro =
+        text(portfolio.intro);
+
+      if(intro){
+
+        $("intro").textContent =
+          intro;
+
+        $("intro").style.display =
+          "block";
+
+      }else{
+
+        $("intro").style.display =
+          "none";
+      }
+
+      /*
+        Profile photo.
+      */
+
+      const photo =
+        text(portfolio.profile_photo);
+
+      if(photo){
+
+        $("photoWrap").innerHTML = `
+          <img
+            src="${escapeHTML(photo)}"
+            alt="${escapeHTML(displayName)}"
+            onerror="this.parentElement.innerHTML='<div class=&quot;profile-initials&quot;>${escapeHTML(initials(displayName))}</div>'"
+          >
+        `;
+
+      }else{
+
+        $("photoWrap").innerHTML = `
+          <div class="profile-initials">
+            ${escapeHTML(initials(displayName))}
+          </div>
+        `;
+      }
+
+      $("photoWrap").style.display =
+        "block";
+
+      /*
+        Draft badge for owner.
+      */
+
+      if(
+        isOwner &&
+        !portfolio.is_published
+      ){
+
+        $("draftBadge").style.display =
+          "block";
+
+      }else{
+
+        $("draftBadge").style.display =
+          "none";
+      }
+
+      /*
+        Edit button only appears for the owner.
+      */
+
+      $("editButton").style.display =
+        isOwner
+          ? "inline-flex"
+          : "none";
+
+      renderAbout();
+      renderProjects();
+      renderExperience();
+      renderSkills();
+      renderContact();
+      renderNavigation();
+
+      $("footerName").textContent =
+        displayName;
+
+      $("footerYear").textContent =
+        new Date().getFullYear();
+
+      $("portfolioPage").style.display =
+        "block";
+
+      showLoading(false);
+    }
+
+    /* =========================================================
+       ABOUT
+       ========================================================= */
+
+    function renderAbout(){
+
+      const about =
+        text(portfolio.about);
+
+      const info = [];
+
+      if(text(portfolio.location)){
+
+        info.push(`
+          <div class="info-card">
+            <div class="info-label">Location</div>
+            <div class="info-value">
+              ${escapeHTML(portfolio.location)}
+            </div>
+          </div>
+        `);
+      }
+
+      if(text(portfolio.email)){
+
+        info.push(`
+          <div class="info-card">
+            <div class="info-label">Email</div>
+            <div class="info-value link">
+              ${escapeHTML(portfolio.email)}
+            </div>
+          </div>
+        `);
+      }
+
+      if(text(portfolio.website)){
+
+        info.push(`
+          <div class="info-card">
+            <div class="info-label">Website</div>
+            <div class="info-value link">
+              ${escapeHTML(portfolio.website)}
+            </div>
+          </div>
+        `);
+      }
+
+      if(text(portfolio.linkedin)){
+
+        info.push(`
+          <div class="info-card">
+            <div class="info-label">LinkedIn</div>
+            <div class="info-value link">
+              ${escapeHTML(portfolio.linkedin)}
+            </div>
+          </div>
+        `);
+      }
+
+      if(text(portfolio.github)){
+
+        info.push(`
+          <div class="info-card">
+            <div class="info-label">GitHub</div>
+            <div class="info-value link">
+              ${escapeHTML(portfolio.github)}
+            </div>
+          </div>
+        `);
+      }
+
+      const hasAbout =
+        !!about || info.length > 0;
+
+      sectionHasContent(
+        "aboutSection",
+        hasAbout
+      );
+
+      if(!hasAbout){
+        return;
+      }
+
+      if(about){
+
+        $("aboutText").textContent =
+          about;
+
+        $("aboutText").style.display =
+          "block";
+
+      }else{
+
+        $("aboutText").style.display =
+          "none";
+      }
+
+      $("infoGrid").innerHTML =
+        info.join("");
+    }
+
+    /* =========================================================
+       PROJECTS
+       ========================================================= */
+
+    function renderProjects(){
+
+      const validProjects =
+        projects.filter(project =>
+          text(project.title) ||
+          text(project.description) ||
+          text(project.link)
+        );
+
+      sectionHasContent(
+        "projectsSection",
+        validProjects.length > 0
+      );
+
+      if(!validProjects.length){
+        return;
+      }
+
+      $("projectsGrid").innerHTML =
+        validProjects.map((project,index) => {
+
+          const title =
+            text(project.title);
+
+          const description =
+            text(project.description);
+
+          const role =
+            text(project.role);
+
+          const tools =
+            text(project.tools);
+
+          const link =
+            text(project.link);
+
+          const image =
+            text(project.image_url);
+
+          const toolList =
+            tools
+              ? tools
+                  .split(",")
+                  .map(item => item.trim())
+                  .filter(Boolean)
+              : [];
+
+          let visual = "";
+
+          if(image){
+
+            visual = `
+              <img
+                src="${escapeHTML(image)}"
+                alt="${escapeHTML(title || "Project")}"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+              >
+              <div
+                class="project-visual-pattern"
+                style="display:none;">
+              </div>
+            `;
+
+          }else{
+
+            visual = `
+              <div class="project-visual-pattern"></div>
+            `;
+          }
+
+          return `
+            <article class="project-card">
+
+              <div class="project-visual">
+
+                ${visual}
+
+                <div class="project-number">
+                  ${String(index + 1).padStart(2,"0")}
+                </div>
+
+              </div>
+
+              <div class="project-body">
+
+                ${
+                  title
+                    ? `
+                      <h3 class="project-title">
+                        ${escapeHTML(title)}
+                      </h3>
+                    `
+                    : ""
+                }
+
+                ${
+                  description
+                    ? `
+                      <p class="project-description">
+                        ${escapeHTML(description)}
+                      </p>
+                    `
+                    : ""
+                }
+
+                ${
+                  role
+                    ? `
+                      <div class="project-role">
+                        <strong>Role:</strong>
+                        ${escapeHTML(role)}
+                      </div>
+                    `
+                    : ""
+                }
+
+                ${
+                  toolList.length
+                    ? `
+                      <div class="project-meta">
+                        ${toolList.map(tool => `
+                          <span class="tag">
+                            ${escapeHTML(tool)}
+                          </span>
+                        `).join("")}
+                      </div>
+                    `
+                    : ""
+                }
+
+                ${
+                  link
+                    ? `
+                      <a
+                        class="project-link"
+                        href="${escapeHTML(normalizeUrl(link))}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        View project →
+                      </a>
+                    `
+                    : ""
+                }
+
+              </div>
+
+            </article>
+          `;
+
+        }).join("");
+    }
+
+    /* =========================================================
+       EXPERIENCE
+       ========================================================= */
+
+    function renderExperience(){
+
+      const validExperience =
+        experience.filter(item =>
+          text(item.job_title) ||
+          text(item.company) ||
+          text(item.description)
+        );
+
+      sectionHasContent(
+        "experienceSection",
+        validExperience.length > 0
+      );
+
+      if(!validExperience.length){
+        return;
+      }
+
+      $("experienceTimeline").innerHTML =
+        validExperience.map(item => {
+
+          const jobTitle =
+            text(item.job_title);
+
+          const company =
+            text(item.company);
+
+          const start =
+            text(item.start_date);
+
+          const end =
+            text(item.end_date);
+
+          const description =
+            text(item.description);
+
+          let dates = "";
+
+          if(start && end){
+
+            dates =
+              `${escapeHTML(start)} — ${escapeHTML(end)}`;
+
+          }else if(start){
+
+            dates =
+              escapeHTML(start);
+
+          }else if(end){
+
+            dates =
+              escapeHTML(end);
+          }
+
+          return `
+            <article class="experience-item">
+
+              <div class="timeline-dot"></div>
+
+              ${
+                jobTitle
+                  ? `
+                    <h3 class="experience-title">
+                      ${escapeHTML(jobTitle)}
+                    </h3>
+                  `
+                  : ""
+              }
+
+              ${
+                company
+                  ? `
+                    <div class="experience-company">
+                      ${escapeHTML(company)}
+                    </div>
+                  `
+                  : ""
+              }
+
+              ${
+                dates
+                  ? `
+                    <div class="experience-date">
+                      ${dates}
+                    </div>
+                  `
+                  : ""
+              }
+
+              ${
+                description
+                  ? `
+                    <div class="experience-description">
+                      ${escapeHTML(description)}
+                    </div>
+                  `
+                  : ""
+              }
+
+            </article>
+          `;
+
+        }).join("");
+    }
+
+    /* =========================================================
+       SKILLS
+       ========================================================= */
+
+    function renderSkills(){
+
+      const validSkills =
+        skills
+          .map(item => text(item.skill))
+          .filter(Boolean);
+
+      sectionHasContent(
+        "skillsSection",
+        validSkills.length > 0
+      );
+
+      if(!validSkills.length){
+        return;
+      }
+
+      $("skillsList").innerHTML =
+        validSkills.map(skill => `
+          <span class="skill-pill">
+            ${escapeHTML(skill)}
+          </span>
+        `).join("");
+    }
+
+    /* =========================================================
+       CONTACT
+       ========================================================= */
+
+    function renderContact(){
+
+      const email =
+        text(portfolio.email);
+
+      const website =
+        text(portfolio.website);
+
+      const linkedin =
+        text(portfolio.linkedin);
+
+      const contactAction =
+        text(portfolio.contact_action);
+
+      let contactUrl = "";
+      let contactLabel = "";
+
+      if(
+        contactAction === "email" &&
+        email
+      ){
+
+        contactUrl =
+          `mailto:${email}`;
+
+        contactLabel =
+          "Email me →";
+
+      }else if(
+        contactAction === "website" &&
+        website
+      ){
+
+        contactUrl =
+          normalizeUrl(website);
+
+        contactLabel =
+          "Visit website →";
+
+      }else if(
+        contactAction === "linkedin" &&
+        linkedin
+      ){
+
+        contactUrl =
+          normalizeUrl(linkedin);
+
+        contactLabel =
+          "Connect on LinkedIn →";
+
+      }else if(email){
+
+        contactUrl =
+          `mailto:${email}`;
+
+        contactLabel =
+          "Email me →";
+
+      }else if(website){
+
+        contactUrl =
+          normalizeUrl(website);
+
+        contactLabel =
+          "Visit website →";
+
+      }else if(linkedin){
+
+        contactUrl =
+          normalizeUrl(linkedin);
+
+        contactLabel =
+          "Connect on LinkedIn →";
+      }
+
+      const contactText =
+        text(portfolio.about)
+          ? "If you'd like to discuss an opportunity, collaboration, or project, feel free to get in touch."
+          : "Feel free to get in touch.";
+
+      const hasContact =
+        !!contactUrl;
+
+      sectionHasContent(
+        "contactSection",
+        hasContact
+      );
+
+      if(!hasContact){
+        return;
+      }
+
+      $("contactText").textContent =
+        contactText;
+
+      $("contactButton").href =
+        contactUrl;
+
+      $("contactButton").textContent =
+        contactLabel;
+
+      $("contactButton").style.display =
+        "inline-flex";
+
+      if(
+        contactUrl.startsWith("mailto:")
+      ){
+
+        $("contactButton").removeAttribute(
+          "target"
+        );
+
+        $("contactButton").removeAttribute(
+          "rel"
+        );
+
+      }else{
+
+        $("contactButton").target =
+          "_blank";
+
+        $("contactButton").rel =
+          "noopener noreferrer";
+      }
+    }
+
+    /* =========================================================
+       NAVIGATION
+       ========================================================= */
+
+    function renderNavigation(){
+
+      const links = [];
+
+      if(
+        $("aboutSection").style.display !== "none"
+      ){
+
+        links.push(`
+          <a class="nav-link" href="#aboutSection">
+            About
+          </a>
+        `);
+      }
+
+      if(
+        $("projectsSection").style.display !== "none"
+      ){
+
+        links.push(`
+          <a class="nav-link" href="#projectsSection">
+            Projects
+          </a>
+        `);
+      }
+
+      if(
+        $("experienceSection").style.display !== "none"
+      ){
+
+        links.push(`
+          <a class="nav-link" href="#experienceSection">
+            Experience
+          </a>
+        `);
+      }
+
+      if(
+        $("skillsSection").style.display !== "none"
+      ){
+
+        links.push(`
+          <a class="nav-link" href="#skillsSection">
+            Skills
+          </a>
+        `);
+      }
+
+      if(
+        $("contactSection").style.display !== "none"
+      ){
+
+        links.push(`
+          <a class="nav-link" href="#contactSection">
+            Contact
+          </a>
+        `);
+      }
+
+      $("navigation").innerHTML =
+        links.join("");
+
+      $("portfolioNav").style.display =
+        links.length
+          ? "block"
+          : "none";
+    }
+
+    /* =========================================================
+       EDIT
+       ========================================================= */
+
+    function editPortfolio(){
+
+      if(!isOwner || !portfolioId){
+        return;
+      }
+
+      window.location.href =
+        `portfolio-builder.html?id=${encodeURIComponent(portfolioId)}`;
+    }
+
+    /* =========================================================
+       PRINT
+       ========================================================= */
+
+    function printPortfolio(){
+
+      window.print();
+    }
+
+    /* =========================================================
+       SHARE
+       ========================================================= */
+
+    function sharePortfolio(){
+
+      const url =
+        window.location.href;
+
+      $("shareInput").value =
+        url;
+
+      $("privateNote").style.display =
+        portfolio && !portfolio.is_published && isOwner
+          ? "block"
+          : "none";
+
+      $("shareModal").classList.add(
+        "open"
+      );
+    }
+
+    function closeShare(){
+
+      $("shareModal").classList.remove(
+        "open"
+      );
+    }
+
+    function closeShareOutside(event){
+
+      if(
+        event.target === $("shareModal")
+      ){
+
+        closeShare();
+      }
+    }
+
+    async function copyPortfolioLink(){
+
+      const url =
+        $("shareInput").value;
+
+      try{
+
+        await navigator.clipboard.writeText(
+          url
+        );
+
+        const button =
+          document.querySelector(".share-copy");
+
+        const original =
+          button.textContent;
+
+        button.textContent =
+          "Copied ✓";
+
+        setTimeout(() => {
+          button.textContent =
+            original;
+        },1500);
+
+      }catch(error){
+
+        $("shareInput").focus();
+        $("shareInput").select();
+
+        document.execCommand(
+          "copy"
+        );
+      }
+    }
+
+    /* =========================================================
+       ESCAPE KEY
+       ========================================================= */
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if(
+          event.key === "Escape"
+        ){
+
+          closeShare();
+        }
+      }
+    );
+
+    /* =========================================================
+       START
+       ========================================================= */
+
+    loadPortfolio();
+  </script>
 
 </body>
-</html>
+  </html>
