@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Presentation | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#0f172a;
+  color:#fff;
+  min-height:100vh;
+}
+
+button{
+  font:inherit;
+  cursor:pointer;
+}
+
+.topbar{
+  height:64px;
+  background:#111827;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 22px;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:20;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-weight:800;
+  font-size:19px;
+}
+
+.logo{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#2563eb,#7c3aed);
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+}
+
+.btn{
+  border:0;
+  border-radius:9px;
+  padding:9px 14px;
+  font-weight:700;
+}
+
+.btn-light{
+  background:#fff;
+  color:#111827;
+}
+
+.btn-dark{
+  background:#1f2937;
+  color:#fff;
+  border:1px solid #374151;
+}
+
+.viewer{
+  padding-top:64px;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+.presentation-info{
+  text-align:center;
+  padding:24px 15px 12px;
+}
+
+.presentation-info h1{
+  font-size:25px;
+  margin-bottom:5px;
+}
+
+.presentation-info p{
+  color:#94a3b8;
+  font-size:14px;
+}
+
+.stage-area{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  position:relative;
+}
+
+.slide{
+  width:min(1000px,92vw);
+  aspect-ratio:16/9;
+  border-radius:8px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 25px 70px rgba(0,0,0,.4);
+  color:#111827;
+}
+
+.slide.light{
+  background:#fff;
+}
+
+.slide.blue{
+  background:linear-gradient(135deg,#1d4ed8,#4f46e5);
+  color:#fff;
+}
+
+.slide.purple{
+  background:linear-gradient(135deg,#6d28d9,#9333ea);
+  color:#fff;
+}
+
+.slide.green{
+  background:linear-gradient(135deg,#047857,#059669);
+  color:#fff;
+}
+
+.slide.dark{
+  background:#111827;
+  color:#fff;
+}
+
+.slide-inner{
+  width:100%;
+  height:100%;
+  padding:9%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.slide-title{
+  font-size:clamp(27px,5vw,60px);
+  line-height:1.08;
+  font-weight:850;
+  white-space:pre-wrap;
+  margin-bottom:18px;
+}
+
+.slide-subtitle{
+  font-size:clamp(15px,2.2vw,27px);
+  color:#64748b;
+  white-space:pre-wrap;
+  margin-bottom:20px;
+}
+
+.slide.blue .slide-subtitle,
+.slide.purple .slide-subtitle,
+.slide.green .slide-subtitle,
+.slide.dark .slide-subtitle{
+  color:rgba(255,255,255,.75);
+}
+
+.slide-content{
+  font-size:clamp(14px,1.8vw,21px);
+  line-height:1.65;
+  white-space:pre-wrap;
+}
+
+.slide-image{
+  display:block;
+  max-width:100%;
+  max-height:43%;
+  object-fit:contain;
+  border-radius:12px;
+  margin-top:22px;
+}
+
+.title-layout{
+  text-align:center;
+  align-items:center;
+}
+
+.two-column{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  align-items:center;
+}
+
+.image-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  align-items:center;
+}
+
+.image-layout .slide-image{
+  width:100%;
+  max-height:70%;
+  margin:0;
+}
+
+.navigation{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  padding:18px;
+}
+
+.nav-btn{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  border:1px solid #334155;
+  background:#1e293b;
+  color:#fff;
+  font-size:20px;
+}
+
+.nav-btn:disabled{
+  opacity:.35;
+  cursor:not-allowed;
+}
+
+.counter{
+  color:#94a3b8;
+  min-width:90px;
+  text-align:center;
+  font-size:14px;
+}
+
+.loading,
+.error{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:25px;
+}
+
+.loading h2,
+.error h2{
+  margin-bottom:8px;
+}
+
+.loading p,
+.error p{
+  color:#94a3b8;
+  max-width:500px;
+}
+
+.error button{
+  margin-top:18px;
+}
+
+.hidden{
+  display:none !important;
+}
+
+@media(max-width:650px){
+
+  .topbar{
+    padding:0 12px;
+  }
+
+  .brand{
+    font-size:16px;
+  }
+
+  .actions .btn{
+    padding:8px 10px;
+    font-size:12px;
+  }
+
+  .presentation-info{
+    padding-top:18px;
+  }
+
+  .presentation-info h1{
+    font-size:20px;
+  }
+
+  .stage-area{
+    padding:12px;
+  }
+
+  .slide{
+    width:96vw;
+  }
+
+  .two-column,
+  .image-layout{
+    grid-template-columns:1fr;
+    gap:15px;
+  }
+
+  .slide-image{
+    max-height:30%;
+  }
+
+  .navigation{
+    padding:12px;
+  }
+}
+
+@media print{
+
+  .topbar,
+  .presentation-info,
+  .navigation{
+    display:none;
+  }
+
+  body{
+    background:#fff;
+  }
+
+  .viewer{
+    padding:0;
+  }
+
+  .stage-area{
+    padding:0;
+  }
+
+  .slide{
+    width:100%;
+    box-shadow:none;
+    page-break-after:always;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="loadingScreen" class="loading">
+  <h2>Loading presentation...</h2>
+  <p>Please wait.</p>
+</div>
+
+<div id="errorScreen" class="error hidden">
+  <h2 id="errorTitle">Unable to load presentation</h2>
+  <p id="errorMessage"></p>
+  <button class="btn btn-light" onclick="window.location.href='index.html'">
+    Go to CareerCraft
+  </button>
+</div>
+
+<div id="viewer" class="viewer hidden">
+
+  <header class="topbar">
+
+    <div class="brand">
+      <div class="logo">C</div>
+      CareerCraft
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-dark" onclick="sharePresentation()">
+        Share
+      </button>
+
+      <button class="btn btn-light" onclick="printPresentation()">
+        Print
+      </button>
+    </div>
+
+  </header>
+
+  <section class="presentation-info">
+
+    <h1 id="presentationTitle"></h1>
+
+    <p id="presentationDescription"></p>
+
+  </section>
+
+  <main class="stage-area">
+
+    <div id="slideContainer" class="slide"></div>
+
+  </main>
+
+  <div class="navigation">
+
+    <button
+      id="previousButton"
+      class="nav-btn"
+      onclick="previousSlide()"
+    >
+      ‹
+    </button>
+
+    <div id="slideCounter" class="counter">
+      1 / 1
+    </div>
+
+    <button
+      id="nextButton"
+      class="nav-btn"
+      onclick="nextSlide()"
+    >
+      ›
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+/* =========================================================
+   SUPABASE
+   ========================================================= */
+
+const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+let presentation = null;
+let slides = [];
+let currentSlide = 0;
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", loadPresentation);
+
+
+/* =========================================================
+   LOAD PRESENTATION
+   ========================================================= */
+
+async function loadPresentation(){
+
+  const params =
+    new URLSearchParams(window.location.search);
+
+  const presentationId =
+    params.get("id");
+
+  if(!presentationId){
+
+    showError(
+      "Presentation not found",
+      "This presentation link does not contain a presentation ID."
+    );
+
+    return;
+  }
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("presentations")
+    .select("*")
+    .eq("id", presentationId)
+    .single();
+
+  if(error || !data){
+
+    showError(
+      "Presentation not found",
+      "The presentation does not exist or is no longer available."
+    );
+
+    return;
+  }
+
+
+  /* Allow public access only when published.
+     Owner can still preview their own draft. */
+
+  let allowed =
+    data.is_published === true;
+
+  if(!allowed){
+
+    const {
+      data:{
+        session
+      }
+    } = await supabaseClient.auth.getSession();
+
+    if(
+      session &&
+      session.user &&
+      session.user.id === data.user_id
+    ){
+      allowed = true;
+    }
+  }
+
+  if(!allowed){
+
+    showError(
+      "Presentation is private",
+      "This presentation has not been published yet."
+    );
+
+    return;
+  }
+
+
+  presentation = data;
+
+
+  const {
+    data:slideData,
+    error:slideError
+  } = await supabaseClient
+    .from("presentation_slides")
+    .select("*")
+    .eq("presentation_id", presentationId)
+    .order("slide_order", {
+      ascending:true
+    });
+
+
+  if(slideError){
+
+    showError(
+      "Unable to load slides",
+      slideError.message
+    );
+
+    return;
+  }
+
+
+  slides = slideData || [];
+
+
+  if(slides.length === 0){
+
+    showError(
+      "No slides found",
+      "This presentation does not contain any slides yet."
+    );
+
+    return;
+  }
+
+
+  document.getElementById("presentationTitle")
+    .textContent =
+    presentation.title ||
+    "Untitled Presentation";
+
+  document.getElementById("presentationDescription")
+    .textContent =
+    presentation.description || "";
+
+
+  document.title =
+    (presentation.title || "Presentation") +
+    " | CareerCraft";
+
+
+  document.getElementById("loadingScreen")
+    .classList.add("hidden");
+
+  document.getElementById("viewer")
+    .classList.remove("hidden");
+
+
+  renderSlide();
+
+}
+
+
+/* =========================================================
+   RENDER SLIDE
+   ========================================================= */
+
+function renderSlide(){
+
+  const slide =
+    slides[currentSlide];
+
+  if(!slide) return;
+
+
+  const container =
+    document.getElementById("slideContainer");
+
+
+  container.className =
+    "slide " +
+    (slide.background || "light");
+
+
+  let layoutClass = "";
+
+  if(slide.layout === "title"){
+    layoutClass = "title-layout";
+  }
+
+  if(slide.layout === "two_column"){
+    layoutClass = "two-column";
+  }
+
+  if(slide.layout === "image"){
+    layoutClass = "image-layout";
+  }
+
+
+  const imageHTML =
+    slide.image_url
+      ? `
+        <img
+          class="slide-image"
+          src="${escapeHtml(slide.image_url)}"
+          alt=""
+          onerror="this.style.display='none'"
+        >
+      `
+      : "";
+
+
+  if(
+    slide.layout === "two_column" ||
+    slide.layout === "image"
+  ){
+
+    container.innerHTML = `
+
+      <div class="slide-inner ${layoutClass}">
+
+        <div>
+
+          <div class="slide-title">
+            ${escapeHtml(slide.title || "")}
+          </div>
+
+          <div class="slide-subtitle">
+            ${escapeHtml(slide.subtitle || "")}
+          </div>
+
+          <div class="slide-content">
+            ${escapeHtml(slide.content || "")}
+          </div>
+
+        </div>
+
+        ${imageHTML}
+
+      </div>
+
+    `;
+
+  }else{
+
+    container.innerHTML = `
+
+      <div class="slide-inner ${layoutClass}">
+
+        <div class="slide-title">
+          ${escapeHtml(slide.title || "")}
+        </div>
+
+        <div class="slide-subtitle">
+          ${escapeHtml(slide.subtitle || "")}
+        </div>
+
+        <div class="slide-content">
+          ${escapeHtml(slide.content || "")}
+        </div>
+
+        ${imageHTML}
+
+      </div>
+
+    `;
+
+  }
+
+
+  document.getElementById("slideCounter")
+    .textContent =
+    `${currentSlide + 1} / ${slides.length}`;
+
+
+  document.getElementById("previousButton")
+    .disabled =
+    currentSlide === 0;
+
+
+  document.getElementById("nextButton")
+    .disabled =
+    currentSlide === slides.length - 1;
+
+}
+
+
+/* =========================================================
+   NEXT
+   ========================================================= */
+
+function nextSlide(){
+
+  if(currentSlide >= slides.length - 1){
+    return;
+  }
+
+  currentSlide++;
+
+  renderSlide();
+
+}
+
+
+/* =========================================================
+   PREVIOUS
+   ========================================================= */
+
+function previousSlide(){
+
+  if(currentSlide <= 0){
+    return;
+  }
+
+  currentSlide--;
+
+  renderSlide();
+
+}
+
+
+/* =========================================================
+   KEYBOARD
+   ========================================================= */
+
+document.addEventListener("keydown", event => {
+
+  if(event.key === "ArrowRight"){
+    nextSlide();
+  }
+
+  if(event.key === "ArrowLeft"){
+    previousSlide();
+  }
+
+});
+
+
+/* =========================================================
+   SHARE
+   ========================================================= */
+
+async function sharePresentation(){
+
+  const url =
+    window.location.href;
+
+  if(
+    navigator.share
+  ){
+
+    try{
+
+      await navigator.share({
+        title:
+          presentation?.title ||
+          "CareerCraft Presentation",
+        text:
+          presentation?.description ||
+          "View this presentation on CareerCraft.",
+        url
+      });
+
+    }catch(error){
+
+      if(error.name !== "AbortError"){
+        copyLink(url);
+      }
+
+    }
+
+  }else{
+
+    copyLink(url);
+
+  }
+
+}
+
+
+async function copyLink(url){
+
+  try{
+
+    await navigator.clipboard.writeText(url);
+
+    alert("Presentation link copied.");
+
+  }catch(error){
+
+    prompt(
+      "Copy this presentation link:",
+      url
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+function printPresentation(){
+
+  window.print();
+
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+function showError(title,message){
+
+  document.getElementById("loadingScreen")
+    .classList.add("hidden");
+
+  document.getElementById("viewer")
+    .classList.add("hidden");
+
+  document.getElementById("errorTitle")
+    .textContent = title;
+
+  document.getElementById("errorMessage")
+    .textContent = message;
+
+  document.getElementById("errorScreen")
+    .classList.remove("hidden");
+
+}
+
+
+/* =========================================================
+   SECURITY / HTML ESCAPING
+   ========================================================= */
+
+function escapeHtml(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+    return "";
+  }
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+</script>
+
+</body>
+  </html>
