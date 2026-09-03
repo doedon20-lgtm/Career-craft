@@ -1,376 +1,949 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Communities | CareerCraft</title>
+<title>Communities | CareerCraft</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #172033;
-    }
+:root{
+  --primary:#2563eb;
+  --primary-dark:#1d4ed8;
+  --secondary:#4f46e5;
+  --bg:#f5f7fb;
+  --card:#ffffff;
+  --text:#172033;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --success:#16a34a;
+  --danger:#dc2626;
+  --shadow:0 8px 30px rgba(15,23,42,.07);
+}
 
-    header {
-      background: white;
-      border-bottom: 1px solid #e5e7eb;
-      padding: 15px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
 
-    .header-inner {
-      max-width: 1100px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
+button,
+input,
+textarea{
+  font:inherit;
+}
 
-    .logo {
-      font-size: 23px;
-      font-weight: 800;
-      color: #2563eb;
-      text-decoration: none;
-    }
+button{
+  cursor:pointer;
+}
 
-    .back-btn {
-      text-decoration: none;
-      color: #374151;
-      font-size: 14px;
-      font-weight: 600;
-    }
+a{
+  text-decoration:none;
+  color:inherit;
+}
 
-    main {
-      max-width: 1100px;
-      margin: auto;
-      padding: 30px 18px 100px;
-    }
+/* ================= HEADER ================= */
 
-    .hero {
-      background: linear-gradient(135deg, #2563eb, #4f46e5);
-      color: white;
-      border-radius: 22px;
-      padding: 30px;
-      margin-bottom: 25px;
-    }
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
 
-    .hero h1 {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
+.header-inner{
+  max-width:1250px;
+  margin:auto;
+  min-height:68px;
+  padding:0 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
 
-    .hero p {
-      opacity: .92;
-      line-height: 1.6;
-      max-width: 650px;
-    }
+.logo{
+  font-size:24px;
+  font-weight:900;
+  color:var(--primary);
+}
 
-    .top-actions {
-      margin-top: 22px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+.header-nav{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
 
-    button {
-      border: none;
-      cursor: pointer;
-      font-weight: 700;
-    }
+.nav-link{
+  padding:9px 12px;
+  border-radius:9px;
+  color:#4b5563;
+  font-size:14px;
+  font-weight:700;
+}
 
-    .create-btn {
-      background: white;
-      color: #2563eb;
-      padding: 12px 18px;
-      border-radius: 10px;
-    }
+.nav-link:hover{
+  background:#f1f5f9;
+  color:var(--primary);
+}
 
-    .refresh-btn {
-      background: rgba(255,255,255,.18);
-      color: white;
-      padding: 12px 18px;
-      border-radius: 10px;
-    }
+.profile-btn{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  border:0;
+  background:#eff6ff;
+  color:var(--primary);
+  font-weight:800;
+}
 
-    .toolbar {
-      background: white;
-      padding: 15px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      border: 1px solid #e5e7eb;
-    }
+/* ================= LAYOUT ================= */
 
-    #searchInput {
-      width: 100%;
-      padding: 13px 15px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      outline: none;
-      font-size: 15px;
-    }
+.page{
+  max-width:1250px;
+  margin:auto;
+  padding:25px 20px 100px;
+}
 
-    #searchInput:focus {
-      border-color: #2563eb;
-    }
+.layout{
+  display:grid;
+  grid-template-columns:240px minmax(0,1fr) 280px;
+  gap:22px;
+  align-items:start;
+}
 
-    #communitiesList {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-    }
+/* ================= HERO ================= */
 
-    .community-card {
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 17px;
-      padding: 22px;
-      transition: .2s;
-    }
+.hero{
+  background:linear-gradient(135deg,#2563eb,#4f46e5);
+  color:white;
+  border-radius:24px;
+  padding:30px;
+  margin-bottom:22px;
+  box-shadow:0 15px 40px rgba(37,99,235,.18);
+}
 
-    .community-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0,0,0,.07);
-    }
+.hero-content{
+  display:flex;
+  justify-content:space-between;
+  gap:25px;
+  align-items:center;
+}
 
-    .community-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 14px;
-      background: #eff6ff;
-      color: #2563eb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 23px;
-      margin-bottom: 15px;
-    }
+.hero h1{
+  font-size:32px;
+  margin-bottom:10px;
+}
 
-    .community-card h3 {
-      font-size: 19px;
-      margin-bottom: 8px;
-    }
+.hero p{
+  max-width:680px;
+  line-height:1.65;
+  opacity:.94;
+}
 
-    .community-card p {
-      color: #6b7280;
-      line-height: 1.5;
-      min-height: 48px;
-      margin-bottom: 18px;
-    }
+.hero-actions{
+  display:flex;
+  gap:10px;
+  flex-shrink:0;
+}
 
-    .view-btn {
-      width: 100%;
-      padding: 12px;
-      background: #2563eb;
-      color: white;
-      border-radius: 10px;
-    }
+.primary-btn{
+  border:0;
+  background:white;
+  color:var(--primary);
+  padding:12px 18px;
+  border-radius:11px;
+  font-weight:800;
+}
 
-    .view-btn:hover {
-      background: #1d4ed8;
-    }
+.primary-btn:hover{
+  background:#f8fafc;
+}
 
-    .loading,
-    .empty-state,
-    .error-state {
-      grid-column: 1 / -1;
-      background: white;
-      border-radius: 17px;
-      padding: 45px 20px;
-      text-align: center;
-      border: 1px solid #e5e7eb;
-    }
+.secondary-btn{
+  border:1px solid rgba(255,255,255,.25);
+  background:rgba(255,255,255,.14);
+  color:white;
+  padding:12px 18px;
+  border-radius:11px;
+  font-weight:800;
+}
 
-    .loading {
-      color: #6b7280;
-    }
+/* ================= SIDEBAR ================= */
 
-    .empty-state h3,
-    .error-state h3 {
-      margin-bottom: 8px;
-    }
+.sidebar-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:17px;
+  margin-bottom:18px;
+  box-shadow:var(--shadow);
+}
 
-    .empty-state p,
-    .error-state p {
-      color: #6b7280;
-      margin-bottom: 18px;
-    }
+.sidebar-title{
+  font-size:14px;
+  font-weight:900;
+  margin-bottom:12px;
+}
 
-    .retry-btn {
-      background: #2563eb;
-      color: white;
-      padding: 11px 18px;
-      border-radius: 9px;
-    }
+.sidebar-item{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  border:0;
+  background:transparent;
+  padding:10px 8px;
+  border-radius:10px;
+  text-align:left;
+  color:#4b5563;
+  font-weight:700;
+}
 
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.55);
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
+.sidebar-item:hover{
+  background:#f1f5f9;
+  color:var(--primary);
+}
 
-    .modal.active {
-      display: flex;
-    }
+.sidebar-icon{
+  width:34px;
+  height:34px;
+  border-radius:9px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#eff6ff;
+  color:var(--primary);
+}
 
-    .modal-box {
-      width: 100%;
-      max-width: 500px;
-      background: white;
-      border-radius: 18px;
-      padding: 25px;
-    }
+/* ================= SEARCH ================= */
 
-    .modal-box h2 {
-      margin-bottom: 20px;
-    }
+.search-box{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:13px;
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  box-shadow:var(--shadow);
+}
 
-    .form-group {
-      margin-bottom: 16px;
-    }
+.search-box span{
+  font-size:20px;
+}
 
-    .form-group label {
-      display: block;
-      font-weight: 700;
-      margin-bottom: 7px;
-    }
+.search-box input{
+  border:0;
+  outline:0;
+  width:100%;
+  font-size:15px;
+}
 
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 15px;
-      outline: none;
-      font-family: inherit;
-    }
+/* ================= SECTION ================= */
 
-    .form-group textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
+.section{
+  margin-bottom:25px;
+}
 
-    .modal-actions {
-      display: flex;
-      gap: 10px;
-      justify-content: flex-end;
-      margin-top: 20px;
-    }
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:13px;
+}
 
-    .cancel-btn {
-      background: #e5e7eb;
-      padding: 12px 18px;
-      border-radius: 9px;
-    }
+.section-title{
+  font-size:20px;
+  font-weight:900;
+}
 
-    .submit-btn {
-      background: #2563eb;
-      color: white;
-      padding: 12px 18px;
-      border-radius: 9px;
-    }
+.section-link{
+  border:0;
+  background:none;
+  color:var(--primary);
+  font-weight:800;
+}
 
-    .message {
-      margin-top: 12px;
-      font-size: 14px;
-    }
+/* ================= COMMUNITY GRID ================= */
 
-    @media (max-width: 700px) {
-      #communitiesList {
-        grid-template-columns: 1fr;
-      }
+.community-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
 
-      .hero {
-        padding: 23px;
-      }
+.community-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:19px;
+  transition:.2s;
+  box-shadow:var(--shadow);
+}
 
-      .hero h1 {
-        font-size: 26px;
-      }
+.community-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 35px rgba(15,23,42,.10);
+}
 
-      main {
-        padding: 20px 13px 90px;
-      }
-    }
-  </style>
+.community-top{
+  display:flex;
+  gap:13px;
+  align-items:flex-start;
+}
+
+.community-avatar{
+  width:52px;
+  height:52px;
+  flex-shrink:0;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#dbeafe,#e0e7ff);
+  color:var(--primary);
+  font-size:23px;
+  font-weight:900;
+}
+
+.community-name{
+  font-size:18px;
+  font-weight:900;
+  margin-bottom:5px;
+}
+
+.community-description{
+  color:var(--muted);
+  line-height:1.55;
+  font-size:14px;
+}
+
+.community-meta{
+  display:flex;
+  gap:15px;
+  color:#64748b;
+  font-size:12px;
+  margin:16px 0;
+}
+
+.community-actions{
+  display:flex;
+  gap:8px;
+}
+
+.view-community{
+  flex:1;
+  background:var(--primary);
+  color:white;
+  border:0;
+  padding:11px;
+  border-radius:10px;
+  font-weight:800;
+}
+
+.view-community:hover{
+  background:var(--primary-dark);
+}
+
+.join-community{
+  padding:11px 14px;
+  border:1px solid #bfdbfe;
+  background:#eff6ff;
+  color:var(--primary);
+  border-radius:10px;
+  font-weight:800;
+}
+
+/* ================= RIGHT PANEL ================= */
+
+.trending-item{
+  padding:11px 0;
+  border-bottom:1px solid #f1f5f9;
+}
+
+.trending-item:last-child{
+  border-bottom:0;
+}
+
+.trending-number{
+  font-size:12px;
+  color:var(--primary);
+  font-weight:900;
+}
+
+.trending-name{
+  margin-top:3px;
+  font-weight:800;
+  font-size:14px;
+}
+
+.trending-desc{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:3px;
+}
+
+.info-list{
+  list-style:none;
+}
+
+.info-list li{
+  padding:9px 0;
+  font-size:13px;
+  color:#64748b;
+  line-height:1.45;
+}
+
+/* ================= LOADING ================= */
+
+.loading-card,
+.empty-card,
+.error-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:45px 20px;
+  text-align:center;
+  grid-column:1/-1;
+}
+
+.spinner{
+  width:35px;
+  height:35px;
+  border:4px solid #dbeafe;
+  border-top-color:var(--primary);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 15px;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg);}
+}
+
+.empty-card h3,
+.error-card h3{
+  margin-bottom:8px;
+}
+
+.empty-card p,
+.error-card p{
+  color:var(--muted);
+  margin-bottom:17px;
+}
+
+.retry-btn{
+  border:0;
+  background:var(--primary);
+  color:white;
+  padding:11px 18px;
+  border-radius:10px;
+  font-weight:800;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(15,23,42,.6);
+}
+
+.modal.active{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:540px;
+  max-height:90vh;
+  overflow:auto;
+  background:white;
+  border-radius:22px;
+  padding:25px;
+  box-shadow:0 25px 70px rgba(0,0,0,.2);
+}
+
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.modal-header h2{
+  font-size:23px;
+}
+
+.close-modal{
+  width:36px;
+  height:36px;
+  border:0;
+  border-radius:50%;
+  background:#f1f5f9;
+  color:#475569;
+  font-size:20px;
+}
+
+.form-group{
+  margin-bottom:17px;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:7px;
+  font-weight:800;
+  font-size:14px;
+}
+
+.form-group input,
+.form-group textarea{
+  width:100%;
+  border:1px solid #d1d5db;
+  border-radius:11px;
+  padding:13px;
+  outline:none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px #dbeafe;
+}
+
+.form-group textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.modal-footer{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:20px;
+}
+
+.cancel-btn{
+  border:0;
+  background:#e5e7eb;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:800;
+}
+
+.submit-btn{
+  border:0;
+  background:var(--primary);
+  color:white;
+  padding:12px 20px;
+  border-radius:10px;
+  font-weight:800;
+}
+
+.submit-btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.form-message{
+  margin-top:10px;
+  font-size:13px;
+  color:var(--danger);
+}
+
+/* ================= MOBILE NAV ================= */
+
+.mobile-nav{
+  display:none;
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  border-top:1px solid var(--border);
+  z-index:60;
+  padding:7px 5px;
+}
+
+.mobile-nav-inner{
+  display:flex;
+  justify-content:space-around;
+}
+
+.mobile-nav button{
+  border:0;
+  background:none;
+  color:#64748b;
+  font-size:11px;
+  font-weight:700;
+  padding:6px;
+}
+
+.mobile-nav .active{
+  color:var(--primary);
+}
+
+.mobile-nav-icon{
+  display:block;
+  font-size:19px;
+  margin-bottom:2px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1050px){
+  .layout{
+    grid-template-columns:200px minmax(0,1fr);
+  }
+
+  .right-sidebar{
+    display:none;
+  }
+}
+
+@media(max-width:750px){
+  .header-nav{
+    display:none;
+  }
+
+  .page{
+    padding:15px 12px 90px;
+  }
+
+  .layout{
+    display:block;
+  }
+
+  .left-sidebar{
+    display:none;
+  }
+
+  .hero{
+    padding:22px;
+    border-radius:19px;
+  }
+
+  .hero-content{
+    display:block;
+  }
+
+  .hero h1{
+    font-size:26px;
+  }
+
+  .hero-actions{
+    margin-top:18px;
+  }
+
+  .community-grid{
+    grid-template-columns:1fr;
+  }
+
+  .mobile-nav{
+    display:block;
+  }
+}
+</style>
 </head>
 
 <body>
 
+<!-- ================= HEADER ================= -->
+
 <header>
   <div class="header-inner">
-    <a href="index.html" class="logo">CareerCraft</a>
-    <a href="index.html" class="back-btn">← Back</a>
+
+    <a href="index.html" class="logo">
+      CareerCraft
+    </a>
+
+    <nav class="header-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+      <a href="job-finder.html" class="nav-link">Jobs</a>
+      <a href="communities.html" class="nav-link">Communities</a>
+    </nav>
+
+    <button
+      class="profile-btn"
+      onclick="goProfile()"
+      title="Profile"
+    >
+      👤
+    </button>
+
   </div>
 </header>
 
-<main>
+
+<!-- ================= PAGE ================= -->
+
+<main class="page">
 
   <section class="hero">
-    <h1>Career Communities</h1>
 
-    <p>
-      Connect with professionals, share ideas, ask questions,
-      discover opportunities and grow your career together.
-    </p>
+    <div class="hero-content">
 
-    <div class="top-actions">
-      <button class="create-btn" onclick="openCreateModal()">
-        + Create Community
-      </button>
+      <div>
+        <h1>Career Communities</h1>
 
-      <button class="refresh-btn" onclick="loadCommunities()">
-        ↻ Refresh
-      </button>
+        <p>
+          Connect with professionals, exchange knowledge,
+          ask questions, discover opportunities and grow
+          your career with the CareerCraft community.
+        </p>
+      </div>
+
+      <div class="hero-actions">
+
+        <button
+          class="primary-btn"
+          onclick="openCreateModal()"
+        >
+          + Create Community
+        </button>
+
+        <button
+          class="secondary-btn"
+          onclick="loadCommunities()"
+        >
+          ↻ Refresh
+        </button>
+
+      </div>
+
     </div>
+
   </section>
 
-  <div class="toolbar">
-    <input
-      type="search"
-      id="searchInput"
-      placeholder="Search communities..."
-      oninput="filterCommunities()"
-    >
+
+  <div class="layout">
+
+    <!-- ================= LEFT SIDEBAR ================= -->
+
+    <aside class="left-sidebar">
+
+      <div class="sidebar-card">
+
+        <div class="sidebar-title">
+          Explore
+        </div>
+
+        <button class="sidebar-item" onclick="showAll()">
+          <span class="sidebar-icon">🌎</span>
+          All Communities
+        </button>
+
+        <button class="sidebar-item" onclick="showPopular()">
+          <span class="sidebar-icon">🔥</span>
+          Popular
+        </button>
+
+        <button class="sidebar-item" onclick="showRecent()">
+          <span class="sidebar-icon">✨</span>
+          New Communities
+        </button>
+
+        <button class="sidebar-item" onclick="showMine()">
+          <span class="sidebar-icon">👤</span>
+          My Communities
+        </button>
+
+      </div>
+
+      <div class="sidebar-card">
+
+        <div class="sidebar-title">
+          Career Topics
+        </div>
+
+        <button class="sidebar-item"
+          onclick="searchTopic('technology')">
+          💻 Technology
+        </button>
+
+        <button class="sidebar-item"
+          onclick="searchTopic('business')">
+          💼 Business
+        </button>
+
+        <button class="sidebar-item"
+          onclick="searchTopic('design')">
+          🎨 Design
+        </button>
+
+        <button class="sidebar-item"
+          onclick="searchTopic('finance')">
+          💰 Finance
+        </button>
+
+        <button class="sidebar-item"
+          onclick="searchTopic('marketing')">
+          📣 Marketing
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <section>
+
+      <div class="search-box">
+
+        <span>🔎</span>
+
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search communities..."
+          oninput="filterCommunities()"
+        >
+
+      </div>
+
+
+      <div class="section">
+
+        <div class="section-header">
+
+          <h2 class="section-title">
+            Discover Communities
+          </h2>
+
+          <button
+            class="section-link"
+            onclick="showAll()"
+          >
+            View all
+          </button>
+
+        </div>
+
+        <div
+          id="communitiesList"
+          class="community-grid"
+        >
+
+          <div class="loading-card">
+
+            <div class="spinner"></div>
+
+            <p>
+              Loading communities...
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= RIGHT SIDEBAR ================= -->
+
+    <aside class="right-sidebar">
+
+      <div class="sidebar-card">
+
+        <div class="sidebar-title">
+          🔥 Popular Communities
+        </div>
+
+        <div id="trendingList">
+          <p style="color:#6b7280;font-size:13px;">
+            Loading...
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="sidebar-card">
+
+        <div class="sidebar-title">
+          💡 Community Guidelines
+        </div>
+
+        <ul class="info-list">
+
+          <li>
+            🤝 Be respectful and professional.
+          </li>
+
+          <li>
+            💬 Keep conversations career-focused.
+          </li>
+
+          <li>
+            🚫 Don't spam or post misleading content.
+          </li>
+
+          <li>
+            📚 Share useful knowledge and opportunities.
+          </li>
+
+        </ul>
+
+      </div>
+
+    </aside>
+
   </div>
-
-  <section id="communitiesList">
-    <div class="loading">
-      Loading communities...
-    </div>
-  </section>
 
 </main>
 
-<!-- CREATE COMMUNITY MODAL -->
 
-<div class="modal" id="createModal">
+<!-- ================= CREATE COMMUNITY MODAL ================= -->
+
+<div
+  class="modal"
+  id="createModal"
+>
 
   <div class="modal-box">
 
-    <h2>Create Community</h2>
+    <div class="modal-header">
+
+      <h2>Create Community</h2>
+
+      <button
+        class="close-modal"
+        onclick="closeCreateModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
 
     <form id="createCommunityForm">
 
       <div class="form-group">
+
         <label for="communityName">
           Community Name
         </label>
@@ -379,27 +952,36 @@
           id="communityName"
           type="text"
           placeholder="e.g. Career Growth"
-          required
           maxlength="100"
+          required
         >
+
       </div>
 
+
       <div class="form-group">
+
         <label for="communityDescription">
           Description
         </label>
 
         <textarea
           id="communityDescription"
-          placeholder="What is this community about?"
-          required
+          placeholder="Tell people what this community is about..."
           maxlength="500"
+          required
         ></textarea>
+
       </div>
 
-      <div id="createMessage" class="message"></div>
 
-      <div class="modal-actions">
+      <div
+        id="createMessage"
+        class="form-message"
+      ></div>
+
+
+      <div class="modal-footer">
 
         <button
           type="button"
@@ -425,87 +1007,241 @@
 
 </div>
 
+
+<!-- ================= MOBILE NAV ================= -->
+
+<nav class="mobile-nav">
+
+  <div class="mobile-nav-inner">
+
+    <button onclick="location.href='index.html'">
+      <span class="mobile-nav-icon">🏠</span>
+      Home
+    </button>
+
+    <button onclick="location.href='job-finder.html'">
+      <span class="mobile-nav-icon">💼</span>
+      Jobs
+    </button>
+
+    <button class="active">
+      <span class="mobile-nav-icon">👥</span>
+      Communities
+    </button>
+
+    <button onclick="location.href='dashboard.html'">
+      <span class="mobile-nav-icon">📊</span>
+      Dashboard
+    </button>
+
+  </div>
+
+</nav>
+
+
 <script>
-/* =========================================
-   SUPABASE CONFIGURATION
-========================================= */
 
-const SUPABASE_URL = "https://upcxmlbgmqhaqieldmyk.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
 
-const supabaseClient = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
+const SUPABASE_URL =
+  "YOUR_SUPABASE_URL";
+
+const SUPABASE_ANON_KEY =
+  "YOUR_SUPABASE_ANON_KEY";
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
 
 
-/* =========================================
-   VARIABLES
-========================================= */
+/* =====================================================
+   STATE
+===================================================== */
 
 let allCommunities = [];
+let currentUser = null;
+let currentFilter = "all";
 
 
-/* =========================================
-   ESCAPE HTML
-========================================= */
+/* =====================================================
+   HELPERS
+===================================================== */
 
-function escapeHtml(value) {
+function escapeHtml(value){
+
   return String(value || "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
 
-/* =========================================
-   LOAD COMMUNITIES
-========================================= */
+function getInitials(name){
 
-async function loadCommunities() {
+  if(!name) return "CC";
 
-  const container =
-    document.getElementById("communitiesList");
+  return name
+    .split(/\s+/)
+    .slice(0,2)
+    .map(word => word.charAt(0))
+    .join("")
+    .toUpperCase();
+}
 
-  container.innerHTML = `
-    <div class="loading">
-      Loading communities...
-    </div>
-  `;
 
-  try {
+function formatDate(date){
 
-    const { data, error } = await supabaseClient
-      .from("communities")
-      .select("id, name, description, created_by, created_at")
-      .order("created_at", {
-        ascending: false
-      });
+  if(!date) return "";
 
-    if (error) {
-      throw error;
+  const d = new Date(date);
+
+  if(Number.isNaN(d.getTime())) return "";
+
+  const now = new Date();
+
+  const seconds =
+    Math.floor((now - d) / 1000);
+
+  if(seconds < 60)
+    return "Just now";
+
+  if(seconds < 3600)
+    return Math.floor(seconds / 60) + "m ago";
+
+  if(seconds < 86400)
+    return Math.floor(seconds / 3600) + "h ago";
+
+  if(seconds < 604800)
+    return Math.floor(seconds / 86400) + "d ago";
+
+  return d.toLocaleDateString();
+}
+
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+async function getCurrentUser(){
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .auth
+        .getUser();
+
+    if(error){
+
+      console.warn(
+        "Auth warning:",
+        error.message
+      );
+
+      return null;
     }
 
-    allCommunities = data || [];
+    return data?.user || null;
 
-    displayCommunities(allCommunities);
+  }catch(error){
 
-  } catch (error) {
-
-    console.error(
-      "Error loading communities:",
+    console.warn(
+      "Could not get user:",
       error
     );
 
-    container.innerHTML = `
-      <div class="error-state">
+    return null;
+  }
+}
 
-        <h3>Unable to load communities</h3>
+
+/* =====================================================
+   LOAD COMMUNITIES
+===================================================== */
+
+async function loadCommunities(){
+
+  const container =
+    document.getElementById(
+      "communitiesList"
+    );
+
+  container.innerHTML = `
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <p>Loading communities...</p>
+    </div>
+  `;
+
+  try{
+
+    currentUser =
+      await getCurrentUser();
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("communities")
+        .select(
+          "id,name,description,created_by,created_at"
+        )
+        .order(
+          "created_at",
+          {
+            ascending:false
+          }
+        );
+
+
+    if(error)
+      throw error;
+
+
+    allCommunities =
+      Array.isArray(data)
+        ? data
+        : [];
+
+
+    renderCommunities(
+      allCommunities
+    );
+
+    renderTrending();
+
+  }catch(error){
+
+    console.error(
+      "Community loading error:",
+      error
+    );
+
+
+    container.innerHTML = `
+
+      <div class="error-card">
+
+        <h3>
+          Unable to load communities
+        </h3>
 
         <p>
-          ${escapeHtml(error.message)}
+          ${escapeHtml(
+            error.message ||
+            "Something went wrong."
+          )}
         </p>
 
         <button
@@ -516,29 +1252,42 @@ async function loadCommunities() {
         </button>
 
       </div>
+
     `;
   }
 }
 
 
-/* =========================================
-   DISPLAY COMMUNITIES
-========================================= */
+/* =====================================================
+   RENDER COMMUNITIES
+===================================================== */
 
-function displayCommunities(communities) {
+function renderCommunities(
+  communities
+){
 
   const container =
-    document.getElementById("communitiesList");
+    document.getElementById(
+      "communitiesList"
+    );
 
-  if (!communities.length) {
+
+  if(!communities.length){
 
     container.innerHTML = `
-      <div class="empty-state">
 
-        <h3>No communities found</h3>
+      <div class="empty-card">
+
+        <div style="font-size:42px;margin-bottom:12px;">
+          👥
+        </div>
+
+        <h3>
+          No communities found
+        </h3>
 
         <p>
-          Create the first community and start
+          Create a community and start
           building your professional network.
         </p>
 
@@ -550,101 +1299,259 @@ function displayCommunities(communities) {
         </button>
 
       </div>
+
     `;
 
     return;
   }
 
 
-  container.innerHTML = communities.map(
-    community => `
+  container.innerHTML =
+    communities
+      .map(community => {
 
-      <article class="community-card">
+        const name =
+          escapeHtml(
+            community.name ||
+            "Untitled Community"
+          );
 
-        <div class="community-icon">
-          👥
-        </div>
-
-        <h3>
-          ${escapeHtml(
-            community.name || "Community"
-          )}
-        </h3>
-
-        <p>
-          ${escapeHtml(
+        const description =
+          escapeHtml(
             community.description ||
-            "Join this community to connect with other professionals."
-          )}
-        </p>
+            "A CareerCraft professional community."
+          );
 
-        <button
-          class="view-btn"
-          onclick="openCommunity('${community.id}')"
-        >
-          View Community
-        </button>
+        const initials =
+          escapeHtml(
+            getInitials(
+              community.name
+            )
+          );
 
-      </article>
+        return `
 
-    `
-  ).join("");
+          <article
+            class="community-card"
+          >
+
+            <div class="community-top">
+
+              <div class="community-avatar">
+                ${initials}
+              </div>
+
+              <div>
+
+                <h3 class="community-name">
+                  ${name}
+                </h3>
+
+                <p class="community-description">
+                  ${description}
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="community-meta">
+
+              <span>
+                👥 CareerCraft
+              </span>
+
+              <span>
+                ${formatDate(
+                  community.created_at
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="community-actions">
+
+              <button
+                class="view-community"
+                onclick="openCommunity('${community.id}')"
+              >
+                View Community
+              </button>
+
+              <button
+                class="join-community"
+                onclick="joinCommunity('${community.id}')"
+              >
+                Join
+              </button>
+
+            </div>
+
+          </article>
+
+        `;
+
+      })
+      .join("");
 }
 
 
-/* =========================================
+/* =====================================================
    SEARCH
-========================================= */
+===================================================== */
 
-function filterCommunities() {
+function filterCommunities(){
 
-  const search =
-    document
-      .getElementById("searchInput")
-      .value
+  const input =
+    document.getElementById(
+      "searchInput"
+    );
+
+  const query =
+    input.value
       .trim()
       .toLowerCase();
 
-  if (!search) {
 
-    displayCommunities(
-      allCommunities
+  let filtered =
+    allCommunities;
+
+
+  if(query){
+
+    filtered =
+      filtered.filter(
+        community => {
+
+          const name =
+            String(
+              community.name || ""
+            ).toLowerCase();
+
+          const description =
+            String(
+              community.description || ""
+            ).toLowerCase();
+
+          return (
+            name.includes(query) ||
+            description.includes(query)
+          );
+        }
+      );
+  }
+
+
+  renderCommunities(
+    filtered
+  );
+}
+
+
+/* =====================================================
+   FILTERS
+===================================================== */
+
+function showAll(){
+
+  currentFilter = "all";
+
+  document
+    .getElementById("searchInput")
+    .value = "";
+
+  renderCommunities(
+    allCommunities
+  );
+}
+
+
+function showRecent(){
+
+  currentFilter = "recent";
+
+  const recent =
+    [...allCommunities]
+      .sort(
+        (a,b) =>
+          new Date(b.created_at) -
+          new Date(a.created_at)
+      )
+      .slice(0,10);
+
+  renderCommunities(recent);
+}
+
+
+function showPopular(){
+
+  /*
+    The current communities table does not
+    expose a member-count column, so we
+    use the most recently active-created
+    communities as a safe fallback.
+  */
+
+  const popular =
+    [...allCommunities]
+      .sort(
+        (a,b) =>
+          new Date(b.created_at) -
+          new Date(a.created_at)
+      );
+
+  renderCommunities(
+    popular
+  );
+}
+
+
+function showMine(){
+
+  if(!currentUser){
+
+    alert(
+      "Please log in to see your communities."
     );
 
     return;
   }
 
 
-  const filtered =
+  const mine =
     allCommunities.filter(
-      community => {
-
-        const name =
-          String(
-            community.name || ""
-          ).toLowerCase();
-
-        const description =
-          String(
-            community.description || ""
-          ).toLowerCase();
-
-        return (
-          name.includes(search) ||
-          description.includes(search)
-        );
-      }
+      community =>
+        community.created_by ===
+        currentUser.id
     );
 
-  displayCommunities(filtered);
+
+  renderCommunities(
+    mine
+  );
 }
 
 
-/* =========================================
-   OPEN COMMUNITY
-========================================= */
+function searchTopic(topic){
 
-function openCommunity(id) {
+  const input =
+    document.getElementById(
+      "searchInput"
+    );
+
+  input.value = topic;
+
+  filterCommunities();
+}
+
+
+/* =====================================================
+   OPEN COMMUNITY
+===================================================== */
+
+function openCommunity(id){
 
   window.location.href =
     "community.html?id=" +
@@ -652,59 +1559,253 @@ function openCommunity(id) {
 }
 
 
-/* =========================================
+/* =====================================================
+   JOIN COMMUNITY
+===================================================== */
+
+async function joinCommunity(
+  communityId
+){
+
+  if(!currentUser){
+
+    alert(
+      "Please log in before joining a community."
+    );
+
+    return;
+  }
+
+
+  /*
+    Membership tables can vary depending
+    on the schema used in the project.
+
+    We first look for the common
+    community_members table.
+  */
+
+  try{
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("community_members")
+        .insert({
+          community_id:
+            communityId,
+
+          user_id:
+            currentUser.id
+        });
+
+
+    if(error){
+
+      if(
+        error.code === "23505"
+      ){
+
+        alert(
+          "You are already a member of this community."
+        );
+
+        return;
+      }
+
+      throw error;
+    }
+
+
+    alert(
+      "You joined the community!"
+    );
+
+  }catch(error){
+
+    console.error(
+      "Join community error:",
+      error
+    );
+
+    /*
+      If the membership table has not
+      been created yet, viewing the
+      community still works.
+    */
+
+    if(
+      error.code === "42P01"
+    ){
+
+      openCommunity(
+        communityId
+      );
+
+      return;
+    }
+
+    alert(
+      error.message ||
+      "Unable to join community."
+    );
+  }
+}
+
+
+/* =====================================================
+   TRENDING
+===================================================== */
+
+function renderTrending(){
+
+  const container =
+    document.getElementById(
+      "trendingList"
+    );
+
+
+  const communities =
+    allCommunities.slice(0,5);
+
+
+  if(!communities.length){
+
+    container.innerHTML = `
+      <p style="color:#6b7280;font-size:13px;">
+        No communities yet.
+      </p>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML =
+    communities
+      .map(
+        (community,index) => `
+
+          <div
+            class="trending-item"
+            onclick="openCommunity('${community.id}')"
+            style="cursor:pointer;"
+          >
+
+            <div class="trending-number">
+              #${index + 1}
+            </div>
+
+            <div class="trending-name">
+              ${escapeHtml(
+                community.name
+              )}
+            </div>
+
+            <div class="trending-desc">
+              ${escapeHtml(
+                community.description ||
+                "Career community"
+              )}
+            </div>
+
+          </div>
+
+        `
+      )
+      .join("");
+}
+
+
+/* =====================================================
    CREATE MODAL
-========================================= */
+===================================================== */
 
-function openCreateModal() {
+function openCreateModal(){
 
   document
-    .getElementById("createModal")
-    .classList.add("active");
+    .getElementById(
+      "createModal"
+    )
+    .classList.add(
+      "active"
+    );
+
+  setTimeout(() => {
+
+    document
+      .getElementById(
+        "communityName"
+      )
+      .focus();
+
+  },100);
 }
 
 
-function closeCreateModal() {
+function closeCreateModal(){
 
   document
-    .getElementById("createModal")
-    .classList.remove("active");
+    .getElementById(
+      "createModal"
+    )
+    .classList.remove(
+      "active"
+    );
 
   document
-    .getElementById("createMessage")
+    .getElementById(
+      "createMessage"
+    )
     .textContent = "";
+
+  document
+    .getElementById(
+      "createCommunityForm"
+    )
+    .reset();
 }
 
 
-/* =========================================
+/* =====================================================
    CREATE COMMUNITY
-========================================= */
+===================================================== */
 
 document
-  .getElementById("createCommunityForm")
+  .getElementById(
+    "createCommunityForm"
+  )
   .addEventListener(
     "submit",
-    async function(event) {
+    async function(event){
 
       event.preventDefault();
 
 
       const name =
         document
-          .getElementById("communityName")
+          .getElementById(
+            "communityName"
+          )
           .value
           .trim();
 
+
       const description =
         document
-          .getElementById("communityDescription")
+          .getElementById(
+            "communityDescription"
+          )
           .value
           .trim();
+
 
       const message =
         document.getElementById(
           "createMessage"
         );
+
 
       const button =
         document.getElementById(
@@ -712,34 +1813,39 @@ document
         );
 
 
-      if (!name || !description) {
+      message.textContent = "";
+
+
+      if(!name){
 
         message.textContent =
-          "Please fill in all fields.";
+          "Please enter a community name.";
+
+        return;
+      }
+
+
+      if(!description){
+
+        message.textContent =
+          "Please enter a description.";
 
         return;
       }
 
 
       button.disabled = true;
-      button.textContent = "Creating...";
-
-      message.textContent = "";
-
-
-      try {
-
-        const {
-          data: {
-            user
-          }
-        } =
-          await supabaseClient
-            .auth
-            .getUser();
+      button.textContent =
+        "Creating...";
 
 
-        if (!user) {
+      try{
+
+        currentUser =
+          await getCurrentUser();
+
+
+        if(!currentUser){
 
           throw new Error(
             "Please log in before creating a community."
@@ -747,69 +1853,81 @@ document
         }
 
 
+        /*
+          This matches the communities
+          table structure already established.
+        */
+
         const {
           data,
           error
         } =
           await supabaseClient
             .from("communities")
-            .insert([
-              {
-                name: name,
-                description: description,
-                created_by: user.id
-              }
-            ])
+            .insert({
+              name:name,
+              description:description,
+              created_by:
+                currentUser.id
+            })
             .select()
             .single();
 
 
-        if (error) {
+        if(error)
           throw error;
-        }
-
-
-        document
-          .getElementById(
-            "communityName"
-          )
-          .value = "";
-
-        document
-          .getElementById(
-            "communityDescription"
-          )
-          .value = "";
 
 
         closeCreateModal();
 
+
         await loadCommunities();
 
 
-        if (data && data.id) {
+        /*
+          Automatically show the newly
+          created community at the top.
+        */
 
-          /*
-            We intentionally stay on the
-            communities page after creation.
-          */
+        if(data?.id){
 
+          const created =
+            allCommunities.find(
+              item =>
+                item.id === data.id
+            );
+
+          if(created){
+
+            renderCommunities([
+              created,
+              ...allCommunities.filter(
+                item =>
+                  item.id !== data.id
+              )
+            ]);
+
+          }
         }
 
-      } catch (error) {
+
+      }catch(error){
 
         console.error(
           "Create community error:",
           error
         );
 
+
         message.textContent =
           error.message ||
           "Unable to create community.";
 
-      } finally {
+
+      }finally{
 
         button.disabled = false;
+
         button.textContent =
           "Create Community";
       }
@@ -818,19 +1936,21 @@ document
   );
 
 
-/* =========================================
-   CLOSE MODAL WHEN CLICKING OUTSIDE
-========================================= */
+/* =====================================================
+   CLOSE MODAL OUTSIDE
+===================================================== */
 
 document
-  .getElementById("createModal")
+  .getElementById(
+    "createModal"
+  )
   .addEventListener(
     "click",
-    function(event) {
+    function(event){
 
-      if (
+      if(
         event.target === this
-      ) {
+      ){
 
         closeCreateModal();
 
@@ -840,19 +1960,86 @@ document
   );
 
 
-/* =========================================
-   START PAGE
-========================================= */
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function goProfile(){
+
+  window.location.href =
+    "profile.html";
+}
+
+
+/* =====================================================
+   REAL-TIME COMMUNITY REFRESH
+===================================================== */
+
+try{
+
+  supabaseClient
+    .channel(
+      "communities-live"
+    )
+    .on(
+      "postgres_changes",
+      {
+        event:"*",
+        schema:"public",
+        table:"communities"
+      },
+      function(){
+
+        loadCommunities();
+
+      }
+    )
+    .subscribe();
+
+}catch(error){
+
+  console.warn(
+    "Realtime communities unavailable:",
+    error
+  );
+
+}
+
+
+/* =====================================================
+   KEYBOARD ESCAPE
+===================================================== */
 
 document.addEventListener(
-  "DOMContentLoaded",
-  function() {
+  "keydown",
+  function(event){
 
-    loadCommunities();
+    if(
+      event.key === "Escape"
+    ){
+
+      closeCreateModal();
+
+    }
 
   }
 );
+
+
+/* =====================================================
+   START
+===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  async function(){
+
+    await loadCommunities();
+
+  }
+);
+
 </script>
 
 </body>
-    </html>
+  </html>
