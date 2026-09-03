@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Portfolios | CareerCraft</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --success: #15803d;
+      --success-bg: #dcfce7;
+      --warning: #b45309;
+      --warning-bg: #fef3c7;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .app {
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+
+    .topbar {
+      height: 72px;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 900;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      box-shadow: 0 7px 18px rgba(37, 99, 235, 0.25);
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .back-btn,
+    .create-btn {
+      border: 0;
+      border-radius: 11px;
+      padding: 10px 15px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: 0.2s ease;
+    }
+
+    .back-btn {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .back-btn:hover {
+      background: #e5e7eb;
+    }
+
+    .create-btn {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+    }
+
+    .create-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* MAIN */
+
+    .main {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 38px 24px 80px;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -1.4px;
+      margin-bottom: 9px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 650px;
+      line-height: 1.6;
+    }
+
+    /* SEARCH */
+
+    .toolbar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .search-box {
+      flex: 1;
+      position: relative;
+      max-width: 520px;
+    }
+
+    .search-box span {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      font-size: 18px;
+    }
+
+    .search-box input {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #f9fafb;
+      border-radius: 11px;
+      padding: 12px 14px 12px 42px;
+      outline: none;
+      color: var(--text);
+    }
+
+    .search-box input:focus {
+      background: white;
+      border-color: #93c5fd;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.09);
+    }
+
+    .count {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* GRID */
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .portfolio-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 38px rgba(15, 23, 42, 0.11);
+    }
+
+    .card-cover {
+      height: 145px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-cover.modern {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.25), transparent 28%),
+        linear-gradient(135deg, #2563eb, #7c3aed);
+    }
+
+    .card-cover.executive {
+      background:
+        linear-gradient(135deg, #111827, #374151);
+    }
+
+    .card-cover.minimal {
+      background:
+        linear-gradient(135deg, #f3f4f6, #d1d5db);
+    }
+
+    .card-cover.creative {
+      background:
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,.3), transparent 25%),
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,.2), transparent 30%),
+        linear-gradient(135deg, #ec4899, #8b5cf6, #2563eb);
+    }
+
+    .cover-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: .18;
+      background-image:
+        linear-gradient(45deg, rgba(255,255,255,.5) 1px, transparent 1px),
+        linear-gradient(-45deg, rgba(255,255,255,.4) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .status-badge {
+      position: absolute;
+      top: 13px;
+      right: 13px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      backdrop-filter: blur(8px);
+    }
+
+    .status-badge.published {
+      background: rgba(220, 252, 231, 0.95);
+      color: var(--success);
+    }
+
+    .status-badge.draft {
+      background: rgba(255, 255, 255, 0.9);
+      color: #6b7280;
+    }
+
+    .card-content {
+      padding: 19px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -.35px;
+      margin-bottom: 7px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .card-headline {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      min-height: 40px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-meta {
+      margin-top: 17px;
+      padding-top: 14px;
+      border-top: 1px solid #f0f1f3;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 17px;
+    }
+
+    .action-btn {
+      border: 1px solid var(--border);
+      background: white;
+      color: #374151;
+      padding: 10px 9px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+
+    .action-btn:hover {
+      background: #f9fafb;
+      border-color: #d1d5db;
+    }
+
+    .action-btn.primary {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .action-btn.danger {
+      color: var(--danger);
+    }
+
+    .action-btn.danger:hover {
+      background: var(--danger-bg);
+      border-color: #fecaca;
+    }
+
+    .action-btn.full {
+      grid-column: 1 / -1;
+    }
+
+    /* EMPTY */
+
+    .empty-state {
+      background: white;
+      border: 1px dashed #d1d5db;
+      border-radius: 22px;
+      padding: 70px 25px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .empty-icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 18px;
+      border-radius: 20px;
+      background: #eff6ff;
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+    }
+
+    .empty-state h2 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .empty-state p {
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 500px;
+      margin: 0 auto 23px;
+      font-size: 14px;
+    }
+
+    .empty-state button {
+      border: 0;
+      background: var(--primary);
+      color: white;
+      padding: 12px 19px;
+      border-radius: 11px;
+      font-weight: 800;
+    }
+
+    /* LOADING */
+
+    .loading {
+      background: white;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      min-height: 250px;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .loader-wrap {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .spinner {
+      width: 34px;
+      height: 34px;
+      border: 3px solid #e5e7eb;
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* MODAL */
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, .55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 430px;
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 25px 70px rgba(0,0,0,.2);
+    }
+
+    .modal h3 {
+      font-size: 21px;
+      margin-bottom: 9px;
+    }
+
+    .modal p {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .modal-actions button {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 15px;
+      font-weight: 700;
+    }
+
+    .cancel-btn {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .confirm-delete {
+      background: var(--danger);
+      color: white;
+    }
+
+    /* TOAST */
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 200;
+      background: #111827;
+      color: white;
+      border-radius: 12px;
+      padding: 13px 17px;
+      font-size: 13px;
+      font-weight: 700;
+      max-width: 340px;
+      box-shadow: 0 15px 35px rgba(0,0,0,.18);
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .toast.success {
+      background: #166534;
+    }
+
+    .toast.error {
+      background: #b91c1c;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 1000px) {
+      .portfolio-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .topbar {
+        height: 64px;
+        padding: 0 15px;
+      }
+
+      .brand {
+        font-size: 17px;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+      }
+
+      .back-btn {
+        display: none;
+      }
+
+      .create-btn {
+        padding: 9px 12px;
+        font-size: 13px;
+      }
+
+      .main {
+        padding: 27px 15px 60px;
+      }
+
+      .hero {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 22px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-box {
+        max-width: none;
+      }
+
+      .count {
+        text-align: center;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-cover {
+        height: 155px;
+      }
+
+      .toast {
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header class="topbar">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">C</span>
+      <span>CareerCraft</span>
+    </a>
+
+    <div class="top-actions">
+      <button class="back-btn" id="backBtn">
+        ← Back
+      </button>
+
+      <button class="create-btn" id="createBtn">
+        ＋ Create Portfolio
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section class="hero">
+      <div>
+        <h1>My Portfolios</h1>
+        <p>
+          Create, manage, edit and publish your professional portfolios from one place.
+        </p>
+      </div>
+    </section>
+
+    <section class="toolbar">
+      <div class="search-box">
+        <span>⌕</span>
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Search your portfolios..."
+          autocomplete="off"
+        >
+      </div>
+
+      <div class="count" id="portfolioCount">
+        0 portfolios
+      </div>
+    </section>
+
+    <section id="content">
+      <div class="loading">
+        <div class="loader-wrap">
+          <div class="spinner"></div>
+          Loading your portfolios...
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- DELETE MODAL -->
+
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal">
+    <h3>Delete portfolio?</h3>
+
+    <p>
+      This will permanently delete this portfolio and its associated projects,
+      experience and skills. This action cannot be undone.
+    </p>
+
+    <div class="modal-actions">
+      <button class="cancel-btn" id="cancelDelete">
+        Cancel
+      </button>
+
+      <button class="confirm-delete" id="confirmDelete">
+        Delete Portfolio
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  /* =========================================================
+     CAREERCRAFT PORTFOLIO DASHBOARD
+     ========================================================= */
+
+  const SUPABASE_URL = "YOUR_SUPABASE_URL";
+  const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+  let currentUser = null;
+  let portfolios = [];
+  let filteredPortfolios = [];
+  let portfolioToDelete = null;
+
+  const content = document.getElementById("content");
+  const searchInput = document.getElementById("searchInput");
+  const portfolioCount = document.getElementById("portfolioCount");
+
+  const deleteModal = document.getElementById("deleteModal");
+  const cancelDelete = document.getElementById("cancelDelete");
+  const confirmDelete = document.getElementById("confirmDelete");
+
+  const toast = document.getElementById("toast");
+
+  /* =========================================================
+     HELPERS
+     ========================================================= */
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function formatDate(value) {
+    if (!value) return "Not updated yet";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+      return "Not updated yet";
+    }
+
+    return date.toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    });
+  }
+
+  function showToast(message, type = "") {
+    toast.textContent = message;
+    toast.className = "toast show " + type;
+
+    clearTimeout(showToast.timer);
+
+    showToast.timer = setTimeout(() => {
+      toast.className = "toast";
+    }, 3000);
+  }
+
+  function getTemplateClass(template) {
+    const allowed = [
+      "modern",
+      "executive",
+      "minimal",
+      "creative"
+    ];
+
+    return allowed.includes(template) ? template : "modern";
+  }
+
+  function getPortfolioTitle(portfolio) {
+    return portfolio.title && portfolio.title.trim()
+      ? portfolio.title.trim()
+      : "Untitled Portfolio";
+  }
+
+  function getPortfolioHeadline(portfolio) {
+    return portfolio.headline && portfolio.headline.trim()
+      ? portfolio.headline.trim()
+      : "No headline added yet";
+  }
+
+  /* =========================================================
+     AUTHENTICATION
+     ========================================================= */
+
+  async function requireUser() {
+    const {
+      data,
+      error
+    } = await supabaseClient.auth.getUser();
+
+    if (error || !data.user) {
+      window.location.href = "login.html";
+      return false;
+    }
+
+    currentUser = data.user;
+    return true;
+  }
+
+  /* =========================================================
+     LOAD PORTFOLIOS
+     ========================================================= */
+
+  async function loadPortfolios() {
+    content.innerHTML = `
+      <div class="loading">
+        <div class="loader-wrap">
+          <div class="spinner"></div>
+          Loading your portfolios...
+        </div>
+      </div>
+    `;
+
+    const {
+      data,
+      error
+    } = await supabaseClient
+      .from("portfolios")
+      .select(`
+        id,
+        title,
+        username,
+        headline,
+        intro,
+        location,
+        profile_photo,
+        template,
+        is_published,
+        published_at,
+        created_at,
+        updated_at
+      `)
+      .eq("user_id", currentUser.id)
+      .order("updated_at", {
+        ascending: false
+      });
+
+    if (error) {
+      console.error(error);
+
+      content.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">!</div>
+          <h2>Unable to load portfolios</h2>
+          <p>
+            We couldn't retrieve your portfolios from Supabase.
+            Please check your connection and try again.
+          </p>
+          <button id="retryBtn">
+            Try Again
+          </button>
+        </div>
+      `;
+
+      document
+        .getElementById("retryBtn")
+        .addEventListener("click", loadPortfolios);
+
+      showToast(error.message || "Unable to load portfolios", "error");
+      return;
+    }
+
+    portfolios = data || [];
+
+    applySearch();
+  }
+
+  /* =========================================================
+     SEARCH
+     ========================================================= */
+
+  function applySearch() {
+    const query = searchInput.value.trim().toLowerCase();
+
+    if (!query) {
+      filteredPortfolios = [...portfolios];
+    } else {
+      filteredPortfolios = portfolios.filter(portfolio => {
+        const title = portfolio.title || "";
+        const username = portfolio.username || "";
+        const headline = portfolio.headline || "";
+        const location = portfolio.location || "";
+
+        return (
+          title.toLowerCase().includes(query) ||
+          username.toLowerCase().includes(query) ||
+          headline.toLowerCase().includes(query) ||
+          location.toLowerCase().includes(query)
+        );
+      });
+    }
+
+    renderPortfolios();
+  }
+
+  /* =========================================================
+     RENDER
+     ========================================================= */
+
+  function renderPortfolios() {
+    const total = filteredPortfolios.length;
+
+    portfolioCount.textContent =
+      total === 1
+        ? "1 portfolio"
+        : `${total} portfolios`;
+
+    if (total === 0) {
+      if (portfolios.length === 0) {
+        content.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">✦</div>
+
+            <h2>Create your first portfolio</h2>
+
+            <p>
+              Build a professional portfolio that showcases your skills,
+              experience and projects. Your portfolio will be saved securely
+              to your CareerCraft account.
+            </p>
+
+            <button id="emptyCreateBtn">
+              ＋ Create Portfolio
+            </button>
+          </div>
+        `;
+
+        document
+          .getElementById("emptyCreateBtn")
+          .addEventListener("click", createPortfolio);
+      } else {
+        content.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">⌕</div>
+
+            <h2>No portfolios found</h2>
+
+            <p>
+              No portfolio matches your search. Try a different title,
+              username or keyword.
+            </p>
+
+            <button id="clearSearchBtn">
+              Clear Search
+            </button>
+          </div>
+        `;
+
+        document
+          .getElementById("clearSearchBtn")
+          .addEventListener("click", () => {
+            searchInput.value = "";
+            applySearch();
+          });
+      }
+
+      return;
+    }
+
+    content.innerHTML = `
+      <div class="portfolio-grid">
+        ${filteredPortfolios.map(renderPortfolioCard).join("")}
+      </div>
+    `;
+
+    bindCardActions();
+  }
+
+  function renderPortfolioCard(portfolio) {
+    const template = getTemplateClass(portfolio.template);
+
+    const title = escapeHtml(
+      getPortfolioTitle(portfolio)
+    );
+
+    const headline = escapeHtml(
+      getPortfolioHeadline(portfolio)
+    );
+
+    const status = portfolio.is_published
+      ? `
+        <span class="status-badge published">
+          ● Published
+        </span>
+      `
+      : `
+        <span class="status-badge draft">
+          ● Draft
+        </span>
+      `;
+
+    const username = portfolio.username
+      ? `@${escapeHtml(portfolio.username)}`
+      : "No username";
+
+    return `
+      <article class="portfolio-card">
+
+        <div class="card-cover ${template}">
+          <div class="cover-pattern"></div>
+          ${status}
+        </div>
+
+        <div class="card-content">
+
+          <div class="card-title" title="${title}">
+            ${title}
+          </div>
+
+          <div class="card-headline">
+            ${headline}
+          </div>
+
+          <div class="card-meta">
+            <span>${username}</span>
+            <span>Updated ${formatDate(portfolio.updated_at)}</span>
+          </div>
+
+          <div class="card-actions">
+
+            <button
+              class="action-btn primary edit-btn"
+              data-id="${portfolio.id}"
+            >
+              Edit
+            </button>
+
+            <button
+              class="action-btn preview-btn"
+              data-id="${portfolio.id}"
+            >
+              Preview
+            </button>
+
+            <button
+              class="action-btn full publish-btn"
+              data-id="${portfolio.id}"
+              data-published="${portfolio.is_published}"
+            >
+              ${
+                portfolio.is_published
+                  ? "Unpublish"
+                  : "Publish"
+              }
+            </button>
+
+            ${
+              portfolio.is_published
+                ? `
+                  <button
+                    class="action-btn share-btn"
+                    data-id="${portfolio.id}"
+                  >
+                    Copy Public Link
+                  </button>
+                `
+                : ""
+            }
+
+            <button
+              class="action-btn danger delete-btn"
+              data-id="${portfolio.id}"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+      </article>
+    `;
+  }
+
+  /* =========================================================
+     CARD ACTIONS
+     ========================================================= */
+
+  function bindCardActions() {
+    document.querySelectorAll(".edit-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        const id = button.dataset.id;
+        editPortfolio(id);
+      });
+    });
+
+    document.querySelectorAll(".preview-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        const id = button.dataset.id;
+        previewPortfolio(id);
+      });
+    });
+
+    document.querySelectorAll(".publish-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        const id = button.dataset.id;
+        const published =
+          button.dataset.published === "true";
+
+        togglePublished(id, published);
+      });
+    });
+
+    document.querySelectorAll(".share-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        const id = button.dataset.id;
+        copyPublicLink(id);
+      });
+    });
+
+    document.querySelectorAll(".delete-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        const id = button.dataset.id;
+        openDeleteModal(id);
+      });
+    });
+  }
+
+  /* =========================================================
+     CREATE
+     ========================================================= */
+
+  function createPortfolio() {
+    window.location.href = "portfolio-builder.html";
+  }
+
+  /* =========================================================
+     EDIT
+     ========================================================= */
+
+  function editPortfolio(id) {
+    window.location.href =
+      `portfolio-builder.html?id=${encodeURIComponent(id)}`;
+  }
+
+  /* =========================================================
+     PREVIEW
+     ========================================================= */
+
+  function previewPortfolio(id) {
+    window.location.href =
+      `portfolio-preview.html?id=${encodeURIComponent(id)}`;
+  }
+
+  /* =========================================================
+     PUBLISH / UNPUBLISH
+     ========================================================= */
+
+  async function togglePublished(id, currentlyPublished) {
+    const portfolio = portfolios.find(item => item.id === id);
+
+    if (!portfolio) {
+      showToast("Portfolio could not be found.", "error");
+      return;
+    }
+
+    const newPublishedState = !currentlyPublished;
+
+    const updatePayload = {
+      is_published: newPublishedState,
+      updated_at: new Date().toISOString()
+    };
+
+    if (newPublishedState) {
+      updatePayload.published_at =
+        new Date().toISOString();
+    } else {
+      updatePayload.published_at = null;
+    }
+
+    const {
+      error
+    } = await supabaseClient
+      .from("portfolios")
+      .update(updatePayload)
+      .eq("id", id)
+      .eq("user_id", currentUser.id);
+
+    if (error) {
+      console.error(error);
+      showToast(
+        error.message || "Unable to update portfolio.",
+        "error"
+      );
+      return;
+    }
+
+    portfolio.is_published = newPublishedState;
+    portfolio.published_at =
+      updatePayload.published_at;
+
+    portfolio.updated_at =
+      updatePayload.updated_at;
+
+    applySearch();
+
+    showToast(
+      newPublishedState
+        ? "Portfolio published successfully."
+        : "Portfolio unpublished.",
+      "success"
+    );
+  }
+
+  /* =========================================================
+     PUBLIC LINK
+     ========================================================= */
+
+  async function copyPublicLink(id) {
+    const portfolio = portfolios.find(item => item.id === id);
+
+    if (!portfolio) {
+      showToast("Portfolio could not be found.", "error");
+      return;
+    }
+
+    if (!portfolio.is_published) {
+      showToast(
+        "Publish the portfolio before sharing it.",
+        "error"
+      );
+      return;
+    }
+
+    /*
+      The public preview page uses the portfolio UUID.
+      This avoids depending on a hardcoded domain.
+    */
+
+    const publicUrl =
+      `${window.location.origin}/portfolio-preview.html?id=${encodeURIComponent(id)}`;
+
+    try {
+      await navigator.clipboard.writeText(publicUrl);
+
+      showToast(
+        "Public portfolio link copied.",
+        "success"
+      );
+
+    } catch (error) {
+      console.error(error);
+
+      showToast(
+        "Unable to copy the link on this device.",
+        "error"
+      );
+    }
+  }
+
+  /* =========================================================
+     DELETE
+     ========================================================= */
+
+  function openDeleteModal(id) {
+    portfolioToDelete = id;
+    deleteModal.classList.add("active");
+  }
+
+  function closeDeleteModal() {
+    portfolioToDelete = null;
+    deleteModal.classList.remove("active");
+  }
+
+  async function deletePortfolio() {
+    if (!portfolioToDelete) {
+      return;
+    }
+
+    const id = portfolioToDelete;
+
+    confirmDelete.disabled = true;
+    confirmDelete.textContent = "Deleting...";
+
+    /*
+      Child tables use ON DELETE CASCADE,
+      so deleting the portfolio also deletes:
+      - portfolio_projects
+      - portfolio_experience
+      - portfolio_skills
+    */
+
+    const {
+      error
+    } = await supabaseClient
+      .from("portfolios")
+      .delete()
+      .eq("id", id)
+      .eq("user_id", currentUser.id);
+
+    confirmDelete.disabled = false;
+    confirmDelete.textContent = "Delete Portfolio";
+
+    if (error) {
+      console.error(error);
+
+      showToast(
+        error.message || "Unable to delete portfolio.",
+        "error"
+      );
+
+      return;
+    }
+
+    portfolios = portfolios.filter(
+      portfolio => portfolio.id !== id
+    );
+
+    closeDeleteModal();
+
+    applySearch();
+
+    showToast(
+      "Portfolio deleted successfully.",
+      "success"
+    );
+  }
+
+  /* =========================================================
+     EVENTS
+     ========================================================= */
+
+  searchInput.addEventListener(
+    "input",
+    applySearch
+  );
+
+  document
+    .getElementById("createBtn")
+    .addEventListener("click", createPortfolio);
+
+  document
+    .getElementById("backBtn")
+    .addEventListener("click", () => {
+      if (document.referrer) {
+        history.back();
+      } else {
+        window.location.href = "index.html";
+      }
+    });
+
+  cancelDelete.addEventListener(
+    "click",
+    closeDeleteModal
+  );
+
+  confirmDelete.addEventListener(
+    "click",
+    deletePortfolio
+  );
+
+  deleteModal.addEventListener("click", event => {
+    if (event.target === deleteModal) {
+      closeDeleteModal();
+    }
+  });
+
+  document.addEventListener("keydown", event => {
+    if (
+      event.key === "Escape" &&
+      deleteModal.classList.contains("active")
+    ) {
+      closeDeleteModal();
+    }
+  });
+
+  /* =========================================================
+     INITIALIZE
+     ========================================================= */
+
+  async function init() {
+    const authenticated = await requireUser();
+
+    if (!authenticated) {
+      return;
+    }
+
+    await loadPortfolios();
+  }
+
+  init();
+</script>
+
+</body>
+</html>
