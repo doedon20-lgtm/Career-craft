@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Communities | CareerCraft</title>
 
@@ -12,10 +15,18 @@
 
 <style>
 
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
@@ -24,10 +35,13 @@ body{
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
+        Roboto,
+        Arial,
         sans-serif;
 
     background:#f5f7fb;
     color:#172033;
+
     min-height:100vh;
 }
 
@@ -43,13 +57,15 @@ button{
 }
 
 
-/* =========================
+/* =========================================================
    HEADER
-========================= */
+========================================================= */
 
 .header{
     height:70px;
-    background:white;
+
+    background:#ffffff;
+
     border-bottom:1px solid #e5e7eb;
 
     display:flex;
@@ -60,98 +76,124 @@ button{
 
     position:sticky;
     top:0;
+
     z-index:100;
 }
 
 .logo{
     display:flex;
     align-items:center;
+
     gap:10px;
+
+    text-decoration:none;
+
+    color:#2563eb;
 
     font-size:23px;
     font-weight:800;
-    color:#2563eb;
-
-    text-decoration:none;
 }
 
 .logo-icon{
-    width:38px;
-    height:38px;
+    width:40px;
+    height:40px;
+
+    border-radius:11px;
+
+    background:#2563eb;
+
+    color:#ffffff;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    background:#2563eb;
-    color:white;
-
-    border-radius:11px;
-
+    font-size:21px;
     font-weight:800;
 }
 
 .header-right{
     display:flex;
     align-items:center;
-    gap:15px;
+
+    gap:18px;
 }
 
-.header-link{
+.dashboard-link{
     text-decoration:none;
+
     color:#475569;
-    font-weight:600;
+
+    font-weight:700;
 }
 
-.header-link:hover{
+.dashboard-link:hover{
     color:#2563eb;
 }
 
+.avatar-link{
+    display:flex;
+    align-items:center;
+}
+
 .avatar{
-    width:40px;
-    height:40px;
+    width:42px;
+    height:42px;
 
     border-radius:50%;
 
     object-fit:cover;
 
     border:2px solid #e5e7eb;
+
+    background:#2563eb;
 }
 
 
-/* =========================
+/* =========================================================
    PAGE
-========================= */
+========================================================= */
 
 .page{
+    width:100%;
     max-width:1200px;
-    margin:auto;
-    padding:35px 22px 100px;
+
+    margin:0 auto;
+
+    padding:34px 22px 100px;
 }
 
 .page-top{
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:20px;
 
-    margin-bottom:28px;
+    margin-bottom:27px;
 }
 
 .page-title h1{
     font-size:32px;
-    margin-bottom:7px;
+    line-height:1.2;
+
+    margin-bottom:8px;
 }
 
 .page-title p{
     color:#64748b;
+
     font-size:15px;
+
+    line-height:1.5;
 }
 
 .create-btn{
     border:0;
+
     background:#2563eb;
-    color:white;
+
+    color:#ffffff;
 
     padding:13px 19px;
 
@@ -159,41 +201,48 @@ button{
 
     font-weight:700;
 
+    white-space:nowrap;
+
     box-shadow:
-        0 6px 18px
+        0 7px 20px
         rgba(37,99,235,.18);
+
+    transition:.2s;
 }
 
 .create-btn:hover{
     background:#1d4ed8;
+
+    transform:translateY(-1px);
 }
 
 
-/* =========================
+/* =========================================================
    CONTROLS
-========================= */
+========================================================= */
 
 .controls{
-    background:white;
+    background:#ffffff;
 
     border:1px solid #e5e7eb;
 
     border-radius:16px;
 
-    padding:17px;
+    padding:16px;
 
-    margin-bottom:25px;
+    margin-bottom:24px;
 
     display:flex;
+
+    gap:12px;
+
     flex-wrap:wrap;
-    gap:13px;
 }
 
 .search-box{
     flex:1;
-    min-width:220px;
 
-    position:relative;
+    min-width:230px;
 }
 
 .search-box input{
@@ -201,63 +250,78 @@ button{
 
     height:46px;
 
+    padding:0 14px;
+
     border:1px solid #dbe1ea;
 
     border-radius:10px;
 
-    padding:0 15px;
-
     outline:none;
+
+    color:#172033;
+
+    background:#ffffff;
 }
 
 .search-box input:focus{
     border-color:#2563eb;
+
     box-shadow:
         0 0 0 3px
-        rgba(37,99,235,.1);
+        rgba(37,99,235,.10);
 }
 
 .category-select{
     height:46px;
 
+    min-width:180px;
+
+    padding:0 13px;
+
     border:1px solid #dbe1ea;
 
     border-radius:10px;
 
-    padding:0 13px;
+    outline:none;
 
-    background:white;
+    background:#ffffff;
 
     color:#334155;
+}
 
-    outline:none;
+.category-select:focus{
+    border-color:#2563eb;
 }
 
 
-/* =========================
+/* =========================================================
    TABS
-========================= */
+========================================================= */
 
 .tabs{
     display:flex;
-    gap:8px;
 
-    margin-bottom:25px;
+    gap:5px;
 
     border-bottom:1px solid #e5e7eb;
+
+    margin-bottom:25px;
 }
 
 .tab{
     border:0;
-    background:none;
 
-    padding:13px 18px;
+    background:transparent;
 
     color:#64748b;
+
+    padding:13px 20px;
 
     font-weight:700;
 
     border-bottom:3px solid transparent;
+
+    margin-bottom:-1px;
 }
 
 .tab:hover{
@@ -271,94 +335,101 @@ button{
 }
 
 
-/* =========================
-   GRID
-========================= */
+/* =========================================================
+   COMMUNITY GRID
+========================================================= */
 
 .community-grid{
     display:grid;
 
     grid-template-columns:
-        repeat(3, minmax(0,1fr));
+        repeat(3,minmax(0,1fr));
 
     gap:20px;
 }
 
 .community-card{
-    background:white;
+    background:#ffffff;
 
     border:1px solid #e5e7eb;
 
     border-radius:18px;
 
-    padding:22px;
+    padding:21px;
 
     transition:
-        transform .2s,
-        box-shadow .2s,
-        border-color .2s;
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
 }
 
 .community-card:hover{
     transform:translateY(-3px);
 
-    box-shadow:
-        0 12px 30px
-        rgba(15,23,42,.08);
-
     border-color:#cbd5e1;
+
+    box-shadow:
+        0 13px 32px
+        rgba(15,23,42,.08);
 }
 
 .community-icon{
     width:58px;
     height:58px;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
     border-radius:16px;
 
     background:#eff6ff;
 
-    font-size:30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    margin-bottom:17px;
+    font-size:29px;
+
+    margin-bottom:16px;
 }
 
 .community-content h3{
     font-size:19px;
 
     margin-bottom:9px;
+
+    color:#172033;
 }
 
-.community-content p{
+.community-description{
     color:#64748b;
 
-    line-height:1.55;
-
     font-size:14px;
+
+    line-height:1.55;
 
     min-height:66px;
 }
 
 .community-meta{
     display:flex;
+
     flex-wrap:wrap;
 
-    gap:8px;
+    gap:7px;
 
     margin-top:15px;
 }
 
 .community-meta span{
+    display:inline-flex;
+
+    align-items:center;
+
     background:#f1f5f9;
 
     color:#475569;
 
-    padding:6px 9px;
-
     border-radius:7px;
+
+    padding:6px 9px;
 
     font-size:12px;
 
@@ -370,7 +441,7 @@ button{
 
     gap:9px;
 
-    margin-top:20px;
+    margin-top:19px;
 }
 
 .open-btn,
@@ -378,17 +449,20 @@ button{
 .leave-btn{
     flex:1;
 
-    border:0;
-
     min-height:42px;
+
+    border:0;
 
     border-radius:9px;
 
     font-weight:700;
+
+    transition:.2s;
 }
 
 .open-btn{
     background:#eff6ff;
+
     color:#2563eb;
 }
 
@@ -398,7 +472,8 @@ button{
 
 .join-btn{
     background:#2563eb;
-    color:white;
+
+    color:#ffffff;
 }
 
 .join-btn:hover{
@@ -407,6 +482,7 @@ button{
 
 .leave-btn{
     background:#ecfdf5;
+
     color:#047857;
 }
 
@@ -414,15 +490,70 @@ button{
     background:#d1fae5;
 }
 
+.open-btn:disabled,
+.join-btn:disabled,
+.leave-btn:disabled{
+    opacity:.6;
 
-/* =========================
-   EMPTY STATE
-========================= */
+    cursor:not-allowed;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading{
+    grid-column:1/-1;
+
+    min-height:280px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#64748b;
+
+    text-align:center;
+}
+
+.spinner{
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    border:4px solid #dbeafe;
+
+    border-top-color:#2563eb;
+
+    animation:
+        spin .8s linear infinite;
+
+    margin-bottom:15px;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
 
 .empty-state{
     grid-column:1/-1;
 
-    background:white;
+    background:#ffffff;
 
     border:1px dashed #cbd5e1;
 
@@ -436,7 +567,7 @@ button{
 .empty-icon{
     font-size:45px;
 
-    margin-bottom:14px;
+    margin-bottom:13px;
 }
 
 .empty-state h3{
@@ -447,20 +578,68 @@ button{
 
 .empty-state p{
     color:#64748b;
+
+    line-height:1.5;
 }
 
 
-/* =========================
+/* =========================================================
+   ERROR
+========================================================= */
+
+.error-state{
+    grid-column:1/-1;
+
+    background:#ffffff;
+
+    border:1px solid #fecaca;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    padding:55px 20px;
+}
+
+.error-icon{
+    font-size:42px;
+
+    margin-bottom:13px;
+}
+
+.error-state h3{
+    margin-bottom:8px;
+}
+
+.error-state p{
+    color:#64748b;
+
+    margin-bottom:18px;
+}
+
+.retry-btn{
+    border:0;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:11px 18px;
+
+    border-radius:9px;
+
+    font-weight:700;
+}
+
+
+/* =========================================================
    MODAL
-========================= */
+========================================================= */
 
 .modal{
     position:fixed;
 
     inset:0;
-
-    background:
-        rgba(15,23,42,.55);
 
     display:none;
 
@@ -468,6 +647,9 @@ button{
     justify-content:center;
 
     padding:20px;
+
+    background:
+        rgba(15,23,42,.55);
 
     z-index:1000;
 }
@@ -478,9 +660,14 @@ button{
 
 .modal-box{
     width:100%;
+
     max-width:530px;
 
-    background:white;
+    max-height:90vh;
+
+    overflow:auto;
+
+    background:#ffffff;
 
     border-radius:20px;
 
@@ -489,17 +676,16 @@ button{
     box-shadow:
         0 25px 70px
         rgba(15,23,42,.25);
-
-    max-height:90vh;
-    overflow:auto;
 }
 
 .modal-header{
     display:flex;
-    justify-content:space-between;
+
     align-items:center;
 
-    margin-bottom:22px;
+    justify-content:space-between;
+
+    margin-bottom:23px;
 }
 
 .modal-header h2{
@@ -516,9 +702,15 @@ button{
 
     background:#f1f5f9;
 
+    color:#475569;
+
     font-size:22px;
 
-    color:#475569;
+    line-height:1;
+}
+
+.close-btn:hover{
+    background:#e2e8f0;
 }
 
 .form-group{
@@ -530,9 +722,11 @@ button{
 
     margin-bottom:7px;
 
+    font-size:14px;
+
     font-weight:700;
 
-    font-size:14px;
+    color:#334155;
 }
 
 .form-group input,
@@ -548,13 +742,15 @@ button{
 
     outline:none;
 
-    background:white;
+    background:#ffffff;
+
+    color:#172033;
 }
 
 .form-group textarea{
-    resize:vertical;
-
     min-height:110px;
+
+    resize:vertical;
 }
 
 .form-group input:focus,
@@ -564,7 +760,7 @@ button{
 
     box-shadow:
         0 0 0 3px
-        rgba(37,99,235,.1);
+        rgba(37,99,235,.10);
 }
 
 .modal-actions{
@@ -590,72 +786,47 @@ button{
 
 .cancel-btn{
     background:#f1f5f9;
+
     color:#475569;
+}
+
+.cancel-btn:hover{
+    background:#e2e8f0;
 }
 
 .submit-btn{
     background:#2563eb;
-    color:white;
+
+    color:#ffffff;
 }
 
 .submit-btn:hover{
     background:#1d4ed8;
 }
 
+.submit-btn:disabled{
+    opacity:.6;
 
-/* =========================
-   LOADING
-========================= */
-
-.loading{
-    grid-column:1/-1;
-
-    text-align:center;
-
-    padding:60px 20px;
-
-    color:#64748b;
-}
-
-.spinner{
-    width:38px;
-    height:38px;
-
-    border:4px solid #dbeafe;
-
-    border-top-color:#2563eb;
-
-    border-radius:50%;
-
-    animation:
-        spin .8s linear infinite;
-
-    margin:0 auto 15px;
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
+    cursor:not-allowed;
 }
 
 
-/* =========================
+/* =========================================================
    MOBILE NAV
-========================= */
+========================================================= */
 
 .mobile-nav{
     display:none;
 
     position:fixed;
 
-    bottom:0;
     left:0;
     right:0;
+    bottom:0;
 
-    height:67px;
+    height:68px;
 
-    background:white;
+    background:#ffffff;
 
     border-top:1px solid #e5e7eb;
 
@@ -688,15 +859,15 @@ button{
 }
 
 .mobile-nav span{
-    font-size:21px;
+    font-size:20px;
 }
 
 
-/* =========================
+/* =========================================================
    RESPONSIVE
-========================= */
+========================================================= */
 
-@media(max-width:950px){
+@media(max-width:1000px){
 
     .community-grid{
         grid-template-columns:
@@ -705,13 +876,13 @@ button{
 
 }
 
+
 @media(max-width:650px){
 
     .header{
         height:62px;
 
-        padding:
-            0 15px;
+        padding:0 15px;
     }
 
     .logo{
@@ -719,12 +890,17 @@ button{
     }
 
     .logo-icon{
-        width:34px;
-        height:34px;
+        width:35px;
+        height:35px;
     }
 
-    .header-link{
+    .dashboard-link{
         display:none;
+    }
+
+    .avatar{
+        width:39px;
+        height:39px;
     }
 
     .page{
@@ -733,9 +909,9 @@ button{
     }
 
     .page-top{
-        align-items:flex-start;
-
         flex-direction:column;
+
+        align-items:stretch;
     }
 
     .page-title h1{
@@ -751,6 +927,8 @@ button{
     }
 
     .search-box{
+        width:100%;
+
         min-width:100%;
     }
 
@@ -766,7 +944,7 @@ button{
         padding:19px;
     }
 
-    .community-content p{
+    .community-description{
         min-height:auto;
     }
 
@@ -776,15 +954,34 @@ button{
 
 }
 
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media(max-width:380px){
+
+    .page{
+        padding-left:11px;
+        padding-right:11px;
+    }
+
+    .community-actions{
+        flex-direction:column;
+    }
+
+}
+
 </style>
+
 </head>
 
 <body>
 
 
-<!-- =========================
+<!-- =========================================================
      HEADER
-========================= -->
+========================================================= -->
 
 <header class="header">
 
@@ -806,20 +1003,24 @@ button{
 
         <a
             href="dashboard.html"
-            class="header-link"
+            class="dashboard-link"
         >
             Dashboard
         </a>
 
+
         <a
             href="profile.html"
+            class="avatar-link"
         >
+
             <img
                 id="userAvatar"
                 class="avatar"
                 src="https://ui-avatars.com/api/?name=U&background=2563eb&color=ffffff&size=100"
                 alt="Profile"
             >
+
         </a>
 
     </div>
@@ -827,14 +1028,17 @@ button{
 </header>
 
 
-<!-- =========================
+
+<!-- =========================================================
      MAIN
-========================= -->
+========================================================= -->
 
 <main class="page">
 
 
-    <div class="page-top">
+    <!-- PAGE HEADER -->
+
+    <section class="page-top">
 
         <div class="page-title">
 
@@ -857,12 +1061,15 @@ button{
             + Create Community
         </button>
 
-    </div>
+    </section>
 
 
-    <!-- CONTROLS -->
 
-    <div class="controls">
+    <!-- =====================================================
+         SEARCH / FILTER
+    ====================================================== -->
+
+    <section class="controls">
 
         <div class="search-box">
 
@@ -870,6 +1077,7 @@ button{
                 id="searchInput"
                 type="search"
                 placeholder="Search communities..."
+                autocomplete="off"
                 oninput="handleSearch(this.value)"
             >
 
@@ -916,10 +1124,13 @@ button{
 
         </select>
 
-    </div>
+    </section>
 
 
-    <!-- TABS -->
+
+    <!-- =====================================================
+         TABS
+    ====================================================== -->
 
     <div class="tabs">
 
@@ -930,6 +1141,7 @@ button{
         >
             Discover
         </button>
+
 
         <button
             id="myCommunitiesTab"
@@ -942,9 +1154,12 @@ button{
     </div>
 
 
-    <!-- COMMUNITY GRID -->
 
-    <div
+    <!-- =====================================================
+         COMMUNITIES
+    ====================================================== -->
+
+    <section
         id="communitiesGrid"
         class="community-grid"
     >
@@ -953,18 +1168,21 @@ button{
 
             <div class="spinner"></div>
 
-            Loading communities...
+            <div>
+                Loading communities...
+            </div>
 
         </div>
 
-    </div>
+    </section>
 
 </main>
 
 
-<!-- =========================
+
+<!-- =========================================================
      CREATE COMMUNITY MODAL
-========================= -->
+========================================================= -->
 
 <div
     id="createModal"
@@ -973,20 +1191,24 @@ button{
 
     <div class="modal-box">
 
+
         <div class="modal-header">
 
             <h2>
                 Create Community
             </h2>
 
+
             <button
                 class="close-btn"
                 onclick="closeCreateModal()"
+                aria-label="Close"
             >
                 ×
             </button>
 
         </div>
+
 
 
         <div class="form-group">
@@ -1005,6 +1227,7 @@ button{
         </div>
 
 
+
         <div class="form-group">
 
             <label for="communityDescription">
@@ -1020,15 +1243,14 @@ button{
         </div>
 
 
+
         <div class="form-group">
 
             <label for="communityType">
                 Community Type
             </label>
 
-            <select
-                id="communityType"
-            >
+            <select id="communityType">
 
                 <option value="Public">
                     Public
@@ -1043,15 +1265,14 @@ button{
         </div>
 
 
+
         <div class="form-group">
 
             <label for="communityCategory">
                 Category
             </label>
 
-            <select
-                id="communityCategory"
-            >
+            <select id="communityCategory">
 
                 <option value="Career">
                     Career
@@ -1086,6 +1307,7 @@ button{
         </div>
 
 
+
         <div class="modal-actions">
 
             <button
@@ -1095,7 +1317,9 @@ button{
                 Cancel
             </button>
 
+
             <button
+                id="submitCommunityBtn"
                 class="submit-btn"
                 onclick="createCommunity()"
             >
@@ -1109,9 +1333,10 @@ button{
 </div>
 
 
-<!-- =========================
+
+<!-- =========================================================
      MOBILE NAV
-========================= -->
+========================================================= -->
 
 <nav class="mobile-nav">
 
@@ -1165,10 +1390,11 @@ button{
 </nav>
 
 
+
 <script>
 
 /* =========================================================
-   SUPABASE
+   SUPABASE CONFIGURATION
 ========================================================= */
 
 const SUPABASE_URL =
@@ -1290,3 +1516,4794 @@ const defaultCommunities = [
 
 /* =========================================================
    INITIALIZE
+========================================================= */
+
+async function init(){
+
+    try{
+
+        console.log(
+            "CareerCraft Communities starting..."
+        );
+
+
+        /* ---------------------------------------------
+           CHECK SESSION
+        --------------------------------------------- */
+
+        const sessionResult =
+            await supabaseClient.auth.getSession();
+
+
+        const session =
+            sessionResult?.data?.session;
+
+
+        if(
+            sessionResult?.error
+        ){
+
+            console.error(
+                "Session error:",
+                sessionResult.error
+            );
+
+            showError(
+                "Unable to check your login session."
+            );
+
+            return;
+        }
+
+
+        if(!session){
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+
+        currentUser =
+            session.user;
+
+
+        console.log(
+            "Logged in user:",
+            currentUser.id
+        );
+
+
+        /* ---------------------------------------------
+           LOAD PROFILE
+        --------------------------------------------- */
+
+        await loadProfile();
+
+
+        /* ---------------------------------------------
+           IMPORTANT:
+           LOAD DATABASE COMMUNITIES FIRST.
+           The page will not wait for default creation.
+        --------------------------------------------- */
+
+        await loadCommunities();
+
+
+        /* ---------------------------------------------
+           LOAD MEMBERSHIPS
+        --------------------------------------------- */
+
+        await loadMemberships();
+
+
+        /* ---------------------------------------------
+           SHOW PAGE IMMEDIATELY
+        --------------------------------------------- */
+
+        renderCommunities();
+
+
+        /* ---------------------------------------------
+           CREATE DEFAULT COMMUNITIES IN BACKGROUND
+        --------------------------------------------- */
+
+        createDefaultCommunities()
+            .then(
+                async function(){
+
+                    console.log(
+                        "Default community setup finished."
+                    );
+
+
+                    await loadCommunities();
+
+                    await loadMemberships();
+
+                    renderCommunities();
+
+                }
+            )
+            .catch(
+                function(error){
+
+                    console.error(
+                        "Background community setup error:",
+                        error
+                    );
+
+                }
+            );
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Initialization error:",
+            error
+        );
+
+
+        showError(
+            "Something went wrong while loading Communities."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD PROFILE
+========================================================= */
+
+async function loadProfile(){
+
+    if(!currentUser){
+
+        return;
+    }
+
+
+    try{
+
+        const result =
+            await supabaseClient
+                .from("profiles")
+                .select("*")
+                .eq(
+                    "ID",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+        if(result.error){
+
+            console.warn(
+                "Profile lookup warning:",
+                result.error
+            );
+
+            return;
+        }
+
+
+        const profile =
+            result.data;
+
+
+        if(!profile){
+
+            return;
+        }
+
+
+        const name =
+            profile["FULL NAME"] ||
+            profile.full_name ||
+            profile.fullName ||
+            profile.name ||
+            currentUser
+                .user_metadata
+                ?.full_name ||
+            currentUser.email ||
+            "User";
+
+
+        const avatar =
+            profile.avatar_url ||
+            createAvatar(name);
+
+
+        const avatarElement =
+            document.getElementById(
+                "userAvatar"
+            );
+
+
+        if(avatarElement){
+
+            avatarElement.src =
+                avatar;
+
+        }
+
+    }
+    catch(error){
+
+        console.warn(
+            "Profile error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CREATE AVATAR
+========================================================= */
+
+function createAvatar(name){
+
+    const letter =
+        encodeURIComponent(
+            String(name || "U")
+                .charAt(0)
+                .toUpperCase()
+        );
+
+
+    return (
+        "https://ui-avatars.com/api/" +
+        "?name=" +
+        letter +
+        "&background=2563eb" +
+        "&color=ffffff" +
+        "&size=100"
+    );
+
+}
+
+
+/* =========================================================
+   LOAD COMMUNITIES
+========================================================= */
+
+async function loadCommunities(){
+
+    console.log(
+        "Loading communities..."
+    );
+
+
+    const result =
+        await supabaseClient
+            .from("communities")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending:true
+                }
+            );
+
+
+    if(result.error){
+
+        console.error(
+            "Community loading error:",
+            result.error
+        );
+
+
+        showError(
+            "Unable to load communities from Supabase."
+        );
+
+
+        return;
+    }
+
+
+    communities =
+        result.data || [];
+
+
+    console.log(
+        "Communities loaded:",
+        communities.length
+    );
+
+}
+
+
+/* =========================================================
+   LOAD MEMBERSHIPS
+========================================================= */
+
+async function loadMemberships(){
+
+    if(!currentUser){
+
+        return;
+    }
+
+
+    const result =
+        await supabaseClient
+            .from("community_members")
+            .select("community_id")
+            .eq(
+                "user_id",
+                currentUser.id
+            );
+
+
+    if(result.error){
+
+        console.error(
+            "Membership loading error:",
+            result.error
+        );
+
+
+        joinedIds =
+            new Set();
+
+
+        return;
+    }
+
+
+    joinedIds =
+        new Set(
+            (result.data || [])
+                .map(
+                    function(row){
+
+                        return String(
+                            row.community_id
+                        );
+
+                    }
+                )
+        );
+
+
+    console.log(
+        "Joined communities:",
+        joinedIds.size
+    );
+
+}
+
+
+/* =========================================================
+   CREATE DEFAULT COMMUNITIES
+========================================================= */
+
+async function createDefaultCommunities(){
+
+    if(!currentUser){
+
+        return;
+    }
+
+
+    console.log(
+        "Checking default communities..."
+    );
+
+
+    for(
+        const community
+        of defaultCommunities
+    ){
+
+        try{
+
+            const check =
+                await supabaseClient
+                    .from("communities")
+                    .select("id")
+                    .eq(
+                        "name",
+                        community.name
+                    )
+                    .limit(1);
+
+
+            if(check.error){
+
+                console.error(
+                    "Checking default community failed:",
+                    community.name,
+                    check.error
+                );
+
+                continue;
+            }
+
+
+            if(
+                check.data &&
+                check.data.length > 0
+            ){
+
+                continue;
+            }
+
+
+            console.log(
+                "Creating:",
+                community.name
+            );
+
+
+            const insert =
+                await supabaseClient
+                    .from("communities")
+                    .insert({
+
+                        name:
+                            community.name,
+
+                        description:
+                            community.description,
+
+                        type:
+                            community.type,
+
+                        category:
+                            community.category,
+
+                        icon:
+                            community.icon,
+
+                        created_by:
+                            currentUser.id
+
+                    });
+
+
+            if(insert.error){
+
+                console.error(
+                    "Could not create:",
+                    community.name,
+                    insert.error
+                );
+
+            }
+
+        }
+        catch(error){
+
+            console.error(
+                "Default community error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    console.log(
+        "Default communities checked."
+    );
+
+}
+
+
+/* =========================================================
+   RENDER COMMUNITIES
+========================================================= */
+
+function renderCommunities(){
+
+    const container =
+        document.getElementById(
+            "communitiesGrid"
+        );
+
+
+    if(!container){
+
+        return;
+    }
+
+
+    let list =
+        [...communities];
+
+
+    /* ---------------------------------------------
+       MY COMMUNITIES
+    --------------------------------------------- */
+
+    if(
+        currentTab === "mine"
+    ){
+
+        list =
+            list.filter(
+                function(community){
+
+                    return joinedIds.has(
+                        String(
+                            community.id
+                        )
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* ---------------------------------------------
+       SEARCH
+    --------------------------------------------- */
+
+    if(searchText){
+
+        const search =
+            searchText.toLowerCase();
+
+
+        list =
+            list.filter(
+                function(community){
+
+                    const name =
+                        String(
+                            community.name || ""
+                        )
+                        .toLowerCase();
+
+
+                    const description =
+                        String(
+                            community.description || ""
+                        )
+                        .toLowerCase();
+
+
+                    const category =
+                        String(
+                            community.category || ""
+                        )
+                        .toLowerCase();
+
+
+                    return (
+                        name.includes(search) ||
+                        description.includes(search) ||
+                        category.includes(search)
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* ---------------------------------------------
+       CATEGORY
+    --------------------------------------------- */
+
+    if(
+        currentCategory !== "All"
+    ){
+
+        list =
+            list.filter(
+                function(community){
+
+                    return (
+                        community.category ===
+                        currentCategory
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* ---------------------------------------------
+       NOTHING FOUND
+    --------------------------------------------- */
+
+    if(!list.length){
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🌐
+                </div>
+
+                <h3>
+
+                    ${
+                        currentTab === "mine"
+                            ?
+                            "You haven't joined any communities yet"
+                            :
+                            "No communities found"
+                    }
+
+                </h3>
+
+                <p>
+
+                    ${
+                        currentTab === "mine"
+                            ?
+                            "Discover a community and join the conversation."
+                            :
+                            "Try another search or category."
+                    }
+
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    /* ---------------------------------------------
+       DISPLAY
+    --------------------------------------------- */
+
+    container.innerHTML =
+        list
+            .map(
+                function(community){
+
+                    return communityCard(
+                        community
+                    );
+
+                }
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   COMMUNITY CARD
+========================================================= */
+
+function communityCard(
+    community
+){
+
+    const id =
+        String(
+            community.id
+        );
+
+
+    const joined =
+        joinedIds.has(id);
+
+
+    return `
+
+        <article
+            class="community-card"
+        >
+
+
+            <div class="community-icon">
+
+                ${escapeHtml(
+                    community.icon ||
+                    "🌐"
+                )}
+
+            </div>
+
+
+            <div
+                class="community-content"
+            >
+
+                <h3>
+
+                    ${escapeHtml(
+                        community.name ||
+                        "Community"
+                    )}
+
+                </h3>
+
+
+                <p
+                    class="community-description"
+                >
+
+                    ${escapeHtml(
+                        community.description ||
+                        "A CareerCraft professional community."
+                    )}
+
+                </p>
+
+
+                <div
+                    class="community-meta"
+                >
+
+                    <span>
+
+                        ${escapeHtml(
+                            community.category ||
+                            "Other"
+                        )}
+
+                    </span>
+
+
+                    <span>
+
+                        ${escapeHtml(
+                            community.type ||
+                            "Public"
+                        )}
+
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="community-actions"
+                >
+
+                    <button
+                        class="open-btn"
+                        onclick="openCommunity('${id}')"
+                    >
+                        Open
+                    </button>
+
+
+                    ${
+                        joined
+
+                        ?
+
+                        `
+
+                        <button
+                            class="leave-btn"
+                            onclick="leaveCommunity('${id}')"
+                        >
+                            Joined ✓
+                        </button>
+
+                        `
+
+                        :
+
+                        `
+
+                        <button
+                            class="join-btn"
+                            onclick="joinCommunity('${id}')"
+                        >
+                            Join
+                        </button>
+
+                        `
+                    }
+
+                </div>
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* =========================================================
+   JOIN COMMUNITY
+========================================================= */
+
+async function joinCommunity(id){
+
+    if(!currentUser){
+
+        alert(
+            "Please log in first."
+        );
+
+        return;
+    }
+
+
+    if(
+        joinedIds.has(
+            String(id)
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const result =
+        await supabaseClient
+            .from("community_members")
+            .insert({
+
+                community_id:
+                    id,
+
+                user_id:
+                    currentUser.id
+
+            });
+
+
+    if(result.error){
+
+        console.error(
+            "Join community error:",
+            result.error
+        );
+
+
+        /* Already joined */
+
+        if(
+            result.error.code === "23505"
+        ){
+
+            joinedIds.add(
+                String(id)
+            );
+
+            renderCommunities();
+
+            return;
+        }
+
+
+        alert(
+            "Unable to join this community."
+        );
+
+        return;
+    }
+
+
+    joinedIds.add(
+        String(id)
+    );
+
+
+    renderCommunities();
+
+}
+
+
+/* =========================================================
+   LEAVE COMMUNITY
+========================================================= */
+
+async function leaveCommunity(id){
+
+    if(!currentUser){
+
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to leave this community?"
+        );
+
+
+    if(!confirmed){
+
+        return;
+    }
+
+
+    const result =
+        await supabaseClient
+            .from("community_members")
+            .delete()
+            .eq(
+                "community_id",
+                id
+            )
+            .eq(
+                "user_id",
+                currentUser.id
+            );
+
+
+    if(result.error){
+
+        console.error(
+            "Leave community error:",
+            result.error
+        );
+
+
+        alert(
+            "Unable to leave this community."
+        );
+
+        return;
+    }
+
+
+    joinedIds.delete(
+        String(id)
+    );
+
+
+    renderCommunities();
+
+}
+
+
+/* =========================================================
+   OPEN COMMUNITY
+========================================================= */
+
+function openCommunity(id){
+
+    if(!id){
+
+        return;
+    }
+
+
+    window.location.href =
+        "community.html?id=" +
+        encodeURIComponent(id);
+
+}
+
+
+/* =========================================================
+   DISCOVER TAB
+========================================================= */
+
+function showDiscover(){
+
+    currentTab =
+        "discover";
+
+
+    setActiveTab();
+
+
+    renderCommunities();
+
+}
+
+
+/* =========================================================
+   MY COMMUNITIES TAB
+========================================================= */
+
+function showMyCommunities(){
+
+    currentTab =
+        "mine";
+
+
+    setActiveTab();
+
+
+    renderCommunities();
+
+}
+
+
+/* =========================================================
+   ACTIVE TAB
+========================================================= */
+
+function setActiveTab(){
+
+    const discover =
+        document.getElementById(
+            "discoverTab"
+        );
+
+
+    const mine =
+        document.getElementById(
+            "myCommunitiesTab"
+        );
+
+
+    if(discover){
+
+        discover.classList.toggle(
+            "active",
+            currentTab === "discover"
+        );
+
+    }
+
+
+    if(mine){
+
+        mine.classList.toggle(
+            "active",
+            currentTab === "mine"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function handleSearch(value){
+
+    searchText =
+        String(
+            value || ""
+        )
+        .trim();
+
+
+    renderCommunities();
+
+}
+
+
+/* =========================================================
+   CATEGORY FILTER
+========================================================= */
+
+function filterCategory(
+    category
+){
+
+    currentCategory =
+        category ||
+        "All";
+
+
+    renderCommunities();
+
+}
+
+
+/* =========================================================
+   OPEN CREATE MODAL
+========================================================= */
+
+function openCreateModal(){
+
+    const modal =
+        document.getElementById(
+            "createModal"
+        );
+
+
+    if(!modal){
+
+        return;
+    }
+
+
+    modal.classList.add(
+        "show"
+    );
+
+
+    const input =
+        document.getElementById(
+            "communityName"
+        );
+
+
+    if(input){
+
+        setTimeout(
+            function(){
+
+                input.focus();
+
+            },
+            100
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE CREATE MODAL
+========================================================= */
+
+function closeCreateModal(){
+
+    const modal =
+        document.getElementById(
+            "createModal"
+        );
+
+
+    if(modal){
+
+        modal.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CREATE COMMUNITY
+========================================================= */
+
+async function createCommunity(){
+
+    if(!currentUser){
+
+        alert(
+            "Please log in first."
+        );
+
+        return;
+    }
+
+
+    const nameElement =
+        document.getElementById(
+            "communityName"
+        );
+
+
+    const descriptionElement =
+        document.getElementById(
+            "communityDescription"
+        );
+
+
+    const typeElement =
+        document.getElementById(
+            "communityType"
+        );
+
+
+    const categoryElement =
+        document.getElementById(
+            "communityCategory"
+        );
+
+
+    const button =
+        document.getElementById(
+            "submitCommunityBtn"
+        );
+
+
+    const name =
+        nameElement
+            ?.value
+            ?.trim();
+
+
+    const description =
+        descriptionElement
+            ?.value
+            ?.trim();
+
+
+    const type =
+        typeElement
+            ?.value ||
+        "Public";
+
+
+    const category =
+        categoryElement
+            ?.value ||
+        "Other";
+
+
+    if(!name){
+
+        alert(
+            "Please enter a community name."
+        );
+
+        return;
+    }
+
+
+    if(!description){
+
+        alert(
+            "Please enter a community description."
+        );
+
+        return;
+    }
+
+
+    if(button){
+
+        button.disabled = true;
+
+        button.textContent =
+            "Creating...";
+    }
+
+
+    try{
+
+        const result =
+            await supabaseClient
+                .from("communities")
+                .insert({
+
+                    name:
+                        name,
+
+                    description:
+                        description,
+
+                    type:
+                        type,
+
+                    category:
+                        category,
+
+                    icon:
+                        "🌐",
+
+                    created_by:
+                        currentUser.id
+
+                })
+                .select()
+                .single();
+
+
+        if(result.error){
+
+            console.error(
+                "Create community error:",
+                result.error
+            );
+
+
+            alert(
+                "Could not create the community."
+            );
+
+            return;
+        }
+
+
+        const newCommunity =
+            result.data;
+
+
+        /* ---------------------------------------------
+           AUTOMATICALLY JOIN CREATOR
+        --------------------------------------------- */
+
+        const memberResult =
+            await supabaseClient
+                .from("community_members")
+                .insert({
+
+                    community_id:
+                        newCommunity.id,
+
+                    user_id:
+                        currentUser.id
+
+                });
+
+
+        if(memberResult.error){
+
+            console.warn(
+                "Creator membership warning:",
+                memberResult.error
+            );
+
+        }
+
+
+        /* ---------------------------------------------
+           UPDATE LOCAL DATA
+        --------------------------------------------- */
+
+        communities.push(
+            newCommunity
+        );
+
+
+        joinedIds.add(
+            String(
+                newCommunity.id
+            )
+        );
+
+
+        /* ---------------------------------------------
+           RESET
+        --------------------------------------------- */
+
+        resetCreateForm();
+
+
+        closeCreateModal();
+
+
+        /* ---------------------------------------------
+           SHOW MY COMMUNITIES
+        --------------------------------------------- */
+
+        currentTab =
+            "mine";
+
+
+        setActiveTab();
+
+
+        renderCommunities();
+
+
+        alert(
+            "Community created successfully!"
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Community creation exception:",
+            error
+        );
+
+
+        alert(
+            "Something went wrong while creating the community."
+        );
+
+    }
+    finally{
+
+        if(button){
+
+            button.disabled = false;
+
+            button.textContent =
+                "Create Community";
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   RESET CREATE FORM
+========================================================= */
+
+function resetCreateForm(){
+
+    const name =
+        document.getElementById(
+            "communityName"
+        );
+
+
+    const description =
+        document.getElementById(
+            "communityDescription"
+        );
+
+
+    const type =
+        document.getElementById(
+            "communityType"
+        );
+
+
+    const category =
+        document.getElementById(
+            "communityCategory"
+        );
+
+
+    if(name){
+
+        name.value = "";
+
+    }
+
+
+    if(description){
+
+        description.value = "";
+
+    }
+
+
+    if(type){
+
+        type.value =
+            "Public";
+
+    }
+
+
+    if(category){
+
+        category.value =
+            "Career";
+
+    }
+
+}
+
+
+/* =========================================================
+   SHOW ERROR
+========================================================= */
+
+function showError(message){
+
+    const container =
+        document.getElementById(
+            "communitiesGrid"
+        );
+
+
+    if(!container){
+
+        return;
+    }
+
+
+    container.innerHTML = `
+
+        <div class="error-state">
+
+            <div class="error-icon">
+                ⚠️
+            </div>
+
+            <h3>
+                Something went wrong
+            </h3>
+
+            <p>
+                ${escapeHtml(message)}
+            </p>
+
+            <button
+                class="retry-btn"
+                onclick="location.reload()"
+            >
+                Try Again
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL WHEN CLICKING OUTSIDE
+========================================================= */
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const modal =
+            document.getElementById(
+                "createModal"
+            );
+
+
+        if(
+            modal &&
+            event.target === modal
+        ){
+
+            closeCreateModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESC KEY CLOSES MODAL
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closeCreateModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event){
+
+        if(
+            event === "SIGNED_OUT"
+        ){
+
+            window.location.href =
+                "login.html";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   START APPLICATION
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        init();
+
+    }
+);
+
+</script>
+
+</body>
+      </html><!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Communities | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:#f5f7fb;
+    color:#172033;
+
+    min-height:100vh;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+    height:70px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #e5e7eb;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 28px;
+
+    position:sticky;
+    top:0;
+
+    z-index:100;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    text-decoration:none;
+
+    color:#2563eb;
+
+    font-size:23px;
+    font-weight:800;
+}
+
+.logo-icon{
+    width:40px;
+    height:40px;
+
+    border-radius:11px;
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:21px;
+    font-weight:800;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+
+    gap:18px;
+}
+
+.dashboard-link{
+    text-decoration:none;
+
+    color:#475569;
+
+    font-weight:700;
+}
+
+.dashboard-link:hover{
+    color:#2563eb;
+}
+
+.avatar-link{
+    display:flex;
+    align-items:center;
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid #e5e7eb;
+
+    background:#2563eb;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page{
+    width:100%;
+    max-width:1200px;
+
+    margin:0 auto;
+
+    padding:34px 22px 100px;
+}
+
+.page-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+
+    margin-bottom:27px;
+}
+
+.page-title h1{
+    font-size:32px;
+    line-height:1.2;
+
+    margin-bottom:8px;
+}
+
+.page-title p{
+    color:#64748b;
+
+    font-size:15px;
+
+    line-height:1.5;
+}
+
+.create-btn{
+    border:0;
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+    padding:13px 19px;
+
+    border-radius:10px;
+
+    font-weight:700;
+
+    white-space:nowrap;
+
+    box-shadow:
+        0 7px 20px
+        rgba(37,99,235,.18);
+
+    transition:.2s;
+}
+
+.create-btn:hover{
+    background:#1d4ed8;
+
+    transform:translateY(-1px);
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls{
+    background:#ffffff;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:16px;
+
+    padding:16px;
+
+    margin-bottom:24px;
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+}
+
+.search-box{
+    flex:1;
+
+    min-width:230px;
+}
+
+.search-box input{
+    width:100%;
+
+    height:46px;
+
+    padding:0 14px;
+
+    border:1px solid #dbe1ea;
+
+    border-radius:10px;
+
+    outline:none;
+
+    color:#172033;
+
+    background:#ffffff;
+}
+
+.search-box input:focus{
+    border-color:#2563eb;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.10);
+}
+
+.category-select{
+    height:46px;
+
+    min-width:180px;
+
+    padding:0 13px;
+
+    border:1px solid #dbe1ea;
+
+    border-radius:10px;
+
+    outline:none;
+
+    background:#ffffff;
+
+    color:#334155;
+}
+
+.category-select:focus{
+    border-color:#2563eb;
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+.tabs{
+    display:flex;
+
+    gap:5px;
+
+    border-bottom:1px solid #e5e7eb;
+
+    margin-bottom:25px;
+}
+
+.tab{
+    border:0;
+
+    background:transparent;
+
+    color:#64748b;
+
+    padding:13px 20px;
+
+    font-weight:700;
+
+    border-bottom:3px solid transparent;
+
+    margin-bottom:-1px;
+}
+
+.tab:hover{
+    color:#2563eb;
+}
+
+.tab.active{
+    color:#2563eb;
+
+    border-bottom-color:#2563eb;
+}
+
+
+/* =========================================================
+   COMMUNITY GRID
+========================================================= */
+
+.community-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap:20px;
+}
+
+.community-card{
+    background:#ffffff;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:18px;
+
+    padding:21px;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+}
+
+.community-card:hover{
+    transform:translateY(-3px);
+
+    border-color:#cbd5e1;
+
+    box-shadow:
+        0 13px 32px
+        rgba(15,23,42,.08);
+}
+
+.community-icon{
+    width:58px;
+    height:58px;
+
+    border-radius:16px;
+
+    background:#eff6ff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:29px;
+
+    margin-bottom:16px;
+}
+
+.community-content h3{
+    font-size:19px;
+
+    margin-bottom:9px;
+
+    color:#172033;
+}
+
+.community-description{
+    color:#64748b;
+
+    font-size:14px;
+
+    line-height:1.55;
+
+    min-height:66px;
+}
+
+.community-meta{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+
+    margin-top:15px;
+}
+
+.community-meta span{
+    display:inline-flex;
+
+    align-items:center;
+
+    background:#f1f5f9;
+
+    color:#475569;
+
+    border-radius:7px;
+
+    padding:6px 9px;
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+.community-actions{
+    display:flex;
+
+    gap:9px;
+
+    margin-top:19px;
+}
+
+.open-btn,
+.join-btn,
+.leave-btn{
+    flex:1;
+
+    min-height:42px;
+
+    border:0;
+
+    border-radius:9px;
+
+    font-weight:700;
+
+    transition:.2s;
+}
+
+.open-btn{
+    background:#eff6ff;
+
+    color:#2563eb;
+}
+
+.open-btn:hover{
+    background:#dbeafe;
+}
+
+.join-btn{
+    background:#2563eb;
+
+    color:#ffffff;
+}
+
+.join-btn:hover{
+    background:#1d4ed8;
+}
+
+.leave-btn{
+    background:#ecfdf5;
+
+    color:#047857;
+}
+
+.leave-btn:hover{
+    background:#d1fae5;
+}
+
+.open-btn:disabled,
+.join-btn:disabled,
+.leave-btn:disabled{
+    opacity:.6;
+
+    cursor:not-allowed;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading{
+    grid-column:1/-1;
+
+    min-height:280px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#64748b;
+
+    text-align:center;
+}
+
+.spinner{
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    border:4px solid #dbeafe;
+
+    border-top-color:#2563eb;
+
+    animation:
+        spin .8s linear infinite;
+
+    margin-bottom:15px;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty-state{
+    grid-column:1/-1;
+
+    background:#ffffff;
+
+    border:1px dashed #cbd5e1;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    padding:65px 20px;
+}
+
+.empty-icon{
+    font-size:45px;
+
+    margin-bottom:13px;
+}
+
+.empty-state h3{
+    font-size:20px;
+
+    margin-bottom:8px;
+}
+
+.empty-state p{
+    color:#64748b;
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.error-state{
+    grid-column:1/-1;
+
+    background:#ffffff;
+
+    border:1px solid #fecaca;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    padding:55px 20px;
+}
+
+.error-icon{
+    font-size:42px;
+
+    margin-bottom:13px;
+}
+
+.error-state h3{
+    margin-bottom:8px;
+}
+
+.error-state p{
+    color:#64748b;
+
+    margin-bottom:18px;
+}
+
+.retry-btn{
+    border:0;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:11px 18px;
+
+    border-radius:9px;
+
+    font-weight:700;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+        rgba(15,23,42,.55);
+
+    z-index:1000;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+
+    max-width:530px;
+
+    max-height:90vh;
+
+    overflow:auto;
+
+    background:#ffffff;
+
+    border-radius:20px;
+
+    padding:27px;
+
+    box-shadow:
+        0 25px 70px
+        rgba(15,23,42,.25);
+}
+
+.modal-header{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:23px;
+}
+
+.modal-header h2{
+    font-size:23px;
+}
+
+.close-btn{
+    width:36px;
+    height:36px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:#f1f5f9;
+
+    color:#475569;
+
+    font-size:22px;
+
+    line-height:1;
+}
+
+.close-btn:hover{
+    background:#e2e8f0;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    color:#334155;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+
+    border:1px solid #dbe1ea;
+
+    border-radius:10px;
+
+    padding:12px 13px;
+
+    outline:none;
+
+    background:#ffffff;
+
+    color:#172033;
+}
+
+.form-group textarea{
+    min-height:110px;
+
+    resize:vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    border-color:#2563eb;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.10);
+}
+
+.modal-actions{
+    display:flex;
+
+    gap:10px;
+
+    margin-top:23px;
+}
+
+.cancel-btn,
+.submit-btn{
+    flex:1;
+
+    min-height:46px;
+
+    border:0;
+
+    border-radius:10px;
+
+    font-weight:700;
+}
+
+.cancel-btn{
+    background:#f1f5f9;
+
+    color:#475569;
+}
+
+.cancel-btn:hover{
+    background:#e2e8f0;
+}
+
+.submit-btn{
+    background:#2563eb;
+
+    color:#ffffff;
+}
+
+.submit-btn:hover{
+    background:#1d4ed8;
+}
+
+.submit-btn:disabled{
+    opacity:.6;
+
+    cursor:not-allowed;
+}
+
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+.mobile-nav{
+    display:none;
+
+    position:fixed;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:68px;
+
+    background:#ffffff;
+
+    border-top:1px solid #e5e7eb;
+
+    z-index:200;
+}
+
+.mobile-nav a{
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:3px;
+
+    text-decoration:none;
+
+    color:#64748b;
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+.mobile-nav a.active{
+    color:#2563eb;
+}
+
+.mobile-nav span{
+    font-size:20px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px){
+
+    .community-grid{
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+    }
+
+}
+
+
+@media(max-width:650px){
+
+    .header{
+        height:62px;
+
+        padding:0 15px;
+    }
+
+    .logo{
+        font-size:20px;
+    }
+
+    .logo-icon{
+        width:35px;
+        height:35px;
+    }
+
+    .dashboard-link{
+        display:none;
+    }
+
+    .avatar{
+        width:39px;
+        height:39px;
+    }
+
+    .page{
+        padding:
+            25px 14px 90px;
+    }
+
+    .page-top{
+        flex-direction:column;
+
+        align-items:stretch;
+    }
+
+    .page-title h1{
+        font-size:27px;
+    }
+
+    .create-btn{
+        width:100%;
+    }
+
+    .controls{
+        padding:13px;
+    }
+
+    .search-box{
+        width:100%;
+
+        min-width:100%;
+    }
+
+    .category-select{
+        width:100%;
+    }
+
+    .community-grid{
+        grid-template-columns:1fr;
+    }
+
+    .community-card{
+        padding:19px;
+    }
+
+    .community-description{
+        min-height:auto;
+    }
+
+    .mobile-nav{
+        display:flex;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media(max-width:380px){
+
+    .page{
+        padding-left:11px;
+        padding-right:11px;
+    }
+
+    .community-actions{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header">
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+
+        <div class="logo-icon">
+            C
+        </div>
+
+        CareerCraft
+
+    </a>
+
+
+    <div class="header-right">
+
+        <a
+            href="dashboard.html"
+            class="dashboard-link"
+        >
+            Dashboard
+        </a>
+
+
+        <a
+            href="profile.html"
+            class="avatar-link"
+        >
+
+            <img
+                id="userAvatar"
+                class="avatar"
+                src="https://ui-avatars.com/api/?name=U&background=2563eb&color=ffffff&size=100"
+                alt="Profile"
+            >
+
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="page">
+
+
+    <!-- PAGE HEADER -->
+
+    <section class="page-top">
+
+        <div class="page-title">
+
+            <h1>
+                Communities
+            </h1>
+
+            <p>
+                Connect, learn, share opportunities,
+                and grow with professionals.
+            </p>
+
+        </div>
+
+
+        <button
+            class="create-btn"
+            onclick="openCreateModal()"
+        >
+            + Create Community
+        </button>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SEARCH / FILTER
+    ====================================================== -->
+
+    <section class="controls">
+
+        <div class="search-box">
+
+            <input
+                id="searchInput"
+                type="search"
+                placeholder="Search communities..."
+                autocomplete="off"
+                oninput="handleSearch(this.value)"
+            >
+
+        </div>
+
+
+        <select
+            id="categorySelect"
+            class="category-select"
+            onchange="filterCategory(this.value)"
+        >
+
+            <option value="All">
+                All Categories
+            </option>
+
+            <option value="Career">
+                Career
+            </option>
+
+            <option value="Technology">
+                Technology
+            </option>
+
+            <option value="Business">
+                Business
+            </option>
+
+            <option value="Education">
+                Education
+            </option>
+
+            <option value="Design">
+                Design
+            </option>
+
+            <option value="Finance">
+                Finance
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
+        </select>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TABS
+    ====================================================== -->
+
+    <div class="tabs">
+
+        <button
+            id="discoverTab"
+            class="tab active"
+            onclick="showDiscover()"
+        >
+            Discover
+        </button>
+
+
+        <button
+            id="myCommunitiesTab"
+            class="tab"
+            onclick="showMyCommunities()"
+        >
+            My Communities
+        </button>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         COMMUNITIES
+    ====================================================== -->
+
+    <section
+        id="communitiesGrid"
+        class="community-grid"
+    >
+
+        <div class="loading">
+
+            <div class="spinner"></div>
+
+            <div>
+                Loading communities...
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================================================
+     CREATE COMMUNITY MODAL
+========================================================= -->
+
+<div
+    id="createModal"
+    class="modal"
+>
+
+    <div class="modal-box">
+
+
+        <div class="modal-header">
+
+            <h2>
+                Create Community
+            </h2>
+
+
+            <button
+                class="close-btn"
+                onclick="closeCreateModal()"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            <label for="communityName">
+                Community Name
+            </label>
+
+            <input
+                id="communityName"
+                type="text"
+                maxlength="100"
+                placeholder="e.g. Remote Workers"
+            >
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            <label for="communityDescription">
+                Description
+            </label>
+
+            <textarea
+                id="communityDescription"
+                maxlength="500"
+                placeholder="What is this community about?"
+            ></textarea>
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            <label for="communityType">
+                Community Type
+            </label>
+
+            <select id="communityType">
+
+                <option value="Public">
+                    Public
+                </option>
+
+                <option value="Private">
+                    Private
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            <label for="communityCategory">
+                Category
+            </label>
+
+            <select id="communityCategory">
+
+                <option value="Career">
+                    Career
+                </option>
+
+                <option value="Technology">
+                    Technology
+                </option>
+
+                <option value="Business">
+                    Business
+                </option>
+
+                <option value="Education">
+                    Education
+                </option>
+
+                <option value="Design">
+                    Design
+                </option>
+
+                <option value="Finance">
+                    Finance
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div class="modal-actions">
+
+            <button
+                class="cancel-btn"
+                onclick="closeCreateModal()"
+            >
+                Cancel
+            </button>
+
+
+            <button
+                id="submitCommunityBtn"
+                class="submit-btn"
+                onclick="createCommunity()"
+            >
+                Create Community
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     MOBILE NAV
+========================================================= -->
+
+<nav class="mobile-nav">
+
+    <a href="index.html">
+
+        <span>⌂</span>
+
+        Home
+
+    </a>
+
+
+    <a href="job-finder.html">
+
+        <span>💼</span>
+
+        Jobs
+
+    </a>
+
+
+    <a
+        href="communities.html"
+        class="active"
+    >
+
+        <span>👥</span>
+
+        Communities
+
+    </a>
+
+
+    <a href="messages.html">
+
+        <span>💬</span>
+
+        Messages
+
+    </a>
+
+
+    <a href="profile.html">
+
+        <span>👤</span>
+
+        Profile
+
+    </a>
+
+</nav>
+
+
+
+<script>
+
+/* =========================================================
+   SUPABASE CONFIGURATION
+========================================================= */
+
+const SUPABASE_URL =
+    "https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================================================
+   GLOBAL VARIABLES
+========================================================= */
+
+let currentUser = null;
+
+let communities = [];
+
+let joinedIds = new Set();
+
+let currentTab = "discover";
+
+let searchText = "";
+
+let currentCategory = "All";
+
+
+/* =========================================================
+   DEFAULT COMMUNITIES
+========================================================= */
+
+const defaultCommunities = [
+
+    {
+        name:"Career Growth",
+
+        description:
+            "Grow your career, discover opportunities, and share professional advice.",
+
+        type:"Public",
+
+        category:"Career",
+
+        icon:"🚀"
+    },
+
+    {
+        name:"Tech Professionals",
+
+        description:
+            "Connect with developers, engineers, designers, and technology professionals.",
+
+        type:"Public",
+
+        category:"Technology",
+
+        icon:"💻"
+    },
+
+    {
+        name:"Entrepreneurs Hub",
+
+        description:
+            "A place for entrepreneurs to exchange ideas, opportunities, and business knowledge.",
+
+        type:"Public",
+
+        category:"Business",
+
+        icon:"💡"
+    },
+
+    {
+        name:"Students & Graduates",
+
+        description:
+            "Students and graduates can connect, learn, find opportunities, and grow professionally.",
+
+        type:"Public",
+
+        category:"Education",
+
+        icon:"🎓"
+    },
+
+    {
+        name:"Designers Community",
+
+        description:
+            "Share creative work, design knowledge, portfolios, and professional opportunities.",
+
+        type:"Public",
+
+        category:"Design",
+
+        icon:"🎨"
+    },
+
+    {
+        name:"Finance Professionals",
+
+        description:
+            "Connect with finance professionals and discuss careers, markets, and financial knowledge.",
+
+        type:"Public",
+
+        category:"Finance",
+
+        icon:"📊"
+    }
+
+];
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+async function init(){
+
+    try{
+
+        console.log(
+            "CareerCraft Communities starting..."
+        );
+
+
+        /* ---------------------------------------------
+           CHECK SESSION
+        --------------------------------------------- */
+
+        const sessionResult =
+            await supabaseClient.auth.getSession();
+
+
+        const session =
+            sessionResult?.data?.session;
+
+
+        if(
+            sessionResult?.error
+        ){
+
+            console.error(
+                "Session error:",
+                sessionResult.error
+            );
+
+            showError(
+                "Unable to check your login session."
+            );
+
+            return;
+        }
+
+
+        if(!session){
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+
+        currentUser =
+            session.user;
+
+
+        console.log(
+            "Logged in user:",
+            currentUser.id
+        );
+
+
+        /* ---------------------------------------------
+           LOAD PROFILE
+        --------------------------------------------- */
+
+        await loadProfile();
+
+
+        /* ---------------------------------------------
+           IMPORTANT:
+           LOAD DATABASE COMMUNITIES FIRST.
+           The page will not wait for default creation.
+        --------------------------------------------- */
+
+        await loadCommunities();
+
+
+        /* ---------------------------------------------
+           LOAD MEMBERSHIPS
+        --------------------------------------------- */
+
+        await loadMemberships();
+
+
+        /* ---------------------------------------------
+           SHOW PAGE IMMEDIATELY
+        --------------------------------------------- */
+
+        renderCommunities();
+
+
+        /* ---------------------------------------------
+           CREATE DEFAULT COMMUNITIES IN BACKGROUND
+        --------------------------------------------- */
+
+        createDefaultCommunities()
+            .then(
+                async function(){
+
+                    console.log(
+                        "Default community setup finished."
+                    );
+
+
+                    await loadCommunities();
+
+                    await loadMemberships();
+
+                    renderCommunities();
+
+                }
+            )
+            .catch(
+                function(error){
+
+                    console.error(
+                        "Background community setup error:",
+                        error
+                    );
+
+                }
+            );
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Initialization error:",
+            error
+        );
+
+
+        showError(
+            "Something went wrong while loading Communities."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD PROFILE
+========================================================= */
+
+async function loadProfile(){
+
+    if(!currentUser){
+
+        return;
+    }
+
+
+    try{
+
+        const result =
+            await supabaseClient
+                .from("profiles")
+                .select("*")
+                .eq(
+                    "ID",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+        if(result.error){
+
+            console.warn(
+                "Profile lookup warning:",
+                result.error
+            );
+
+            return;
+        }
+
+
+        const profile =
+            result.data;
+
+
+        if(!profile){
+
+            return;
+        }
+
+
+        const name =
+            profile["FULL NAME"] ||
+            profile.full_name ||
+            profile.fullName ||
+            profile.name ||
+            currentUser
+                .user_metadata
+                ?.full_name ||
+            currentUser.email ||
+            "User";
+
+
+        const avatar =
+            profile.avatar_url ||
+            createAvatar(name);
+
+
+        const avatarElement =
+            document.getElementById(
+                "userAvatar"
+            );
+
+
+        if(avatarElement){
+
+            avatarElement.src =
+                avatar;
+
+        }
+
+    }
+    catch(error){
+
+        console.warn(
+            "Profile error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CREATE AVATAR
+========================================================= */
+
+function createAvatar(name){
+
+    const letter =
+        encodeURIComponent(
+            String(name || "U")
+                .charAt(0)
+                .toUpperCase()
+        );
+
+
+    return (
+        "https://ui-avatars.com/api/" +
+        "?name=" +
+        letter +
+        "&background=2563eb" +
+        "&color=ffffff" +
+        "&size=100"
+    );
+
+}
+
+
+/* =========================================================
+   LOAD COMMUNITIES
+========================================================= */
+
+async function loadCommunities(){
+
+    console.log(
+        "Loading communities..."
+    );
+
+
+    const result =
+        await supabaseClient
+            .from("communities")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending:true
+                }
+            );
+
+
+    if(result.error){
+
+        console.error(
+            "Community loading error:",
+            result.error
+        );
+
+
+        showError(
+            "Unable to load communities from Supabase."
+        );
+
+
+        return;
+    }
+
+
+    communities =
+        result.data || [];
+
+
+    console.log(
+        "Communities loaded:",
+        communities.length
+    );
+
+}
+
+
+/* =========================================================
+   LOAD MEMBERSHIPS
+========================================================= */
+
+async function loadMemberships(){
+
+    if(!currentUser){
+
+        return;
+    }
+
+
+    const result =
+        await supabaseClient
+            .from("community_members")
+            .select("community_id")
+            .eq(
+                "user_id",
+                currentUser.id
+            );
+
+
+    if(result.error){
+
+        console.error(
+            "Membership loading error:",
+            result.error
+        );
+
+
+        joinedIds =
+            new Set();
+
+
+        return;
+    }
+
+
+    joinedIds =
+        new Set(
+            (result.data || [])
+                .map(
+                    function(row){
+
+                        return String(
+                            row.community_id
+                        );
+
+                    }
+                )
+        );
+
+
+    console.log(
+        "Joined communities:",
+        joinedIds.size
+    );
+
+}
+
+
+/* =========================================================
+   CREATE DEFAULT COMMUNITIES
+========================================================= */
+
+async function createDefaultCommunities(){
+
+    if(!currentUser){
+
+        return;
+    }
+
+
+    console.log(
+        "Checking default communities..."
+    );
+
+
+    for(
+        const community
+        of defaultCommunities
+    ){
+
+        try{
+
+            const check =
+                await supabaseClient
+                    .from("communities")
+                    .select("id")
+                    .eq(
+                        "name",
+                        community.name
+                    )
+                    .limit(1);
+
+
+            if(check.error){
+
+                console.error(
+                    "Checking default community failed:",
+                    community.name,
+                    check.error
+                );
+
+                continue;
+            }
+
+
+            if(
+                check.data &&
+                check.data.length > 0
+            ){
+
+                continue;
+            }
+
+
+            console.log(
+                "Creating:",
+                community.name
+            );
+
+
+            const insert =
+                await supabaseClient
+                    .from("communities")
+                    .insert({
+
+                        name:
+                            community.name,
+
+                        description:
+                            community.description,
+
+                        type:
+                            community.type,
+
+                        category:
+                            community.category,
+
+                        icon:
+                            community.icon,
+
+                        created_by:
+                            currentUser.id
+
+                    });
+
+
+            if(insert.error){
+
+                console.error(
+                    "Could not create:",
+                    community.name,
+                    insert.error
+                );
+
+            }
+
+        }
+        catch(error){
+
+            console.error(
+                "Default community error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    console.log(
+        "Default communities checked."
+    );
+
+}
+
+
+/* =========================================================
+   RENDER COMMUNITIES
+========================================================= */
+
+function renderCommunities(){
+
+    const container =
+        document.getElementById(
+            "communitiesGrid"
+        );
+
+
+    if(!container){
+
+        return;
+    }
+
+
+    let list =
+        [...communities];
+
+
+    /* ---------------------------------------------
+       MY COMMUNITIES
+    --------------------------------------------- */
+
+    if(
+        currentTab === "mine"
+    ){
+
+        list =
+            list.filter(
+                function(community){
+
+                    return joinedIds.has(
+                        String(
+                            community.id
+                        )
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* ---------------------------------------------
+       SEARCH
+    --------------------------------------------- */
+
+    if(searchText){
+
+        const search =
+            searchText.toLowerCase();
+
+
+        list =
+            list.filter(
+                function(community){
+
+                    const name =
+                        String(
+                            community.name || ""
+                        )
+                        .toLowerCase();
+
+
+                    const description =
+                        String(
+                            community.description || ""
+                        )
+                        .toLowerCase();
+
+
+                    const category =
+                        String(
+                            community.category || ""
+                        )
+                        .toLowerCase();
+
+
+                    return (
+                        name.includes(search) ||
+                        description.includes(search) ||
+                        category.includes(search)
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* ---------------------------------------------
+       CATEGORY
+    --------------------------------------------- */
+
+    if(
+        currentCategory !== "All"
+    ){
+
+        list =
+            list.filter(
+                function(community){
+
+                    return (
+                        community.category ===
+                        currentCategory
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* ---------------------------------------------
+       NOTHING FOUND
+    --------------------------------------------- */
+
+    if(!list.length){
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🌐
+                </div>
+
+                <h3>
+
+                    ${
+                        currentTab === "mine"
+                            ?
+                            "You haven't joined any communities yet"
+                            :
+                            "No communities found"
+                    }
+
+                </h3>
+
+                <p>
+
+                    ${
+                        currentTab === "mine"
+                            ?
+                            "Discover a community and join the conversation."
+                            :
+                            "Try another search or category."
+                    }
+
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    /* ---------------------------------------------
+       DISPLAY
+    --------------------------------------------- */
+
+    container.innerHTML =
+        list
+            .map(
+                function(community){
+
+                    return communityCard(
+                        community
+                    );
+
+                }
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   COMMUNITY CARD
+========================================================= */
+
+function communityCard(
+    community
+){
+
+    const id =
+        String(
+            community.id
+        );
+
+
+    const joined =
+        joinedIds.has(id);
+
+
+    return `
+
+        <article
+            class="community-card"
+        >
+
+
+            <div class="community-icon">
+
+                ${escapeHtml(
+                    community.icon ||
+                    "🌐"
+                )}
+
+            </div>
+
+
+            <div
+                class="community-content"
+            >
+
+                <h3>
+
+                    ${escapeHtml(
+                        community.name ||
+                        "Community"
+                    )}
+
+                </h3>
+
+
+                <p
+                    class="community-description"
+                >
+
+                    ${escapeHtml(
+                        community.description ||
+                        "A CareerCraft professional community."
+                    )}
+
+                </p>
+
+
+                <div
+                    class="community-meta"
+                >
+
+                    <span>
+
+                        ${escapeHtml(
+                            community.category ||
+                            "Other"
+                        )}
+
+                    </span>
+
+
+                    <span>
+
+                        ${escapeHtml(
+                            community.type ||
+                            "Public"
+                        )}
+
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="community-actions"
+                >
+
+                    <button
+                        class="open-btn"
+                        onclick="openCommunity('${id}')"
+                    >
+                        Open
+                    </button>
+
+
+                    ${
+                        joined
+
+                        ?
+
+                        `
+
+                        <button
+                            class="leave-btn"
+                            onclick="leaveCommunity('${id}')"
+                        >
+                            Joined ✓
+                        </button>
+
+                        `
+
+                        :
+
+                        `
+
+                        <button
+                            class="join-btn"
+                            onclick="joinCommunity('${id}')"
+                        >
+                            Join
+                        </button>
+
+                        `
+                    }
+
+                </div>
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* =========================================================
+   JOIN COMMUNITY
+========================================================= */
+
+async function joinCommunity(id){
+
+    if(!currentUser){
+
+        alert(
+            "Please log in first."
+        );
+
+        return;
+    }
+
+
+    if(
+        joinedIds.has(
+            String(id)
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const result =
+        await supabaseClient
+            .from("community_members")
+            .insert({
+
+                community_id:
+                    id,
+
+                user_id:
+                    currentUser.id
+
+            });
+
+
+    if(result.error){
+
+        console.error(
+            "Join community error:",
+            result.error
+        );
+
+
+        /* Already joined */
+
+        if(
+            result.error.code === "23505"
+        ){
+
+            joinedIds.add(
+                String(id)
+            );
+
+            renderCommunities();
+
+            return;
+        }
+
+
+        alert(
+            "Unable to join this community."
+        );
+
+        return;
+    }
+
+
+    joinedIds.add(
+        String(id)
+    );
+
+
+    renderCommunities();
+
+}
+
+
+/* =========================================================
+   LEAVE COMMUNITY
+========================================================= */
+
+async function leaveCommunity(id){
+
+    if(!currentUser){
+
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to leave this community?"
+        );
+
+
+    if(!confirmed){
+
+        return;
+    }
+
+
+    const result =
+        await supabaseClient
+            .from("community_members")
+            .delete()
+            .eq(
+                "community_id",
+                id
+            )
+            .eq(
+                "user_id",
+                currentUser.id
+            );
+
+
+    if(result.error){
+
+        console.error(
+            "Leave community error:",
+            result.error
+        );
+
+
+        alert(
+            "Unable to leave this community."
+        );
+
+        return;
+    }
+
+
+    joinedIds.delete(
+        String(id)
+    );
+
+
+    renderCommunities();
+
+}
+
+
+/* =========================================================
+   OPEN COMMUNITY
+========================================================= */
+
+function openCommunity(id){
+
+    if(!id){
+
+        return;
+    }
+
+
+    window.location.href =
+        "community.html?id=" +
+        encodeURIComponent(id);
+
+}
+
+
+/* =========================================================
+   DISCOVER TAB
+========================================================= */
+
+function showDiscover(){
+
+    currentTab =
+        "discover";
+
+
+    setActiveTab();
+
+
+    renderCommunities();
+
+}
+
+
+/* =========================================================
+   MY COMMUNITIES TAB
+========================================================= */
+
+function showMyCommunities(){
+
+    currentTab =
+        "mine";
+
+
+    setActiveTab();
+
+
+    renderCommunities();
+
+}
+
+
+/* =========================================================
+   ACTIVE TAB
+========================================================= */
+
+function setActiveTab(){
+
+    const discover =
+        document.getElementById(
+            "discoverTab"
+        );
+
+
+    const mine =
+        document.getElementById(
+            "myCommunitiesTab"
+        );
+
+
+    if(discover){
+
+        discover.classList.toggle(
+            "active",
+            currentTab === "discover"
+        );
+
+    }
+
+
+    if(mine){
+
+        mine.classList.toggle(
+            "active",
+            currentTab === "mine"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function handleSearch(value){
+
+    searchText =
+        String(
+            value || ""
+        )
+        .trim();
+
+
+    renderCommunities();
+
+}
+
+
+/* =========================================================
+   CATEGORY FILTER
+========================================================= */
+
+function filterCategory(
+    category
+){
+
+    currentCategory =
+        category ||
+        "All";
+
+
+    renderCommunities();
+
+}
+
+
+/* =========================================================
+   OPEN CREATE MODAL
+========================================================= */
+
+function openCreateModal(){
+
+    const modal =
+        document.getElementById(
+            "createModal"
+        );
+
+
+    if(!modal){
+
+        return;
+    }
+
+
+    modal.classList.add(
+        "show"
+    );
+
+
+    const input =
+        document.getElementById(
+            "communityName"
+        );
+
+
+    if(input){
+
+        setTimeout(
+            function(){
+
+                input.focus();
+
+            },
+            100
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE CREATE MODAL
+========================================================= */
+
+function closeCreateModal(){
+
+    const modal =
+        document.getElementById(
+            "createModal"
+        );
+
+
+    if(modal){
+
+        modal.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CREATE COMMUNITY
+========================================================= */
+
+async function createCommunity(){
+
+    if(!currentUser){
+
+        alert(
+            "Please log in first."
+        );
+
+        return;
+    }
+
+
+    const nameElement =
+        document.getElementById(
+            "communityName"
+        );
+
+
+    const descriptionElement =
+        document.getElementById(
+            "communityDescription"
+        );
+
+
+    const typeElement =
+        document.getElementById(
+            "communityType"
+        );
+
+
+    const categoryElement =
+        document.getElementById(
+            "communityCategory"
+        );
+
+
+    const button =
+        document.getElementById(
+            "submitCommunityBtn"
+        );
+
+
+    const name =
+        nameElement
+            ?.value
+            ?.trim();
+
+
+    const description =
+        descriptionElement
+            ?.value
+            ?.trim();
+
+
+    const type =
+        typeElement
+            ?.value ||
+        "Public";
+
+
+    const category =
+        categoryElement
+            ?.value ||
+        "Other";
+
+
+    if(!name){
+
+        alert(
+            "Please enter a community name."
+        );
+
+        return;
+    }
+
+
+    if(!description){
+
+        alert(
+            "Please enter a community description."
+        );
+
+        return;
+    }
+
+
+    if(button){
+
+        button.disabled = true;
+
+        button.textContent =
+            "Creating...";
+    }
+
+
+    try{
+
+        const result =
+            await supabaseClient
+                .from("communities")
+                .insert({
+
+                    name:
+                        name,
+
+                    description:
+                        description,
+
+                    type:
+                        type,
+
+                    category:
+                        category,
+
+                    icon:
+                        "🌐",
+
+                    created_by:
+                        currentUser.id
+
+                })
+                .select()
+                .single();
+
+
+        if(result.error){
+
+            console.error(
+                "Create community error:",
+                result.error
+            );
+
+
+            alert(
+                "Could not create the community."
+            );
+
+            return;
+        }
+
+
+        const newCommunity =
+            result.data;
+
+
+        /* ---------------------------------------------
+           AUTOMATICALLY JOIN CREATOR
+        --------------------------------------------- */
+
+        const memberResult =
+            await supabaseClient
+                .from("community_members")
+                .insert({
+
+                    community_id:
+                        newCommunity.id,
+
+                    user_id:
+                        currentUser.id
+
+                });
+
+
+        if(memberResult.error){
+
+            console.warn(
+                "Creator membership warning:",
+                memberResult.error
+            );
+
+        }
+
+
+        /* ---------------------------------------------
+           UPDATE LOCAL DATA
+        --------------------------------------------- */
+
+        communities.push(
+            newCommunity
+        );
+
+
+        joinedIds.add(
+            String(
+                newCommunity.id
+            )
+        );
+
+
+        /* ---------------------------------------------
+           RESET
+        --------------------------------------------- */
+
+        resetCreateForm();
+
+
+        closeCreateModal();
+
+
+        /* ---------------------------------------------
+           SHOW MY COMMUNITIES
+        --------------------------------------------- */
+
+        currentTab =
+            "mine";
+
+
+        setActiveTab();
+
+
+        renderCommunities();
+
+
+        alert(
+            "Community created successfully!"
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Community creation exception:",
+            error
+        );
+
+
+        alert(
+            "Something went wrong while creating the community."
+        );
+
+    }
+    finally{
+
+        if(button){
+
+            button.disabled = false;
+
+            button.textContent =
+                "Create Community";
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   RESET CREATE FORM
+========================================================= */
+
+function resetCreateForm(){
+
+    const name =
+        document.getElementById(
+            "communityName"
+        );
+
+
+    const description =
+        document.getElementById(
+            "communityDescription"
+        );
+
+
+    const type =
+        document.getElementById(
+            "communityType"
+        );
+
+
+    const category =
+        document.getElementById(
+            "communityCategory"
+        );
+
+
+    if(name){
+
+        name.value = "";
+
+    }
+
+
+    if(description){
+
+        description.value = "";
+
+    }
+
+
+    if(type){
+
+        type.value =
+            "Public";
+
+    }
+
+
+    if(category){
+
+        category.value =
+            "Career";
+
+    }
+
+}
+
+
+/* =========================================================
+   SHOW ERROR
+========================================================= */
+
+function showError(message){
+
+    const container =
+        document.getElementById(
+            "communitiesGrid"
+        );
+
+
+    if(!container){
+
+        return;
+    }
+
+
+    container.innerHTML = `
+
+        <div class="error-state">
+
+            <div class="error-icon">
+                ⚠️
+            </div>
+
+            <h3>
+                Something went wrong
+            </h3>
+
+            <p>
+                ${escapeHtml(message)}
+            </p>
+
+            <button
+                class="retry-btn"
+                onclick="location.reload()"
+            >
+                Try Again
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL WHEN CLICKING OUTSIDE
+========================================================= */
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const modal =
+            document.getElementById(
+                "createModal"
+            );
+
+
+        if(
+            modal &&
+            event.target === modal
+        ){
+
+            closeCreateModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESC KEY CLOSES MODAL
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closeCreateModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event){
+
+        if(
+            event === "SIGNED_OUT"
+        ){
+
+            window.location.href =
+                "login.html";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   START APPLICATION
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        init();
+
+    }
+);
+
+</script>
+
+</body>
+      </html>
