@@ -1,0 +1,2421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Presentations | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#f4f6f9;
+  --card:#fff;
+  --border:#e5e7eb;
+  --text:#111827;
+  --muted:#6b7280;
+  --primary:#4f46e5;
+  --primary-dark:#3730a3;
+  --danger:#dc2626;
+  --sidebar:#111827;
+  --sidebar-hover:#1f2937;
+}
+
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.app{
+  min-height:100vh;
+  display:flex;
+}
+
+.sidebar{
+  width:250px;
+  background:var(--sidebar);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  flex-shrink:0;
+}
+
+.brand{
+  height:70px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 20px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.brand-icon{
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+}
+
+.brand-name{
+  font-size:18px;
+  font-weight:800;
+}
+
+.sidebar-content{
+  padding:20px 14px;
+  flex:1;
+}
+
+.side-label{
+  color:#9ca3af;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin:8px 10px 10px;
+}
+
+.side-btn{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#d1d5db;
+  padding:12px 13px;
+  border-radius:9px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  cursor:pointer;
+  font-size:14px;
+  text-align:left;
+  margin-bottom:5px;
+}
+
+.side-btn:hover{
+  background:var(--sidebar-hover);
+  color:white;
+}
+
+.side-btn.active{
+  background:#312e81;
+  color:white;
+}
+
+.sidebar-bottom{
+  padding:15px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+/* MAIN */
+
+.main{
+  flex:1;
+  min-width:0;
+}
+
+.topbar{
+  height:70px;
+  background:white;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+}
+
+.topbar h1{
+  font-size:20px;
+}
+
+.topbar p{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+
+.btn{
+  border:0;
+  border-radius:8px;
+  padding:10px 15px;
+  cursor:pointer;
+  font-weight:700;
+  font-size:13px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+}
+
+.btn-primary{
+  background:var(--primary);
+  color:white;
+}
+
+.btn-primary:hover{
+  background:var(--primary-dark);
+}
+
+.btn-secondary{
+  background:#f3f4f6;
+  color:#374151;
+}
+
+.btn-secondary:hover{
+  background:#e5e7eb;
+}
+
+.btn-danger{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.btn-danger:hover{
+  background:#fecaca;
+}
+
+/* CONTENT */
+
+.content{
+  padding:30px;
+  max-width:1400px;
+  margin:auto;
+}
+
+.hero{
+  background:linear-gradient(135deg,#111827,#312e81);
+  color:white;
+  border-radius:18px;
+  padding:32px;
+  margin-bottom:28px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,.12);
+}
+
+.hero h2{
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  color:#c7d2fe;
+  font-size:14px;
+  line-height:1.6;
+  max-width:650px;
+}
+
+.hero .btn{
+  background:white;
+  color:#312e81;
+  white-space:nowrap;
+}
+
+.hero .btn:hover{
+  background:#eef2ff;
+}
+
+/* GRID */
+
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:16px;
+}
+
+.section-title h2{
+  font-size:18px;
+}
+
+.count{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.presentation-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:20px;
+}
+
+/* CARD */
+
+.presentation-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:15px;
+  overflow:hidden;
+  transition:.2s;
+  box-shadow:0 5px 20px rgba(0,0,0,.04);
+}
+
+.presentation-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(0,0,0,.09);
+}
+
+.card-preview{
+  height:175px;
+  position:relative;
+  overflow:hidden;
+}
+
+.preview-inner{
+  width:100%;
+  height:100%;
+  padding:28px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.preview-inner h3{
+  font-size:24px;
+  line-height:1.1;
+  margin-bottom:8px;
+}
+
+.preview-inner p{
+  font-size:11px;
+  opacity:.7;
+  line-height:1.5;
+}
+
+.card-body{
+  padding:17px;
+}
+
+.card-title{
+  font-size:16px;
+  font-weight:800;
+  margin-bottom:7px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.card-description{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+  min-height:36px;
+}
+
+.card-meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:13px;
+  font-size:11px;
+  color:var(--muted);
+}
+
+.status{
+  padding:4px 8px;
+  border-radius:20px;
+  font-weight:700;
+}
+
+.status.published{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.status.draft{
+  background:#f3f4f6;
+  color:#4b5563;
+}
+
+.card-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-top:15px;
+}
+
+.card-actions .btn{
+  width:100%;
+}
+
+/* EMPTY */
+
+.empty{
+  background:white;
+  border:1px dashed #cbd5e1;
+  border-radius:15px;
+  padding:60px 25px;
+  text-align:center;
+}
+
+.empty-icon{
+  width:60px;
+  height:60px;
+  margin:0 auto 15px;
+  border-radius:15px;
+  background:#eef2ff;
+  color:#4f46e5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+}
+
+.empty h3{
+  margin-bottom:7px;
+}
+
+.empty p{
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:20px;
+}
+
+/* LOADING */
+
+.loading{
+  text-align:center;
+  padding:60px 20px;
+  color:var(--muted);
+}
+
+.spinner{
+  width:38px;
+  height:38px;
+  border:4px solid #e5e7eb;
+  border-top-color:#4f46e5;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 15px;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+/* PREVIEW MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.82);
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.preview-box{
+  width:min(1000px,95vw);
+  position:relative;
+}
+
+.close{
+  position:absolute;
+  right:0;
+  top:-48px;
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:50%;
+  background:white;
+  cursor:pointer;
+  font-size:22px;
+}
+
+.preview-canvas{
+  width:100%;
+  aspect-ratio:16/9;
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.4);
+}
+
+.slide-render{
+  width:100%;
+  height:100%;
+  padding:8%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.slide-render h2{
+  font-size:clamp(28px,5vw,60px);
+  line-height:1.08;
+  margin-bottom:14px;
+}
+
+.slide-render h3{
+  font-size:clamp(20px,3vw,36px);
+  margin-bottom:14px;
+}
+
+.slide-subtitle{
+  font-size:clamp(13px,2vw,21px);
+  opacity:.7;
+  margin-bottom:20px;
+}
+
+.slide-content{
+  font-size:clamp(13px,1.8vw,20px);
+  line-height:1.65;
+  white-space:pre-wrap;
+}
+
+.title-layout{
+  justify-content:center;
+}
+
+.section-layout,
+.quote-layout{
+  text-align:center;
+  align-items:center;
+}
+
+.quote-layout .slide-content{
+  font-size:clamp(20px,3vw,34px);
+  font-style:italic;
+  max-width:80%;
+}
+
+.two-column,
+.image-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+  align-items:center;
+}
+
+.slide-image{
+  width:100%;
+  max-height:65%;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+.preview-controls{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  margin-top:15px;
+}
+
+.preview-controls button{
+  width:44px;
+  height:44px;
+  border:0;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.preview-count{
+  color:white;
+  font-size:13px;
+}
+
+/* TOAST */
+
+#toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:20000;
+  background:#111827;
+  color:white;
+  padding:12px 16px;
+  border-radius:9px;
+  font-size:13px;
+  transform:translateY(100px);
+  opacity:0;
+  transition:.25s;
+}
+
+#toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+  .sidebar{
+    width:65px;
+  }
+
+  .brand{
+    justify-content:center;
+    padding:0;
+  }
+
+  .brand-name,
+  .side-label,
+  .side-btn span{
+    display:none;
+  }
+
+  .side-btn{
+    justify-content:center;
+  }
+
+  .topbar{
+    padding:0 14px;
+  }
+
+  .topbar h1{
+    font-size:17px;
+  }
+
+  .content{
+    padding:18px 12px;
+  }
+
+  .hero{
+    padding:22px;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .hero h2{
+    font-size:23px;
+  }
+
+  .presentation-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:500px){
+
+  .card-actions{
+    grid-template-columns:1fr;
+  }
+
+  .hero .btn{
+    width:100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="brand-icon">C</div>
+      <div class="brand-name">CareerCraft</div>
+    </div>
+
+    <div class="sidebar-content">
+
+      <div class="side-label">Workspace</div>
+
+      <button
+        class="side-btn"
+        onclick="goHome()">
+        <b>⌂</b>
+        <span>Dashboard</span>
+      </button>
+
+      <button
+        class="side-btn active">
+        <b>▣</b>
+        <span>Presentations</span>
+      </button>
+
+      <button
+        class="side-btn"
+        onclick="createNewPresentation()">
+        <b>＋</b>
+        <span>New Presentation</span>
+      </button>
+
+    </div>
+
+    <div class="sidebar-bottom">
+
+      <button
+        class="side-btn"
+        onclick="goHome()">
+        <b>←</b>
+        <span>Back</span>
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <header class="topbar">
+
+      <div>
+        <h1>My Presentations</h1>
+        <p>Create, edit, preview and publish your professional presentations.</p>
+      </div>
+
+      <button
+        class="btn btn-primary"
+        onclick="createNewPresentation()">
+        ＋ New Presentation
+      </button>
+
+    </header>
+
+
+    <div class="content">
+
+      <section class="hero">
+
+        <div>
+
+          <h2>Your Presentation Studio</h2>
+
+          <p>
+            Build polished career presentations, project showcases,
+            portfolios, interviews and professional slides with CareerCraft.
+          </p>
+
+        </div>
+
+        <button
+          class="btn"
+          onclick="createNewPresentation()">
+          Create Presentation
+        </button>
+
+      </section>
+
+
+      <div class="section-title">
+
+        <h2>My Work</h2>
+
+        <span
+          id="presentationCount"
+          class="count">
+          Loading...
+        </span>
+
+      </div>
+
+
+      <div id="presentationContainer">
+
+        <div class="loading">
+
+          <div class="spinner"></div>
+
+          Loading your presentations...
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+
+<!-- PREVIEW MODAL -->
+
+<div
+  id="previewModal"
+  class="modal">
+
+  <div class="preview-box">
+
+    <button
+      class="close"
+      onclick="closePreview()">
+      ×
+    </button>
+
+    <div
+      id="previewCanvas"
+      class="preview-canvas">
+    </div>
+
+    <div class="preview-controls">
+
+      <button
+        onclick="previousPreview()">
+        ‹
+      </button>
+
+      <span
+        id="previewCount"
+        class="preview-count">
+        1 / 1
+      </span>
+
+      <button
+        onclick="nextPreview()">
+        ›
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div id="toast"></div>
+
+
+<script>
+/* =========================================================
+   CAREERCRAFT PRESENTATIONS
+   ========================================================= */
+
+
+/* SUPABASE */
+
+const SUPABASE_URL =
+  "https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* STATE */
+
+let currentUser = null;
+
+let presentations = [];
+
+let previewPresentation = null;
+
+let previewSlides = [];
+
+let previewIndex = 0;
+
+
+/* =========================================================
+   UUID VALIDATION
+   ========================================================= */
+
+function isValidUUID(value){
+
+  if(
+    typeof value !== "string"
+  ){
+    return false;
+  }
+
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+   ========================================================= */
+
+function escapeHTML(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+function showToast(message){
+
+  const toast =
+    document.getElementById(
+      "toast"
+    );
+
+  toast.textContent =
+    message;
+
+  toast.classList.add(
+    "show"
+  );
+
+  setTimeout(
+    function(){
+
+      toast.classList.remove(
+        "show"
+      );
+
+    },
+    2500
+  );
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  initialize
+);
+
+
+async function initialize(){
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.auth.getSession();
+
+
+    if(error){
+      throw error;
+    }
+
+
+    currentUser =
+      data.session
+        ? data.session.user
+        : null;
+
+
+    if(!currentUser){
+
+      window.location.href =
+        "login.html";
+
+      return;
+    }
+
+
+    await loadPresentations();
+
+
+  }catch(error){
+
+    console.error(
+      "INITIALIZATION ERROR:",
+      error
+    );
+
+    document.getElementById(
+      "presentationContainer"
+    ).innerHTML = `
+      <div class="empty">
+
+        <div class="empty-icon">!</div>
+
+        <h3>Unable to load presentations</h3>
+
+        <p>
+          ${escapeHTML(error.message)}
+        </p>
+
+        <button
+          class="btn btn-primary"
+          onclick="loadPresentations()">
+          Try Again
+        </button>
+
+      </div>
+    `;
+  }
+}
+
+
+/* =========================================================
+   LOAD PRESENTATIONS
+   ========================================================= */
+
+async function loadPresentations(){
+
+  if(!currentUser){
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("presentations")
+      .select("*")
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
+
+
+  if(error){
+
+    console.error(
+      "LOAD PRESENTATIONS ERROR:",
+      error
+    );
+
+    throw error;
+  }
+
+
+  presentations =
+    Array.isArray(data)
+      ? data
+      : [];
+
+
+  document.getElementById(
+    "presentationCount"
+  ).textContent =
+    presentations.length +
+    (
+      presentations.length === 1
+        ? " presentation"
+        : " presentations"
+    );
+
+
+  renderPresentations();
+}
+
+
+/* =========================================================
+   RENDER PRESENTATIONS
+   ========================================================= */
+
+function renderPresentations(){
+
+  const container =
+    document.getElementById(
+      "presentationContainer"
+    );
+
+
+  if(
+    presentations.length === 0
+  ){
+
+    container.innerHTML = `
+      <div class="empty">
+
+        <div class="empty-icon">
+          ▣
+        </div>
+
+        <h3>No presentations yet</h3>
+
+        <p>
+          Create your first professional presentation with CareerCraft.
+        </p>
+
+        <button
+          class="btn btn-primary"
+          onclick="createNewPresentation()">
+          ＋ Create Presentation
+        </button>
+
+      </div>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML = `
+
+    <div class="presentation-grid">
+
+      ${
+        presentations
+          .map(
+            function(item){
+
+              return createPresentationCard(
+                item
+              );
+
+            }
+          )
+          .join("")
+      }
+
+    </div>
+
+  `;
+}
+
+
+/* =========================================================
+   PRESENTATION CARD
+   ========================================================= */
+
+function createPresentationCard(item){
+
+  /*
+    IMPORTANT:
+    We do NOT generate a fake ID.
+
+    We take the real UUID returned
+    directly from Supabase.
+  */
+
+  const id =
+    item &&
+    typeof item.id === "string"
+      ? item.id.trim()
+      : "";
+
+
+  if(
+    !isValidUUID(id)
+  ){
+
+    console.error(
+      "INVALID PRESENTATION FROM SUPABASE:",
+      item
+    );
+
+    return `
+      <div class="presentation-card">
+
+        <div class="card-body">
+
+          <div class="card-title">
+            ${escapeHTML(
+              item.title ||
+              "Invalid Presentation"
+            )}
+          </div>
+
+          <div class="card-description">
+            This presentation has an invalid database ID.
+          </div>
+
+        </div>
+
+      </div>
+    `;
+  }
+
+
+  const title =
+    item.title ||
+    "Untitled Presentation";
+
+
+  const description =
+    item.description ||
+    "No description added yet.";
+
+
+  const published =
+    !!item.is_published;
+
+
+  const background =
+    getPreviewBackground(
+      item
+    );
+
+
+  return `
+
+    <article class="presentation-card">
+
+      <div
+        class="card-preview"
+        style="${background}">
+
+        <div class="preview-inner">
+
+          <h3>
+            ${escapeHTML(title)}
+          </h3>
+
+          <p>
+            ${escapeHTML(description)}
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="card-body">
+
+        <div class="card-title">
+          ${escapeHTML(title)}
+        </div>
+
+        <div class="card-description">
+          ${escapeHTML(description)}
+        </div>
+
+
+        <div class="card-meta">
+
+          <span>
+            ${formatDate(item.created_at)}
+          </span>
+
+          <span
+            class="status ${
+              published
+                ? "published"
+                : "draft"
+            }">
+
+            ${
+              published
+                ? "Published"
+                : "Draft"
+            }
+
+          </span>
+
+        </div>
+
+
+        <div class="card-actions">
+
+          <button
+            class="btn btn-primary"
+            data-presentation-id="${escapeHTML(id)}"
+            onclick="editFromButton(this)">
+
+            ✎ Edit
+
+          </button>
+
+
+          <button
+            class="btn btn-secondary"
+            data-presentation-id="${escapeHTML(id)}"
+            onclick="previewFromButton(this)">
+
+            ▶ Preview
+
+          </button>
+
+
+          <button
+            class="btn btn-secondary"
+            data-presentation-id="${escapeHTML(id)}"
+            onclick="duplicatePresentationFromButton(this)">
+
+            ⧉ Duplicate
+
+          </button>
+
+
+          <button
+            class="btn btn-danger"
+            data-presentation-id="${escapeHTML(id)}"
+            onclick="deleteFromButton(this)">
+
+            Delete
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  `;
+}
+
+
+/* =========================================================
+   PREVIEW CARD BACKGROUND
+   ========================================================= */
+
+function getPreviewBackground(item){
+
+  const template =
+    item.template ||
+    "modern";
+
+
+  if(template === "modern"){
+
+    return `
+      background:
+      linear-gradient(
+        135deg,
+        #eef2ff,
+        #e0e7ff
+      );
+      color:#312e81;
+    `;
+  }
+
+
+  return `
+    background:#f3f4f6;
+    color:#111827;
+  `;
+}
+
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+function formatDate(date){
+
+  if(!date){
+    return "Recently";
+  }
+
+
+  try{
+
+    return new Date(
+      date
+    ).toLocaleDateString(
+      undefined,
+      {
+        day:"numeric",
+        month:"short",
+        year:"numeric"
+      }
+    );
+
+  }catch(error){
+
+    return "Recently";
+  }
+}
+
+
+/* =========================================================
+   GET SAFE ID FROM BUTTON
+   ========================================================= */
+
+function getButtonPresentationId(button){
+
+  if(!button){
+    return null;
+  }
+
+
+  const id =
+    button.dataset
+      ? button.dataset.presentationId
+      : null;
+
+
+  if(
+    !isValidUUID(id)
+  ){
+
+    alert(
+      "Invalid presentation ID. Please refresh the page and try again."
+    );
+
+    console.error(
+      "BAD PRESENTATION ID:",
+      id
+    );
+
+    return null;
+  }
+
+
+  return id;
+}
+
+
+/* =========================================================
+   EDIT
+   ========================================================= */
+
+function editFromButton(button){
+
+  const id =
+    getButtonPresentationId(
+      button
+    );
+
+
+  if(!id){
+    return;
+  }
+
+
+  /*
+    REAL UUID IS USED HERE.
+  */
+
+  window.location.href =
+    "presentation.html?id=" +
+    encodeURIComponent(id);
+}
+
+
+/* =========================================================
+   PREVIEW FROM BUTTON
+   ========================================================= */
+
+async function previewFromButton(button){
+
+  const id =
+    getButtonPresentationId(
+      button
+    );
+
+
+  if(!id){
+    return;
+  }
+
+
+  await previewExisting(
+    id
+  );
+}
+
+
+/* =========================================================
+   PREVIEW EXISTING
+   ========================================================= */
+
+async function previewExisting(id){
+
+  /*
+    This is the important fix.
+
+    We validate the ID BEFORE
+    sending it anywhere.
+  */
+
+  if(
+    !isValidUUID(id)
+  ){
+
+    alert(
+      "Invalid presentation ID."
+    );
+
+    console.error(
+      "previewExisting received:",
+      id
+    );
+
+    return;
+  }
+
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("presentations")
+        .select("*")
+        .eq(
+          "id",
+          id
+        )
+        .eq(
+          "user_id",
+          currentUser.id
+        )
+        .single();
+
+
+    if(error){
+      throw error;
+    }
+
+
+    if(!data){
+      throw new Error(
+        "Presentation not found."
+      );
+    }
+
+
+    const {
+      data: slideData,
+      error: slideError
+    } =
+      await supabaseClient
+        .from("presentation_slides")
+        .select("*")
+        .eq(
+          "presentation_id",
+          id
+        )
+        .order(
+          "slide_order",
+          {
+            ascending:true
+          }
+        );
+
+
+    if(slideError){
+      throw slideError;
+    }
+
+
+    previewPresentation =
+      data;
+
+
+    previewSlides =
+      Array.isArray(slideData)
+        ? slideData
+        : [];
+
+
+    if(
+      previewSlides.length === 0
+    ){
+
+      previewSlides = [{
+        title:
+          data.title ||
+          "Untitled Presentation",
+
+        subtitle:
+          "",
+
+        content:
+          data.description ||
+          "",
+
+        layout:
+          "title_content",
+
+        background:
+          "light"
+      }];
+    }
+
+
+    previewIndex =
+      0;
+
+
+    renderPreview();
+
+
+    document
+      .getElementById(
+        "previewModal"
+      )
+      .classList.add(
+        "show"
+      );
+
+
+  }catch(error){
+
+    console.error(
+      "PREVIEW ERROR:",
+      error
+    );
+
+    alert(
+      "Could not preview presentation:\n\n" +
+      error.message
+    );
+  }
+}
+
+
+/* =========================================================
+   PREVIEW RENDER
+   ========================================================= */
+
+function renderPreview(){
+
+  const slide =
+    previewSlides[
+      previewIndex
+    ];
+
+
+  if(!slide){
+    return;
+  }
+
+
+  const canvas =
+    document.getElementById(
+      "previewCanvas"
+    );
+
+
+  const background =
+    slide.background ||
+    "light";
+
+
+  canvas.style.background =
+    getBackgroundCSS(
+      background
+    );
+
+
+  canvas.style.color =
+    getBackgroundTextColor(
+      background
+    );
+
+
+  const title =
+    escapeHTML(
+      slide.title ||
+      "Untitled Slide"
+    );
+
+
+  const subtitle =
+    escapeHTML(
+      slide.subtitle ||
+      ""
+    );
+
+
+  const content =
+    escapeHTML(
+      slide.content ||
+      ""
+    );
+
+
+  const image =
+    safeImageURL(
+      slide.image_url
+    );
+
+
+  let html = "";
+
+
+  switch(
+    slide.layout ||
+    "title_content"
+  ){
+
+    case "title":
+
+      html = `
+        <div class="slide-render title-layout">
+          <h2>${title}</h2>
+        </div>
+      `;
+
+      break;
+
+
+    case "two_column":
+
+      html = `
+        <div class="slide-render">
+
+          <h3>${title}</h3>
+
+          <div class="two-column">
+
+            <div>
+
+              <div class="slide-subtitle">
+                ${subtitle}
+              </div>
+
+            </div>
+
+            <div>
+
+              <div class="slide-content">
+                ${content}
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+      break;
+
+
+    case "image_text":
+
+      html = `
+        <div class="slide-render image-layout">
+
+          <div>
+
+            ${
+              image
+              ?
+              `
+              <img
+                class="slide-image"
+                src="${escapeHTML(image)}"
+                alt=""
+              >
+              `
+              :
+              `
+              <div>
+                No image available
+              </div>
+              `
+            }
+
+          </div>
+
+
+          <div>
+
+            <h2>
+              ${title}
+            </h2>
+
+            <div class="slide-subtitle">
+              ${subtitle}
+            </div>
+
+            <div class="slide-content">
+              ${content}
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+      break;
+
+
+    case "quote":
+
+      html = `
+        <div class="slide-render quote-layout">
+
+          <h3>
+            ${title}
+          </h3>
+
+          <div class="slide-content">
+            “${content}”
+          </div>
+
+          <div class="slide-subtitle">
+            ${subtitle}
+          </div>
+
+        </div>
+      `;
+
+      break;
+
+
+    case "section":
+
+      html = `
+        <div class="slide-render section-layout">
+
+          <h2>
+            ${title}
+          </h2>
+
+          <div class="slide-subtitle">
+            ${subtitle}
+          </div>
+
+          <div class="slide-content">
+            ${content}
+          </div>
+
+        </div>
+      `;
+
+      break;
+
+
+    default:
+
+      html = `
+        <div class="slide-render">
+
+          <h2>
+            ${title}
+          </h2>
+
+          ${
+            subtitle
+            ?
+            `
+            <div class="slide-subtitle">
+              ${subtitle}
+            </div>
+            `
+            :
+            ""
+          }
+
+          <div class="slide-content">
+            ${content}
+          </div>
+
+        </div>
+      `;
+
+      break;
+  }
+
+
+  canvas.innerHTML =
+    html;
+
+
+  document.getElementById(
+    "previewCount"
+  ).textContent =
+    (
+      previewIndex + 1
+    ) +
+    " / " +
+    previewSlides.length;
+}
+
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+function getBackgroundCSS(background){
+
+  switch(background){
+
+    case "dark":
+      return "#111827";
+
+    case "blue":
+      return "#eff6ff";
+
+    case "purple":
+      return "#f5f3ff";
+
+    case "gradient":
+      return "linear-gradient(135deg,#4f46e5,#7c3aed)";
+
+    default:
+      return "#ffffff";
+  }
+}
+
+
+function getBackgroundTextColor(background){
+
+  return background === "dark" ||
+         background === "gradient"
+    ? "#ffffff"
+    : "#111827";
+}
+
+
+/* =========================================================
+   IMAGE URL
+   ========================================================= */
+
+function safeImageURL(value){
+
+  if(!value){
+    return "";
+  }
+
+
+  try{
+
+    const url =
+      new URL(value);
+
+
+    if(
+      url.protocol !== "http:" &&
+      url.protocol !== "https:"
+    ){
+      return "";
+    }
+
+
+    return url.href;
+
+  }catch(error){
+
+    return "";
+  }
+}
+
+
+/* =========================================================
+   PREVIEW NAVIGATION
+   ========================================================= */
+
+function previousPreview(){
+
+  if(
+    previewSlides.length === 0
+  ){
+    return;
+  }
+
+
+  previewIndex--;
+
+
+  if(
+    previewIndex < 0
+  ){
+
+    previewIndex =
+      previewSlides.length - 1;
+  }
+
+
+  renderPreview();
+}
+
+
+function nextPreview(){
+
+  if(
+    previewSlides.length === 0
+  ){
+    return;
+  }
+
+
+  previewIndex++;
+
+
+  if(
+    previewIndex >=
+    previewSlides.length
+  ){
+
+    previewIndex = 0;
+  }
+
+
+  renderPreview();
+}
+
+
+function closePreview(){
+
+  document
+    .getElementById(
+      "previewModal"
+    )
+    .classList.remove(
+      "show"
+    );
+}
+
+
+/* =========================================================
+   DELETE
+   ========================================================= */
+
+async function deleteFromButton(button){
+
+  const id =
+    getButtonPresentationId(
+      button
+    );
+
+
+  if(!id){
+    return;
+  }
+
+
+  await deletePresentation(
+    id
+  );
+}
+
+
+async function deletePresentation(id){
+
+  if(
+    !isValidUUID(id)
+  ){
+
+    alert(
+      "Invalid presentation ID."
+    );
+
+    return;
+  }
+
+
+  const presentation =
+    presentations.find(
+      function(item){
+        return item.id === id;
+      }
+    );
+
+
+  const title =
+    presentation &&
+    presentation.title
+      ? presentation.title
+      : "this presentation";
+
+
+  const confirmed =
+    confirm(
+      'Delete "' +
+      title +
+      '"?\n\nThis will also delete its slides.'
+    );
+
+
+  if(!confirmed){
+    return;
+  }
+
+
+  try{
+
+    /*
+      Because presentation_slides.presentation_id
+      has ON DELETE CASCADE, deleting the
+      presentation automatically deletes
+      its slides.
+    */
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("presentations")
+        .delete()
+        .eq(
+          "id",
+          id
+        )
+        .eq(
+          "user_id",
+          currentUser.id
+        )
+        .select("id");
+
+
+    if(error){
+      throw error;
+    }
+
+
+    /*
+      If Supabase returns no deleted row,
+      don't pretend it worked.
+    */
+
+    if(
+      !data ||
+      data.length === 0
+    ){
+
+      throw new Error(
+        "Presentation was not deleted. It may not belong to your account."
+      );
+    }
+
+
+    presentations =
+      presentations.filter(
+        function(item){
+          return item.id !== id;
+        }
+      );
+
+
+    document.getElementById(
+      "presentationCount"
+    ).textContent =
+      presentations.length +
+      (
+        presentations.length === 1
+          ? " presentation"
+          : " presentations"
+      );
+
+
+    renderPresentations();
+
+
+    showToast(
+      "Presentation deleted."
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "DELETE PRESENTATION ERROR:",
+      error
+    );
+
+    alert(
+      "Could not delete presentation:\n\n" +
+      error.message
+    );
+  }
+}
+
+
+/* =========================================================
+   DUPLICATE
+   ========================================================= */
+
+async function duplicatePresentationFromButton(button){
+
+  const id =
+    getButtonPresentationId(
+      button
+    );
+
+
+  if(!id){
+    return;
+  }
+
+
+  const original =
+    presentations.find(
+      function(item){
+        return item.id === id;
+      }
+    );
+
+
+  if(!original){
+    alert(
+      "Presentation not found."
+    );
+    return;
+  }
+
+
+  try{
+
+    const {
+      data: newPresentation,
+      error
+    } =
+      await supabaseClient
+        .from("presentations")
+        .insert({
+
+          user_id:
+            currentUser.id,
+
+          title:
+            (original.title ||
+            "Untitled Presentation") +
+            " Copy",
+
+          description:
+            original.description ||
+            "",
+
+          template:
+            original.template ||
+            "modern",
+
+          is_published:
+            false
+
+        })
+        .select()
+        .single();
+
+
+    if(error){
+      throw error;
+    }
+
+
+    if(
+      !newPresentation ||
+      !isValidUUID(
+        newPresentation.id
+      )
+    ){
+
+      throw new Error(
+        "New presentation did not receive a valid ID."
+      );
+    }
+
+
+    const {
+      data: originalSlides,
+      error: slideLoadError
+    } =
+      await supabaseClient
+        .from("presentation_slides")
+        .select("*")
+        .eq(
+          "presentation_id",
+          id
+        )
+        .order(
+          "slide_order",
+          {
+            ascending:true
+          }
+        );
+
+
+    if(slideLoadError){
+      throw slideLoadError;
+    }
+
+
+    if(
+      originalSlides &&
+      originalSlides.length
+    ){
+
+      const slideRows =
+        originalSlides.map(
+          function(slide,index){
+
+            return {
+
+              presentation_id:
+                newPresentation.id,
+
+              slide_order:
+                index,
+
+              layout:
+                slide.layout ||
+                "title_content",
+
+              title:
+                slide.title ||
+                "",
+
+              subtitle:
+                slide.subtitle ||
+                "",
+
+              content:
+                slide.content ||
+                "",
+
+              image_url:
+                slide.image_url ||
+                null,
+
+              background:
+                slide.background ||
+                "light"
+            };
+          }
+        );
+
+
+      const {
+        error: copySlideError
+      } =
+        await supabaseClient
+          .from("presentation_slides")
+          .insert(
+            slideRows
+          );
+
+
+      if(copySlideError){
+        throw copySlideError;
+      }
+    }
+
+
+    showToast(
+      "Presentation duplicated."
+    );
+
+
+    await loadPresentations();
+
+
+  }catch(error){
+
+    console.error(
+      "DUPLICATE ERROR:",
+      error
+    );
+
+    alert(
+      "Could not duplicate presentation:\n\n" +
+      error.message
+    );
+  }
+}
+
+
+/* =========================================================
+   CREATE NEW
+   ========================================================= */
+
+function createNewPresentation(){
+
+  window.location.href =
+    "presentation.html?new=1";
+}
+
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+function goHome(){
+
+  window.location.href =
+    "index.html";
+}
+
+
+/* =========================================================
+   ESC KEY
+   ========================================================= */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape"
+    ){
+
+      closePreview();
+    }
+
+
+    if(
+      document
+        .getElementById(
+          "previewModal"
+        )
+        .classList.contains(
+          "show"
+        )
+    ){
+
+      if(
+        event.key === "ArrowLeft"
+      ){
+        previousPreview();
+      }
+
+      if(
+        event.key === "ArrowRight"
+      ){
+        nextPreview();
+      }
+    }
+  }
+);
+
+
+/* =========================================================
+   AUTH
+   ========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+  function(event){
+
+    if(
+      event === "SIGNED_OUT"
+    ){
+
+      window.location.href =
+        "login.html";
+    }
+  }
+);
+</script>
+
+</body>
+  </html>
