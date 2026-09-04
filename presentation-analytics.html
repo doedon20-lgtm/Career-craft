@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Presentation Analytics | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#f8fafc;
+  color:#0f172a;
+  min-height:100vh;
+}
+
+button,
+a{
+  font:inherit;
+}
+
+.topbar{
+  height:68px;
+  background:#fff;
+  border-bottom:1px solid #e5e7eb;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 24px;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:19px;
+  font-weight:800;
+}
+
+.brand-mark{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#7c3aed,#2563eb);
+  color:#fff;
+  display:grid;
+  place-items:center;
+}
+
+.back{
+  text-decoration:none;
+  color:#475569;
+  font-size:14px;
+  font-weight:600;
+}
+
+.back:hover{
+  color:#7c3aed;
+}
+
+.container{
+  width:min(1180px,94%);
+  margin:0 auto;
+  padding:32px 0 60px;
+}
+
+.heading{
+  margin-bottom:25px;
+}
+
+.heading h1{
+  font-size:32px;
+  margin-bottom:7px;
+}
+
+.heading p{
+  color:#64748b;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-bottom:28px;
+}
+
+.stat{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:22px;
+}
+
+.stat-label{
+  color:#64748b;
+  font-size:14px;
+  margin-bottom:9px;
+}
+
+.stat-value{
+  font-size:32px;
+  font-weight:800;
+}
+
+.section{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  margin-bottom:22px;
+  overflow:hidden;
+}
+
+.section-header{
+  padding:20px 22px;
+  border-bottom:1px solid #e5e7eb;
+}
+
+.section-header h2{
+  font-size:19px;
+}
+
+.presentation{
+  padding:20px 22px;
+  border-bottom:1px solid #eef2f7;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.presentation:last-child{
+  border-bottom:0;
+}
+
+.presentation-info{
+  min-width:0;
+}
+
+.presentation-title{
+  font-size:16px;
+  font-weight:700;
+  margin-bottom:6px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.presentation-meta{
+  color:#64748b;
+  font-size:13px;
+}
+
+.presentation-actions{
+  display:flex;
+  gap:8px;
+  flex-shrink:0;
+}
+
+.btn{
+  border:1px solid #e2e8f0;
+  background:#fff;
+  color:#334155;
+  text-decoration:none;
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
+}
+
+.btn:hover{
+  background:#f8fafc;
+}
+
+.btn.primary{
+  background:#7c3aed;
+  color:#fff;
+  border-color:#7c3aed;
+}
+
+.btn.primary:hover{
+  background:#6d28d9;
+}
+
+.views{
+  font-size:23px;
+  font-weight:800;
+  min-width:70px;
+  text-align:right;
+}
+
+.activity{
+  padding:18px 22px;
+  border-bottom:1px solid #eef2f7;
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.activity:last-child{
+  border-bottom:0;
+}
+
+.activity-title{
+  font-size:14px;
+  font-weight:700;
+}
+
+.activity-time{
+  color:#64748b;
+  font-size:13px;
+  margin-top:4px;
+}
+
+.empty{
+  padding:40px 22px;
+  text-align:center;
+  color:#64748b;
+}
+
+.empty h3{
+  color:#0f172a;
+  margin-bottom:7px;
+}
+
+.loading{
+  position:fixed;
+  inset:0;
+  background:#f8fafc;
+  display:grid;
+  place-items:center;
+  z-index:100;
+}
+
+.loader{
+  width:42px;
+  height:42px;
+  border:4px solid #e5e7eb;
+  border-top-color:#7c3aed;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.error{
+  max-width:500px;
+  margin:100px auto;
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:30px;
+  text-align:center;
+}
+
+.error h2{
+  margin-bottom:8px;
+}
+
+.error p{
+  color:#64748b;
+  margin-bottom:20px;
+}
+
+@media(max-width:750px){
+
+  .topbar{
+    padding:0 15px;
+  }
+
+  .container{
+    padding-top:24px;
+  }
+
+  .heading h1{
+    font-size:27px;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .presentation{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .views{
+    text-align:left;
+  }
+
+  .presentation-actions{
+    width:100%;
+  }
+
+  .presentation-actions .btn{
+    flex:1;
+    text-align:center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="loading" id="loading">
+  <div class="loader"></div>
+</div>
+
+<header class="topbar">
+
+  <div class="brand">
+    <div class="brand-mark">C</div>
+    <span>CareerCraft</span>
+  </div>
+
+  <a class="back" href="presentations.html">
+    ← Presentations
+  </a>
+
+</header>
+
+<main class="container">
+
+  <section class="heading">
+    <h1>Presentation Analytics</h1>
+    <p>
+      Track real views and activity across your published presentations.
+    </p>
+  </section>
+
+  <section class="stats">
+
+    <div class="stat">
+      <div class="stat-label">
+        Total Views
+      </div>
+
+      <div class="stat-value" id="totalViews">
+        0
+      </div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">
+        Published Presentations
+      </div>
+
+      <div class="stat-value" id="publishedCount">
+        0
+      </div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">
+        Presentations
+      </div>
+
+      <div class="stat-value" id="presentationCount">
+        0
+      </div>
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-header">
+      <h2>Your Presentations</h2>
+    </div>
+
+    <div id="presentationsList"></div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-header">
+      <h2>Recent Activity</h2>
+    </div>
+
+    <div id="activityList"></div>
+
+  </section>
+
+</main>
+
+
+<script>
+
+const SUPABASE_URL="YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY="YOUR_SUPABASE_ANON_KEY";
+
+const supabaseClient=
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+let currentUser=null;
+let presentations=[];
+let views=[];
+
+
+/* =========================
+   START
+========================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  loadAnalytics
+);
+
+
+/* =========================
+   LOAD ANALYTICS
+========================= */
+
+async function loadAnalytics(){
+
+  try{
+
+    const {
+      data:{user},
+      error:userError
+    }=
+    await supabaseClient.auth.getUser();
+
+    if(userError){
+      throw userError;
+    }
+
+    if(!user){
+
+      showError(
+        "Sign in required",
+        "Please sign in to view your presentation analytics."
+      );
+
+      return;
+    }
+
+    currentUser=user;
+
+
+    /* Load user's presentations */
+
+    const {
+      data:presentationData,
+      error:presentationError
+    }=
+    await supabaseClient
+      .from("presentations")
+      .select(
+        "id,title,is_published,created_at,updated_at"
+      )
+      .eq(
+        "user_id",
+        user.id
+      )
+      .order(
+        "created_at",
+        {ascending:false}
+      );
+
+    if(presentationError){
+      throw presentationError;
+    }
+
+    presentations=
+      presentationData||[];
+
+
+    /* Load real views */
+
+    const {
+      data:viewData,
+      error:viewError
+    }=
+    await supabaseClient
+      .from("presentation_views")
+      .select(
+        "id,presentation_id,viewer_id,viewed_at"
+      )
+      .order(
+        "viewed_at",
+        {ascending:false}
+      );
+
+    if(viewError){
+      throw viewError;
+    }
+
+    views=
+      viewData||[];
+
+
+    renderStats();
+
+    renderPresentations();
+
+    renderActivity();
+
+
+    document
+      .getElementById("loading")
+      .classList.add("hidden");
+
+  }catch(error){
+
+    console.error(error);
+
+    showError(
+      "Unable to load analytics",
+      error.message||
+      "Something went wrong while loading your analytics."
+    );
+
+  }
+
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+function renderStats(){
+
+  const totalViews=
+    views.length;
+
+  const publishedCount=
+    presentations.filter(
+      item=>item.is_published===true
+    ).length;
+
+  document.getElementById(
+    "totalViews"
+  ).textContent=
+    totalViews;
+
+  document.getElementById(
+    "publishedCount"
+  ).textContent=
+    publishedCount;
+
+  document.getElementById(
+    "presentationCount"
+  ).textContent=
+    presentations.length;
+
+}
+
+
+/* =========================
+   PRESENTATIONS
+========================= */
+
+function renderPresentations(){
+
+  const container=
+    document.getElementById(
+      "presentationsList"
+    );
+
+  if(!presentations.length){
+
+    container.innerHTML=`
+
+      <div class="empty">
+
+        <h3>No presentations yet</h3>
+
+        <p>
+          Create your first presentation to start tracking analytics.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML=
+    presentations.map(
+      presentation=>{
+
+        const count=
+          views.filter(
+            view=>
+              view.presentation_id===
+              presentation.id
+          ).length;
+
+
+        const title=
+          presentation.title||
+          "Untitled Presentation";
+
+
+        return `
+
+          <div class="presentation">
+
+            <div class="presentation-info">
+
+              <div class="presentation-title">
+                ${escapeHtml(title)}
+              </div>
+
+              <div class="presentation-meta">
+
+                ${
+                  presentation.is_published
+                  ? "Published"
+                  : "Draft"
+                }
+
+              </div>
+
+            </div>
+
+
+            <div class="views">
+              ${count}
+            </div>
+
+
+            <div class="presentation-actions">
+
+              ${
+                presentation.is_published
+                ?
+                `
+                  <a
+                    class="btn"
+                    href="presentation-view.html?id=${encodeURIComponent(presentation.id)}"
+                    target="_blank"
+                  >
+                    View
+                  </a>
+                `
+                :
+                ""
+              }
+
+              <a
+                class="btn primary"
+                href="presentations.html?edit=${encodeURIComponent(presentation.id)}"
+              >
+                Edit
+              </a>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+/* =========================
+   RECENT ACTIVITY
+========================= */
+
+function renderActivity(){
+
+  const container=
+    document.getElementById(
+      "activityList"
+    );
+
+
+  if(!views.length){
+
+    container.innerHTML=`
+
+      <div class="empty">
+
+        <h3>No views yet</h3>
+
+        <p>
+          Views from your published presentations will appear here.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  const recentViews=
+    views.slice(0,20);
+
+
+  container.innerHTML=
+    recentViews.map(
+      view=>{
+
+        const presentation=
+          presentations.find(
+            item=>
+              item.id===
+              view.presentation_id
+          );
+
+
+        const title=
+          presentation?.title||
+          "Presentation";
+
+
+        return `
+
+          <div class="activity">
+
+            <div>
+
+              <div class="activity-title">
+                ${escapeHtml(title)}
+              </div>
+
+              <div class="activity-time">
+                Presentation viewed
+              </div>
+
+            </div>
+
+            <div class="activity-time">
+              ${formatDate(view.viewed_at)}
+            </div>
+
+          </div>
+
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function formatDate(date){
+
+  if(!date){
+    return "";
+  }
+
+  const value=
+    new Date(date);
+
+  if(Number.isNaN(value.getTime())){
+    return "";
+  }
+
+  return value.toLocaleString(
+    undefined,
+    {
+      dateStyle:"medium",
+      timeStyle:"short"
+    }
+  );
+
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+function showError(
+  title,
+  message
+){
+
+  document
+    .getElementById("loading")
+    .classList.add("hidden");
+
+  document.body.innerHTML=`
+
+    <div class="error">
+
+      <h2>
+        ${escapeHtml(title)}
+      </h2>
+
+      <p>
+        ${escapeHtml(message)}
+      </p>
+
+      <a
+        class="btn primary"
+        href="presentations.html"
+      >
+        Back to Presentations
+      </a>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================
+   ESCAPE
+========================= */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+</script>
+
+</body>
+  </html>
