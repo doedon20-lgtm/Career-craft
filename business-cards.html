@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Business Cards | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}
+header{background:#fff;border-bottom:1px solid #e5e7eb;padding:16px 5%;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-size:21px;font-weight:800;color:#2563eb}
+button{border:0;border-radius:10px;padding:11px 16px;font-weight:700;cursor:pointer}
+.new{background:#2563eb;color:white}
+main{max-width:1100px;margin:auto;padding:35px 5%}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;gap:15px}
+h1{font-size:30px}
+.sub{color:#667085;margin-top:6px}
+.search{width:100%;padding:13px;border:1px solid #d8dee9;border-radius:10px;margin-bottom:25px;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.card{background:white;border-radius:16px;padding:20px;box-shadow:0 5px 20px #0000000d;border:1px solid #e8ebf0}
+.preview{height:145px;border-radius:12px;padding:20px;color:white;display:flex;flex-direction:column;justify-content:center;margin-bottom:16px}
+.preview b{font-size:20px}
+.preview small{margin-top:6px;opacity:.9}
+.info h3{margin-bottom:5px}
+.info p{color:#667085;font-size:14px}
+.actions{display:flex;gap:8px;margin-top:16px}
+.edit{background:#eef4ff;color:#2563eb}
+.del{background:#fff0f0;color:#dc2626}
+.empty{text-align:center;padding:60px 20px;color:#667085}
+@media(max-width:600px){
+ header{padding:14px 4%}
+ main{padding:25px 4%}
+ .top{align-items:flex-start;flex-direction:column}
+ h1{font-size:25px}
+ .new{width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">CareerCraft</div>
+<button class="new" onclick="createCard()">+ New Card</button>
+</header>
+
+<main>
+<div class="top">
+<div>
+<h1>My Business Cards</h1>
+<p class="sub">Create and manage your professional cards.</p>
+</div>
+</div>
+
+<input id="search" class="search" placeholder="Search your cards..." oninput="showCards()">
+
+<div id="cards" class="grid"></div>
+</main>
+
+<script>
+const {createClient}=supabase;
+const db=createClient(
+"https://upcxmlbgmqhaqieldmyk.supabase.co",
+"sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj"
+);
+
+let cards=[];
+
+async function load(){
+ const {data:{user}}=await db.auth.getUser();
+
+ if(!user){
+   location.href="login.html";
+   return;
+ }
+
+ const {data,error}=await db.from("business_cards")
+   .select("*")
+   .eq("user_id",user.id)
+   .order("created_at",{ascending:false});
+
+ if(error){
+   document.getElementById("cards").innerHTML=
+   "<div class='empty'>Unable to load your business cards.</div>";
+   console.error(error);
+   return;
+ }
+
+ cards=data||[];
+ showCards();
+}
+
+function showCards(){
+ const box=document.getElementById("cards");
+ const q=document.getElementById("search").value.toLowerCase();
+
+ const list=cards.filter(c=>
+   (c.name||"").toLowerCase().includes(q) ||
+   (c.company||"").toLowerCase().includes(q) ||
+   (c.title||"").toLowerCase().includes(q)
+ );
+
+ if(!list.length){
+   box.innerHTML="<div class='empty'>No business cards found.<br><br><button class='new' onclick='createCard()'>Create your first card</button></div>";
+   return;
+ }
+
+ box.innerHTML=list.map(c=>`
+ <div class="card">
+   <div class="preview" style="background:${c.color||"#2563eb"}">
+     <b>${esc(c.name||"Your Name")}</b>
+     <small>${esc(c.role||c.title||"Professional")}</small>
+     <small>${esc(c.company||"Your Company")}</small>
+   </div>
+
+   <div class="info">
+     <h3>${esc(c.title||c.company||"Business Card")}</h3>
+     <p>${esc(c.email||c.phone||"No contact information")}</p>
+   </div>
+
+   <div class="actions">
+     <button class="edit" onclick="editCard('${c.id}')">Edit</button>
+     <button class="del" onclick="deleteCard('${c.id}')">Delete</button>
+   </div>
+ </div>
+ `).join("");
+}
+
+function esc(x){
+ return String(x).replace(/[&<>"']/g,m=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",
+ '"':"&quot;","'":"&#039;"
+ }[m]));
+}
+
+function createCard(){
+ location.href="business-card.html?new=1";
+}
+
+function editCard(id){
+ location.href="business-card.html?id="+encodeURIComponent(id);
+}
+
+async function deleteCard(id){
+ if(!confirm("Delete this business card?"))return;
+
+ const {error}=await db.from("business_cards")
+   .delete().eq("id",id);
+
+ if(error){
+   alert("Unable to delete card.");
+   console.error(error);
+   return;
+ }
+
+ cards=cards.filter(c=>c.id!==id);
+ showCards();
+}
+
+load();
+</script>
+
+</body>
+  </html>
