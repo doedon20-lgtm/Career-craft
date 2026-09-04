@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Presentation Templates | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#f8fafc;
+  color:#0f172a;
+  min-height:100vh;
+}
+
+button,
+a{
+  font:inherit;
+}
+
+.topbar{
+  height:68px;
+  background:#fff;
+  border-bottom:1px solid #e5e7eb;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 24px;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:19px;
+  font-weight:800;
+}
+
+.brand-mark{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  background:linear-gradient(135deg,#7c3aed,#2563eb);
+}
+
+.back{
+  text-decoration:none;
+  color:#475569;
+  font-size:14px;
+  font-weight:600;
+}
+
+.back:hover{
+  color:#7c3aed;
+}
+
+.container{
+  width:min(1180px,94%);
+  margin:auto;
+  padding:34px 0 60px;
+}
+
+.hero{
+  margin-bottom:30px;
+}
+
+.hero h1{
+  font-size:34px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  color:#64748b;
+  max-width:700px;
+  line-height:1.6;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:18px;
+  overflow:hidden;
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 35px rgba(15,23,42,.08);
+}
+
+.preview{
+  height:210px;
+  padding:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.preview-inner{
+  width:90%;
+  height:82%;
+  border-radius:9px;
+  padding:22px;
+  box-shadow:0 12px 25px rgba(0,0,0,.14);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.preview-title{
+  font-size:22px;
+  font-weight:800;
+  margin-bottom:9px;
+}
+
+.preview-line{
+  height:7px;
+  width:70%;
+  background:currentColor;
+  opacity:.2;
+  border-radius:20px;
+  margin-bottom:7px;
+}
+
+.preview-line.short{
+  width:45%;
+}
+
+.card-body{
+  padding:20px;
+}
+
+.card-body h2{
+  font-size:18px;
+  margin-bottom:7px;
+}
+
+.card-body p{
+  color:#64748b;
+  font-size:14px;
+  line-height:1.5;
+  min-height:42px;
+  margin-bottom:17px;
+}
+
+.use-btn{
+  width:100%;
+  border:0;
+  background:#7c3aed;
+  color:#fff;
+  padding:11px 15px;
+  border-radius:9px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.use-btn:hover{
+  background:#6d28d9;
+}
+
+.use-btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.message{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%);
+  background:#0f172a;
+  color:#fff;
+  padding:13px 18px;
+  border-radius:10px;
+  font-size:14px;
+  display:none;
+  z-index:100;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+.loading{
+  position:fixed;
+  inset:0;
+  background:rgba(248,250,252,.95);
+  display:grid;
+  place-items:center;
+  z-index:200;
+}
+
+.loader{
+  width:42px;
+  height:42px;
+  border:4px solid #e5e7eb;
+  border-top-color:#7c3aed;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+@media(max-width:900px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:600px){
+
+  .topbar{
+    padding:0 15px;
+  }
+
+  .container{
+    padding-top:25px;
+  }
+
+  .hero h1{
+    font-size:28px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .preview{
+    height:200px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="loading" id="loading">
+  <div class="loader"></div>
+</div>
+
+<header class="topbar">
+
+  <div class="brand">
+    <div class="brand-mark">C</div>
+    <span>CareerCraft</span>
+  </div>
+
+  <a
+    href="presentations.html"
+    class="back"
+  >
+    ← Presentations
+  </a>
+
+</header>
+
+
+<main class="container">
+
+  <section class="hero">
+
+    <h1>Choose a presentation template</h1>
+
+    <p>
+      Start with a professionally structured presentation and customize
+      every slide in the CareerCraft presentation builder.
+    </p>
+
+  </section>
+
+
+  <section class="grid" id="templateGrid"></section>
+
+</main>
+
+
+<div
+  class="message"
+  id="message"
+></div>
+
+
+<script>
+
+const SUPABASE_URL="YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY="YOUR_SUPABASE_ANON_KEY";
+
+const supabaseClient=
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+
+/* =========================
+   TEMPLATE DATA
+========================= */
+
+const templates=[
+
+  {
+    id:"business_pitch",
+    name:"Business Pitch",
+    description:"A structured presentation for ideas, businesses, products and proposals.",
+    background:"#f8fafc",
+    color:"#0f172a",
+    slides:[
+      {
+        title:"Business Pitch",
+        subtitle:"Present your idea with confidence",
+        content:"Introduce your business, product or opportunity."
+      },
+      {
+        title:"The Problem",
+        subtitle:"What problem are you solving?",
+        content:"Explain the challenge your customers or audience currently face."
+      },
+      {
+        title:"Our Solution",
+        subtitle:"A better way forward",
+        content:"Explain your solution and why it matters."
+      },
+      {
+        title:"Market Opportunity",
+        subtitle:"Who are you serving?",
+        content:"Describe your target market and the opportunity available."
+      },
+      {
+        title:"Business Model",
+        subtitle:"How it works",
+        content:"Explain how the business creates and captures value."
+      },
+      {
+        title:"The Road Ahead",
+        subtitle:"Our next steps",
+        content:"Share your goals, milestones and plans for growth."
+      }
+    ]
+  },
+
+
+  {
+    id:"professional_portfolio",
+    name:"Professional Portfolio",
+    description:"Showcase your experience, projects, skills and professional achievements.",
+    background:"#ffffff",
+    color:"#111827",
+    slides:[
+      {
+        title:"Professional Portfolio",
+        subtitle:"Your work. Your story. Your impact.",
+        content:"Introduce yourself and your professional journey."
+      },
+      {
+        title:"About Me",
+        subtitle:"Professional introduction",
+        content:"Tell your audience who you are and what you do."
+      },
+      {
+        title:"Featured Project",
+        subtitle:"Work that demonstrates your ability",
+        content:"Describe an important project, your contribution and the result."
+      },
+      {
+        title:"Experience",
+        subtitle:"Professional journey",
+        content:"Highlight relevant roles, responsibilities and achievements."
+      },
+      {
+        title:"Skills",
+        subtitle:"What I bring to the table",
+        content:"Present your strongest professional and technical skills."
+      },
+      {
+        title:"Let's Connect",
+        subtitle:"Thank you",
+        content:"Add your preferred professional contact information."
+      }
+    ]
+  },
+
+
+  {
+    id:"project_presentation",
+    name:"Project Presentation",
+    description:"Present a project clearly from objectives and research to results.",
+    background:"#f8fafc",
+    color:"#0f172a",
+    slides:[
+      {
+        title:"Project Presentation",
+        subtitle:"Project overview",
+        content:"Introduce the project and its purpose."
+      },
+      {
+        title:"Objectives",
+        subtitle:"What did we want to achieve?",
+        content:"List the main objectives and expected outcomes."
+      },
+      {
+        title:"Research",
+        subtitle:"What we discovered",
+        content:"Summarize the research, findings and important insights."
+      },
+      {
+        title:"Approach",
+        subtitle:"How we worked",
+        content:"Explain the methods, process or strategy used."
+      },
+      {
+        title:"Results",
+        subtitle:"What happened?",
+        content:"Present the key results and outcomes."
+      },
+      {
+        title:"Conclusion",
+        subtitle:"Key takeaways",
+        content:"Summarize what the project achieved and what comes next."
+      }
+    ]
+  },
+
+
+  {
+    id:"interview_presentation",
+    name:"Interview Presentation",
+    description:"A professional structure for interviews, career presentations and personal introductions.",
+    background:"#ffffff",
+    color:"#111827",
+    slides:[
+      {
+        title:"My Professional Story",
+        subtitle:"Interview presentation",
+        content:"Introduce yourself and your professional background."
+      },
+      {
+        title:"About Me",
+        subtitle:"Who I am",
+        content:"Share your background, strengths and professional interests."
+      },
+      {
+        title:"My Experience",
+        subtitle:"What I have done",
+        content:"Highlight your most relevant professional experience."
+      },
+      {
+        title:"Key Achievement",
+        subtitle:"A result I am proud of",
+        content:"Describe a meaningful achievement and the impact you created."
+      },
+      {
+        title:"Why This Opportunity?",
+        subtitle:"Why I am interested",
+        content:"Explain your motivation and how your goals align with the opportunity."
+      },
+      {
+        title:"Thank You",
+        subtitle:"Questions & discussion",
+        content:"Thank your audience and invite further conversation."
+      }
+    ]
+  },
+
+
+  {
+    id:"minimal_professional",
+    name:"Minimal Professional",
+    description:"A clean, simple presentation suitable for business and professional use.",
+    background:"#ffffff",
+    color:"#111827",
+    slides:[
+      {
+        title:"Presentation",
+        subtitle:"A clear professional story",
+        content:"Start your presentation."
+      },
+      {
+        title:"Overview",
+        subtitle:"What we will cover",
+        content:"Introduce the main topics of the presentation."
+      },
+      {
+        title:"Key Point",
+        subtitle:"The information that matters",
+        content:"Explain your most important point."
+      },
+      {
+        title:"Insights",
+        subtitle:"What we learned",
+        content:"Share important insights and observations."
+      },
+      {
+        title:"Next Steps",
+        subtitle:"Where we go from here",
+        content:"Outline the actions that should happen next."
+      }
+    ]
+  },
+
+
+  {
+    id:"executive_dark",
+    name:"Executive Dark",
+    description:"A bold dark presentation designed for executive and high-impact presentations.",
+    background:"linear-gradient(135deg,#111827,#312e81)",
+    color:"#ffffff",
+    slides:[
+      {
+        title:"Executive Briefing",
+        subtitle:"Strategy • Performance • Growth",
+        content:"Present the most important information clearly."
+      },
+      {
+        title:"Current Position",
+        subtitle:"Where we are today",
+        content:"Summarize the current situation and key developments."
+      },
+      {
+        title:"Strategic Priorities",
+        subtitle:"Where we are going",
+        content:"Highlight the priorities that will drive progress."
+      },
+      {
+        title:"Performance",
+        subtitle:"What the data tells us",
+        content:"Present your most important performance insights."
+      },
+      {
+        title:"Action Plan",
+        subtitle:"What happens next",
+        content:"Define the next actions and responsibilities."
+      }
+    ]
+  }
+
+];
+
+
+/* =========================
+   RENDER
+========================= */
+
+function renderTemplates(){
+
+  const grid=
+    document.getElementById(
+      "templateGrid"
+    );
+
+
+  grid.innerHTML=
+    templates.map(
+      template=>`
+
+        <article class="card">
+
+          <div
+            class="preview"
+            style="background:${template.background};color:${template.color};"
+          >
+
+            <div
+              class="preview-inner"
+              style="background:${template.background};color:${template.color};"
+            >
+
+              <div class="preview-title">
+                ${escapeHtml(template.name)}
+              </div>
+
+              <div class="preview-line"></div>
+              <div class="preview-line short"></div>
+              <div class="preview-line"></div>
+
+            </div>
+
+          </div>
+
+
+          <div class="card-body">
+
+            <h2>
+              ${escapeHtml(template.name)}
+            </h2>
+
+            <p>
+              ${escapeHtml(template.description)}
+            </p>
+
+            <button
+              class="use-btn"
+              onclick="useTemplate('${template.id}')"
+            >
+              Use Template
+            </button>
+
+          </div>
+
+        </article>
+
+      `
+    ).join("");
+
+}
+
+
+/* =========================
+   USE TEMPLATE
+========================= */
+
+async function useTemplate(templateId){
+
+  const template=
+    templates.find(
+      item=>item.id===templateId
+    );
+
+  if(!template){
+    return;
+  }
+
+
+  const button=
+    event.currentTarget;
+
+  button.disabled=true;
+  button.textContent=
+    "Creating...";
+
+
+  try{
+
+    const {
+      data:{user},
+      error:userError
+    }=
+    await supabaseClient.auth.getUser();
+
+
+    if(userError){
+      throw userError;
+    }
+
+
+    if(!user){
+
+      showMessage(
+        "Please sign in first."
+      );
+
+      button.disabled=false;
+      button.textContent=
+        "Use Template";
+
+      return;
+    }
+
+
+    /* Create presentation */
+
+    const {
+      data:presentation,
+      error:presentationError
+    }=
+    await supabaseClient
+      .from("presentations")
+      .insert({
+
+        user_id:user.id,
+
+        title:
+          template.name,
+
+        description:
+          template.description,
+
+        template:
+          template.id,
+
+        is_published:
+          false
+
+      })
+      .select()
+      .single();
+
+
+    if(presentationError){
+      throw presentationError;
+    }
+
+
+    /* Create slides */
+
+    const slideRows=
+      template.slides.map(
+        (slide,index)=>({
+
+          presentation_id:
+            presentation.id,
+
+          slide_order:
+            index,
+
+          layout:
+            "title_content",
+
+          title:
+            slide.title,
+
+          subtitle:
+            slide.subtitle,
+
+          content:
+            slide.content,
+
+          image_url:
+            null,
+
+          background:
+            template.background
+
+        })
+      );
+
+
+    const {
+      error:slideError
+    }=
+    await supabaseClient
+      .from("presentation_slides")
+      .insert(
+        slideRows
+      );
+
+
+    if(slideError){
+
+      /*
+        Remove the presentation if
+        slide creation failed.
+      */
+
+      await supabaseClient
+        .from("presentations")
+        .delete()
+        .eq(
+          "id",
+          presentation.id
+        );
+
+      throw slideError;
+    }
+
+
+    showMessage(
+      "Presentation created."
+    );
+
+
+    setTimeout(
+      ()=>{
+        location.href=
+          "presentations.html?edit="+
+          encodeURIComponent(
+            presentation.id
+          );
+      },
+      500
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      error.message||
+      "Unable to create presentation."
+    );
+
+
+    button.disabled=false;
+
+    button.textContent=
+      "Use Template";
+
+  }
+
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(text){
+
+  const element=
+    document.getElementById(
+      "message"
+    );
+
+  element.textContent=
+    text;
+
+  element.style.display=
+    "block";
+
+
+  clearTimeout(
+    window.messageTimer
+  );
+
+
+  window.messageTimer=
+    setTimeout(
+      ()=>{
+        element.style.display=
+          "none";
+      },
+      3000
+    );
+
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+renderTemplates();
+
+document
+  .getElementById("loading")
+  .classList.add("hidden");
+
+</script>
+
+</body>
+  </html>
