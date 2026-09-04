@@ -82,6 +82,7 @@ a{
 .hero h1{
   font-size:34px;
   margin-bottom:8px;
+  letter-spacing:-.5px;
 }
 
 .hero p{
@@ -101,7 +102,7 @@ a{
   border:1px solid #e5e7eb;
   border-radius:18px;
   overflow:hidden;
-  transition:.2s;
+  transition:.2s ease;
 }
 
 .card:hover{
@@ -126,6 +127,7 @@ a{
   display:flex;
   flex-direction:column;
   justify-content:center;
+  overflow:hidden;
 }
 
 .preview-title{
@@ -169,10 +171,11 @@ a{
   border:0;
   background:#7c3aed;
   color:#fff;
-  padding:11px 15px;
+  padding:12px 15px;
   border-radius:9px;
   cursor:pointer;
   font-weight:700;
+  transition:.2s;
 }
 
 .use-btn:hover{
@@ -197,15 +200,21 @@ a{
   display:none;
   z-index:100;
   box-shadow:0 10px 30px rgba(0,0,0,.2);
+  max-width:90%;
+  text-align:center;
 }
 
 .loading{
   position:fixed;
   inset:0;
-  background:rgba(248,250,252,.95);
+  background:#f8fafc;
   display:grid;
   place-items:center;
   z-index:200;
+}
+
+.loading.hidden{
+  display:none;
 }
 
 .loader{
@@ -215,6 +224,17 @@ a{
   border-top-color:#7c3aed;
   border-radius:50%;
   animation:spin .8s linear infinite;
+}
+
+.error-box{
+  background:#fff;
+  border:1px solid #fecaca;
+  color:#991b1b;
+  border-radius:14px;
+  padding:20px;
+  line-height:1.6;
+  display:none;
+  margin-top:20px;
 }
 
 @keyframes spin{
@@ -233,6 +253,15 @@ a{
 
   .topbar{
     padding:0 15px;
+  }
+
+  .brand{
+    font-size:17px;
+  }
+
+  .brand-mark{
+    width:34px;
+    height:34px;
   }
 
   .container{
@@ -267,58 +296,52 @@ a{
     <span>CareerCraft</span>
   </div>
 
-  <a
-    href="presentations.html"
-    class="back"
-  >
+  <a href="presentations.html" class="back">
     ← Presentations
   </a>
 
 </header>
 
-
 <main class="container">
 
   <section class="hero">
-
     <h1>Choose a presentation template</h1>
 
     <p>
       Start with a professionally structured presentation and customize
       every slide in the CareerCraft presentation builder.
     </p>
-
   </section>
-
 
   <section class="grid" id="templateGrid"></section>
 
+  <div class="error-box" id="errorBox"></div>
+
 </main>
 
-
-<div
-  class="message"
-  id="message"
-></div>
-
+<div class="message" id="message"></div>
 
 <script>
 
-const SUPABASE_URL="https://upcxmlbgmqhaqieldmyk.supabase.co";
-const SUPABASE_ANON_KEY="sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+/* =========================================
+   SUPABASE
+========================================= */
 
-const supabaseClient=
+const SUPABASE_URL="YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY="YOUR_SUPABASE_ANON_KEY";
+
+const supabaseClient =
   supabase.createClient(
     SUPABASE_URL,
     SUPABASE_ANON_KEY
   );
 
 
-/* =========================
+/* =========================================
    TEMPLATE DATA
-========================= */
+========================================= */
 
-const templates=[
+const templates = [
 
   {
     id:"business_pitch",
@@ -326,6 +349,7 @@ const templates=[
     description:"A structured presentation for ideas, businesses, products and proposals.",
     background:"#f8fafc",
     color:"#0f172a",
+
     slides:[
       {
         title:"Business Pitch",
@@ -367,6 +391,7 @@ const templates=[
     description:"Showcase your experience, projects, skills and professional achievements.",
     background:"#ffffff",
     color:"#111827",
+
     slides:[
       {
         title:"Professional Portfolio",
@@ -408,6 +433,7 @@ const templates=[
     description:"Present a project clearly from objectives and research to results.",
     background:"#f8fafc",
     color:"#0f172a",
+
     slides:[
       {
         title:"Project Presentation",
@@ -449,6 +475,7 @@ const templates=[
     description:"A professional structure for interviews, career presentations and personal introductions.",
     background:"#ffffff",
     color:"#111827",
+
     slides:[
       {
         title:"My Professional Story",
@@ -490,6 +517,7 @@ const templates=[
     description:"A clean, simple presentation suitable for business and professional use.",
     background:"#ffffff",
     color:"#111827",
+
     slides:[
       {
         title:"Presentation",
@@ -526,6 +554,7 @@ const templates=[
     description:"A bold dark presentation designed for executive and high-impact presentations.",
     background:"linear-gradient(135deg,#111827,#312e81)",
     color:"#ffffff",
+
     slides:[
       {
         title:"Executive Briefing",
@@ -558,96 +587,138 @@ const templates=[
 ];
 
 
-/* =========================
-   RENDER
-========================= */
+/* =========================================
+   ESCAPE HTML
+========================================= */
 
-function renderTemplates(){
+function escapeHtml(value){
 
-  const grid=
-    document.getElementById(
-      "templateGrid"
-    );
-
-
-  grid.innerHTML=
-    templates.map(
-      template=>`
-
-        <article class="card">
-
-          <div
-            class="preview"
-            style="background:${template.background};color:${template.color};"
-          >
-
-            <div
-              class="preview-inner"
-              style="background:${template.background};color:${template.color};"
-            >
-
-              <div class="preview-title">
-                ${escapeHtml(template.name)}
-              </div>
-
-              <div class="preview-line"></div>
-              <div class="preview-line short"></div>
-              <div class="preview-line"></div>
-
-            </div>
-
-          </div>
-
-
-          <div class="card-body">
-
-            <h2>
-              ${escapeHtml(template.name)}
-            </h2>
-
-            <p>
-              ${escapeHtml(template.description)}
-            </p>
-
-            <button
-              class="use-btn"
-              onclick="useTemplate('${template.id}')"
-            >
-              Use Template
-            </button>
-
-          </div>
-
-        </article>
-
-      `
-    ).join("");
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
 
-/* =========================
+/* =========================================
+   RENDER TEMPLATES
+========================================= */
+
+function renderTemplates(){
+
+  const grid =
+    document.getElementById("templateGrid");
+
+  grid.innerHTML = templates.map(template => {
+
+    return `
+
+      <article class="card">
+
+        <div
+          class="preview"
+          style="
+            background:${template.background};
+            color:${template.color};
+          "
+        >
+
+          <div
+            class="preview-inner"
+            style="
+              background:${template.background};
+              color:${template.color};
+            "
+          >
+
+            <div class="preview-title">
+              ${escapeHtml(template.name)}
+            </div>
+
+            <div class="preview-line"></div>
+            <div class="preview-line short"></div>
+            <div class="preview-line"></div>
+
+          </div>
+
+        </div>
+
+
+        <div class="card-body">
+
+          <h2>
+            ${escapeHtml(template.name)}
+          </h2>
+
+          <p>
+            ${escapeHtml(template.description)}
+          </p>
+
+          <button
+            class="use-btn"
+            type="button"
+            data-template-id="${escapeHtml(template.id)}"
+          >
+            Use Template
+          </button>
+
+        </div>
+
+      </article>
+
+    `;
+
+  }).join("");
+
+
+  document
+    .querySelectorAll(".use-btn")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          useTemplate(
+            this.dataset.templateId,
+            this
+          );
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================
    USE TEMPLATE
-========================= */
+========================================= */
 
-async function useTemplate(templateId){
+async function useTemplate(
+  templateId,
+  button
+){
 
-  const template=
+  const template =
     templates.find(
-      item=>item.id===templateId
+      item => item.id === templateId
     );
 
   if(!template){
+    showMessage(
+      "Template not found."
+    );
     return;
   }
 
 
-  const button=
-    event.currentTarget;
-
-  button.disabled=true;
-  button.textContent=
-    "Creating...";
+  button.disabled = true;
+  button.textContent = "Creating...";
 
 
   try{
@@ -655,8 +726,8 @@ async function useTemplate(templateId){
     const {
       data:{user},
       error:userError
-    }=
-    await supabaseClient.auth.getUser();
+    } =
+      await supabaseClient.auth.getUser();
 
 
     if(userError){
@@ -670,41 +741,41 @@ async function useTemplate(templateId){
         "Please sign in first."
       );
 
-      button.disabled=false;
-      button.textContent=
-        "Use Template";
+      button.disabled = false;
+      button.textContent = "Use Template";
 
       return;
     }
 
 
-    /* Create presentation */
+    /* =====================================
+       CREATE PRESENTATION
+    ===================================== */
 
     const {
       data:presentation,
       error:presentationError
-    }=
-    await supabaseClient
-      .from("presentations")
-      .insert({
+    } =
+      await supabaseClient
+        .from("presentations")
+        .insert({
 
-        user_id:user.id,
+          user_id:user.id,
 
-        title:
-          template.name,
+          title:
+            template.name,
 
-        description:
-          template.description,
+          description:
+            template.description,
 
-        template:
-          template.id,
+          template:
+            template.id,
 
-        is_published:
-          false
+          is_published:false
 
-      })
-      .select()
-      .single();
+        })
+        .select()
+        .single();
 
 
     if(presentationError){
@@ -712,11 +783,13 @@ async function useTemplate(templateId){
     }
 
 
-    /* Create slides */
+    /* =====================================
+       CREATE SLIDES
+    ===================================== */
 
-    const slideRows=
+    const slideRows =
       template.slides.map(
-        (slide,index)=>({
+        (slide,index) => ({
 
           presentation_id:
             presentation.id,
@@ -748,20 +821,13 @@ async function useTemplate(templateId){
 
     const {
       error:slideError
-    }=
-    await supabaseClient
-      .from("presentation_slides")
-      .insert(
-        slideRows
-      );
+    } =
+      await supabaseClient
+        .from("presentation_slides")
+        .insert(slideRows);
 
 
     if(slideError){
-
-      /*
-        Remove the presentation if
-        slide creation failed.
-      */
 
       await supabaseClient
         .from("presentations")
@@ -776,58 +842,54 @@ async function useTemplate(templateId){
 
 
     showMessage(
-      "Presentation created."
+      "Presentation created successfully."
     );
 
 
-    setTimeout(
-      ()=>{
-        location.href=
-          "presentations.html?edit="+
-          encodeURIComponent(
-            presentation.id
-          );
-      },
-      500
-    );
+    setTimeout(() => {
+
+      window.location.href =
+        "presentations.html?edit=" +
+        encodeURIComponent(
+          presentation.id
+        );
+
+    },700);
 
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Template creation error:",
+      error
+    );
+
 
     showMessage(
-      error.message||
+      error?.message ||
       "Unable to create presentation."
     );
 
 
-    button.disabled=false;
-
-    button.textContent=
-      "Use Template";
+    button.disabled = false;
+    button.textContent = "Use Template";
 
   }
 
 }
 
 
-/* =========================
+/* =========================================
    MESSAGE
-========================= */
+========================================= */
 
 function showMessage(text){
 
-  const element=
-    document.getElementById(
-      "message"
-    );
+  const element =
+    document.getElementById("message");
 
-  element.textContent=
-    text;
-
-  element.style.display=
-    "block";
+  element.textContent = text;
+  element.style.display = "block";
 
 
   clearTimeout(
@@ -835,43 +897,53 @@ function showMessage(text){
   );
 
 
-  window.messageTimer=
-    setTimeout(
-      ()=>{
-        element.style.display=
-          "none";
-      },
-      3000
-    );
+  window.messageTimer =
+    setTimeout(() => {
+
+      element.style.display = "none";
+
+    },3500);
 
 }
 
 
-/* =========================
-   ESCAPE HTML
-========================= */
+/* =========================================
+   INITIALIZE
+========================================= */
 
-function escapeHtml(value){
+function startPage(){
 
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  try{
+
+    renderTemplates();
+
+  }catch(error){
+
+    console.error(error);
+
+    const errorBox =
+      document.getElementById("errorBox");
+
+    errorBox.textContent =
+      "Unable to load presentation templates.";
+
+    errorBox.style.display = "block";
+
+  }
+
+
+  document
+    .getElementById("loading")
+    .classList.add("hidden");
 
 }
 
 
-/* =========================
+/* =========================================
    START
-========================= */
+========================================= */
 
-renderTemplates();
-
-document
-  .getElementById("loading")
-  .classList.add("hidden");
+startPage();
 
 </script>
 
