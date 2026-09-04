@@ -1,0 +1,2024 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Business Cards | CareerCraft</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+:root{
+  --purple:#6d4aff;
+  --purple-dark:#5334d9;
+  --purple-light:#f1edff;
+  --bg:#f6f4fa;
+  --white:#ffffff;
+  --text:#201b2b;
+  --muted:#777080;
+  --border:#e7e2ee;
+  --danger:#e5484d;
+  --success:#179b62;
+  --shadow:0 12px 35px rgba(38,25,70,.09);
+  --shadow-hover:0 20px 50px rgba(38,25,70,.15);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+  border:0;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.app{
+  min-height:100vh;
+}
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar{
+  height:70px;
+  background:rgba(255,255,255,.96);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  padding:0 28px;
+  gap:14px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  backdrop-filter:blur(12px);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-weight:950;
+  font-size:18px;
+}
+
+.logo{
+  width:39px;
+  height:39px;
+  border-radius:11px;
+  background:linear-gradient(135deg,#6d4aff,#a855f7);
+  color:white;
+  display:grid;
+  place-items:center;
+  font-weight:950;
+  box-shadow:0 8px 20px rgba(109,74,255,.25);
+}
+
+.nav-right{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.user-pill{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:7px 11px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#fff;
+}
+
+.avatar{
+  width:30px;
+  height:30px;
+  border-radius:9px;
+  background:var(--purple-light);
+  color:var(--purple);
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  font-size:12px;
+}
+
+.user-email{
+  max-width:180px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:12px;
+  font-weight:700;
+}
+
+.back-btn{
+  padding:10px 13px;
+  border-radius:10px;
+  background:#f1eef6;
+  font-weight:800;
+  color:#40394b;
+}
+
+.back-btn:hover{
+  background:#e8e3ef;
+}
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.page{
+  width:min(1240px,calc(100% - 40px));
+  margin:0 auto;
+  padding:42px 0 60px;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:25px;
+  margin-bottom:34px;
+}
+
+.hero-text{
+  max-width:700px;
+}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  background:var(--purple-light);
+  color:var(--purple);
+  padding:7px 11px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:900;
+  margin-bottom:13px;
+}
+
+.eyebrow-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--purple);
+}
+
+.hero h1{
+  font-size:clamp(30px,5vw,48px);
+  line-height:1.05;
+  letter-spacing:-1.5px;
+  margin-bottom:12px;
+}
+
+.hero p{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.65;
+  max-width:650px;
+}
+
+.create-btn{
+  min-height:46px;
+  padding:0 18px;
+  border-radius:11px;
+  background:var(--purple);
+  color:#fff;
+  font-weight:900;
+  box-shadow:0 10px 25px rgba(109,74,255,.22);
+  white-space:nowrap;
+}
+
+.create-btn:hover{
+  background:var(--purple-dark);
+  transform:translateY(-1px);
+}
+
+/* =====================================================
+   TOOLBAR
+===================================================== */
+
+.toolbar{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:22px;
+  box-shadow:0 5px 20px rgba(30,20,50,.04);
+}
+
+.search{
+  flex:1;
+  position:relative;
+}
+
+.search-icon{
+  position:absolute;
+  left:12px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#918a9c;
+  font-size:14px;
+}
+
+.search input{
+  width:100%;
+  height:40px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:0 12px 0 35px;
+  outline:none;
+  background:#faf9fc;
+}
+
+.search input:focus{
+  border-color:#bbaeff;
+  background:#fff;
+}
+
+.view-btn{
+  width:40px;
+  height:40px;
+  border-radius:9px;
+  background:#f1eef6;
+  font-weight:900;
+}
+
+.view-btn.active{
+  background:var(--purple);
+  color:#fff;
+}
+
+.count{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:800;
+  padding:0 7px;
+}
+
+/* =====================================================
+   CARDS GRID
+===================================================== */
+
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:22px;
+}
+
+.cards-grid.list{
+  grid-template-columns:1fr;
+}
+
+/* =====================================================
+   CARD ITEM
+===================================================== */
+
+.card-item{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:.25s ease;
+}
+
+.card-item:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-hover);
+}
+
+/* =====================================================
+   VISUAL CARD PREVIEW
+===================================================== */
+
+.card-preview{
+  padding:22px;
+  background:
+    radial-gradient(circle at 10% 10%,rgba(109,74,255,.08),transparent 30%),
+    #f5f2fa;
+}
+
+.mini-card{
+  position:relative;
+  width:100%;
+  aspect-ratio:1.75 / 1;
+  border-radius:13px;
+  overflow:hidden;
+  color:#fff;
+  box-shadow:0 15px 30px rgba(30,20,50,.18);
+  padding:25px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.mini-circle-one{
+  position:absolute;
+  width:45%;
+  aspect-ratio:1;
+  border-radius:50%;
+  right:-13%;
+  top:-30%;
+  background:rgba(255,255,255,.12);
+}
+
+.mini-circle-two{
+  position:absolute;
+  width:35%;
+  aspect-ratio:1;
+  border-radius:50%;
+  left:-15%;
+  bottom:-25%;
+  background:rgba(255,255,255,.08);
+}
+
+.mini-company{
+  position:relative;
+  z-index:2;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  opacity:.9;
+}
+
+.mini-main{
+  position:relative;
+  z-index:2;
+}
+
+.mini-name{
+  font-size:clamp(18px,2vw,27px);
+  line-height:1;
+  font-weight:950;
+  margin-bottom:7px;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.mini-role{
+  font-size:10px;
+  opacity:.78;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+/* =====================================================
+   CARD INFO
+===================================================== */
+
+.card-info{
+  padding:16px;
+}
+
+.card-info-top{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+}
+
+.card-details{
+  min-width:0;
+  flex:1;
+}
+
+.card-details h3{
+  font-size:14px;
+  font-weight:900;
+  margin-bottom:4px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.card-details p{
+  font-size:11px;
+  color:var(--muted);
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.menu-btn{
+  width:32px;
+  height:32px;
+  border-radius:8px;
+  background:#f3f0f7;
+  font-size:18px;
+}
+
+.menu-btn:hover{
+  background:#e9e4ef;
+}
+
+.card-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:13px;
+  padding-top:12px;
+  border-top:1px solid var(--border);
+}
+
+.updated{
+  color:var(--muted);
+  font-size:10px;
+}
+
+.card-actions{
+  display:flex;
+  gap:7px;
+}
+
+.small-btn{
+  height:32px;
+  padding:0 10px;
+  border-radius:8px;
+  background:#f0edf5;
+  font-size:10px;
+  font-weight:900;
+}
+
+.small-btn:hover{
+  background:#e5e0eb;
+}
+
+.small-btn.primary{
+  background:var(--purple);
+  color:#fff;
+}
+
+.small-btn.primary:hover{
+  background:var(--purple-dark);
+}
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.empty{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:70px 25px;
+  text-align:center;
+  box-shadow:var(--shadow);
+}
+
+.empty-icon{
+  width:70px;
+  height:70px;
+  border-radius:20px;
+  background:var(--purple-light);
+  color:var(--purple);
+  display:grid;
+  place-items:center;
+  margin:0 auto 18px;
+  font-size:30px;
+}
+
+.empty h2{
+  font-size:21px;
+  margin-bottom:8px;
+}
+
+.empty p{
+  color:var(--muted);
+  font-size:13px;
+  max-width:450px;
+  margin:0 auto 20px;
+  line-height:1.6;
+}
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:70px 20px;
+  text-align:center;
+}
+
+.spinner{
+  width:38px;
+  height:38px;
+  border:4px solid #e8e2f3;
+  border-top-color:var(--purple);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 15px;
+}
+
+.loading p{
+  color:var(--muted);
+  font-size:13px;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translate(-50%,20px);
+  padding:12px 18px;
+  border-radius:10px;
+  background:#211d2b;
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:300;
+  box-shadow:0 12px 30px rgba(0,0,0,.18);
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* =====================================================
+   DELETE MODAL
+===================================================== */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(20,15,30,.58);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:200;
+  backdrop-filter:blur(5px);
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:min(430px,100%);
+  background:#fff;
+  border-radius:17px;
+  padding:24px;
+  box-shadow:0 25px 80px rgba(20,15,30,.25);
+}
+
+.modal-icon{
+  width:50px;
+  height:50px;
+  border-radius:14px;
+  background:#fff0f0;
+  color:var(--danger);
+  display:grid;
+  place-items:center;
+  font-size:22px;
+  margin-bottom:15px;
+}
+
+.modal-box h3{
+  font-size:18px;
+  margin-bottom:7px;
+}
+
+.modal-box p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+}
+
+.modal-btn{
+  height:40px;
+  padding:0 14px;
+  border-radius:9px;
+  font-weight:900;
+  background:#f1eef6;
+}
+
+.modal-btn.delete{
+  background:var(--danger);
+  color:#fff;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1000px){
+
+  .cards-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+}
+
+@media(max-width:700px){
+
+  .navbar{
+    padding:0 14px;
+  }
+
+  .brand span{
+    display:none;
+  }
+
+  .user-email{
+    display:none;
+  }
+
+  .page{
+    width:min(100% - 24px,1240px);
+    padding-top:28px;
+  }
+
+  .hero{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .create-btn{
+    width:100%;
+  }
+
+  .toolbar{
+    flex-wrap:wrap;
+  }
+
+  .search{
+    flex-basis:100%;
+  }
+
+  .count{
+    margin-right:auto;
+  }
+
+  .cards-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:430px){
+
+  .navbar{
+    height:62px;
+  }
+
+  .back-btn{
+    padding:8px 10px;
+    font-size:12px;
+  }
+
+  .hero h1{
+    font-size:32px;
+  }
+
+  .hero p{
+    font-size:13px;
+  }
+
+  .card-preview{
+    padding:16px;
+  }
+
+  .mini-card{
+    padding:20px;
+  }
+
+  .card-meta{
+    align-items:flex-start;
+    gap:10px;
+    flex-direction:column;
+  }
+
+  .card-actions{
+    width:100%;
+  }
+
+  .small-btn{
+    flex:1;
+  }
+
+}
+</style></head><body><div class="app">  <!-- NAVBAR -->  <header class="navbar"><button
+  class="back-btn"
+  id="backBtn"
+>
+  ← Back
+</button>
+
+<div class="brand">
+
+  <div class="logo">
+    C
+  </div>
+
+  <span>
+    CareerCraft
+  </span>
+
+</div>
+
+<div class="nav-right">
+
+  <div class="user-pill">
+
+    <div
+      class="avatar"
+      id="avatar"
+    >
+      U
+    </div>
+
+    <span
+      class="user-email"
+      id="userEmail"
+    >
+      Loading...
+    </span>
+
+  </div>
+
+</div>
+
+  </header>  <!-- PAGE -->  <main class="page"><!-- HERO -->
+
+<section class="hero">
+
+  <div class="hero-text">
+
+    <div class="eyebrow">
+
+      <span class="eyebrow-dot"></span>
+
+      BUSINESS CARD STUDIO
+
+    </div>
+
+    <h1>
+      Your professional identity,
+      beautifully presented.
+    </h1>
+
+    <p>
+      Create, manage and showcase professional
+      business cards for your career, company or
+      personal brand.
+    </p>
+
+  </div>
+
+  <button
+    class="create-btn"
+    id="createBtn"
+  >
+    + Create Business Card
+  </button>
+
+</section>
+
+
+<!-- TOOLBAR -->
+
+<section class="toolbar">
+
+  <div class="search">
+
+    <span class="search-icon">
+      🔎
+    </span>
+
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Search your business cards..."
+    >
+
+  </div>
+
+  <span
+    class="count"
+    id="cardCount"
+  >
+    0 cards
+  </span>
+
+  <button
+    class="view-btn active"
+    id="gridViewBtn"
+    title="Grid view"
+  >
+    ▦
+  </button>
+
+  <button
+    class="view-btn"
+    id="listViewBtn"
+    title="List view"
+  >
+    ☰
+  </button>
+
+</section>
+
+
+<!-- CONTENT -->
+
+<div id="content">
+
+  <div class="loading">
+
+    <div class="spinner"></div>
+
+    <p>
+      Loading your business cards...
+    </p>
+
+  </div>
+
+</div>
+
+  </main></div><!-- DELETE MODAL --><div
+  class="modal"
+  id="deleteModal"
+>  <div class="modal-box"><div class="modal-icon">
+  🗑
+</div>
+
+<h3>
+  Delete business card?
+</h3>
+
+<p>
+  This action cannot be undone. The selected
+  business card will be permanently removed
+  from your CareerCraft account.
+</p>
+
+<div class="modal-actions">
+
+  <button
+    class="modal-btn"
+    id="cancelDeleteBtn"
+  >
+    Cancel
+  </button>
+
+  <button
+    class="modal-btn delete"
+    id="confirmDeleteBtn"
+  >
+    Delete Card
+  </button>
+
+</div>
+
+  </div></div><!-- TOAST --><div
+  class="toast"
+  id="toast"
+></div><script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+  "https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let currentUser = null;
+
+let cards = [];
+
+let filteredCards = [];
+
+let deleteCardId = null;
+
+let viewMode = "grid";
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function $(id){
+  return document.getElementById(id);
+}
+
+
+function toast(message){
+
+  const element =
+    $("toast");
+
+  element.textContent =
+    message;
+
+  element.classList.add("show");
+
+  clearTimeout(
+    toast.timer
+  );
+
+  toast.timer =
+    setTimeout(()=>{
+      element.classList.remove("show");
+    },2600);
+
+}
+
+
+function isValidUUID(value){
+
+  return typeof value === "string" &&
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+      .test(value);
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   COLOR HELPERS
+===================================================== */
+
+function hexToRgb(hex){
+
+  hex =
+    String(hex || "#6d4aff")
+      .replace("#","");
+
+  if(hex.length !== 6){
+    return {
+      r:109,
+      g:74,
+      b:255
+    };
+  }
+
+  const number =
+    parseInt(hex,16);
+
+  return {
+    r:(number >> 16) & 255,
+    g:(number >> 8) & 255,
+    b:number & 255
+  };
+
+}
+
+
+function rgbToHex(r,g,b){
+
+  return "#" +
+    [r,g,b]
+      .map(value=>
+        Math.max(
+          0,
+          Math.min(
+            255,
+            Math.round(value)
+          )
+        )
+        .toString(16)
+        .padStart(2,"0")
+      )
+      .join("");
+
+}
+
+
+function lightenColor(hex){
+
+  const rgb =
+    hexToRgb(hex);
+
+  return rgbToHex(
+    rgb.r + (255-rgb.r)*.20,
+    rgb.g + (255-rgb.g)*.20,
+    rgb.b + (255-rgb.b)*.20
+  );
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function formatDate(dateValue){
+
+  if(!dateValue){
+    return "Recently";
+  }
+
+  const date =
+    new Date(dateValue);
+
+  if(Number.isNaN(date.getTime())){
+    return "Recently";
+  }
+
+  return date.toLocaleDateString(
+    undefined,
+    {
+      year:"numeric",
+      month:"short",
+      day:"numeric"
+    }
+  );
+
+}
+
+
+/* =====================================================
+   INITIALS
+===================================================== */
+
+function getInitials(text){
+
+  const value =
+    String(text || "User")
+      .trim();
+
+  if(!value){
+    return "U";
+  }
+
+  const parts =
+    value.split(/\s+/);
+
+  if(parts.length === 1){
+    return parts[0]
+      .charAt(0)
+      .toUpperCase();
+  }
+
+  return (
+    parts[0].charAt(0) +
+    parts[parts.length-1].charAt(0)
+  ).toUpperCase();
+
+}
+
+
+/* =====================================================
+   CARD GRADIENT
+===================================================== */
+
+function cardGradient(color){
+
+  const base =
+    color || "#6d4aff";
+
+  return `
+    linear-gradient(
+      135deg,
+      ${base},
+      ${lightenColor(base)}
+    )
+  `;
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function renderCards(){
+
+  const content =
+    $("content");
+
+  const count =
+    filteredCards.length;
+
+  $("cardCount").textContent =
+    `${count} ${count === 1 ? "card" : "cards"}`;
+
+
+  if(!filteredCards.length){
+
+    content.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          ▣
+        </div>
+
+        <h2>
+          ${cards.length
+            ? "No matching cards"
+            : "Create your first business card"}
+        </h2>
+
+        <p>
+          ${cards.length
+            ? "Try a different search term."
+            : "Build a professional business card for your career, company or personal brand."}
+        </p>
+
+        ${
+          cards.length
+            ? ""
+            : `
+              <button
+                class="create-btn"
+                onclick="createNewCard()"
+              >
+                + Create Business Card
+              </button>
+            `
+        }
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  content.innerHTML = `
+
+    <div
+      class="cards-grid ${viewMode === "list" ? "list" : ""}"
+    >
+
+      ${filteredCards
+        .map(card=>createCardHTML(card))
+        .join("")}
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   CARD HTML
+===================================================== */
+
+function createCardHTML(card){
+
+  const color =
+    card.color || "#6d4aff";
+
+  const company =
+    card.company ||
+    "CareerCraft";
+
+  const name =
+    card.name ||
+    "Your Name";
+
+  const role =
+    card.role ||
+    "Professional";
+
+  const title =
+    card.title ||
+    "My Business Card";
+
+  const id =
+    card.id;
+
+  return `
+
+    <article
+      class="card-item"
+    >
+
+      <div class="card-preview">
+
+        <div
+          class="mini-card"
+          style="
+            background:${cardGradient(color)};
+            font-family:${escapeHTML(
+              card.font ||
+              "Inter,Arial,sans-serif"
+            )};
+          "
+        >
+
+          <div class="mini-circle-one"></div>
+          <div class="mini-circle-two"></div>
+
+          <div class="mini-company">
+            ${escapeHTML(company)}
+          </div>
+
+          <div class="mini-main">
+
+            <div class="mini-name">
+              ${escapeHTML(name)}
+            </div>
+
+            <div class="mini-role">
+              ${escapeHTML(role)}
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="card-info">
+
+        <div class="card-info-top">
+
+          <div class="card-details">
+
+            <h3>
+              ${escapeHTML(title)}
+            </h3>
+
+            <p>
+              ${escapeHTML(company)}
+            </p>
+
+          </div>
+
+          <button
+            class="menu-btn"
+            onclick="openCard('${escapeHTML(id)}')"
+            title="Open card"
+          >
+            ⋯
+          </button>
+
+        </div>
+
+
+        <div class="card-meta">
+
+          <span class="updated">
+            Updated ${formatDate(
+              card.updated_at ||
+              card.created_at
+            )}
+          </span>
+
+          <div class="card-actions">
+
+            <button
+              class="small-btn primary"
+              onclick="openCard('${escapeHTML(id)}')"
+            >
+              Edit
+            </button>
+
+            <button
+              class="small-btn"
+              onclick="duplicateExistingCard('${escapeHTML(id)}')"
+            >
+              Duplicate
+            </button>
+
+            <button
+              class="small-btn"
+              onclick="requestDelete('${escapeHTML(id)}')"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+/* =====================================================
+   LOAD CARDS
+===================================================== */
+
+async function loadCards(){
+
+  $("content").innerHTML = `
+
+    <div class="loading">
+
+      <div class="spinner"></div>
+
+      <p>
+        Loading your business cards...
+      </p>
+
+    </div>
+
+  `;
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("business_cards")
+      .select("*")
+      .eq("user_id",currentUser.id)
+      .order("updated_at",{
+        ascending:false
+      });
+
+
+  if(error){
+
+    console.error(
+      "BUSINESS CARDS LOAD ERROR:",
+      error
+    );
+
+    $("content").innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          !
+        </div>
+
+        <h2>
+          Unable to load your cards
+        </h2>
+
+        <p>
+          ${escapeHTML(
+            error.message ||
+            "Something went wrong while loading your business cards."
+          )}
+        </p>
+
+        <button
+          class="create-btn"
+          onclick="loadCards()"
+        >
+          Try Again
+        </button>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  cards =
+    Array.isArray(data)
+      ? data
+      : [];
+
+  filteredCards =
+    [...cards];
+
+  renderCards();
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function searchCards(){
+
+  const query =
+    $("searchInput")
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  if(!query){
+
+    filteredCards =
+      [...cards];
+
+    renderCards();
+
+    return;
+  }
+
+
+  filteredCards =
+    cards.filter(card=>{
+
+      return [
+        card.title,
+        card.name,
+        card.role,
+        card.company,
+        card.email,
+        card.website
+      ]
+      .filter(Boolean)
+      .some(value=>
+        String(value)
+          .toLowerCase()
+          .includes(query)
+      );
+
+    });
+
+
+  renderCards();
+
+}
+
+
+/* =====================================================
+   CREATE NEW
+===================================================== */
+
+function createNewCard(){
+
+  window.location.href =
+    "business-card.html?new=1";
+
+}
+
+
+/* =====================================================
+   OPEN CARD
+===================================================== */
+
+function openCard(id){
+
+  if(!isValidUUID(id)){
+
+    toast(
+      "Invalid business card ID"
+    );
+
+    return;
+  }
+
+
+  window.location.href =
+    `business-card.html?id=${encodeURIComponent(id)}`;
+
+}
+
+
+/* =====================================================
+   DUPLICATE EXISTING
+===================================================== */
+
+async function duplicateExistingCard(id){
+
+  if(!isValidUUID(id)){
+
+    toast(
+      "Invalid business card ID"
+    );
+
+    return;
+  }
+
+
+  const original =
+    cards.find(card=>card.id === id);
+
+
+  if(!original){
+
+    toast(
+      "Business card not found"
+    );
+
+    return;
+  }
+
+
+  try{
+
+    toast(
+      "Creating duplicate..."
+    );
+
+
+    const payload = {
+
+      user_id:
+        currentUser.id,
+
+      title:
+        `${original.title || "My Business Card"} Copy`,
+
+      name:
+        original.name || "",
+
+      role:
+        original.role || "",
+
+      company:
+        original.company || "",
+
+      tagline:
+        original.tagline || "",
+
+      phone:
+        original.phone || "",
+
+      email:
+        original.email || "",
+
+      website:
+        original.website || "",
+
+      location:
+        original.location || "",
+
+      linkedin:
+        original.linkedin || "",
+
+      social:
+        original.social || "",
+
+      qr_url:
+        original.qr_url ||
+        original.qr ||
+        "",
+
+      color:
+        original.color ||
+        "#6d4aff",
+
+      font:
+        original.font ||
+        "Inter,Arial,sans-serif",
+
+      orientation:
+        original.orientation ||
+        "landscape"
+
+    };
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("business_cards")
+        .insert(payload)
+        .select("*")
+        .single();
+
+
+    if(error){
+      throw error;
+    }
+
+
+    if(data){
+
+      cards.unshift(data);
+
+      searchCards();
+
+      toast(
+        "Business card duplicated successfully"
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "DUPLICATE ERROR:",
+      error
+    );
+
+    toast(
+      error?.message ||
+      "Unable to duplicate business card"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+function requestDelete(id){
+
+  if(!isValidUUID(id)){
+
+    toast(
+      "Invalid business card ID"
+    );
+
+    return;
+  }
+
+
+  deleteCardId =
+    id;
+
+  $("deleteModal")
+    .classList.add("show");
+
+}
+
+
+function closeDeleteModal(){
+
+  deleteCardId =
+    null;
+
+  $("deleteModal")
+    .classList.remove("show");
+
+}
+
+
+async function confirmDelete(){
+
+  if(!isValidUUID(deleteCardId)){
+
+    closeDeleteModal();
+
+    return;
+  }
+
+
+  const id =
+    deleteCardId;
+
+  const button =
+    $("confirmDeleteBtn");
+
+  button.disabled =
+    true;
+
+  button.textContent =
+    "Deleting...";
+
+
+  try{
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("business_cards")
+        .delete()
+        .eq("id",id)
+        .eq("user_id",currentUser.id);
+
+
+    if(error){
+      throw error;
+    }
+
+
+    cards =
+      cards.filter(
+        card=>card.id !== id
+      );
+
+    filteredCards =
+      filteredCards.filter(
+        card=>card.id !== id
+      );
+
+
+    closeDeleteModal();
+
+    renderCards();
+
+    toast(
+      "Business card deleted"
+    );
+
+  }catch(error){
+
+    console.error(
+      "DELETE ERROR:",
+      error
+    );
+
+    toast(
+      error?.message ||
+      "Unable to delete business card"
+    );
+
+  }finally{
+
+    button.disabled =
+      false;
+
+    button.textContent =
+      "Delete Card";
+
+  }
+
+}
+
+
+/* =====================================================
+   VIEW MODE
+===================================================== */
+
+function setViewMode(mode){
+
+  viewMode =
+    mode;
+
+  $("gridViewBtn")
+    .classList.toggle(
+      "active",
+      mode === "grid"
+    );
+
+  $("listViewBtn")
+    .classList.toggle(
+      "active",
+      mode === "list"
+    );
+
+  renderCards();
+
+}
+
+
+/* =====================================================
+   AUTHENTICATION
+===================================================== */
+
+async function initialize(){
+
+  try{
+
+    const {
+      data:{
+        session
+      }
+    } =
+      await supabaseClient
+        .auth
+        .getSession();
+
+
+    if(!session?.user){
+
+      window.location.href =
+        "login.html";
+
+      return;
+    }
+
+
+    currentUser =
+      session.user;
+
+
+    const email =
+      currentUser.email ||
+      "CareerCraft User";
+
+
+    $("userEmail").textContent =
+      email;
+
+    $("avatar").textContent =
+      getInitials(email);
+
+
+    await loadCards();
+
+  }catch(error){
+
+    console.error(
+      "INITIALIZATION ERROR:",
+      error
+    );
+
+    $("content").innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          !
+        </div>
+
+        <h2>
+          Something went wrong
+        </h2>
+
+        <p>
+          Unable to open your Business Card dashboard.
+        </p>
+
+        <button
+          class="create-btn"
+          onclick="location.reload()"
+        >
+          Try Again
+        </button>
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =====================================================
+   EVENTS
+===================================================== */
+
+$("createBtn")
+  .addEventListener(
+    "click",
+    createNewCard
+  );
+
+
+$("searchInput")
+  .addEventListener(
+    "input",
+    searchCards
+  );
+
+
+$("gridViewBtn")
+  .addEventListener(
+    "click",
+    ()=>{
+      setViewMode("grid");
+    }
+  );
+
+
+$("listViewBtn")
+  .addEventListener(
+    "click",
+    ()=>{
+      setViewMode("list");
+    }
+  );
+
+
+$("cancelDeleteBtn")
+  .addEventListener(
+    "click",
+    closeDeleteModal
+  );
+
+
+$("confirmDeleteBtn")
+  .addEventListener(
+    "click",
+    confirmDelete
+  );
+
+
+$("deleteModal")
+  .addEventListener(
+    "click",
+    event=>{
+
+      if(
+        event.target ===
+        $("deleteModal")
+      ){
+
+        closeDeleteModal();
+
+      }
+
+    }
+  );
+
+
+$("backBtn")
+  .addEventListener(
+    "click",
+    ()=>{
+
+      if(history.length > 1){
+
+        history.back();
+
+      }else{
+
+        window.location.href =
+          "index.html";
+
+      }
+
+    }
+  );
+
+
+document.addEventListener(
+  "keydown",
+  event=>{
+
+    if(event.key === "Escape"){
+
+      closeDeleteModal();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+initialize();
+
+</script></body>
+  </html>
