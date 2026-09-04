@@ -1,0 +1,3036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerCraft — Presentation Studio</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root{
+  --bg:#f6f7fb;
+  --panel:#ffffff;
+  --panel2:#f1f3f8;
+  --text:#172033;
+  --muted:#778096;
+  --line:#e4e7ef;
+  --primary:#7357ff;
+  --primary2:#967fff;
+  --danger:#ef476f;
+  --shadow:0 18px 50px rgba(34,38,70,.10);
+  --radius:20px;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+button,input,textarea,select{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.app{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+/* TOP BAR */
+
+.topbar{
+  height:72px;
+  flex:none;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  gap:20px;
+  z-index:20;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:220px;
+}
+
+.logo{
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  color:white;
+  font-weight:900;
+  font-size:20px;
+  background:linear-gradient(135deg,#7357ff,#b17cff);
+  box-shadow:0 8px 20px rgba(115,87,255,.25);
+}
+
+.brand strong{
+  font-size:16px;
+}
+
+.brand span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:2px;
+}
+
+.titleBox{
+  flex:1;
+  max-width:430px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.titleInput{
+  width:100%;
+  border:1px solid transparent;
+  background:transparent;
+  outline:none;
+  font-size:17px;
+  font-weight:750;
+  color:var(--text);
+  padding:11px 12px;
+  border-radius:12px;
+}
+
+.titleInput:hover,
+.titleInput:focus{
+  background:#f5f6fa;
+  border-color:var(--line);
+}
+
+.topActions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.iconBtn,
+.secondaryBtn,
+.primaryBtn{
+  min-height:40px;
+  border-radius:12px;
+  padding:0 14px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-weight:700;
+}
+
+.iconBtn{
+  width:42px;
+  padding:0;
+  background:#f3f4f8;
+  color:#47516a;
+}
+
+.secondaryBtn{
+  background:#f2f3f7;
+  color:#3b4459;
+}
+
+.primaryBtn{
+  background:linear-gradient(135deg,var(--primary),var(--primary2));
+  color:white;
+  box-shadow:0 8px 20px rgba(115,87,255,.22);
+}
+
+.dangerBtn{
+  background:#fff0f3;
+  color:#e33760;
+}
+
+/* WORKSPACE */
+
+.workspace{
+  min-height:0;
+  flex:1;
+  display:flex;
+}
+
+/* LEFT NAV */
+
+.rail{
+  width:76px;
+  flex:none;
+  background:#fff;
+  border-right:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:15px 9px;
+  gap:8px;
+}
+
+.railBtn{
+  width:54px;
+  height:54px;
+  border-radius:16px;
+  background:transparent;
+  color:#7b8498;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  font-size:19px;
+}
+
+.railBtn small{
+  font-size:9px;
+  font-weight:700;
+}
+
+.railBtn:hover{
+  background:#f1efff;
+  color:var(--primary);
+}
+
+.railBtn.active{
+  background:#eeeaff;
+  color:var(--primary);
+}
+
+.railBottom{
+  margin-top:auto;
+}
+
+/* SIDE PANEL */
+
+.sidePanel{
+  width:275px;
+  flex:none;
+  background:#fafbfe;
+  border-right:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+
+.panelHead{
+  padding:18px 16px 10px;
+}
+
+.panelHead h3{
+  margin:0;
+  font-size:15px;
+}
+
+.panelHead p{
+  margin:5px 0 0;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.search{
+  margin:8px 16px 14px;
+  position:relative;
+}
+
+.search input{
+  width:100%;
+  height:40px;
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:12px;
+  outline:none;
+  padding:0 12px 0 38px;
+}
+
+.search span{
+  position:absolute;
+  left:13px;
+  top:10px;
+  color:#8c94a7;
+}
+
+.slides{
+  padding:0 12px 20px;
+  overflow:auto;
+  min-height:0;
+}
+
+.slideCard{
+  background:#fff;
+  border:2px solid transparent;
+  border-radius:15px;
+  padding:8px;
+  margin-bottom:11px;
+  cursor:pointer;
+  transition:.18s;
+}
+
+.slideCard:hover{
+  border-color:#d9d1ff;
+  transform:translateY(-1px);
+}
+
+.slideCard.active{
+  border-color:var(--primary);
+  box-shadow:0 8px 22px rgba(115,87,255,.12);
+}
+
+.thumb{
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:9px;
+  overflow:hidden;
+  position:relative;
+  background:#eef0f6;
+}
+
+.thumbNumber{
+  position:absolute;
+  left:7px;
+  top:6px;
+  background:rgba(0,0,0,.55);
+  color:white;
+  font-size:9px;
+  border-radius:5px;
+  padding:3px 5px;
+  z-index:2;
+}
+
+.thumbContent{
+  height:100%;
+  width:100%;
+  padding:13%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.thumbContent h4{
+  margin:0 0 6px;
+  font-size:11px;
+  line-height:1.15;
+}
+
+.thumbContent p{
+  margin:0;
+  font-size:6px;
+  line-height:1.4;
+  opacity:.7;
+}
+
+.thumbImage{
+  width:100%;
+  height:42%;
+  object-fit:cover;
+  margin-top:7px;
+  border-radius:4px;
+}
+
+.slideInfo{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:7px 2px 1px;
+}
+
+.slideInfo span{
+  font-size:10px;
+  color:var(--muted);
+}
+
+.emptySlides{
+  padding:25px 12px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* MAIN CANVAS */
+
+.main{
+  min-width:0;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(115,87,255,.07),transparent 28%),
+    #f3f4f8;
+}
+
+.canvasTop{
+  height:54px;
+  flex:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+}
+
+.canvasTools{
+  display:flex;
+  gap:7px;
+}
+
+.tool{
+  height:36px;
+  padding:0 11px;
+  border-radius:10px;
+  background:#fff;
+  border:1px solid var(--line);
+  color:#4c566d;
+  font-size:12px;
+  font-weight:700;
+}
+
+.tool:hover{
+  border-color:#cfc5ff;
+  color:var(--primary);
+}
+
+.canvasArea{
+  flex:1;
+  min-height:0;
+  display:grid;
+  place-items:center;
+  padding:18px 35px 30px;
+  overflow:auto;
+}
+
+.canvasWrap{
+  width:min(900px,100%);
+  aspect-ratio:16/9;
+  position:relative;
+}
+
+.slideCanvas{
+  width:100%;
+  height:100%;
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  position:relative;
+  transition:.2s;
+}
+
+.slideCanvas.light{
+  background:#fff;
+  color:#172033;
+}
+
+.slideCanvas.dark{
+  background:#151927;
+  color:#fff;
+}
+
+.slideCanvas.blue{
+  background:linear-gradient(135deg,#e8f2ff,#cfe1ff);
+  color:#172033;
+}
+
+.slideCanvas.purple{
+  background:linear-gradient(135deg,#f1eaff,#ded4ff);
+  color:#21183b;
+}
+
+.slideCanvas.peach{
+  background:linear-gradient(135deg,#fff0e5,#ffd8c1);
+  color:#3a2118;
+}
+
+.slideCanvas.mint{
+  background:linear-gradient(135deg,#e5fff5,#c8f4e3);
+  color:#163a2e;
+}
+
+.slideCanvas.darkLuxe{
+  background:linear-gradient(135deg,#11131c,#30254b);
+  color:white;
+}
+
+.slideCanvas.gradient{
+  background:linear-gradient(135deg,#7357ff,#d06cff,#ff9b9b);
+  color:white;
+}
+
+.canvasInner{
+  position:absolute;
+  inset:0;
+  padding:8%;
+}
+
+.canvasTitle{
+  font-size:clamp(26px,4vw,56px);
+  line-height:1.05;
+  font-weight:900;
+  letter-spacing:-1.5px;
+  margin:0 0 16px;
+  max-width:88%;
+  white-space:pre-wrap;
+}
+
+.canvasSubtitle{
+  font-size:clamp(13px,1.7vw,23px);
+  line-height:1.4;
+  opacity:.72;
+  margin:0 0 22px;
+  max-width:82%;
+  white-space:pre-wrap;
+}
+
+.canvasBody{
+  font-size:clamp(12px,1.35vw,18px);
+  line-height:1.65;
+  opacity:.86;
+  max-width:82%;
+  white-space:pre-wrap;
+}
+
+.canvasImage{
+  position:absolute;
+  right:7%;
+  bottom:8%;
+  width:34%;
+  height:35%;
+  object-fit:cover;
+  border-radius:15px;
+  box-shadow:0 12px 30px rgba(0,0,0,.16);
+}
+
+.sectionLayout .canvasInner{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.sectionLayout .canvasTitle,
+.sectionLayout .canvasSubtitle{
+  max-width:90%;
+}
+
+.quoteLayout .canvasInner{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.quoteLayout .canvasTitle{
+  font-size:clamp(25px,3.4vw,49px);
+}
+
+.twoColumn{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+  height:100%;
+  align-items:center;
+}
+
+.columnText{
+  white-space:pre-wrap;
+  line-height:1.6;
+  font-size:clamp(11px,1.25vw,17px);
+}
+
+.imageTextLayout .canvasInner{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5%;
+  align-items:center;
+}
+
+.imageTextLayout .canvasImage{
+  position:static;
+  width:100%;
+  height:70%;
+}
+
+/* RIGHT EDITOR */
+
+.editor{
+  width:315px;
+  flex:none;
+  background:#fff;
+  border-left:1px solid var(--line);
+  overflow:auto;
+  padding:18px;
+}
+
+.editorTitle{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:16px;
+}
+
+.editorTitle h3{
+  margin:0;
+  font-size:15px;
+}
+
+.status{
+  font-size:10px;
+  color:#50a978;
+  background:#edf9f2;
+  padding:5px 8px;
+  border-radius:7px;
+  font-weight:800;
+}
+
+.field{
+  margin-bottom:15px;
+}
+
+.field label{
+  display:block;
+  font-size:11px;
+  color:#667087;
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:11px;
+  outline:none;
+  background:#fafbfe;
+  color:var(--text);
+  padding:10px 11px;
+}
+
+.field textarea{
+  min-height:115px;
+  resize:vertical;
+  line-height:1.5;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+  border-color:#bdb0ff;
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(115,87,255,.08);
+}
+
+.colorGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+}
+
+.colorChoice{
+  height:42px;
+  border-radius:10px;
+  border:2px solid transparent;
+}
+
+.colorChoice.selected{
+  border-color:#172033;
+  box-shadow:0 0 0 2px white inset;
+}
+
+.actionGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.fullBtn{
+  width:100%;
+  height:42px;
+  border-radius:11px;
+  background:#f1f2f6;
+  color:#414b61;
+  font-weight:800;
+}
+
+.fullBtn:hover{
+  background:#e9e7ff;
+  color:var(--primary);
+}
+
+.fullBtn.danger{
+  color:#dc315a;
+  background:#fff0f3;
+}
+
+.divider{
+  height:1px;
+  background:var(--line);
+  margin:18px 0;
+}
+
+.templateList{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.template{
+  min-height:76px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:8px;
+  background:#fff;
+  text-align:left;
+}
+
+.template:hover{
+  border-color:#b9adff;
+}
+
+.templatePreview{
+  height:40px;
+  border-radius:7px;
+  margin-bottom:6px;
+}
+
+.template strong{
+  font-size:10px;
+  display:block;
+}
+
+.template small{
+  font-size:8px;
+  color:var(--muted);
+}
+
+/* LOADING */
+
+.loadingScreen{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:#f7f7fb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:14px;
+}
+
+.loader{
+  width:38px;
+  height:38px;
+  border:4px solid #ddd9ff;
+  border-top-color:var(--primary);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:300;
+  background:#172033;
+  color:#fff;
+  padding:12px 16px;
+  border-radius:12px;
+  font-size:12px;
+  font-weight:700;
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(12px);
+  transition:.25s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* TEMPLATE MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(15,18,30,.45);
+  backdrop-filter:blur(8px);
+  z-index:150;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal.open{
+  display:flex;
+}
+
+.modalBox{
+  width:min(780px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:24px;
+  padding:24px;
+  box-shadow:0 30px 80px rgba(0,0,0,.2);
+}
+
+.modalHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.modalHeader h2{
+  margin:0;
+  font-size:20px;
+}
+
+.modalTemplates{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.modalTemplate{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:10px;
+  background:#fff;
+  cursor:pointer;
+}
+
+.modalTemplate:hover{
+  border-color:#a99bff;
+  transform:translateY(-2px);
+}
+
+.modalPreview{
+  aspect-ratio:16/9;
+  border-radius:11px;
+  margin-bottom:9px;
+}
+
+.modalTemplate strong{
+  font-size:12px;
+}
+
+/* PRESENT MODE */
+
+.present{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  background:#080a11;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.present.open{
+  display:flex;
+}
+
+.presentStage{
+  width:min(1100px,94vw);
+  aspect-ratio:16/9;
+  position:relative;
+}
+
+.presentCanvas{
+  width:100%;
+  height:100%;
+  border-radius:12px;
+  overflow:hidden;
+  position:relative;
+}
+
+.presentControls{
+  position:absolute;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  display:flex;
+  gap:8px;
+  padding:8px;
+  border-radius:14px;
+  background:rgba(255,255,255,.1);
+  backdrop-filter:blur(12px);
+}
+
+.presentControls button{
+  width:42px;
+  height:38px;
+  border-radius:10px;
+  background:rgba(255,255,255,.14);
+  color:white;
+}
+
+.presentCounter{
+  position:absolute;
+  top:16px;
+  right:18px;
+  color:white;
+  font-size:11px;
+  background:rgba(0,0,0,.35);
+  padding:7px 10px;
+  border-radius:8px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+  .editor{width:280px}
+  .sidePanel{width:235px}
+}
+
+@media(max-width:850px){
+  .rail{display:none}
+  .sidePanel{width:210px}
+  .editor{display:none}
+  .canvasArea{padding:15px}
+  .brand{min-width:auto}
+  .brandText{display:none}
+  .titleBox{max-width:250px}
+}
+
+@media(max-width:600px){
+  .topbar{
+    height:62px;
+    padding:0 10px;
+    gap:8px;
+  }
+
+  .logo{
+    width:36px;
+    height:36px;
+    font-size:16px;
+  }
+
+  .brand{
+    min-width:38px;
+  }
+
+  .brandText{
+    display:none;
+  }
+
+  .titleInput{
+    font-size:14px;
+  }
+
+  .topActions .secondaryBtn{
+    display:none;
+  }
+
+  .topActions .iconBtn{
+    width:36px;
+    height:36px;
+  }
+
+  .topActions .primaryBtn{
+    padding:0 10px;
+    min-height:36px;
+  }
+
+  .sidePanel{
+    width:125px;
+  }
+
+  .panelHead{
+    padding:13px 9px 7px;
+  }
+
+  .panelHead p{
+    display:none;
+  }
+
+  .search{
+    margin:5px 8px 10px;
+  }
+
+  .search input{
+    padding-left:10px;
+  }
+
+  .search span{
+    display:none;
+  }
+
+  .slides{
+    padding:0 7px;
+  }
+
+  .slideCard{
+    padding:5px;
+    border-radius:9px;
+  }
+
+  .slideInfo span:last-child{
+    display:none;
+  }
+
+  .canvasArea{
+    padding:8px;
+  }
+
+  .canvasTop{
+    padding:0 8px;
+    height:45px;
+  }
+
+  .tool{
+    padding:0 8px;
+    font-size:10px;
+  }
+
+  .tool:nth-child(n+4){
+    display:none;
+  }
+
+  .modalTemplates{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:430px){
+  .sidePanel{
+    width:100px;
+  }
+
+  .canvasTop .tool:nth-child(3){
+    display:none;
+  }
+
+  .titleInput{
+    padding:7px;
+  }
+
+  .topActions .iconBtn:first-child{
+    display:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="loadingScreen" id="loadingScreen">
+  <div class="loader"></div>
+  <strong>Opening Presentation Studio...</strong>
+  <span style="font-size:12px;color:#7b8498">Connecting to CareerCraft</span>
+</div>
+
+<div class="app" id="app" style="display:none">
+
+  <header class="topbar">
+
+    <div class="brand">
+      <div class="logo">C</div>
+      <div class="brandText">
+        <strong>CareerCraft</strong>
+        <span>Presentation Studio</span>
+      </div>
+    </div>
+
+    <div class="titleBox">
+      <input id="presentationTitle"
+             class="titleInput"
+             value="Untitled Presentation"
+             placeholder="Presentation title">
+    </div>
+
+    <div class="topActions">
+      <button class="iconBtn" id="backBtn" title="Back">←</button>
+      <button class="secondaryBtn" id="templateBtn">✨ Templates</button>
+      <button class="secondaryBtn" id="previewBtn">▶ Preview</button>
+      <button class="primaryBtn" id="saveBtn">✓ Save</button>
+    </div>
+
+  </header>
+
+  <div class="workspace">
+
+    <aside class="rail">
+
+      <button class="railBtn active" id="slidesRail">
+        ▦
+        <small>Slides</small>
+      </button>
+
+      <button class="railBtn" id="templatesRail">
+        ✨
+        <small>Styles</small>
+      </button>
+
+      <div class="railBottom">
+        <button class="railBtn" id="helpBtn">
+          ?
+          <small>Help</small>
+        </button>
+      </div>
+
+    </aside>
+
+    <aside class="sidePanel">
+
+      <div class="panelHead">
+        <h3>My slides</h3>
+        <p id="slideCount">0 slides</p>
+      </div>
+
+      <div class="search">
+        <span>⌕</span>
+        <input id="slideSearch" placeholder="Search slides...">
+      </div>
+
+      <div class="slides" id="slidesList"></div>
+
+    </aside>
+
+    <main class="main">
+
+      <div class="canvasTop">
+
+        <div class="canvasTools">
+          <button class="tool" id="newSlideBtn">＋ New slide</button>
+          <button class="tool" id="duplicateBtn">⧉ Duplicate</button>
+          <button class="tool" id="layoutBtn">▤ Layout</button>
+          <button class="tool" id="backgroundBtn">◐ Background</button>
+        </div>
+
+        <div>
+          <span id="saveStatus"
+                style="font-size:11px;color:#7b8498">
+            Ready
+          </span>
+        </div>
+
+      </div>
+
+      <div class="canvasArea">
+
+        <div class="canvasWrap">
+          <div class="slideCanvas light" id="slideCanvas"></div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <aside class="editor">
+
+      <div class="editorTitle">
+        <h3>Slide settings</h3>
+        <span class="status" id="dbStatus">SYNCED</span>
+      </div>
+
+      <div class="field">
+        <label>TITLE</label>
+        <input id="editTitle" placeholder="Slide title">
+      </div>
+
+      <div class="field">
+        <label>SUBTITLE</label>
+        <input id="editSubtitle" placeholder="Optional subtitle">
+      </div>
+
+      <div class="field">
+        <label>CONTENT</label>
+        <textarea id="editContent"
+                  placeholder="Write your slide content..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>IMAGE URL</label>
+        <input id="editImage"
+               placeholder="https://example.com/image.jpg">
+      </div>
+
+      <div class="field">
+        <label>LAYOUT</label>
+
+        <select id="editLayout">
+          <option value="title_content">Title + Content</option>
+          <option value="title_only">Title Only</option>
+          <option value="section">Section</option>
+          <option value="quote">Quote</option>
+          <option value="two_column">Two Columns</option>
+          <option value="image_text">Image + Text</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>BACKGROUND</label>
+
+        <div class="colorGrid">
+
+          <button class="colorChoice selected"
+                  data-bg="light"
+                  style="background:#ffffff"></button>
+
+          <button class="colorChoice"
+                  data-bg="dark"
+                  style="background:#151927"></button>
+
+          <button class="colorChoice"
+                  data-bg="blue"
+                  style="background:linear-gradient(135deg,#e8f2ff,#cfe1ff)"></button>
+
+          <button class="colorChoice"
+                  data-bg="purple"
+                  style="background:linear-gradient(135deg,#f1eaff,#ded4ff)"></button>
+
+          <button class="colorChoice"
+                  data-bg="peach"
+                  style="background:linear-gradient(135deg,#fff0e5,#ffd8c1)"></button>
+
+          <button class="colorChoice"
+                  data-bg="mint"
+                  style="background:linear-gradient(135deg,#e5fff5,#c8f4e3)"></button>
+
+          <button class="colorChoice"
+                  data-bg="darkLuxe"
+                  style="background:linear-gradient(135deg,#11131c,#30254b)"></button>
+
+          <button class="colorChoice"
+                  data-bg="gradient"
+                  style="background:linear-gradient(135deg,#7357ff,#d06cff,#ff9b9b)"></button>
+
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="actionGrid">
+        <button class="fullBtn" id="moveUpBtn">↑ Move up</button>
+        <button class="fullBtn" id="moveDownBtn">↓ Move down</button>
+      </div>
+
+      <div style="height:8px"></div>
+
+      <button class="fullBtn danger" id="deleteBtn">
+        🗑 Delete slide
+      </button>
+
+      <div class="divider"></div>
+
+      <div style="font-size:11px;font-weight:800;margin-bottom:9px">
+        Quick templates
+      </div>
+
+      <div class="templateList">
+
+        <button class="template" data-template="minimal">
+          <div class="templatePreview"
+               style="background:#fff;border:1px solid #eee"></div>
+          <strong>Minimal</strong>
+          <small>Clean & simple</small>
+        </button>
+
+        <button class="template" data-template="soft">
+          <div class="templatePreview"
+               style="background:linear-gradient(135deg,#f1eaff,#ffdff1)"></div>
+          <strong>Soft Pastel</strong>
+          <small>Friendly</small>
+        </button>
+
+        <button class="template" data-template="career">
+          <div class="templatePreview"
+               style="background:linear-gradient(135deg,#e8f2ff,#cfe1ff)"></div>
+          <strong>Career</strong>
+          <small>Professional</small>
+        </button>
+
+        <button class="template" data-template="luxe">
+          <div class="templatePreview"
+               style="background:linear-gradient(135deg,#11131c,#30254b)"></div>
+          <strong>Dark Luxe</strong>
+          <small>Premium</small>
+        </button>
+
+      </div>
+
+    </aside>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- TEMPLATE MODAL -->
+
+<div class="modal" id="templateModal">
+
+  <div class="modalBox">
+
+    <div class="modalHeader">
+      <h2>Choose a presentation style</h2>
+      <button class="iconBtn" id="closeTemplate">×</button>
+    </div>
+
+    <div class="modalTemplates">
+
+      <button class="modalTemplate" data-template="minimal">
+        <div class="modalPreview"
+             style="background:#fff;border:1px solid #eee"></div>
+        <strong>Minimal Studio</strong>
+      </button>
+
+      <button class="modalTemplate" data-template="soft">
+        <div class="modalPreview"
+             style="background:linear-gradient(135deg,#f1eaff,#ffdff1)"></div>
+        <strong>Soft Pastel</strong>
+      </button>
+
+      <button class="modalTemplate" data-template="career">
+        <div class="modalPreview"
+             style="background:linear-gradient(135deg,#e8f2ff,#cfe1ff)"></div>
+        <strong>Career Pitch</strong>
+      </button>
+
+      <button class="modalTemplate" data-template="mint">
+        <div class="modalPreview"
+             style="background:linear-gradient(135deg,#e5fff5,#c8f4e3)"></div>
+        <strong>Fresh Mint</strong>
+      </button>
+
+      <button class="modalTemplate" data-template="luxe">
+        <div class="modalPreview"
+             style="background:linear-gradient(135deg,#11131c,#30254b)"></div>
+        <strong>Dark Luxe</strong>
+      </button>
+
+      <button class="modalTemplate" data-template="gradient">
+        <div class="modalPreview"
+             style="background:linear-gradient(135deg,#7357ff,#d06cff,#ff9b9b)"></div>
+        <strong>Creative Gradient</strong>
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- PRESENTATION MODE -->
+
+<div class="present" id="present">
+
+  <div class="presentStage">
+
+    <div class="presentCanvas" id="presentCanvas"></div>
+
+    <div class="presentCounter" id="presentCounter">
+      1 / 1
+    </div>
+
+    <div class="presentControls">
+
+      <button id="presentPrev">‹</button>
+      <button id="presentNext">›</button>
+      <button id="presentFull">⛶</button>
+      <button id="presentClose">×</button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+"use strict";
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+  "https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_ANON_KEY =
+  "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentUser = null;
+let presentationId = null;
+let presentation = null;
+let slides = [];
+let currentIndex = 0;
+let autosaveTimer = null;
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const $ = id => document.getElementById(id);
+
+const loadingScreen = $("loadingScreen");
+const app = $("app");
+
+const presentationTitle = $("presentationTitle");
+const slidesList = $("slidesList");
+const slideCount = $("slideCount");
+const slideSearch = $("slideSearch");
+
+const slideCanvas = $("slideCanvas");
+
+const editTitle = $("editTitle");
+const editSubtitle = $("editSubtitle");
+const editContent = $("editContent");
+const editImage = $("editImage");
+const editLayout = $("editLayout");
+
+const saveBtn = $("saveBtn");
+const saveStatus = $("saveStatus");
+const dbStatus = $("dbStatus");
+
+const toast = $("toast");
+
+const templateModal = $("templateModal");
+const present = $("present");
+const presentCanvas = $("presentCanvas");
+const presentCounter = $("presentCounter");
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function isValidUUID(value){
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    .test(value || "");
+}
+
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  }[ch]));
+}
+
+function showToast(message){
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2500);
+}
+
+function setSaving(message){
+  saveStatus.textContent = message;
+}
+
+function currentSlide(){
+  return slides[currentIndex] || null;
+}
+
+function normalizeSlide(row){
+  return {
+    ...row,
+    slide_order:
+      Number(row.slide_order ?? row.order ?? row.position ?? 0),
+    layout:
+      row.layout || "title_content",
+    title:
+      row.title || "",
+    subtitle:
+      row.subtitle || "",
+    content:
+      row.content || "",
+    image_url:
+      row.image_url || "",
+    background:
+      row.background || "light"
+  };
+}
+
+/* =========================================================
+   URL
+========================================================= */
+
+function getUrlParams(){
+  const params = new URLSearchParams(window.location.search);
+
+  return {
+    id: params.get("id"),
+    isNew:
+      params.get("new") === "1" ||
+      params.get("new") === "true"
+  };
+}
+
+function replaceUrl(id){
+  const url =
+    `${window.location.pathname}?id=${encodeURIComponent(id)}`;
+
+  window.history.replaceState({}, "", url);
+}
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+async function loadUser(){
+
+  const {
+    data,
+    error
+  } = await supabaseClient.auth.getUser();
+
+  if(error){
+    throw error;
+  }
+
+  if(!data || !data.user){
+    throw new Error(
+      "You are not logged in. Please log in to CareerCraft first."
+    );
+  }
+
+  currentUser = data.user;
+}
+
+/* =========================================================
+   CREATE PRESENTATION
+========================================================= */
+
+async function createPresentation(){
+
+  const title =
+    presentationTitle.value.trim() ||
+    "Untitled Presentation";
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("presentations")
+    .insert({
+      user_id: currentUser.id,
+      title: title
+    })
+    .select("*")
+    .single();
+
+  if(error){
+    throw error;
+  }
+
+  if(!data || !isValidUUID(data.id)){
+    throw new Error(
+      "Supabase created the presentation but returned an invalid ID."
+    );
+  }
+
+  presentation = data;
+  presentationId = data.id;
+
+  replaceUrl(presentationId);
+
+  await createFirstSlide();
+}
+
+/* =========================================================
+   FIRST SLIDE
+========================================================= */
+
+async function createFirstSlide(){
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("presentation_slides")
+    .insert({
+      presentation_id: presentationId,
+      slide_order: 0,
+      layout: "title_content",
+      title: "Welcome to Your Presentation",
+      subtitle: "Create something amazing with CareerCraft",
+      content: "Add your ideas, experience, projects, achievements, or career story here.",
+      image_url: null,
+      background: "light"
+    })
+    .select("*")
+    .single();
+
+  if(error){
+    throw error;
+  }
+
+  slides = [normalizeSlide(data)];
+  currentIndex = 0;
+}
+
+/* =========================================================
+   LOAD PRESENTATION
+========================================================= */
+
+async function loadPresentation(id){
+
+  if(!isValidUUID(id)){
+    throw new Error(
+      "Invalid presentation ID. Open this page using a valid presentation."
+    );
+  }
+
+  presentationId = id;
+
+  const {
+    data: presentationData,
+    error: presentationError
+  } = await supabaseClient
+    .from("presentations")
+    .select("*")
+    .eq("id", presentationId)
+    .eq("user_id", currentUser.id)
+    .maybeSingle();
+
+  if(presentationError){
+    throw presentationError;
+  }
+
+  if(!presentationData){
+    throw new Error(
+      "Presentation not found or you do not have permission to edit it."
+    );
+  }
+
+  presentation = presentationData;
+
+  presentationTitle.value =
+    presentation.title ||
+    "Untitled Presentation";
+
+  const {
+    data: slideData,
+    error: slideError
+  } = await supabaseClient
+    .from("presentation_slides")
+    .select("*")
+    .eq("presentation_id", presentationId);
+
+  if(slideError){
+    throw slideError;
+  }
+
+  slides = (slideData || [])
+    .map(normalizeSlide)
+    .sort((a,b) =>
+      Number(a.slide_order) -
+      Number(b.slide_order)
+    );
+
+  if(!slides.length){
+    await createFirstSlide();
+  }
+
+  currentIndex = 0;
+}
+
+/* =========================================================
+   RENDER SLIDES
+========================================================= */
+
+function renderSlides(){
+
+  const query =
+    slideSearch.value.trim().toLowerCase();
+
+  slidesList.innerHTML = "";
+
+  const visibleSlides =
+    slides.filter(slide => {
+
+      if(!query) return true;
+
+      return [
+        slide.title,
+        slide.subtitle,
+        slide.content
+      ]
+      .join(" ")
+      .toLowerCase()
+      .includes(query);
+    });
+
+  if(!visibleSlides.length){
+
+    slidesList.innerHTML = `
+      <div class="emptySlides">
+        No matching slides.
+      </div>
+    `;
+
+    return;
+  }
+
+  visibleSlides.forEach(slide => {
+
+    const actualIndex =
+      slides.findIndex(s => s.id === slide.id);
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "slideCard " +
+      (actualIndex === currentIndex ? "active" : "");
+
+    card.dataset.index = actualIndex;
+
+    card.innerHTML = `
+      <div class="thumb">
+        <div class="thumbNumber">
+          ${actualIndex + 1}
+        </div>
+
+        <div class="thumbContent"
+             style="${thumbBackground(slide.background)}">
+
+          <h4>
+            ${escapeHTML(slide.title || "Untitled slide")}
+          </h4>
+
+          <p>
+            ${escapeHTML(
+              slide.subtitle ||
+              slide.content ||
+              "Empty slide"
+            )}
+          </p>
+
+          ${
+            slide.image_url
+            ?
+            `<img
+              class="thumbImage"
+              src="${escapeHTML(slide.image_url)}"
+              alt=""
+              onerror="this.style.display='none'"
+            >`
+            :
+            ""
+          }
+
+        </div>
+      </div>
+
+      <div class="slideInfo">
+        <span>Slide ${actualIndex + 1}</span>
+        <span>${escapeHTML(slide.layout)}</span>
+      </div>
+    `;
+
+    card.addEventListener("click", () => {
+      selectSlide(actualIndex);
+    });
+
+    slidesList.appendChild(card);
+  });
+
+  slideCount.textContent =
+    `${slides.length} slide${slides.length === 1 ? "" : "s"}`;
+}
+
+function thumbBackground(background){
+
+  const backgrounds = {
+    light:"background:#fff;color:#172033",
+    dark:"background:#151927;color:#fff",
+    blue:"background:linear-gradient(135deg,#e8f2ff,#cfe1ff);color:#172033",
+    purple:"background:linear-gradient(135deg,#f1eaff,#ded4ff);color:#21183b",
+    peach:"background:linear-gradient(135deg,#fff0e5,#ffd8c1);color:#3a2118",
+    mint:"background:linear-gradient(135deg,#e5fff5,#c8f4e3);color:#163a2e",
+    darkLuxe:"background:linear-gradient(135deg,#11131c,#30254b);color:#fff",
+    gradient:"background:linear-gradient(135deg,#7357ff,#d06cff,#ff9b9b);color:#fff"
+  };
+
+  return backgrounds[background] || backgrounds.light;
+}
+
+/* =========================================================
+   RENDER CURRENT SLIDE
+========================================================= */
+
+function renderCurrentSlide(){
+
+  const slide = currentSlide();
+
+  if(!slide){
+
+    slideCanvas.innerHTML = `
+      <div style="
+        height:100%;
+        display:grid;
+        place-items:center;
+        color:#777;
+      ">
+        No slide selected
+      </div>
+    `;
+
+    return;
+  }
+
+  slideCanvas.className =
+    `slideCanvas ${escapeHTML(slide.background)}`;
+
+  const layout =
+    slide.layout || "title_content";
+
+  const title =
+    escapeHTML(slide.title || "Untitled Slide");
+
+  const subtitle =
+    escapeHTML(slide.subtitle || "");
+
+  const content =
+    escapeHTML(slide.content || "");
+
+  const image =
+    slide.image_url
+    ?
+    `<img
+      class="canvasImage"
+      src="${escapeHTML(slide.image_url)}"
+      alt=""
+      onerror="this.style.display='none'
+    ">`
+    :
+    "";
+
+  let html = "";
+
+  if(layout === "section"){
+
+    slideCanvas.classList.add("sectionLayout");
+
+    html = `
+      <div class="canvasInner">
+        <div>
+          <h1 class="canvasTitle">${title}</h1>
+          <p class="canvasSubtitle">${subtitle}</p>
+        </div>
+      </div>
+    `;
+
+  }else if(layout === "quote"){
+
+    slideCanvas.classList.add("quoteLayout");
+
+    html = `
+      <div class="canvasInner">
+        <h1 class="canvasTitle">
+          “${title}”
+        </h1>
+
+        <p class="canvasSubtitle">
+          ${subtitle || content}
+        </p>
+      </div>
+    `;
+
+  }else if(layout === "two_column"){
+
+    html = `
+      <div class="canvasInner">
+        <div class="twoColumn">
+
+          <div>
+            <h1 class="canvasTitle"
+                style="font-size:clamp(23px,3vw,42px)">
+              ${title}
+            </h1>
+
+            <p class="canvasSubtitle">
+              ${subtitle}
+            </p>
+          </div>
+
+          <div class="columnText">
+            ${content}
+          </div>
+
+        </div>
+      </div>
+    `;
+
+  }else if(layout === "image_text"){
+
+    slideCanvas.classList.add("imageTextLayout");
+
+    html = `
+      <div class="canvasInner">
+
+        <div>
+          <h1 class="canvasTitle"
+              style="font-size:clamp(23px,3vw,42px)">
+            ${title}
+          </h1>
+
+          <p class="canvasSubtitle">
+            ${subtitle}
+          </p>
+
+          <div class="canvasBody">
+            ${content}
+          </div>
+        </div>
+
+        ${
+          slide.image_url
+          ?
+          `<img
+            class="canvasImage"
+            src="${escapeHTML(slide.image_url)}"
+            alt=""
+            onerror="this.style.display='none'"
+          >`
+          :
+          `<div style="
+            height:70%;
+            border-radius:15px;
+            background:rgba(0,0,0,.06);
+            display:grid;
+            place-items:center;
+            opacity:.55;
+          ">
+            Add an image URL
+          </div>`
+        }
+
+      </div>
+    `;
+
+  }else if(layout === "title_only"){
+
+    html = `
+      <div class="canvasInner"
+           style="
+             display:flex;
+             align-items:center;
+             justify-content:center;
+           ">
+
+        <h1 class="canvasTitle">
+          ${title}
+        </h1>
+
+      </div>
+    `;
+
+  }else{
+
+    html = `
+      <div class="canvasInner">
+
+        <h1 class="canvasTitle">
+          ${title}
+        </h1>
+
+        ${
+          subtitle
+          ?
+          `<p class="canvasSubtitle">
+            ${subtitle}
+          </p>`
+          :
+          ""
+        }
+
+        <div class="canvasBody">
+          ${content}
+        </div>
+
+        ${image}
+
+      </div>
+    `;
+  }
+
+  slideCanvas.innerHTML = html;
+
+  editTitle.value =
+    slide.title || "";
+
+  editSubtitle.value =
+    slide.subtitle || "";
+
+  editContent.value =
+    slide.content || "";
+
+  editImage.value =
+    slide.image_url || "";
+
+  editLayout.value =
+    slide.layout || "title_content";
+
+  updateBackgroundSelection(slide.background);
+  renderSlides();
+}
+
+/* =========================================================
+   SELECT SLIDE
+========================================================= */
+
+function selectSlide(index){
+
+  if(index < 0 || index >= slides.length){
+    return;
+  }
+
+  currentIndex = index;
+
+  renderCurrentSlide();
+
+  document.querySelector(
+    `.slideCard[data-index="${index}"]`
+  )?.scrollIntoView({
+    block:"nearest"
+  });
+}
+
+/* =========================================================
+   UPDATE SLIDE LOCALLY
+========================================================= */
+
+function updateCurrentField(field,value){
+
+  const slide = currentSlide();
+
+  if(!slide) return;
+
+  slide[field] = value;
+
+  renderCurrentSlide();
+
+  scheduleAutosave();
+}
+
+/* =========================================================
+   SAVE PRESENTATION TITLE
+========================================================= */
+
+async function savePresentationTitle(){
+
+  const title =
+    presentationTitle.value.trim() ||
+    "Untitled Presentation";
+
+  const {
+    error
+  } = await supabaseClient
+    .from("presentations")
+    .update({
+      title
+    })
+    .eq("id", presentationId)
+    .eq("user_id", currentUser.id);
+
+  if(error){
+    throw error;
+  }
+
+  presentation.title = title;
+}
+
+/* =========================================================
+   SAVE CURRENT SLIDE
+========================================================= */
+
+async function saveSlide(slide){
+
+  if(!slide || !isValidUUID(slide.id)){
+    throw new Error(
+      "Cannot save this slide because its UUID is invalid."
+    );
+  }
+
+  const payload = {
+    presentation_id: presentationId,
+    slide_order: Number(slide.slide_order),
+    layout: slide.layout || "title_content",
+    title: slide.title || "",
+    subtitle: slide.subtitle || "",
+    content: slide.content || "",
+    image_url: slide.image_url || null,
+    background: slide.background || "light"
+  };
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("presentation_slides")
+    .update(payload)
+    .eq("id", slide.id)
+    .eq("presentation_id", presentationId)
+    .select("*")
+    .single();
+
+  if(error){
+    throw error;
+  }
+
+  Object.assign(slide, normalizeSlide(data));
+}
+
+/* =========================================================
+   SAVE EVERYTHING
+========================================================= */
+
+async function saveEverything(){
+
+  if(!presentationId){
+    throw new Error("No presentation ID.");
+  }
+
+  if(!isValidUUID(presentationId)){
+    throw new Error("Invalid presentation UUID.");
+  }
+
+  setSaving("Saving...");
+  dbStatus.textContent = "SAVING";
+
+  try{
+
+    await savePresentationTitle();
+
+    for(const slide of slides){
+      await saveSlide(slide);
+    }
+
+    setSaving("Saved");
+    dbStatus.textContent = "SYNCED";
+
+    showToast("✓ Saved to Supabase");
+
+  }catch(error){
+
+    console.error(error);
+
+    setSaving("Save failed");
+    dbStatus.textContent = "ERROR";
+
+    showToast(
+      "Save failed: " +
+      (error.message || "Unknown error")
+    );
+
+    throw error;
+  }
+}
+
+/* =========================================================
+   AUTOSAVE
+========================================================= */
+
+function scheduleAutosave(){
+
+  setSaving("Changes not saved");
+  dbStatus.textContent = "CHANGED";
+
+  clearTimeout(autosaveTimer);
+
+  autosaveTimer = setTimeout(async () => {
+
+    try{
+      await saveEverything();
+    }catch(error){
+      console.error("Autosave:",error);
+    }
+
+  },1000);
+}
+
+/* =========================================================
+   NEW SLIDE
+========================================================= */
+
+async function addSlide(template = {}){
+
+  if(!presentationId){
+    showToast("No presentation selected.");
+    return;
+  }
+
+  setSaving("Creating slide...");
+
+  const nextOrder =
+    slides.length
+      ?
+      Math.max(
+        ...slides.map(s =>
+          Number(s.slide_order || 0)
+        )
+      ) + 1
+      :
+      0;
+
+  const payload = {
+    presentation_id: presentationId,
+    slide_order: nextOrder,
+    layout: template.layout || "title_content",
+    title: template.title || "New Slide",
+    subtitle: template.subtitle || "",
+    content: template.content || "Start writing your content here.",
+    image_url: template.image_url || null,
+    background: template.background || "light"
+  };
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("presentation_slides")
+    .insert(payload)
+    .select("*")
+    .single();
+
+  if(error){
+    console.error(error);
+    showToast(
+      "Could not create slide: " +
+      error.message
+    );
+    return;
+  }
+
+  slides.push(normalizeSlide(data));
+
+  slides.sort((a,b) =>
+    Number(a.slide_order) -
+    Number(b.slide_order)
+  );
+
+  currentIndex =
+    slides.findIndex(s => s.id === data.id);
+
+  renderCurrentSlide();
+
+  showToast("✓ New slide created");
+}
+
+/* =========================================================
+   DUPLICATE
+========================================================= */
+
+async function duplicateCurrent(){
+
+  const slide = currentSlide();
+
+  if(!slide){
+    showToast("Select a slide first.");
+    return;
+  }
+
+  await addSlide({
+    layout: slide.layout,
+    title: slide.title + " Copy",
+    subtitle: slide.subtitle,
+    content: slide.content,
+    image_url: slide.image_url,
+    background: slide.background
+  });
+}
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+async function deleteCurrent(){
+
+  const slide = currentSlide();
+
+  if(!slide){
+    return;
+  }
+
+  if(slides.length <= 1){
+    showToast("A presentation must have at least one slide.");
+    return;
+  }
+
+  const confirmed =
+    confirm(
+      "Delete this slide permanently?"
+    );
+
+  if(!confirmed){
+    return;
+  }
+
+  const {
+    error
+  } = await supabaseClient
+    .from("presentation_slides")
+    .delete()
+    .eq("id", slide.id)
+    .eq("presentation_id", presentationId);
+
+  if(error){
+    showToast(
+      "Delete failed: " +
+      error.message
+    );
+    return;
+  }
+
+  slides.splice(currentIndex,1);
+
+  if(currentIndex >= slides.length){
+    currentIndex = slides.length - 1;
+  }
+
+  await reorderSlides();
+
+  renderCurrentSlide();
+
+  showToast("Slide deleted");
+}
+
+/* =========================================================
+   REORDER
+========================================================= */
+
+async function reorderSlides(){
+
+  for(let i=0;i<slides.length;i++){
+
+    slides[i].slide_order = i;
+
+    const {
+      error
+    } = await supabaseClient
+      .from("presentation_slides")
+      .update({
+        slide_order:i
+      })
+      .eq("id",slides[i].id)
+      .eq("presentation_id",presentationId);
+
+    if(error){
+      throw error;
+    }
+  }
+}
+
+/* =========================================================
+   MOVE
+========================================================= */
+
+async function moveSlide(direction){
+
+  const target =
+    currentIndex + direction;
+
+  if(
+    target < 0 ||
+    target >= slides.length
+  ){
+    return;
+  }
+
+  const temp =
+    slides[currentIndex];
+
+  slides[currentIndex] =
+    slides[target];
+
+  slides[target] =
+    temp;
+
+  const oldIndex =
+    currentIndex;
+
+  currentIndex =
+    target;
+
+  slides.forEach((slide,index) => {
+    slide.slide_order = index;
+  });
+
+  try{
+
+    await reorderSlides();
+
+    renderCurrentSlide();
+
+    showToast("Slide moved");
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "Could not reorder slides: " +
+      error.message
+    );
+
+    const temp2 =
+      slides[oldIndex];
+
+    slides[oldIndex] =
+      slides[target];
+
+    slides[target] =
+      temp2;
+
+    currentIndex =
+      oldIndex;
+  }
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+function updateBackgroundSelection(background){
+
+  document.querySelectorAll(".colorChoice")
+    .forEach(button => {
+
+      button.classList.toggle(
+        "selected",
+        button.dataset.bg === background
+      );
+
+    });
+}
+
+async function changeBackground(background){
+
+  const slide = currentSlide();
+
+  if(!slide) return;
+
+  slide.background =
+    background;
+
+  renderCurrentSlide();
+
+  scheduleAutosave();
+}
+
+/* =========================================================
+   TEMPLATES
+========================================================= */
+
+const templates = {
+
+  minimal:{
+    background:"light",
+    layout:"title_content",
+    title:"Your Story Starts Here",
+    subtitle:"A clean and simple presentation",
+    content:"Introduce yourself, your experience, your projects, or your goals."
+  },
+
+  soft:{
+    background:"purple",
+    layout:"title_content",
+    title:"Creative Ideas",
+    subtitle:"Make your presentation feel personal",
+    content:"Share the ideas that make you different."
+  },
+
+  career:{
+    background:"blue",
+    layout:"two_column",
+    title:"My Career Journey",
+    subtitle:"Experience • Skills • Goals",
+    content:"Use this space to explain your professional journey, achievements, skills and future direction."
+  },
+
+  luxe:{
+    background:"darkLuxe",
+    layout:"section",
+    title:"THE NEXT CHAPTER",
+    subtitle:"Build. Create. Grow."
+  },
+
+  mint:{
+    background:"mint",
+    layout:"title_content",
+    title:"Fresh Perspective",
+    subtitle:"A modern approach",
+    content:"Present your ideas with a clean and refreshing style."
+  },
+
+  gradient:{
+    background:"gradient",
+    layout:"section",
+    title:"CREATE SOMETHING GREAT",
+    subtitle:"Your ideas deserve to be seen."
+  }
+};
+
+function applyTemplate(name){
+
+  const template =
+    templates[name];
+
+  if(!template){
+    return;
+  }
+
+  const slide =
+    currentSlide();
+
+  if(!slide){
+    return;
+  }
+
+  Object.assign(
+    slide,
+    template
+  );
+
+  renderCurrentSlide();
+
+  scheduleAutosave();
+
+  templateModal.classList.remove("open");
+
+  showToast(
+    "✨ Template applied"
+  );
+}
+
+/* =========================================================
+   PRESENTATION MODE
+========================================================= */
+
+function renderPresent(){
+
+  const slide =
+    slides[currentIndex];
+
+  if(!slide){
+    return;
+  }
+
+  presentCanvas.className =
+    `presentCanvas ${escapeHTML(slide.background)}`;
+
+  let image = "";
+
+  if(slide.image_url){
+    image = `
+      <img
+        class="canvasImage"
+        src="${escapeHTML(slide.image_url)}"
+        alt=""
+        onerror="this.style.display='none'"
+      >
+    `;
+  }
+
+  presentCanvas.innerHTML = `
+    <div class="canvasInner">
+
+      <h1 class="canvasTitle">
+        ${escapeHTML(
+          slide.title || "Untitled Slide"
+        )}
+      </h1>
+
+      ${
+        slide.subtitle
+        ?
+        `<p class="canvasSubtitle">
+          ${escapeHTML(slide.subtitle)}
+        </p>`
+        :
+        ""
+      }
+
+      <div class="canvasBody">
+        ${escapeHTML(slide.content || "")}
+      </div>
+
+      ${image}
+
+    </div>
+  `;
+
+  presentCounter.textContent =
+    `${currentIndex + 1} / ${slides.length}`;
+}
+
+function openPresentation(){
+
+  if(!slides.length){
+    showToast("There are no slides to present.");
+    return;
+  }
+
+  renderPresent();
+
+  present.classList.add("open");
+}
+
+function closePresentation(){
+  present.classList.remove("open");
+}
+
+function nextPresentationSlide(){
+
+  if(currentIndex < slides.length - 1){
+
+    currentIndex++;
+
+    renderCurrentSlide();
+    renderPresent();
+  }
+}
+
+function previousPresentationSlide(){
+
+  if(currentIndex > 0){
+
+    currentIndex--;
+
+    renderCurrentSlide();
+    renderPresent();
+  }
+}
+
+/* =========================================================
+   FULLSCREEN
+========================================================= */
+
+async function fullscreenPresentation(){
+
+  try{
+
+    if(!document.fullscreenElement){
+      await present.requestFullscreen();
+    }else{
+      await document.exitFullscreen();
+    }
+
+  }catch(error){
+    console.error(error);
+  }
+}
+
+/* =========================================================
+   EVENT LISTENERS
+========================================================= */
+
+presentationTitle.addEventListener(
+  "input",
+  () => {
+    clearTimeout(autosaveTimer);
+
+    autosaveTimer =
+      setTimeout(async () => {
+
+        try{
+          await saveEverything();
+        }catch(error){
+          console.error(error);
+        }
+
+      },800);
+  }
+);
+
+editTitle.addEventListener(
+  "input",
+  e =>
+    updateCurrentField(
+      "title",
+      e.target.value
+    )
+);
+
+editSubtitle.addEventListener(
+  "input",
+  e =>
+    updateCurrentField(
+      "subtitle",
+      e.target.value
+    )
+);
+
+editContent.addEventListener(
+  "input",
+  e =>
+    updateCurrentField(
+      "content",
+      e.target.value
+    )
+);
+
+editImage.addEventListener(
+  "input",
+  e =>
+    updateCurrentField(
+      "image_url",
+      e.target.value.trim()
+    )
+);
+
+editLayout.addEventListener(
+  "change",
+  e =>
+    updateCurrentField(
+      "layout",
+      e.target.value
+    )
+);
+
+document.querySelectorAll(".colorChoice")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+        changeBackground(
+          button.dataset.bg
+        );
+      }
+    );
+
+  });
+
+document.querySelectorAll("[data-template]")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+        applyTemplate(
+          button.dataset.template
+        );
+      }
+    );
+
+  });
+
+$("newSlideBtn").addEventListener(
+  "click",
+  () => addSlide()
+);
+
+$("duplicateBtn").addEventListener(
+  "click",
+  duplicateCurrent
+);
+
+$("deleteBtn").addEventListener(
+  "click",
+  deleteCurrent
+);
+
+$("moveUpBtn").addEventListener(
+  "click",
+  () => moveSlide(-1)
+);
+
+$("moveDownBtn").addEventListener(
+  "click",
+  () => moveSlide(1)
+);
+
+$("previewBtn").addEventListener(
+  "click",
+  openPresentation
+);
+
+$("presentPrev").addEventListener(
+  "click",
+  previousPresentationSlide
+);
+
+$("presentNext").addEventListener(
+  "click",
+  nextPresentationSlide
+);
+
+$("presentClose").addEventListener(
+  "click",
+  closePresentation
+);
+
+$("presentFull").addEventListener(
+  "click",
+  fullscreenPresentation
+);
+
+saveBtn.addEventListener(
+  "click",
+  saveEverything
+);
+
+slideSearch.addEventListener(
+  "input",
+  renderSlides
+);
+
+$("templateBtn").addEventListener(
+  "click",
+  () =>
+    templateModal.classList.add("open")
+);
+
+$("templatesRail").addEventListener(
+  "click",
+  () =>
+    templateModal.classList.add("open")
+);
+
+$("closeTemplate").addEventListener(
+  "click",
+  () =>
+    templateModal.classList.remove("open")
+);
+
+templateModal.addEventListener(
+  "click",
+  e => {
+
+    if(e.target === templateModal){
+      templateModal.classList.remove("open");
+    }
+
+  }
+);
+
+$("layoutBtn").addEventListener(
+  "click",
+  () => {
+
+    editLayout.focus();
+
+    showToast(
+      "Choose a layout from Slide settings."
+    );
+
+  }
+);
+
+$("backgroundBtn").addEventListener(
+  "click",
+  () => {
+
+    document.querySelector(".colorChoice")
+      ?.scrollIntoView({
+        behavior:"smooth"
+      });
+
+    showToast(
+      "Choose a background from Slide settings."
+    );
+
+  }
+);
+
+$("backBtn").addEventListener(
+  "click",
+  () => {
+
+    if(document.referrer){
+      history.back();
+    }else{
+      window.location.href =
+        "presentations.html";
+    }
+
+  }
+);
+
+$("helpBtn").addEventListener(
+  "click",
+  () => {
+
+    showToast(
+      "Edit your slide on the right, then Save."
+    );
+
+  }
+);
+
+/* =========================================================
+   KEYBOARD
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  e => {
+
+    if(!present.classList.contains("open")){
+      return;
+    }
+
+    if(e.key === "ArrowRight" ||
+       e.key === " " ||
+       e.key === "PageDown"){
+
+      e.preventDefault();
+      nextPresentationSlide();
+
+    }
+
+    if(e.key === "ArrowLeft" ||
+       e.key === "PageUp"){
+
+      e.preventDefault();
+      previousPresentationSlide();
+
+    }
+
+    if(e.key === "Escape"){
+
+      closePresentation();
+
+    }
+
+  }
+);
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+async function initialize(){
+
+  try{
+
+    const params =
+      getUrlParams();
+
+    await loadUser();
+
+    if(params.isNew){
+
+      await createPresentation();
+
+    }else{
+
+      if(!params.id){
+        throw new Error(
+          "No presentation ID was provided. Open a presentation from your CareerCraft presentations page."
+        );
+      }
+
+      await loadPresentation(
+        params.id
+      );
+
+    }
+
+    renderCurrentSlide();
+
+    loadingScreen.style.display =
+      "none";
+
+    app.style.display =
+      "flex";
+
+  }catch(error){
+
+    console.error(
+      "Presentation initialization error:",
+      error
+    );
+
+    loadingScreen.innerHTML = `
+      <div style="
+        max-width:500px;
+        padding:30px;
+        text-align:center;
+      ">
+
+        <div style="
+          width:60px;
+          height:60px;
+          border-radius:18px;
+          background:#fff0f3;
+          color:#e33760;
+          display:grid;
+          place-items:center;
+          font-size:28px;
+          margin:0 auto 18px;
+        ">
+          !
+        </div>
+
+        <h2 style="margin:0 0 10px">
+          Could not open presentation
+        </h2>
+
+        <p style="
+          color:#737c90;
+          line-height:1.6;
+          font-size:13px;
+        ">
+          ${escapeHTML(
+            error.message ||
+            "Something went wrong."
+          )}
+        </p>
+
+        <button
+          onclick="window.location.href='presentations.html'"
+          style="
+            margin-top:15px;
+            border:0;
+            background:#7357ff;
+            color:white;
+            padding:12px 18px;
+            border-radius:11px;
+            font-weight:800;
+            cursor:pointer;
+          ">
+          Back to Presentations
+        </button>
+
+      </div>
+    `;
+
+  }
+}
+
+initialize();
+</script>
+
+</body>
+</html>
