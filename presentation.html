@@ -1,1 +1,3485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Presentation Studio | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#f4f6f9;
+  --panel:#ffffff;
+  --border:#e5e7eb;
+  --text:#111827;
+  --muted:#6b7280;
+  --primary:#4f46e5;
+  --primary-dark:#3730a3;
+  --danger:#dc2626;
+  --sidebar:#111827;
+  --sidebar-hover:#1f2937;
+  --shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow:hidden;
+}
+
+/* LOADING */
+
+#loadingScreen{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:#111827;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:15px;
+}
+
+.loader{
+  width:42px;
+  height:42px;
+  border:4px solid rgba(255,255,255,.2);
+  border-top-color:white;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+#loadingScreen.hidden{
+  display:none;
+}
+
+/* APP */
+
+.app{
+  height:100vh;
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:250px;
+  background:var(--sidebar);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  flex-shrink:0;
+}
+
+.brand{
+  height:70px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 20px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.brand-icon{
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+}
+
+.brand span{
+  font-size:18px;
+  font-weight:800;
+}
+
+.sidebar-content{
+  padding:20px 14px;
+  flex:1;
+  overflow-y:auto;
+}
+
+.side-label{
+  font-size:11px;
+  color:#9ca3af;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin:8px 10px 10px;
+}
+
+.side-btn{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#d1d5db;
+  padding:12px 13px;
+  border-radius:9px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  cursor:pointer;
+  font-size:14px;
+  text-align:left;
+  margin-bottom:4px;
+}
+
+.side-btn:hover{
+  background:var(--sidebar-hover);
+  color:white;
+}
+
+.side-btn.active{
+  background:#312e81;
+  color:white;
+}
+
+.slide-section{
+  margin-top:24px;
+}
+
+.slide-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 8px 10px;
+}
+
+.slide-header span{
+  font-size:13px;
+  font-weight:700;
+}
+
+.small-add{
+  border:0;
+  background:#374151;
+  color:white;
+  width:28px;
+  height:28px;
+  border-radius:7px;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.small-add:hover{
+  background:#4f46e5;
+}
+
+.slide-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.slide-item{
+  background:#1f2937;
+  border:1px solid transparent;
+  border-radius:9px;
+  padding:10px;
+  cursor:pointer;
+}
+
+.slide-item:hover{
+  border-color:#6366f1;
+}
+
+.slide-item.active{
+  background:#312e81;
+  border-color:#818cf8;
+}
+
+.slide-number{
+  font-size:11px;
+  color:#9ca3af;
+  margin-bottom:5px;
+}
+
+.slide-item-title{
+  font-size:12px;
+  font-weight:600;
+  color:#f9fafb;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.sidebar-bottom{
+  padding:15px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+/* MAIN */
+
+.main{
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+}
+
+/* TOPBAR */
+
+.topbar{
+  height:70px;
+  background:white;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  flex-shrink:0;
+}
+
+.top-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+.back-btn{
+  border:0;
+  background:#f3f4f6;
+  width:38px;
+  height:38px;
+  border-radius:9px;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.back-btn:hover{
+  background:#e5e7eb;
+}
+
+.top-title{
+  min-width:0;
+}
+
+.top-title h1{
+  font-size:16px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.save-status{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.btn{
+  border:0;
+  border-radius:8px;
+  padding:10px 14px;
+  cursor:pointer;
+  font-weight:700;
+  font-size:13px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+}
+
+.btn-primary{
+  background:var(--primary);
+  color:white;
+}
+
+.btn-primary:hover{
+  background:var(--primary-dark);
+}
+
+.btn-secondary{
+  background:#f3f4f6;
+  color:#374151;
+}
+
+.btn-secondary:hover{
+  background:#e5e7eb;
+}
+
+.btn-danger{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.btn-danger:hover{
+  background:#fecaca;
+}
+
+/* WORKSPACE */
+
+.workspace{
+  flex:1;
+  min-height:0;
+  display:flex;
+}
+
+/* CANVAS */
+
+.canvas-area{
+  flex:1;
+  min-width:0;
+  overflow:auto;
+  padding:35px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(79,70,229,.05),transparent 30%),
+    #eef1f5;
+}
+
+.canvas-wrapper{
+  width:min(900px,90%);
+}
+
+.presentation-canvas{
+  width:100%;
+  aspect-ratio:16/9;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 20px 50px rgba(0,0,0,.16);
+  overflow:hidden;
+  position:relative;
+}
+
+.presentation-canvas.light{
+  background:#ffffff;
+  color:#111827;
+}
+
+.presentation-canvas.dark{
+  background:#111827;
+  color:white;
+}
+
+.presentation-canvas.blue{
+  background:#eff6ff;
+  color:#172554;
+}
+
+.presentation-canvas.purple{
+  background:#f5f3ff;
+  color:#312e81;
+}
+
+.presentation-canvas.gradient{
+  background:linear-gradient(135deg,#4f46e5,#7c3aed);
+  color:white;
+}
+
+.slide-render{
+  width:100%;
+  height:100%;
+  padding:7%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.slide-render h2{
+  font-size:clamp(24px,4vw,52px);
+  line-height:1.08;
+  margin-bottom:15px;
+}
+
+.slide-render h3{
+  font-size:clamp(17px,2vw,28px);
+  margin-bottom:12px;
+}
+
+.slide-subtitle{
+  font-size:clamp(13px,1.7vw,21px);
+  opacity:.72;
+  margin-bottom:22px;
+}
+
+.slide-content{
+  font-size:clamp(12px,1.5vw,18px);
+  line-height:1.65;
+  white-space:pre-wrap;
+  opacity:.9;
+}
+
+.title-layout{
+  justify-content:center;
+}
+
+.title-layout h2{
+  font-size:clamp(30px,5vw,68px);
+}
+
+.section-layout{
+  text-align:center;
+  align-items:center;
+}
+
+.quote-layout{
+  text-align:center;
+  align-items:center;
+}
+
+.quote-layout .slide-content{
+  font-size:clamp(18px,2.7vw,34px);
+  font-style:italic;
+  max-width:80%;
+}
+
+.two-column{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:35px;
+  align-items:center;
+}
+
+.image-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:35px;
+  align-items:center;
+}
+
+.slide-image{
+  width:100%;
+  max-height:65%;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+.image-placeholder{
+  border:2px dashed rgba(107,114,128,.35);
+  min-height:180px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#9ca3af;
+}
+
+/* INSPECTOR */
+
+.inspector{
+  width:330px;
+  background:white;
+  border-left:1px solid var(--border);
+  overflow-y:auto;
+  flex-shrink:0;
+}
+
+.inspector-header{
+  padding:18px 20px;
+  border-bottom:1px solid var(--border);
+}
+
+.inspector-header h2{
+  font-size:16px;
+}
+
+.inspector-header p{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+
+.form-section{
+  padding:18px 20px;
+  border-bottom:1px solid var(--border);
+}
+
+.form-section h3{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  margin-bottom:14px;
+  color:#374151;
+}
+
+.field{
+  margin-bottom:14px;
+}
+
+.field:last-child{
+  margin-bottom:0;
+}
+
+.field label{
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:6px;
+  color:#374151;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  padding:10px 11px;
+  font-family:inherit;
+  font-size:13px;
+  outline:none;
+  background:white;
+  color:#111827;
+}
+
+.field textarea{
+  resize:vertical;
+  min-height:100px;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+  border-color:#6366f1;
+  box-shadow:0 0 0 3px rgba(99,102,241,.1);
+}
+
+.layout-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.layout-option{
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  padding:9px;
+  cursor:pointer;
+  text-align:center;
+  font-size:11px;
+  background:white;
+}
+
+.layout-option:hover{
+  border-color:#6366f1;
+}
+
+.layout-option.selected{
+  border-color:#4f46e5;
+  background:#eef2ff;
+  color:#3730a3;
+  font-weight:700;
+}
+
+.background-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:7px;
+}
+
+.bg-option{
+  height:35px;
+  border-radius:7px;
+  border:2px solid transparent;
+  cursor:pointer;
+}
+
+.bg-option.selected{
+  border-color:#111827;
+}
+
+.bg-light{background:white;border:1px solid #d1d5db}
+.bg-dark{background:#111827}
+.bg-blue{background:#dbeafe}
+.bg-purple{background:#ede9fe}
+.bg-gradient{background:linear-gradient(135deg,#4f46e5,#7c3aed)}
+
+.slide-actions{
+  display:flex;
+  gap:7px;
+}
+
+.slide-actions .btn{
+  flex:1;
+}
+
+/* PREVIEW */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  z-index:9000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.preview-container{
+  width:min(1100px,96vw);
+  max-height:92vh;
+  position:relative;
+}
+
+.preview-canvas{
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.4);
+}
+
+.close-preview{
+  position:absolute;
+  right:-8px;
+  top:-48px;
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:white;
+  cursor:pointer;
+  font-size:20px;
+}
+
+.preview-nav{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:15px;
+}
+
+.preview-nav button{
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+}
+
+/* TOAST */
+
+#toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#111827;
+  color:white;
+  padding:12px 16px;
+  border-radius:9px;
+  box-shadow:var(--shadow);
+  font-size:13px;
+  z-index:99999;
+  transform:translateY(120px);
+  opacity:0;
+  transition:.25s;
+}
+
+#toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+#debugError{
+  position:fixed;
+  inset:0;
+  z-index:100000;
+  background:#111827;
+  color:#fff;
+  padding:25px;
+  font-family:monospace;
+  font-size:14px;
+  overflow:auto;
+  display:none;
+  white-space:pre-wrap;
+}
+
+/* MOBILE */
+
+@media(max-width:1050px){
+  .inspector{
+    width:290px;
+  }
+
+  .sidebar{
+    width:220px;
+  }
+}
+
+@media(max-width:800px){
+  body{
+    overflow:auto;
+  }
+
+  .app{
+    min-height:100vh;
+    height:auto;
+  }
+
+  .sidebar{
+    width:65px;
+  }
+
+  .brand{
+    justify-content:center;
+    padding:0;
+  }
+
+  .brand span,
+  .side-label,
+  .side-btn span,
+  .slide-section{
+    display:none;
+  }
+
+  .side-btn{
+    justify-content:center;
+  }
+
+  .sidebar-bottom{
+    padding:8px;
+  }
+
+  .workspace{
+    flex-direction:column;
+  }
+
+  .canvas-area{
+    padding:20px 12px;
+    min-height:50vh;
+  }
+
+  .canvas-wrapper{
+    width:100%;
+  }
+
+  .inspector{
+    width:100%;
+    border-left:0;
+    border-top:1px solid var(--border);
+    max-height:none;
+  }
+
+  .topbar{
+    padding:0 10px;
+  }
+
+  .top-actions .btn{
+    padding:9px;
+  }
+
+  .top-actions .btn span{
+    display:none;
+  }
+
+  .top-title h1{
+    max-width:150px;
+  }
+}
+
+@media(max-width:520px){
+  .topbar{
+    height:60px;
+  }
+
+  .top-actions{
+    gap:4px;
+  }
+
+  .btn{
+    padding:9px 10px;
+  }
+
+  .canvas-area{
+    min-height:42vh;
+  }
+
+  .two-column,
+  .image-layout{
+    gap:15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- DEBUG ERROR -->
+<div id="debugError"></div>
+
+<!-- LOADING -->
+<div id="loadingScreen">
+  <div class="loader"></div>
+  <strong>Loading Presentation Studio...</strong>
+  <small>Please wait</small>
+</div>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="brand-icon">C</div>
+      <span>CareerCraft</span>
+    </div>
+
+    <div class="sidebar-content">
+
+      <div class="side-label">Studio</div>
+
+      <button class="side-btn active" onclick="showEditor()">
+        <b>▣</b>
+        <span>Editor</span>
+      </button>
+
+      <button class="side-btn" onclick="openPreview()">
+        <b>▶</b>
+        <span>Preview</span>
+      </button>
+
+      <button class="side-btn" onclick="savePresentation()">
+        <b>✓</b>
+        <span>Save</span>
+      </button>
+
+      <div class="slide-section">
+
+        <div class="slide-header">
+          <span>Slides</span>
+          <button class="small-add" onclick="addSlide()">+</button>
+        </div>
+
+        <div id="slideList" class="slide-list"></div>
+
+      </div>
+
+    </div>
+
+    <div class="sidebar-bottom">
+      <button class="side-btn" onclick="goBack()">
+        <b>←</b>
+        <span>Back</span>
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <header class="topbar">
+
+      <div class="top-left">
+
+        <button class="back-btn" onclick="goBack()">←</button>
+
+        <div class="top-title">
+          <h1 id="topTitle">Untitled Presentation</h1>
+          <div class="save-status" id="saveStatus">
+            Not saved
+          </div>
+        </div>
+
+      </div>
+
+      <div class="top-actions">
+
+        <button class="btn btn-secondary" onclick="openPreview()">
+          ▶ <span>Preview</span>
+        </button>
+
+        <button class="btn btn-secondary" onclick="savePresentation()">
+          ✓ <span>Save</span>
+        </button>
+
+        <button class="btn btn-primary" onclick="togglePublish()">
+          🚀 <span id="publishText">Publish</span>
+        </button>
+
+      </div>
+
+    </header>
+
+    <div class="workspace">
+
+      <!-- CANVAS -->
+      <section class="canvas-area">
+
+        <div class="canvas-wrapper">
+
+          <div id="presentationCanvas" class="presentation-canvas light">
+            <div id="slideRender"></div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- INSPECTOR -->
+      <aside class="inspector">
+
+        <div class="inspector-header">
+          <h2>Presentation Editor</h2>
+          <p>Edit your presentation content and design.</p>
+        </div>
+
+        <!-- PRESENTATION -->
+        <div class="form-section">
+
+          <h3>Presentation</h3>
+
+          <div class="field">
+            <label>Title</label>
+            <input
+              id="presentationTitle"
+              type="text"
+              placeholder="My Career Presentation"
+            >
+          </div>
+
+          <div class="field">
+            <label>Description</label>
+            <textarea
+              id="presentationDescription"
+              placeholder="Describe your presentation..."
+            ></textarea>
+          </div>
+
+        </div>
+
+        <!-- SLIDE -->
+        <div class="form-section">
+
+          <h3>Current Slide</h3>
+
+          <div class="field">
+            <label>Slide Title</label>
+            <input
+              id="slideTitle"
+              type="text"
+              placeholder="Slide title"
+            >
+          </div>
+
+          <div class="field">
+            <label>Subtitle</label>
+            <input
+              id="slideSubtitle"
+              type="text"
+              placeholder="Optional subtitle"
+            >
+          </div>
+
+          <div class="field">
+            <label>Content</label>
+            <textarea
+              id="slideContent"
+              placeholder="Write your slide content..."
+            ></textarea>
+          </div>
+
+          <div class="field">
+            <label>Image URL</label>
+            <input
+              id="slideImage"
+              type="url"
+              placeholder="https://example.com/image.jpg"
+            >
+          </div>
+
+        </div>
+
+        <!-- LAYOUT -->
+        <div class="form-section">
+
+          <h3>Layout</h3>
+
+          <div class="layout-grid">
+
+            <div class="layout-option" data-layout="title_content">
+              Title + Content
+            </div>
+
+            <div class="layout-option" data-layout="title">
+              Title Only
+            </div>
+
+            <div class="layout-option" data-layout="two_column">
+              Two Columns
+            </div>
+
+            <div class="layout-option" data-layout="image_text">
+              Image + Text
+            </div>
+
+            <div class="layout-option" data-layout="quote">
+              Quote
+            </div>
+
+            <div class="layout-option" data-layout="section">
+              Section
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- BACKGROUND -->
+        <div class="form-section">
+
+          <h3>Background</h3>
+
+          <div class="background-grid">
+
+            <div class="bg-option bg-light"
+                 data-bg="light"
+                 title="Light"></div>
+
+            <div class="bg-option bg-dark"
+                 data-bg="dark"
+                 title="Dark"></div>
+
+            <div class="bg-option bg-blue"
+                 data-bg="blue"
+                 title="Blue"></div>
+
+            <div class="bg-option bg-purple"
+                 data-bg="purple"
+                 title="Purple"></div>
+
+            <div class="bg-option bg-gradient"
+                 data-bg="gradient"
+                 title="Gradient"></div>
+
+          </div>
+
+        </div>
+
+        <!-- SLIDE ACTIONS -->
+        <div class="form-section">
+
+          <h3>Slide Actions</h3>
+
+          <div class="slide-actions">
+
+            <button
+              class="btn btn-secondary"
+              onclick="duplicateSlide()">
+              Duplicate
+            </button>
+
+            <button
+              class="btn btn-danger"
+              onclick="deleteCurrentSlide()">
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+</div>
+
+<!-- PREVIEW MODAL -->
+
+<div id="previewModal" class="modal">
+
+  <div class="preview-container">
+
+    <button
+      class="close-preview"
+      onclick="closePreview()">
+      ×
+    </button>
+
+    <div
+      id="previewCanvas"
+      class="preview-canvas light">
+    </div>
+
+    <div class="preview-nav">
+
+      <button onclick="previousPreview()">‹</button>
+
+      <button onclick="nextPreview()">›</button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* =========================================================
+   CAREERCRAFT PRESENTATION STUDIO
+   ========================================================= */
+
+/* SUPABASE */
+
+const SUPABASE_URL =
+  "https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* APP STATE */
+
+let currentUser = null;
+let currentPresentation = null;
+let slides = [];
+let currentSlideIndex = 0;
+let previewIndex = 0;
+let autoSaveTimer = null;
+let isSaving = false;
+
+
+/* =========================================================
+   DEBUG
+   ========================================================= */
+
+window.addEventListener("error", function(event){
+
+  const box =
+    document.getElementById("debugError");
+
+  if(!box) return;
+
+  box.style.display = "block";
+
+  box.textContent =
+    "JAVASCRIPT ERROR\n\n" +
+    event.message +
+    "\n\nFile: " +
+    event.filename +
+    "\nLine: " +
+    event.lineno +
+    "\nColumn: " +
+    event.colno;
+});
+
+
+window.addEventListener(
+  "unhandledrejection",
+  function(event){
+
+    const box =
+      document.getElementById("debugError");
+
+    if(!box) return;
+
+    box.style.display = "block";
+
+    box.textContent =
+      "PROMISE ERROR\n\n" +
+      String(event.reason);
+  }
+);
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function isValidUUID(value){
+
+  if(typeof value !== "string"){
+    return false;
+  }
+
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+}
+
+
+function escapeHTML(value){
+
+  if(value === null || value === undefined){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+function safeImageURL(value){
+
+  if(!value){
+    return "";
+  }
+
+  try{
+
+    const url = new URL(value);
+
+    if(
+      url.protocol !== "http:" &&
+      url.protocol !== "https:"
+    ){
+      return "";
+    }
+
+    return url.href;
+
+  }catch(error){
+
+    return "";
+  }
+}
+
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  setTimeout(function(){
+    toast.classList.remove("show");
+  },2500);
+}
+
+
+function setSaveStatus(message){
+
+  const element =
+    document.getElementById("saveStatus");
+
+  if(element){
+    element.textContent = message;
+  }
+}
+
+
+function hideLoading(){
+
+  const loading =
+    document.getElementById("loadingScreen");
+
+  if(loading){
+    loading.classList.add("hidden");
+  }
+}
+
+
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  initialize
+);
+
+
+async function initialize(){
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.auth.getSession();
+
+    if(error){
+      throw error;
+    }
+
+    currentUser =
+      data.session
+        ? data.session.user
+        : null;
+
+    if(!currentUser){
+
+      window.location.href =
+        "login.html";
+
+      return;
+    }
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const presentationId =
+      params.get("id");
+
+    const isNew =
+      params.get("new") === "1";
+
+    if(
+      presentationId &&
+      isValidUUID(presentationId)
+    ){
+
+      await loadPresentation(
+        presentationId
+      );
+
+    }else if(isNew){
+
+      await createPresentation();
+
+    }else{
+
+      window.location.href =
+        "presentations.html";
+
+      return;
+    }
+
+    setupInputs();
+
+    hideLoading();
+
+  }catch(error){
+
+    console.error(
+      "INITIALIZATION ERROR:",
+      error
+    );
+
+    hideLoading();
+
+    showToast(
+      "Unable to load Presentation Studio."
+    );
+
+    alert(
+      "Presentation Studio error:\n\n" +
+      error.message
+    );
+  }
+}
+
+
+/* =========================================================
+   CREATE PRESENTATION
+   ========================================================= */
+
+async function createPresentation(){
+
+  if(!currentUser){
+    window.location.href =
+      "login.html";
+    return;
+  }
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("presentations")
+      .insert({
+
+        user_id:
+          currentUser.id,
+
+        title:
+          "My Career Presentation",
+
+        description:
+          "A professional presentation created with CareerCraft.",
+
+        template:
+          "modern",
+
+        is_published:
+          false
+
+      })
+      .select()
+      .single();
+
+  if(error){
+    console.error(
+      "CREATE PRESENTATION ERROR:",
+      error
+    );
+
+    throw error;
+  }
+
+  if(
+    !data ||
+    !isValidUUID(data.id)
+  ){
+
+    throw new Error(
+      "Supabase did not return a valid presentation ID."
+    );
+  }
+
+  currentPresentation =
+    data;
+
+
+  const {
+    data: slideData,
+    error: slideError
+  } =
+    await supabaseClient
+      .from("presentation_slides")
+      .insert({
+
+        presentation_id:
+          data.id,
+
+        slide_order:
+          0,
+
+        layout:
+          "title_content",
+
+        title:
+          "Welcome to My Presentation",
+
+        subtitle:
+          "CareerCraft Presentation Studio",
+
+        content:
+          "Introduce yourself, your experience, skills, achievements, or career goals here.",
+
+        image_url:
+          null,
+
+        background:
+          "light"
+
+      })
+      .select()
+      .single();
+
+
+  if(slideError){
+
+    console.error(
+      "CREATE SLIDE ERROR:",
+      slideError
+    );
+
+    throw slideError;
+  }
+
+
+  slides =
+    slideData
+      ? [slideData]
+      : [];
+
+  currentSlideIndex =
+    0;
+
+  history.replaceState(
+    {},
+    "",
+    "presentation.html?id=" +
+    encodeURIComponent(data.id)
+  );
+
+  renderEverything();
+}
+
+
+/* =========================================================
+   LOAD PRESENTATION
+   ========================================================= */
+
+async function loadPresentation(id){
+
+  if(!isValidUUID(id)){
+
+    throw new Error(
+      "Invalid presentation ID."
+    );
+  }
+
+  if(!currentUser){
+
+    throw new Error(
+      "You are not signed in."
+    );
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("presentations")
+      .select("*")
+      .eq("id",id)
+      .eq("user_id",currentUser.id)
+      .single();
+
+
+  if(error){
+
+    console.error(
+      "LOAD PRESENTATION ERROR:",
+      error
+    );
+
+    throw error;
+  }
+
+
+  if(!data){
+
+    throw new Error(
+      "Presentation not found."
+    );
+  }
+
+
+  currentPresentation =
+    data;
+
+
+  const {
+    data: slideData,
+    error: slideError
+  } =
+    await supabaseClient
+      .from("presentation_slides")
+      .select("*")
+      .eq(
+        "presentation_id",
+        id
+      )
+      .order(
+        "slide_order",
+        {
+          ascending:true
+        }
+      );
+
+
+  if(slideError){
+
+    console.error(
+      "LOAD SLIDES ERROR:",
+      slideError
+    );
+
+    throw slideError;
+  }
+
+
+  slides =
+    Array.isArray(slideData)
+      ? slideData
+      : [];
+
+
+  if(slides.length === 0){
+
+    await createFirstSlide(id);
+  }
+
+
+  currentSlideIndex =
+    Math.min(
+      currentSlideIndex,
+      slides.length - 1
+    );
+
+
+  renderEverything();
+}
+
+
+/* =========================================================
+   FIRST SLIDE FALLBACK
+   ========================================================= */
+
+async function createFirstSlide(
+  presentationId
+){
+
+  if(!isValidUUID(presentationId)){
+    throw new Error(
+      "Invalid presentation ID."
+    );
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("presentation_slides")
+      .insert({
+
+        presentation_id:
+          presentationId,
+
+        slide_order:
+          0,
+
+        layout:
+          "title_content",
+
+        title:
+          "Welcome to My Presentation",
+
+        subtitle:
+          "CareerCraft Presentation Studio",
+
+        content:
+          "Start building your professional presentation.",
+
+        image_url:
+          null,
+
+        background:
+          "light"
+
+      })
+      .select()
+      .single();
+
+
+  if(error){
+    throw error;
+  }
+
+
+  if(data){
+    slides = [data];
+  }
+}
+
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+
+function renderEverything(){
+
+  renderSlideList();
+
+  renderCurrentSlide();
+
+  updatePresentationInfo();
+
+  updateInspector();
+
+  updatePublishButton();
+}
+
+
+function renderSlideList(){
+
+  const list =
+    document.getElementById(
+      "slideList"
+    );
+
+  if(!list) return;
+
+
+  if(slides.length === 0){
+
+    list.innerHTML =
+      '<div style="color:#9ca3af;font-size:12px;padding:10px;">No slides</div>';
+
+    return;
+  }
+
+
+  list.innerHTML =
+    slides.map(
+      function(slide,index){
+
+        return `
+          <div
+            class="slide-item ${index === currentSlideIndex ? "active" : ""}"
+            onclick="selectSlide(${index})"
+          >
+
+            <div class="slide-number">
+              Slide ${index + 1}
+            </div>
+
+            <div class="slide-item-title">
+              ${escapeHTML(
+                slide.title ||
+                "Untitled Slide"
+              )}
+            </div>
+
+          </div>
+        `;
+      }
+    ).join("");
+}
+
+
+function updatePresentationInfo(){
+
+  if(!currentPresentation){
+    return;
+  }
+
+
+  document.getElementById(
+    "topTitle"
+  ).textContent =
+    currentPresentation.title ||
+    "Untitled Presentation";
+
+
+  document.getElementById(
+    "presentationTitle"
+  ).value =
+    currentPresentation.title ||
+    "";
+
+
+  document.getElementById(
+    "presentationDescription"
+  ).value =
+    currentPresentation.description ||
+    "";
+}
+
+
+function updateInspector(){
+
+  const slide =
+    slides[currentSlideIndex];
+
+
+  if(!slide){
+
+    document.getElementById(
+      "slideTitle"
+    ).value = "";
+
+    document.getElementById(
+      "slideSubtitle"
+    ).value = "";
+
+    document.getElementById(
+      "slideContent"
+    ).value = "";
+
+    document.getElementById(
+      "slideImage"
+    ).value = "";
+
+    return;
+  }
+
+
+  document.getElementById(
+    "slideTitle"
+  ).value =
+    slide.title || "";
+
+
+  document.getElementById(
+    "slideSubtitle"
+  ).value =
+    slide.subtitle || "";
+
+
+  document.getElementById(
+    "slideContent"
+  ).value =
+    slide.content || "";
+
+
+  document.getElementById(
+    "slideImage"
+  ).value =
+    slide.image_url || "";
+
+
+  document
+    .querySelectorAll(
+      ".layout-option"
+    )
+    .forEach(
+      function(option){
+
+        option.classList.toggle(
+          "selected",
+          option.dataset.layout ===
+          (slide.layout || "title_content")
+        );
+      }
+    );
+
+
+  document
+    .querySelectorAll(
+      ".bg-option"
+    )
+    .forEach(
+      function(option){
+
+        option.classList.toggle(
+          "selected",
+          option.dataset.bg ===
+          (slide.background || "light")
+        );
+      }
+    );
+}
+
+
+/* =========================================================
+   SLIDE RENDERING
+   ========================================================= */
+
+function renderCurrentSlide(){
+
+  const slide =
+    slides[currentSlideIndex];
+
+  const canvas =
+    document.getElementById(
+      "presentationCanvas"
+    );
+
+  const render =
+    document.getElementById(
+      "slideRender"
+    );
+
+
+  if(!slide){
+
+    render.innerHTML = `
+      <div class="slide-render">
+        <h2>No slide selected</h2>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  const background =
+    slide.background ||
+    "light";
+
+
+  canvas.className =
+    "presentation-canvas " +
+    background;
+
+
+  const title =
+    escapeHTML(
+      slide.title ||
+      "Untitled Slide"
+    );
+
+
+  const subtitle =
+    escapeHTML(
+      slide.subtitle ||
+      ""
+    );
+
+
+  const content =
+    escapeHTML(
+      slide.content ||
+      ""
+    );
+
+
+  const imageURL =
+    safeImageURL(
+      slide.image_url
+    );
+
+
+  let html = "";
+
+
+  switch(
+    slide.layout ||
+    "title_content"
+  ){
+
+    case "title":
+
+      html = `
+        <div class="slide-render title-layout">
+          <h2>${title}</h2>
+        </div>
+      `;
+
+      break;
+
+
+    case "two_column":
+
+      html = `
+        <div class="slide-render">
+
+          <h3>${title}</h3>
+
+          <div class="two-column">
+
+            <div>
+              <div class="slide-subtitle">
+                ${subtitle}
+              </div>
+            </div>
+
+            <div>
+              <div class="slide-content">
+                ${content}
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+      break;
+
+
+    case "image_text":
+
+      html = `
+        <div class="slide-render image-layout">
+
+          <div>
+
+            ${
+              imageURL
+              ?
+              `<img
+                class="slide-image"
+                src="${escapeHTML(imageURL)}"
+                alt=""
+              >`
+              :
+              `<div class="image-placeholder">
+                Add an image URL
+              </div>`
+            }
+
+          </div>
+
+          <div>
+
+            <h2>${title}</h2>
+
+            ${
+              subtitle
+              ?
+              `<div class="slide-subtitle">
+                ${subtitle}
+              </div>`
+              :
+              ""
+            }
+
+            <div class="slide-content">
+              ${content}
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+      break;
+
+
+    case "quote":
+
+      html = `
+        <div class="slide-render quote-layout">
+
+          <h3>${title}</h3>
+
+          <div class="slide-content">
+            “${content}”
+          </div>
+
+          ${
+            subtitle
+            ?
+            `<div class="slide-subtitle">
+              — ${subtitle}
+            </div>`
+            :
+            ""
+          }
+
+        </div>
+      `;
+
+      break;
+
+
+    case "section":
+
+      html = `
+        <div class="slide-render section-layout">
+
+          <h2>${title}</h2>
+
+          ${
+            subtitle
+            ?
+            `<div class="slide-subtitle">
+              ${subtitle}
+            </div>`
+            :
+            ""
+          }
+
+          ${
+            content
+            ?
+            `<div class="slide-content">
+              ${content}
+            </div>`
+            :
+            ""
+          }
+
+        </div>
+      `;
+
+      break;
+
+
+    default:
+
+      html = `
+        <div class="slide-render">
+
+          <h2>${title}</h2>
+
+          ${
+            subtitle
+            ?
+            `<div class="slide-subtitle">
+              ${subtitle}
+            </div>`
+            :
+            ""
+          }
+
+          <div class="slide-content">
+            ${content}
+          </div>
+
+        </div>
+      `;
+
+      break;
+  }
+
+
+  render.innerHTML =
+    html;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+function setupInputs(){
+
+  const titleInput =
+    document.getElementById(
+      "presentationTitle"
+    );
+
+  const descriptionInput =
+    document.getElementById(
+      "presentationDescription"
+    );
+
+  const slideTitle =
+    document.getElementById(
+      "slideTitle"
+    );
+
+  const slideSubtitle =
+    document.getElementById(
+      "slideSubtitle"
+    );
+
+  const slideContent =
+    document.getElementById(
+      "slideContent"
+    );
+
+  const slideImage =
+    document.getElementById(
+      "slideImage"
+    );
+
+
+  titleInput.addEventListener(
+    "input",
+    function(){
+
+      if(!currentPresentation)
+        return;
+
+      currentPresentation.title =
+        this.value;
+
+      document.getElementById(
+        "topTitle"
+      ).textContent =
+        this.value ||
+        "Untitled Presentation";
+
+      scheduleAutoSave();
+    }
+  );
+
+
+  descriptionInput.addEventListener(
+    "input",
+    function(){
+
+      if(!currentPresentation)
+        return;
+
+      currentPresentation.description =
+        this.value;
+
+      scheduleAutoSave();
+    }
+  );
+
+
+  slideTitle.addEventListener(
+    "input",
+    function(){
+
+      const slide =
+        slides[currentSlideIndex];
+
+      if(!slide)
+        return;
+
+      slide.title =
+        this.value;
+
+      renderSlideList();
+      renderCurrentSlide();
+
+      scheduleAutoSave();
+    }
+  );
+
+
+  slideSubtitle.addEventListener(
+    "input",
+    function(){
+
+      const slide =
+        slides[currentSlideIndex];
+
+      if(!slide)
+        return;
+
+      slide.subtitle =
+        this.value;
+
+      renderCurrentSlide();
+
+      scheduleAutoSave();
+    }
+  );
+
+
+  slideContent.addEventListener(
+    "input",
+    function(){
+
+      const slide =
+        slides[currentSlideIndex];
+
+      if(!slide)
+        return;
+
+      slide.content =
+        this.value;
+
+      renderCurrentSlide();
+
+      scheduleAutoSave();
+    }
+  );
+
+
+  slideImage.addEventListener(
+    "input",
+    function(){
+
+      const slide =
+        slides[currentSlideIndex];
+
+      if(!slide)
+        return;
+
+      slide.image_url =
+        this.value || null;
+
+      renderCurrentSlide();
+
+      scheduleAutoSave();
+    }
+  );
+
+
+  document
+    .querySelectorAll(
+      ".layout-option"
+    )
+    .forEach(
+      function(option){
+
+        option.addEventListener(
+          "click",
+          function(){
+
+            const slide =
+              slides[currentSlideIndex];
+
+            if(!slide)
+              return;
+
+            slide.layout =
+              this.dataset.layout;
+
+            updateInspector();
+            renderCurrentSlide();
+
+            scheduleAutoSave();
+          }
+        );
+      }
+    );
+
+
+  document
+    .querySelectorAll(
+      ".bg-option"
+    )
+    .forEach(
+      function(option){
+
+        option.addEventListener(
+          "click",
+          function(){
+
+            const slide =
+              slides[currentSlideIndex];
+
+            if(!slide)
+              return;
+
+            slide.background =
+              this.dataset.bg;
+
+            updateInspector();
+            renderCurrentSlide();
+
+            scheduleAutoSave();
+          }
+        );
+      }
+    );
+}
+
+
+/* =========================================================
+   SLIDE SELECTION
+   ========================================================= */
+
+function selectSlide(index){
+
+  if(
+    index < 0 ||
+    index >= slides.length
+  ){
+    return;
+  }
+
+  currentSlideIndex =
+    index;
+
+  renderSlideList();
+  renderCurrentSlide();
+  updateInspector();
+}
+
+
+/* =========================================================
+   ADD SLIDE
+   ========================================================= */
+
+async function addSlide(){
+
+  if(!currentPresentation){
+    return;
+  }
+
+  if(
+    !isValidUUID(
+      currentPresentation.id
+    )
+  ){
+    alert(
+      "Invalid presentation ID."
+    );
+    return;
+  }
+
+
+  const nextOrder =
+    slides.length;
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("presentation_slides")
+      .insert({
+
+        presentation_id:
+          currentPresentation.id,
+
+        slide_order:
+          nextOrder,
+
+        layout:
+          "title_content",
+
+        title:
+          "New Slide",
+
+        subtitle:
+          "",
+
+        content:
+          "Add your content here.",
+
+        image_url:
+          null,
+
+        background:
+          "light"
+
+      })
+      .select()
+      .single();
+
+
+  if(error){
+
+    console.error(
+      "ADD SLIDE ERROR:",
+      error
+    );
+
+    alert(
+      "Could not add slide:\n\n" +
+      error.message
+    );
+
+    return;
+  }
+
+
+  if(!data){
+    return;
+  }
+
+
+  slides.push(data);
+
+  currentSlideIndex =
+    slides.length - 1;
+
+  renderEverything();
+
+  showToast(
+    "Slide added."
+  );
+}
+
+
+/* =========================================================
+   DUPLICATE SLIDE
+   ========================================================= */
+
+async function duplicateSlide(){
+
+  const source =
+    slides[currentSlideIndex];
+
+
+  if(!source){
+    return;
+  }
+
+
+  if(
+    !currentPresentation ||
+    !isValidUUID(
+      currentPresentation.id
+    )
+  ){
+    alert(
+      "Invalid presentation."
+    );
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("presentation_slides")
+      .insert({
+
+        presentation_id:
+          currentPresentation.id,
+
+        slide_order:
+          currentSlideIndex + 1,
+
+        layout:
+          source.layout ||
+          "title_content",
+
+        title:
+          (source.title || "Untitled") +
+          " Copy",
+
+        subtitle:
+          source.subtitle || "",
+
+        content:
+          source.content || "",
+
+        image_url:
+          source.image_url || null,
+
+        background:
+          source.background ||
+          "light"
+
+      })
+      .select()
+      .single();
+
+
+  if(error){
+
+    console.error(
+      "DUPLICATE ERROR:",
+      error
+    );
+
+    alert(
+      error.message
+    );
+
+    return;
+  }
+
+
+  slides.splice(
+    currentSlideIndex + 1,
+    0,
+    data
+  );
+
+
+  await normalizeSlideOrders();
+
+  currentSlideIndex++;
+
+
+  renderEverything();
+
+  showToast(
+    "Slide duplicated."
+  );
+}
+
+
+/* =========================================================
+   DELETE CURRENT SLIDE
+   ========================================================= */
+
+async function deleteCurrentSlide(){
+
+  const slide =
+    slides[currentSlideIndex];
+
+
+  if(!slide){
+    return;
+  }
+
+
+  if(!isValidUUID(slide.id)){
+
+    alert(
+      "This slide has an invalid ID."
+    );
+
+    return;
+  }
+
+
+  if(slides.length === 1){
+
+    alert(
+      "A presentation must contain at least one slide."
+    );
+
+    return;
+  }
+
+
+  const confirmed =
+    confirm(
+      "Delete this slide?"
+    );
+
+
+  if(!confirmed){
+    return;
+  }
+
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("presentation_slides")
+      .delete()
+      .eq(
+        "id",
+        slide.id
+      )
+      .eq(
+        "presentation_id",
+        currentPresentation.id
+      );
+
+
+  if(error){
+
+    console.error(
+      "DELETE SLIDE ERROR:",
+      error
+    );
+
+    alert(
+      "Could not delete slide:\n\n" +
+      error.message
+    );
+
+    return;
+  }
+
+
+  slides.splice(
+    currentSlideIndex,
+    1
+  );
+
+
+  if(
+    currentSlideIndex >=
+    slides.length
+  ){
+    currentSlideIndex =
+      slides.length - 1;
+  }
+
+
+  await normalizeSlideOrders();
+
+  renderEverything();
+
+  showToast(
+    "Slide deleted."
+  );
+}
+
+
+/* =========================================================
+   NORMALIZE SLIDE ORDERS
+   ========================================================= */
+
+async function normalizeSlideOrders(){
+
+  for(
+    let i = 0;
+    i < slides.length;
+    i++
+  ){
+
+    slides[i].slide_order =
+      i;
+
+
+    if(
+      !isValidUUID(
+        slides[i].id
+      )
+    ){
+      continue;
+    }
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("presentation_slides")
+        .update({
+          slide_order:i
+        })
+        .eq(
+          "id",
+          slides[i].id
+        )
+        .eq(
+          "presentation_id",
+          currentPresentation.id
+        );
+
+
+    if(error){
+
+      console.error(
+        "ORDER UPDATE ERROR:",
+        error
+      );
+
+      throw error;
+    }
+  }
+}
+
+
+/* =========================================================
+   SAVE PRESENTATION
+   ========================================================= */
+
+async function savePresentation(){
+
+  if(isSaving){
+    return;
+  }
+
+
+  if(
+    !currentPresentation ||
+    !currentUser
+  ){
+    return;
+  }
+
+
+  if(
+    !isValidUUID(
+      currentPresentation.id
+    )
+  ){
+
+    alert(
+      "Invalid presentation ID."
+    );
+
+    return;
+  }
+
+
+  isSaving = true;
+
+  setSaveStatus(
+    "Saving..."
+  );
+
+
+  try{
+
+    const {
+      error: presentationError
+    } =
+      await supabaseClient
+        .from("presentations")
+        .update({
+
+          title:
+            currentPresentation.title ||
+            "Untitled Presentation",
+
+          description:
+            currentPresentation.description ||
+            "",
+
+          template:
+            currentPresentation.template ||
+            "modern",
+
+          is_published:
+            !!currentPresentation.is_published
+
+        })
+        .eq(
+          "id",
+          currentPresentation.id
+        )
+        .eq(
+          "user_id",
+          currentUser.id
+        );
+
+
+    if(presentationError){
+      throw presentationError;
+    }
+
+
+    for(
+      let i = 0;
+      i < slides.length;
+      i++
+    ){
+
+      const slide =
+        slides[i];
+
+
+      if(
+        !isValidUUID(slide.id)
+      ){
+
+        throw new Error(
+          "Slide " +
+          (i + 1) +
+          " has an invalid UUID."
+        );
+      }
+
+
+      const {
+        error
+      } =
+        await supabaseClient
+          .from("presentation_slides")
+          .update({
+
+            slide_order:
+              i,
+
+            layout:
+              slide.layout ||
+              "title_content",
+
+            title:
+              slide.title ||
+              "",
+
+            subtitle:
+              slide.subtitle ||
+              "",
+
+            content:
+              slide.content ||
+              "",
+
+            image_url:
+              slide.image_url ||
+              null,
+
+            background:
+              slide.background ||
+              "light"
+
+          })
+          .eq(
+            "id",
+            slide.id
+          )
+          .eq(
+            "presentation_id",
+            currentPresentation.id
+          );
+
+
+      if(error){
+        throw error;
+      }
+    }
+
+
+    currentPresentation.title =
+      currentPresentation.title ||
+      "Untitled Presentation";
+
+
+    setSaveStatus(
+      "Saved just now"
+    );
+
+    showToast(
+      "Presentation saved."
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "SAVE ERROR:",
+      error
+    );
+
+    setSaveStatus(
+      "Save failed"
+    );
+
+    alert(
+      "Could not save presentation:\n\n" +
+      error.message
+    );
+
+  }finally{
+
+    isSaving = false;
+  }
+}
+
+
+/* =========================================================
+   AUTO SAVE
+   ========================================================= */
+
+function scheduleAutoSave(){
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
+
+
+  clearTimeout(
+    autoSaveTimer
+  );
+
+
+  autoSaveTimer =
+    setTimeout(
+      async function(){
+
+        if(!isSaving){
+          await savePresentation();
+        }
+
+      },
+      1500
+    );
+}
+
+
+/* =========================================================
+   PUBLISH
+   ========================================================= */
+
+async function togglePublish(){
+
+  if(
+    !currentPresentation ||
+    !currentUser
+  ){
+    return;
+  }
+
+
+  if(
+    !isValidUUID(
+      currentPresentation.id
+    )
+  ){
+
+    alert(
+      "Invalid presentation ID."
+    );
+
+    return;
+  }
+
+
+  const newStatus =
+    !currentPresentation.is_published;
+
+
+  try{
+
+    if(
+      !isSaving
+    ){
+      await savePresentation();
+    }
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("presentations")
+        .update({
+
+          is_published:
+            newStatus,
+
+          published_at:
+            newStatus
+              ? new Date().toISOString()
+              : null
+
+        })
+        .eq(
+          "id",
+          currentPresentation.id
+        )
+        .eq(
+          "user_id",
+          currentUser.id
+        );
+
+
+    if(error){
+      throw error;
+    }
+
+
+    currentPresentation.is_published =
+      newStatus;
+
+
+    currentPresentation.published_at =
+      newStatus
+        ? new Date().toISOString()
+        : null;
+
+
+    updatePublishButton();
+
+
+    showToast(
+      newStatus
+        ? "Presentation published."
+        : "Presentation unpublished."
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "PUBLISH ERROR:",
+      error
+    );
+
+    alert(
+      "Could not update publish status:\n\n" +
+      error.message
+    );
+  }
+}
+
+
+function updatePublishButton(){
+
+  const buttonText =
+    document.getElementById(
+      "publishText"
+    );
+
+
+  if(!buttonText){
+    return;
+  }
+
+
+  if(
+    currentPresentation &&
+    currentPresentation.is_published
+  ){
+
+    buttonText.textContent =
+      "Unpublish";
+
+  }else{
+
+    buttonText.textContent =
+      "Publish";
+  }
+}
+
+
+/* =========================================================
+   PREVIEW
+   ========================================================= */
+
+function openPreview(){
+
+  if(slides.length === 0){
+    return;
+  }
+
+
+  previewIndex =
+    currentSlideIndex;
+
+
+  renderPreview();
+
+
+  document
+    .getElementById(
+      "previewModal"
+    )
+    .classList.add("show");
+}
+
+
+function closePreview(){
+
+  document
+    .getElementById(
+      "previewModal"
+    )
+    .classList.remove("show");
+}
+
+
+function renderPreview(){
+
+  const slide =
+    slides[previewIndex];
+
+
+  if(!slide){
+    return;
+  }
+
+
+  const canvas =
+    document.getElementById(
+      "previewCanvas"
+    );
+
+
+  canvas.className =
+    "preview-canvas " +
+    (
+      slide.background ||
+      "light"
+    );
+
+
+  const title =
+    escapeHTML(
+      slide.title ||
+      "Untitled Slide"
+    );
+
+
+  const subtitle =
+    escapeHTML(
+      slide.subtitle ||
+      ""
+    );
+
+
+  const content =
+    escapeHTML(
+      slide.content ||
+      ""
+    );
+
+
+  const imageURL =
+    safeImageURL(
+      slide.image_url
+    );
+
+
+  let html = "";
+
+
+  switch(
+    slide.layout ||
+    "title_content"
+  ){
+
+    case "title":
+
+      html = `
+        <div class="slide-render title-layout">
+          <h2>${title}</h2>
+        </div>
+      `;
+
+      break;
+
+
+    case "two_column":
+
+      html = `
+        <div class="slide-render">
+
+          <h3>${title}</h3>
+
+          <div class="two-column">
+
+            <div>
+              <div class="slide-subtitle">
+                ${subtitle}
+              </div>
+            </div>
+
+            <div>
+              <div class="slide-content">
+                ${content}
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+      break;
+
+
+    case "image_text":
+
+      html = `
+        <div class="slide-render image-layout">
+
+          <div>
+
+            ${
+              imageURL
+              ?
+              `<img
+                class="slide-image"
+                src="${escapeHTML(imageURL)}"
+                alt=""
+              >`
+              :
+              `<div class="image-placeholder">
+                No image
+              </div>`
+            }
+
+          </div>
+
+          <div>
+
+            <h2>${title}</h2>
+
+            <div class="slide-subtitle">
+              ${subtitle}
+            </div>
+
+            <div class="slide-content">
+              ${content}
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+      break;
+
+
+    case "quote":
+
+      html = `
+        <div class="slide-render quote-layout">
+
+          <h3>${title}</h3>
+
+          <div class="slide-content">
+            “${content}”
+          </div>
+
+          <div class="slide-subtitle">
+            ${subtitle}
+          </div>
+
+        </div>
+      `;
+
+      break;
+
+
+    case "section":
+
+      html = `
+        <div class="slide-render section-layout">
+
+          <h2>${title}</h2>
+
+          <div class="slide-subtitle">
+            ${subtitle}
+          </div>
+
+          <div class="slide-content">
+            ${content}
+          </div>
+
+        </div>
+      `;
+
+      break;
+
+
+    default:
+
+      html = `
+        <div class="slide-render">
+
+          <h2>${title}</h2>
+
+          <div class="slide-subtitle">
+            ${subtitle}
+          </div>
+
+          <div class="slide-content">
+            ${content}
+          </div>
+
+        </div>
+      `;
+
+      break;
+  }
+
+
+  canvas.innerHTML =
+    html;
+}
+
+
+function previousPreview(){
+
+  if(slides.length === 0){
+    return;
+  }
+
+
+  previewIndex--;
+
+  if(previewIndex < 0){
+    previewIndex =
+      slides.length - 1;
+  }
+
+
+  renderPreview();
+}
+
+
+function nextPreview(){
+
+  if(slides.length === 0){
+    return;
+  }
+
+
+  previewIndex++;
+
+
+  if(
+    previewIndex >=
+    slides.length
+  ){
+
+    previewIndex = 0;
+  }
+
+
+  renderPreview();
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function showEditor(){
+
+  closePreview();
+}
+
+
+function goBack(){
+
+  window.location.href =
+    "presentations.html";
+}
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+   ========================================================= */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape"
+    ){
+
+      closePreview();
+
+      return;
+    }
+
+
+    if(
+      event.ctrlKey &&
+      event.key.toLowerCase() === "s"
+    ){
+
+      event.preventDefault();
+
+      savePresentation();
+
+      return;
+    }
+
+
+    if(
+      document.activeElement &&
+      (
+        document.activeElement.tagName ===
+        "INPUT" ||
+        document.activeElement.tagName ===
+        "TEXTAREA"
+      )
+    ){
+      return;
+    }
+
+
+    if(
+      document.getElementById(
+        "previewModal"
+      ).classList.contains("show")
+    ){
+
+      if(event.key === "ArrowLeft"){
+        previousPreview();
+      }
+
+      if(event.key === "ArrowRight"){
+        nextPreview();
+      }
+    }
+  }
+);
+
+
+/* =========================================================
+   AUTH STATE
+   ========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+  function(event, session){
+
+    if(
+      event === "SIGNED_OUT"
+    ){
+
+      window.location.href =
+        "login.html";
+    }
+
+  }
+);
+</script>
+
+</body>
+  </html>
