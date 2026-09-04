@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Presentation Studio - CareerCraft</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -28,11 +28,15 @@
   --danger:#e05252;
 }
 
+html,body{
+  width:100%;
+  height:100%;
+}
+
 body{
   font-family:Inter,Arial,Helvetica,sans-serif;
   background:var(--bg);
   color:var(--text);
-  height:100vh;
   overflow:hidden;
 }
 
@@ -54,7 +58,7 @@ button{
 }
 
 /* =========================================================
-   TOP APPLICATION BAR
+   APP BAR
 ========================================================= */
 
 .appbar{
@@ -65,7 +69,7 @@ button{
   display:flex;
   align-items:center;
   padding:0 14px;
-  gap:14px;
+  gap:12px;
   z-index:30;
 }
 
@@ -75,7 +79,7 @@ button{
   gap:8px;
   font-weight:800;
   color:var(--purple);
-  min-width:170px;
+  min-width:175px;
 }
 
 .brand-icon{
@@ -83,7 +87,7 @@ button{
   height:32px;
   border-radius:9px;
   background:var(--purple);
-  color:white;
+  color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -96,6 +100,7 @@ button{
   height:34px;
   border-radius:9px;
   color:#555;
+  font-size:18px;
 }
 
 .title-wrap{
@@ -152,7 +157,7 @@ button{
 .present-btn{
   background:var(--purple);
   border-color:var(--purple);
-  color:white;
+  color:#fff;
 }
 
 .present-btn:hover{
@@ -160,7 +165,7 @@ button{
 }
 
 /* =========================================================
-   RIBBON TABS
+   RIBBON
 ========================================================= */
 
 .ribbon{
@@ -175,6 +180,7 @@ button{
   align-items:center;
   padding:0 14px;
   gap:3px;
+  overflow-x:auto;
 }
 
 .ribbon-tab{
@@ -186,6 +192,7 @@ button{
   font-weight:700;
   color:#626574;
   border-radius:6px 6px 0 0;
+  white-space:nowrap;
 }
 
 .ribbon-tab:hover{
@@ -214,6 +221,7 @@ button{
   padding-right:18px;
   border-right:1px solid var(--border);
   position:relative;
+  padding-bottom:12px;
 }
 
 .ribbon-group:last-child{
@@ -246,6 +254,7 @@ button{
   gap:4px;
   font-size:10px;
   padding:4px;
+  white-space:nowrap;
 }
 
 .tool-btn span:first-child{
@@ -266,7 +275,7 @@ button{
   height:34px;
   border:1px solid var(--border);
   border-radius:7px;
-  background:white;
+  background:#fff;
   padding:0 8px;
   font-size:11px;
 }
@@ -291,7 +300,7 @@ button{
 }
 
 /* =========================================================
-   LEFT THUMBNAILS
+   SIDEBAR
 ========================================================= */
 
 .sidebar{
@@ -360,7 +369,7 @@ button{
 .thumbnail{
   width:100%;
   aspect-ratio:16/9;
-  background:white;
+  background:#fff;
   border:2px solid transparent;
   border-radius:6px;
   overflow:hidden;
@@ -375,21 +384,6 @@ button{
 .thumbnail-item.active .thumbnail{
   border-color:var(--purple);
   box-shadow:0 0 0 2px rgba(108,92,231,.12);
-}
-
-.thumbnail-transition{
-  position:absolute;
-  right:4px;
-  bottom:4px;
-  background:var(--purple);
-  color:#fff;
-  width:16px;
-  height:16px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:9px;
 }
 
 .thumbnail-delete{
@@ -411,8 +405,24 @@ button{
   display:block;
 }
 
+.thumbnail-transition{
+  position:absolute;
+  right:4px;
+  bottom:4px;
+  background:var(--purple);
+  color:#fff;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:9px;
+  z-index:5;
+}
+
 /* =========================================================
-   CANVAS AREA
+   CANVAS
 ========================================================= */
 
 .canvas-area{
@@ -459,17 +469,19 @@ button{
 .canvas{
   width:min(900px,80vw);
   aspect-ratio:16/9;
-  background:white;
+  background:#fff;
   position:relative;
   box-shadow:0 20px 60px rgba(0,0,0,.18);
   overflow:hidden;
   transition:transform .2s;
+  flex-shrink:0;
 }
 
 .canvas-editable{
   width:100%;
   height:100%;
   position:relative;
+  overflow:hidden;
 }
 
 .slide-element{
@@ -496,6 +508,7 @@ button{
   overflow:hidden;
   font-family:Arial,sans-serif;
   color:inherit;
+  display:block;
 }
 
 .editable-text:focus{
@@ -526,256 +539,7 @@ button{
 }
 
 /* =========================================================
-   TEMPLATE GALLERY
-========================================================= */
-
-.template-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(10,10,18,.45);
-  z-index:1000;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:25px;
-}
-
-.template-overlay.open{
-  display:flex;
-}
-
-.template-modal{
-  width:min(1000px,95vw);
-  height:min(720px,90vh);
-  background:#fff;
-  border-radius:18px;
-  box-shadow:0 30px 100px rgba(0,0,0,.3);
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-}
-
-.modal-head{
-  height:65px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 20px;
-  border-bottom:1px solid var(--border);
-}
-
-.modal-head h2{
-  font-size:18px;
-}
-
-.close-modal{
-  border:0;
-  background:#f1f1f5;
-  width:34px;
-  height:34px;
-  border-radius:8px;
-  font-size:20px;
-}
-
-.template-grid{
-  flex:1;
-  overflow:auto;
-  padding:20px;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:16px;
-}
-
-.template-card{
-  border:1px solid var(--border);
-  border-radius:10px;
-  overflow:hidden;
-  background:#fff;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.template-card:hover{
-  border-color:var(--purple);
-  transform:translateY(-3px);
-  box-shadow:0 8px 20px rgba(0,0,0,.1);
-}
-
-.template-preview{
-  aspect-ratio:16/9;
-  position:relative;
-  overflow:hidden;
-}
-
-.template-info{
-  padding:9px;
-  font-size:11px;
-  font-weight:700;
-}
-
-.template-number{
-  font-size:9px;
-  color:#999;
-  margin-bottom:3px;
-}
-
-/* =========================================================
-   TRANSITION PANEL
-========================================================= */
-
-.transition-panel{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  width:100%;
-}
-
-.transition-card{
-  width:82px;
-  height:62px;
-  border:1px solid var(--border);
-  border-radius:8px;
-  background:#fff;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  font-size:10px;
-}
-
-.transition-card:hover,
-.transition-card.active{
-  border-color:var(--purple);
-  background:var(--purple-light);
-  color:var(--purple);
-}
-
-.transition-icon{
-  font-size:20px;
-}
-
-/* =========================================================
-   FULL SCREEN PRESENTATION MODE
-========================================================= */
-
-.present-mode{
-  position:fixed;
-  inset:0;
-  background:#050509;
-  z-index:5000;
-  display:none;
-  flex-direction:column;
-}
-
-.present-mode.open{
-  display:flex;
-}
-
-.present-stage{
-  flex:1;
-  min-height:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  overflow:hidden;
-}
-
-.present-slide{
-  width:min(94vw,1400px);
-  aspect-ratio:16/9;
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 30px 100px rgba(0,0,0,.5);
-}
-
-.present-controls{
-  position:absolute;
-  left:50%;
-  bottom:20px;
-  transform:translateX(-50%);
-  background:rgba(20,20,27,.85);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:14px;
-  padding:7px;
-  display:flex;
-  align-items:center;
-  gap:5px;
-  opacity:0;
-  transition:.2s;
-  z-index:10;
-}
-
-.present-stage:hover .present-controls,
-.present-controls:hover{
-  opacity:1;
-}
-
-.present-control-btn{
-  border:0;
-  background:transparent;
-  color:white;
-  width:39px;
-  height:36px;
-  border-radius:8px;
-  font-size:17px;
-}
-
-.present-control-btn:hover{
-  background:rgba(255,255,255,.12);
-}
-
-.present-counter{
-  color:#ddd;
-  font-size:11px;
-  padding:0 8px;
-}
-
-.present-exit{
-  position:absolute;
-  right:20px;
-  top:20px;
-  width:40px;
-  height:40px;
-  border:0;
-  border-radius:10px;
-  background:rgba(255,255,255,.1);
-  color:white;
-  font-size:22px;
-  z-index:20;
-}
-
-.present-nav{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:50px;
-  height:50px;
-  border:0;
-  border-radius:50%;
-  background:rgba(255,255,255,.09);
-  color:white;
-  font-size:35px;
-  z-index:15;
-  opacity:.35;
-}
-
-.present-nav:hover{
-  opacity:1;
-  background:rgba(255,255,255,.16);
-}
-
-.present-nav.left{
-  left:20px;
-}
-
-.present-nav.right{
-  right:20px;
-}
-
-/* =========================================================
-   SLIDE DESIGNS
+   DESIGNS
 ========================================================= */
 
 .design-purple{
@@ -826,6 +590,7 @@ button{
   background:rgba(255,255,255,.13);
   right:-8%;
   top:-20%;
+  pointer-events:none;
 }
 
 .shape-circle2{
@@ -836,18 +601,21 @@ button{
   background:rgba(108,92,231,.14);
   left:-7%;
   bottom:-12%;
+  pointer-events:none;
 }
 
 .design-content{
   position:absolute;
   inset:0;
   padding:8%;
+  overflow:hidden;
 }
 
 .design-title{
   font-size:clamp(18px,4vw,54px);
   font-weight:800;
   line-height:1.05;
+  white-space:pre-wrap;
 }
 
 .design-subtitle{
@@ -855,12 +623,14 @@ button{
   opacity:.72;
   margin-top:13px;
   line-height:1.4;
+  white-space:pre-wrap;
 }
 
 .design-body{
   font-size:clamp(7px,1.3vw,19px);
   line-height:1.55;
   margin-top:16px;
+  white-space:pre-wrap;
 }
 
 .mini-line{
@@ -956,20 +726,7 @@ button{
   font-size:clamp(6px,1vw,12px);
   line-height:1.5;
   opacity:.72;
-}
-
-.mini-image{
-  position:absolute;
-  right:8%;
-  top:15%;
-  width:38%;
-  height:70%;
-  border-radius:10px;
-  background:linear-gradient(135deg,#ddd,#aaa);
-}
-
-.mini-image-text{
-  width:45%;
+  white-space:pre-wrap;
 }
 
 .mini-timeline{
@@ -1016,6 +773,351 @@ button{
 }
 
 /* =========================================================
+   TEMPLATE MODAL
+========================================================= */
+
+.template-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(10,10,18,.45);
+  z-index:1000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+}
+
+.template-overlay.open{
+  display:flex;
+}
+
+.template-modal{
+  width:min(1000px,95vw);
+  height:min(720px,90vh);
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 30px 100px rgba(0,0,0,.3);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.modal-head{
+  height:65px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  border-bottom:1px solid var(--border);
+}
+
+.modal-head h2{
+  font-size:18px;
+}
+
+.close-modal{
+  border:0;
+  background:#f1f1f5;
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  font-size:20px;
+}
+
+.template-grid{
+  flex:1;
+  overflow:auto;
+  padding:20px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:16px;
+}
+
+.template-card{
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  background:#fff;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.template-card:hover{
+  border-color:var(--purple);
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(0,0,0,.1);
+}
+
+.template-preview{
+  aspect-ratio:16/9;
+  position:relative;
+  overflow:hidden;
+}
+
+.template-info{
+  padding:9px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.template-number{
+  font-size:9px;
+  color:#999;
+  margin-bottom:3px;
+}
+
+/* =========================================================
+   TRANSITIONS
+========================================================= */
+
+.transition-panel{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  overflow-x:auto;
+}
+
+.transition-card{
+  width:82px;
+  min-width:82px;
+  height:62px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  font-size:10px;
+}
+
+.transition-card:hover,
+.transition-card.active{
+  border-color:var(--purple);
+  background:var(--purple-light);
+  color:var(--purple);
+}
+
+.transition-icon{
+  font-size:20px;
+}
+
+/* =========================================================
+   PRESENTATION MODE
+========================================================= */
+
+.present-mode{
+  position:fixed;
+  inset:0;
+  background:#050509;
+  z-index:5000;
+  display:none;
+  flex-direction:column;
+}
+
+.present-mode.open{
+  display:flex;
+}
+
+.present-stage{
+  flex:1;
+  min-height:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.present-slide{
+  width:min(94vw,1400px);
+  aspect-ratio:16/9;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 30px 100px rgba(0,0,0,.5);
+}
+
+.present-slide .design-content{
+  padding:8%;
+}
+
+.present-controls{
+  position:absolute;
+  left:50%;
+  bottom:20px;
+  transform:translateX(-50%);
+  background:rgba(20,20,27,.85);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;
+  padding:7px;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  opacity:0;
+  transition:.2s;
+  z-index:10;
+}
+
+.present-stage:hover .present-controls,
+.present-controls:hover{
+  opacity:1;
+}
+
+.present-control-btn{
+  border:0;
+  background:transparent;
+  color:#fff;
+  width:39px;
+  height:36px;
+  border-radius:8px;
+  font-size:17px;
+}
+
+.present-control-btn:hover{
+  background:rgba(255,255,255,.12);
+}
+
+.present-counter{
+  color:#ddd;
+  font-size:11px;
+  padding:0 8px;
+}
+
+.present-exit{
+  position:absolute;
+  right:20px;
+  top:20px;
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:10px;
+  background:rgba(255,255,255,.1);
+  color:#fff;
+  font-size:22px;
+  z-index:20;
+}
+
+.present-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:50px;
+  height:50px;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.09);
+  color:#fff;
+  font-size:35px;
+  z-index:15;
+  opacity:.35;
+}
+
+.present-nav:hover{
+  opacity:1;
+  background:rgba(255,255,255,.16);
+}
+
+.present-nav.left{
+  left:20px;
+}
+
+.present-nav.right{
+  right:20px;
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+.object-fade{
+  animation:objectFade .7s ease both;
+}
+
+.object-rise{
+  animation:objectRise .7s ease both;
+}
+
+.object-zoom{
+  animation:objectZoom .7s ease both;
+}
+
+@keyframes objectFade{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+@keyframes objectRise{
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes objectZoom{
+  from{
+    opacity:0;
+    transform:scale(.85);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+@keyframes presentationFade{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+@keyframes presentationSlide{
+  from{
+    opacity:0;
+    transform:translateX(100%);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+@keyframes presentationZoom{
+  from{
+    opacity:0;
+    transform:scale(.7);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+@keyframes presentationDissolve{
+  0%{
+    opacity:0;
+    filter:blur(12px);
+  }
+  100%{
+    opacity:1;
+    filter:blur(0);
+  }
+}
+
+@keyframes presentationWipe{
+  from{
+    clip-path:inset(0 100% 0 0);
+  }
+  to{
+    clip-path:inset(0 0 0 0);
+  }
+}
+
+/* =========================================================
    TOAST
 ========================================================= */
 
@@ -1024,7 +1126,7 @@ button{
   right:20px;
   bottom:20px;
   background:#20212b;
-  color:white;
+  color:#fff;
   padding:12px 16px;
   border-radius:10px;
   font-size:12px;
@@ -1105,6 +1207,20 @@ button{
   .ribbon-tab{
     padding:0 8px;
   }
+
+  .present-nav{
+    width:38px;
+    height:38px;
+    font-size:28px;
+  }
+
+  .present-nav.left{
+    left:8px;
+  }
+
+  .present-nav.right{
+    right:8px;
+  }
 }
 </style>
 </head>
@@ -1113,712 +1229,605 @@ button{
 
 <div class="app">
 
-  <!-- =====================================================
-       APPLICATION BAR
-  ====================================================== -->
+<header class="appbar">
 
-  <header class="appbar">
+  <button class="back-btn" onclick="goBack()">←</button>
 
-    <button class="back-btn" onclick="goBack()" title="Back">
-      ←
+  <div class="brand">
+    <div class="brand-icon">C</div>
+    <span>CareerCraft Studio</span>
+  </div>
+
+  <div class="title-wrap">
+    <input
+      id="presentationTitle"
+      class="presentation-title"
+      value="Untitled Presentation"
+      aria-label="Presentation title"
+    >
+  </div>
+
+  <div id="saveStatus" class="save-status">
+    Ready
+  </div>
+
+  <div class="app-actions">
+
+    <button class="app-btn optional-btn" onclick="undoAction()">
+      ↶ Undo
     </button>
 
-    <div class="brand">
-      <div class="brand-icon">C</div>
-      <span>CareerCraft Studio</span>
-    </div>
-
-    <div class="title-wrap">
-      <input
-        id="presentationTitle"
-        class="presentation-title"
-        value="Untitled Presentation"
-        aria-label="Presentation title"
-      >
-    </div>
-
-    <div id="saveStatus" class="save-status">
-      Ready
-    </div>
-
-    <div class="app-actions">
-
-      <button class="app-btn optional-btn" onclick="undoAction()">
-        ↶ Undo
-      </button>
-
-      <button class="app-btn optional-btn" onclick="redoAction()">
-        ↷ Redo
-      </button>
-
-      <button class="app-btn" onclick="savePresentation()">
-        💾 Save
-      </button>
-
-      <button
-        class="app-btn present-btn"
-        onclick="startPresentation()"
-      >
-        ▶ Present
-      </button>
-
-    </div>
-
-  </header>
-
-
-  <!-- =====================================================
-       RIBBON
-  ====================================================== -->
-
-  <section class="ribbon">
-
-    <div class="ribbon-tabs">
-
-      <button
-        class="ribbon-tab active"
-        data-tab="home"
-        onclick="switchRibbon('home')"
-      >
-        Home
-      </button>
-
-      <button
-        class="ribbon-tab"
-        data-tab="insert"
-        onclick="switchRibbon('insert')"
-      >
-        Insert
-      </button>
-
-      <button
-        class="ribbon-tab"
-        data-tab="design"
-        onclick="switchRibbon('design')"
-      >
-        Design
-      </button>
-
-      <button
-        class="ribbon-tab"
-        data-tab="transitions"
-        onclick="switchRibbon('transitions')"
-      >
-        Transitions
-      </button>
-
-      <button
-        class="ribbon-tab"
-        data-tab="animations"
-        onclick="switchRibbon('animations')"
-      >
-        Animations
-      </button>
-
-      <button
-        class="ribbon-tab"
-        data-tab="slideshow"
-        onclick="switchRibbon('slideshow')"
-      >
-        Slide Show
-      </button>
-
-    </div>
-
-
-    <!-- HOME -->
-    <div class="ribbon-panel" id="ribbon-home">
-
-      <div class="ribbon-group">
-
-        <button class="tool-btn" onclick="addSlide()">
-          <span>＋</span>
-          <span>New Slide</span>
-        </button>
-
-        <button class="tool-btn" onclick="duplicateSlide()">
-          <span>▣</span>
-          <span>Duplicate</span>
-        </button>
-
-        <button class="tool-btn" onclick="deleteCurrentSlide()">
-          <span>⌫</span>
-          <span>Delete</span>
-        </button>
-
-        <div class="ribbon-group-title">Slides</div>
-      </div>
-
-
-      <div class="ribbon-group">
-
-        <select
-          class="tool-select"
-          id="fontFamily"
-          onchange="applyFontFamily(this.value)"
-        >
-          <option>Arial</option>
-          <option>Georgia</option>
-          <option>Verdana</option>
-          <option>Trebuchet MS</option>
-          <option>Times New Roman</option>
-        </select>
-
-        <input
-          id="fontSize"
-          class="tool-input"
-          type="number"
-          value="28"
-          min="8"
-          max="100"
-          onchange="applyFontSize(this.value)"
-        >
-
-        <button class="tool-btn" onclick="toggleBold()">
-          <span>𝐁</span>
-          <span>Bold</span>
-        </button>
-
-        <button class="tool-btn" onclick="toggleItalic()">
-          <span>𝘐</span>
-          <span>Italic</span>
-        </button>
-
-        <button class="tool-btn" onclick="toggleUnderline()">
-          <span>U̲</span>
-          <span>Underline</span>
-        </button>
-
-        <div class="ribbon-group-title">Font</div>
-      </div>
-
-
-      <div class="ribbon-group">
-
-        <button class="tool-btn" onclick="alignText('left')">
-          <span>≡</span>
-          <span>Left</span>
-        </button>
-
-        <button class="tool-btn" onclick="alignText('center')">
-          <span>≡</span>
-          <span>Center</span>
-        </button>
-
-        <button class="tool-btn" onclick="alignText('right')">
-          <span>≡</span>
-          <span>Right</span>
-        </button>
-
-        <div class="ribbon-group-title">Paragraph</div>
-      </div>
-
-
-      <div class="ribbon-group">
-
-        <button class="tool-btn" onclick="openTemplates()">
-          <span>▦</span>
-          <span>Layouts</span>
-        </button>
-
-        <button class="tool-btn" onclick="switchRibbon('design')">
-          <span>🎨</span>
-          <span>Theme</span>
-        </button>
-
-        <div class="ribbon-group-title">Design</div>
-      </div>
-
-    </div>
-
-
-    <!-- INSERT -->
-    <div class="ribbon-panel" id="ribbon-insert" style="display:none;">
-
-      <div class="ribbon-group">
-
-        <button class="tool-btn" onclick="addTextBox()">
-          <span>Ｔ</span>
-          <span>Text Box</span>
-        </button>
-
-        <button class="tool-btn" onclick="addHeading()">
-          <span>H</span>
-          <span>Heading</span>
-        </button>
-
-        <button class="tool-btn" onclick="addQuote()">
-          <span>❝</span>
-          <span>Quote</span>
-        </button>
-
-        <div class="ribbon-group-title">Text</div>
-      </div>
-
-
-      <div class="ribbon-group">
-
-        <button class="tool-btn" onclick="addImage()">
-          <span>▧</span>
-          <span>Image URL</span>
-        </button>
-
-        <button class="tool-btn" onclick="addShape()">
-          <span>◇</span>
-          <span>Shape</span>
-        </button>
-
-        <div class="ribbon-group-title">Elements</div>
-      </div>
-
-
-      <div class="ribbon-group">
-
-        <button class="tool-btn" onclick="openTemplates()">
-          <span>▦</span>
-          <span>50 Designs</span>
-        </button>
-
-        <div class="ribbon-group-title">Templates</div>
-      </div>
-
-    </div>
-
-
-    <!-- DESIGN -->
-    <div class="ribbon-panel" id="ribbon-design" style="display:none;">
-
-      <div class="ribbon-group">
-
-        <button class="tool-btn" onclick="applyTheme('purple')">
-          <span>●</span>
-          <span>Purple</span>
-        </button>
-
-        <button class="tool-btn" onclick="applyTheme('dark')">
-          <span>●</span>
-          <span>Dark</span>
-        </button>
-
-        <button class="tool-btn" onclick="applyTheme('blue')">
-          <span>●</span>
-          <span>Blue</span>
-        </button>
-
-        <button class="tool-btn" onclick="applyTheme('green')">
-          <span>●</span>
-          <span>Green</span>
-        </button>
-
-        <button class="tool-btn" onclick="applyTheme('cream')">
-          <span>●</span>
-          <span>Cream</span>
-        </button>
-
-        <div class="ribbon-group-title">Themes</div>
-      </div>
-
-
-      <div class="ribbon-group">
-
-        <button class="tool-btn" onclick="openTemplates()">
-          <span>▦</span>
-          <span>All Designs</span>
-        </button>
-
-        <div class="ribbon-group-title">Templates</div>
-      </div>
-
-    </div>
-
-
-    <!-- TRANSITIONS -->
-    <div class="ribbon-panel" id="ribbon-transitions" style="display:none;">
-
-      <div class="transition-panel">
-
-        <button
-          class="transition-card active"
-          data-transition="none"
-          onclick="setTransition('none')"
-        >
-          <span class="transition-icon">—</span>
-          None
-        </button>
-
-        <button
-          class="transition-card"
-          data-transition="fade"
-          onclick="setTransition('fade')"
-        >
-          <span class="transition-icon">◐</span>
-          Fade
-        </button>
-
-        <button
-          class="transition-card"
-          data-transition="slide"
-          onclick="setTransition('slide')"
-        >
-          <span class="transition-icon">→</span>
-          Slide
-        </button>
-
-        <button
-          class="transition-card"
-          data-transition="wipe"
-          onclick="setTransition('wipe')"
-        >
-          <span class="transition-icon">◧</span>
-          Wipe
-        </button>
-
-        <button
-          class="transition-card"
-          data-transition="zoom"
-          onclick="setTransition('zoom')"
-        >
-          <span class="transition-icon">⌕</span>
-          Zoom
-        </button>
-
-        <button
-          class="transition-card"
-          data-transition="dissolve"
-          onclick="setTransition('dissolve')"
-        >
-          <span class="transition-icon">✦</span>
-          Dissolve
-        </button>
-
-        <select
-          class="tool-select"
-          id="transitionDuration"
-          onchange="changeTransitionDuration(this.value)"
-        >
-          <option value="0.3">0.3 sec</option>
-          <option value="0.5" selected>0.5 sec</option>
-          <option value="0.8">0.8 sec</option>
-          <option value="1">1 sec</option>
-          <option value="1.5">1.5 sec</option>
-          <option value="2">2 sec</option>
-        </select>
-
-        <button
-          class="app-btn"
-          onclick="applyTransitionToAll()"
-        >
-          Apply to All
-        </button>
-
-        <button
-          class="app-btn"
-          onclick="previewTransition()"
-        >
-          ▶ Preview
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <!-- ANIMATIONS -->
-    <div class="ribbon-panel" id="ribbon-animations" style="display:none;">
-
-      <div class="ribbon-group">
-
-        <button class="tool-btn" onclick="setAnimation('none')">
-          <span>—</span>
-          <span>None</span>
-        </button>
-
-        <button class="tool-btn" onclick="setAnimation('fade')">
-          <span>◐</span>
-          <span>Fade In</span>
-        </button>
-
-        <button class="tool-btn" onclick="setAnimation('rise')">
-          <span>↑</span>
-          <span>Rise</span>
-        </button>
-
-        <button class="tool-btn" onclick="setAnimation('zoom')">
-          <span>⌕</span>
-          <span>Zoom</span>
-        </button>
-
-        <div class="ribbon-group-title">Object Animations</div>
-      </div>
-
-    </div>
-
-
-    <!-- SLIDE SHOW -->
-    <div class="ribbon-panel" id="ribbon-slideshow" style="display:none;">
-
-      <div class="ribbon-group">
-
-        <button class="tool-btn" onclick="startPresentation(0)">
-          <span>▶</span>
-          <span>From Start</span>
-        </button>
-
-        <button class="tool-btn" onclick="startPresentation(currentSlideIndex)">
-          <span>▷</span>
-          <span>From Current</span>
-        </button>
-
-        <div class="ribbon-group-title">Start Slide Show</div>
-      </div>
-
-
-      <div class="ribbon-group">
-
-        <button class="tool-btn" onclick="toggleAutoPlay()">
-          <span>⏱</span>
-          <span>Auto Play</span>
-        </button>
-
-        <button class="tool-btn" onclick="toggleFullscreen()">
-          <span>⛶</span>
-          <span>Fullscreen</span>
-        </button>
-
-        <div class="ribbon-group-title">Presentation</div>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       WORKSPACE
-  ====================================================== -->
-
-  <main class="workspace">
-
-    <aside class="sidebar">
-
-      <div class="sidebar-head">
-
-        <strong>Slides</strong>
-
-        <button
-          class="add-slide-small"
-          onclick="addSlide()"
-          title="New slide"
-        >
-          +
-        </button>
-
-      </div>
-
-      <div id="thumbnails" class="thumbnails"></div>
-
-    </aside>
-
-
-    <section class="canvas-area">
-
-      <div class="canvas-toolbar">
-
-        <span id="slidePosition" class="zoom-label">
-          Slide 1 of 1
-        </span>
-
-        <span style="color:#ddd;">|</span>
-
-        <button
-          class="app-btn"
-          onclick="zoomOut()"
-        >
-          −
-        </button>
-
-        <input
-          id="zoomRange"
-          class="zoom-range"
-          type="range"
-          min="50"
-          max="130"
-          value="85"
-          oninput="changeZoom(this.value)"
-        >
-
-        <button
-          class="app-btn"
-          onclick="zoomIn()"
-        >
-          +
-        </button>
-
-        <span id="zoomValue" class="zoom-label">
-          85%
-        </span>
-
-      </div>
-
-
-      <div class="canvas-scroll">
-
-        <div
-          id="canvas"
-          class="canvas"
-          style="transform:scale(.85);transform-origin:center center;"
-        ></div>
-
-      </div>
-
-
-      <div class="statusbar">
-
-        <span id="statusLeft">
-          Ready
-        </span>
-
-        <span>
-          CareerCraft Presentation Studio
-        </span>
-
-      </div>
-
-    </section>
-
-  </main>
-
-</div>
-
-
-<!-- =========================================================
-     TEMPLATE MODAL
-========================================================= -->
-
-<div
-  id="templateOverlay"
-  class="template-overlay"
->
-
-  <div class="template-modal">
-
-    <div class="modal-head">
-
-      <div>
-        <h2>Choose a Slide Design</h2>
-        <div
-          style="font-size:11px;color:#888;margin-top:3px;"
-        >
-          50 professional CareerCraft slide designs
-        </div>
-      </div>
-
-      <button
-        class="close-modal"
-        onclick="closeTemplates()"
-      >
-        ×
-      </button>
-
-    </div>
-
-    <div
-      id="templateGrid"
-      class="template-grid"
-    ></div>
+    <button class="app-btn optional-btn" onclick="redoAction()">
+      ↷ Redo
+    </button>
+
+    <button class="app-btn" onclick="savePresentation()">
+      💾 Save
+    </button>
+
+    <button class="app-btn present-btn" onclick="startPresentation()">
+      ▶ Present
+    </button>
 
   </div>
 
+</header>
+
+<section class="ribbon">
+
+<div class="ribbon-tabs">
+
+<button class="ribbon-tab active"
+data-tab="home"
+onclick="switchRibbon('home')">
+Home
+</button>
+
+<button class="ribbon-tab"
+data-tab="insert"
+onclick="switchRibbon('insert')">
+Insert
+</button>
+
+<button class="ribbon-tab"
+data-tab="design"
+onclick="switchRibbon('design')">
+Design
+</button>
+
+<button class="ribbon-tab"
+data-tab="transitions"
+onclick="switchRibbon('transitions')">
+Transitions
+</button>
+
+<button class="ribbon-tab"
+data-tab="animations"
+onclick="switchRibbon('animations')">
+Animations
+</button>
+
+<button class="ribbon-tab"
+data-tab="slideshow"
+onclick="switchRibbon('slideshow')">
+Slide Show
+</button>
+
 </div>
 
+<!-- HOME -->
 
-<!-- =========================================================
-     FULL SCREEN PRESENTATION
-========================================================= -->
+<div class="ribbon-panel" id="ribbon-home">
 
-<div
-  id="presentMode"
-  class="present-mode"
+<div class="ribbon-group">
+
+<button class="tool-btn" onclick="addSlide()">
+<span>＋</span>
+<span>New Slide</span>
+</button>
+
+<button class="tool-btn" onclick="duplicateSlide()">
+<span>▣</span>
+<span>Duplicate</span>
+</button>
+
+<button class="tool-btn" onclick="deleteCurrentSlide()">
+<span>⌫</span>
+<span>Delete</span>
+</button>
+
+<div class="ribbon-group-title">Slides</div>
+</div>
+
+<div class="ribbon-group">
+
+<select
+class="tool-select"
+id="fontFamily"
+onchange="applyFontFamily(this.value)">
+<option>Arial</option>
+<option>Georgia</option>
+<option>Verdana</option>
+<option>Trebuchet MS</option>
+<option>Times New Roman</option>
+</select>
+
+<input
+id="fontSize"
+class="tool-input"
+type="number"
+value="28"
+min="8"
+max="100"
+onchange="applyFontSize(this.value)"
 >
 
-  <button
-    class="present-exit"
-    onclick="exitPresentation()"
-  >
-    ×
-  </button>
+<button class="tool-btn" onclick="toggleBold()">
+<span>𝐁</span>
+<span>Bold</span>
+</button>
 
-  <div
-    id="presentStage"
-    class="present-stage"
-  >
+<button class="tool-btn" onclick="toggleItalic()">
+<span>𝘐</span>
+<span>Italic</span>
+</button>
 
-    <button
-      class="present-nav left"
-      onclick="presentationPrevious()"
-    >
-      ‹
-    </button>
+<button class="tool-btn" onclick="toggleUnderline()">
+<span>U̲</span>
+<span>Underline</span>
+</button>
 
-    <div
-      id="presentSlide"
-      class="present-slide"
-    ></div>
+<div class="ribbon-group-title">Font</div>
+</div>
 
-    <button
-      class="present-nav right"
-      onclick="presentationNext()"
-    >
-      ›
-    </button>
+<div class="ribbon-group">
 
+<button class="tool-btn" onclick="alignText('left')">
+<span>≡</span>
+<span>Left</span>
+</button>
 
-    <div class="present-controls">
+<button class="tool-btn" onclick="alignText('center')">
+<span>≡</span>
+<span>Center</span>
+</button>
 
-      <button
-        class="present-control-btn"
-        onclick="presentationPrevious()"
-      >
-        ‹
-      </button>
+<button class="tool-btn" onclick="alignText('right')">
+<span>≡</span>
+<span>Right</span>
+</button>
 
-      <span
-        id="presentCounter"
-        class="present-counter"
-      >
-        1 / 1
-      </span>
+<div class="ribbon-group-title">Paragraph</div>
+</div>
 
-      <button
-        class="present-control-btn"
-        onclick="presentationNext()"
-      >
-        ›
-      </button>
+<div class="ribbon-group">
 
-      <button
-        class="present-control-btn"
-        onclick="toggleAutoPlay()"
-      >
-        ⏱
-      </button>
+<button class="tool-btn" onclick="openTemplates()">
+<span>▦</span>
+<span>Layouts</span>
+</button>
 
-      <button
-        class="present-control-btn"
-        onclick="toggleFullscreen()"
-      >
-        ⛶
-      </button>
+<button class="tool-btn" onclick="switchRibbon('design')">
+<span>🎨</span>
+<span>Theme</span>
+</button>
 
-    </div>
-
-  </div>
+<div class="ribbon-group-title">Design</div>
+</div>
 
 </div>
 
+<!-- INSERT -->
+
+<div class="ribbon-panel" id="ribbon-insert" style="display:none">
+
+<div class="ribbon-group">
+
+<button class="tool-btn" onclick="addTextBox()">
+<span>Ｔ</span>
+<span>Text Box</span>
+</button>
+
+<button class="tool-btn" onclick="addHeading()">
+<span>H</span>
+<span>Heading</span>
+</button>
+
+<button class="tool-btn" onclick="addQuote()">
+<span>❝</span>
+<span>Quote</span>
+</button>
+
+<div class="ribbon-group-title">Text</div>
+</div>
+
+<div class="ribbon-group">
+
+<button class="tool-btn" onclick="addImage()">
+<span>▧</span>
+<span>Image URL</span>
+</button>
+
+<button class="tool-btn" onclick="addShape()">
+<span>◇</span>
+<span>Shape</span>
+</button>
+
+<div class="ribbon-group-title">Elements</div>
+</div>
+
+<div class="ribbon-group">
+
+<button class="tool-btn" onclick="openTemplates()">
+<span>▦</span>
+<span>50 Designs</span>
+</button>
+
+<div class="ribbon-group-title">Templates</div>
+</div>
+
+</div>
+
+<!-- DESIGN -->
+
+<div class="ribbon-panel" id="ribbon-design" style="display:none">
+
+<div class="ribbon-group">
+
+<button class="tool-btn" onclick="applyTheme('purple')">
+<span>●</span>
+<span>Purple</span>
+</button>
+
+<button class="tool-btn" onclick="applyTheme('dark')">
+<span>●</span>
+<span>Dark</span>
+</button>
+
+<button class="tool-btn" onclick="applyTheme('blue')">
+<span>●</span>
+<span>Blue</span>
+</button>
+
+<button class="tool-btn" onclick="applyTheme('green')">
+<span>●</span>
+<span>Green</span>
+</button>
+
+<button class="tool-btn" onclick="applyTheme('cream')">
+<span>●</span>
+<span>Cream</span>
+</button>
+
+<button class="tool-btn" onclick="applyTheme('pink')">
+<span>●</span>
+<span>Pink</span>
+</button>
+
+<div class="ribbon-group-title">Themes</div>
+</div>
+
+<div class="ribbon-group">
+
+<button class="tool-btn" onclick="openTemplates()">
+<span>▦</span>
+<span>All Designs</span>
+</button>
+
+<div class="ribbon-group-title">Templates</div>
+</div>
+
+</div>
+
+<!-- TRANSITIONS -->
+
+<div class="ribbon-panel" id="ribbon-transitions" style="display:none">
+
+<div class="transition-panel">
+
+<button class="transition-card active"
+data-transition="none"
+onclick="setTransition('none')">
+<span class="transition-icon">—</span>
+None
+</button>
+
+<button class="transition-card"
+data-transition="fade"
+onclick="setTransition('fade')">
+<span class="transition-icon">◐</span>
+Fade
+</button>
+
+<button class="transition-card"
+data-transition="slide"
+onclick="setTransition('slide')">
+<span class="transition-icon">→</span>
+Slide
+</button>
+
+<button class="transition-card"
+data-transition="wipe"
+onclick="setTransition('wipe')">
+<span class="transition-icon">◧</span>
+Wipe
+</button>
+
+<button class="transition-card"
+data-transition="zoom"
+onclick="setTransition('zoom')">
+<span class="transition-icon">⌕</span>
+Zoom
+</button>
+
+<button class="transition-card"
+data-transition="dissolve"
+onclick="setTransition('dissolve')">
+<span class="transition-icon">✦</span>
+Dissolve
+</button>
+
+<select
+class="tool-select"
+id="transitionDuration"
+onchange="changeTransitionDuration(this.value)">
+<option value="0.3">0.3 sec</option>
+<option value="0.5" selected>0.5 sec</option>
+<option value="0.8">0.8 sec</option>
+<option value="1">1 sec</option>
+<option value="1.5">1.5 sec</option>
+<option value="2">2 sec</option>
+</select>
+
+<button class="app-btn" onclick="applyTransitionToAll()">
+Apply to All
+</button>
+
+<button class="app-btn" onclick="previewTransition()">
+▶ Preview
+</button>
+
+</div>
+
+</div>
+
+<!-- ANIMATIONS -->
+
+<div class="ribbon-panel" id="ribbon-animations" style="display:none">
+
+<div class="ribbon-group">
+
+<button class="tool-btn" onclick="setAnimation('none')">
+<span>—</span>
+<span>None</span>
+</button>
+
+<button class="tool-btn" onclick="setAnimation('fade')">
+<span>◐</span>
+<span>Fade In</span>
+</button>
+
+<button class="tool-btn" onclick="setAnimation('rise')">
+<span>↑</span>
+<span>Rise</span>
+</button>
+
+<button class="tool-btn" onclick="setAnimation('zoom')">
+<span>⌕</span>
+<span>Zoom</span>
+</button>
+
+<div class="ribbon-group-title">Object Animations</div>
+</div>
+
+</div>
+
+<!-- SLIDE SHOW -->
+
+<div class="ribbon-panel" id="ribbon-slideshow" style="display:none">
+
+<div class="ribbon-group">
+
+<button class="tool-btn" onclick="startPresentation(0)">
+<span>▶</span>
+<span>From Start</span>
+</button>
+
+<button class="tool-btn"
+onclick="startPresentation(currentSlideIndex)">
+<span>▷</span>
+<span>From Current</span>
+</button>
+
+<div class="ribbon-group-title">Start Slide Show</div>
+</div>
+
+<div class="ribbon-group">
+
+<button class="tool-btn" onclick="toggleAutoPlay()">
+<span>⏱</span>
+<span>Auto Play</span>
+</button>
+
+<button class="tool-btn" onclick="toggleFullscreen()">
+<span>⛶</span>
+<span>Fullscreen</span>
+</button>
+
+<div class="ribbon-group-title">Presentation</div>
+</div>
+
+</div>
+
+</section>
+
+<main class="workspace">
+
+<aside class="sidebar">
+
+<div class="sidebar-head">
+
+<strong>Slides</strong>
+
+<button
+class="add-slide-small"
+onclick="addSlide()">
++
+</button>
+
+</div>
+
+<div id="thumbnails" class="thumbnails"></div>
+
+</aside>
+
+<section class="canvas-area">
+
+<div class="canvas-toolbar">
+
+<span id="slidePosition" class="zoom-label">
+Slide 1 of 1
+</span>
+
+<span style="color:#ddd">|</span>
+
+<button class="app-btn" onclick="zoomOut()">−</button>
+
+<input
+id="zoomRange"
+class="zoom-range"
+type="range"
+min="50"
+max="130"
+value="85"
+oninput="changeZoom(this.value)"
+>
+
+<button class="app-btn" onclick="zoomIn()">+</button>
+
+<span id="zoomValue" class="zoom-label">
+85%
+</span>
+
+</div>
+
+<div class="canvas-scroll">
+
+<div
+id="canvas"
+class="canvas"
+style="transform:scale(.85);transform-origin:center center">
+</div>
+
+</div>
+
+<div class="statusbar">
+
+<span id="statusLeft">
+Ready
+</span>
+
+<span>
+CareerCraft Presentation Studio
+</span>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+<!-- TEMPLATE MODAL -->
+
+<div id="templateOverlay" class="template-overlay">
+
+<div class="template-modal">
+
+<div class="modal-head">
+
+<div>
+<h2>Choose a Slide Design</h2>
+
+<div style="font-size:11px;color:#888;margin-top:3px">
+50 professional CareerCraft slide designs
+</div>
+</div>
+
+<button class="close-modal" onclick="closeTemplates()">
+×
+</button>
+
+</div>
+
+<div id="templateGrid" class="template-grid"></div>
+
+</div>
+
+</div>
+
+<!-- PRESENTATION MODE -->
+
+<div id="presentMode" class="present-mode">
+
+<button class="present-exit" onclick="exitPresentation()">
+×
+</button>
+
+<div id="presentStage" class="present-stage">
+
+<button
+class="present-nav left"
+onclick="presentationPrevious()">
+‹
+</button>
+
+<div id="presentSlide" class="present-slide"></div>
+
+<button
+class="present-nav right"
+onclick="presentationNext()">
+›
+</button>
+
+<div class="present-controls">
+
+<button
+class="present-control-btn"
+onclick="presentationPrevious()">
+‹
+</button>
+
+<span id="presentCounter" class="present-counter">
+1 / 1
+</span>
+
+<button
+class="present-control-btn"
+onclick="presentationNext()">
+›
+</button>
+
+<button
+class="present-control-btn"
+onclick="toggleAutoPlay()">
+⏱
+</button>
+
+<button
+class="present-control-btn"
+onclick="toggleFullscreen()">
+⛶
+</button>
+
+</div>
+
+</div>
+
+</div>
 
 <div id="toast" class="toast"></div>
-
 
 <script>
 
@@ -1827,107 +1836,99 @@ button{
 ========================================================= */
 
 const SUPABASE_URL =
-  "https://upcxmlbgmqhaqieldmyk.supabase.co";
+"https://upcxmlbgmqhaqieldmyk.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+"sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
 
 const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 
 /* =========================================================
    GLOBAL STATE
 ========================================================= */
 
-let currentUser = null;
-
-let presentationId = null;
-
-let presentation = null;
-
-let slides = [];
-
-let currentSlideIndex = 0;
-
-let selectedElement = null;
-
-let zoomLevel = 85;
-
-let autoPlayTimer = null;
-
-let isAutoPlay = false;
-
-let historyStack = [];
-
-let redoStack = [];
+let currentUser=null;
+let presentationId=null;
+let presentation=null;
+let slides=[];
+let currentSlideIndex=0;
+let selectedElement=null;
+let zoomLevel=85;
+let autoPlayTimer=null;
+let isAutoPlay=false;
+let historyStack=[];
+let redoStack=[];
+let presentationIndex=0;
 
 
 /* =========================================================
-   50 REAL SLIDE DESIGNS
+   50 DESIGNS
 ========================================================= */
 
-const templates = [
+const templates=[
 
-  ["title","Executive Title","purple"],
-  ["title","Minimal Title","white"],
-  ["title","Dark Title","dark"],
-  ["title","Blue Title","blue"],
-  ["title","Green Title","green"],
-  ["title","Cream Title","cream"],
-  ["title","Pink Title","pink"],
-  ["title","Gradient Title","gradient"],
-  ["title","Modern Title","dark"],
-  ["title","Creative Title","purple"],
+["title","Executive Title","purple"],
+["title","Minimal Title","white"],
+["title","Dark Title","dark"],
+["title","Blue Title","blue"],
+["title","Green Title","green"],
+["title","Cream Title","cream"],
+["title","Pink Title","pink"],
+["title","Gradient Title","gradient"],
+["title","Modern Title","dark"],
+["title","Creative Title","purple"],
 
-  ["content","About Me","white"],
-  ["content","Career Overview","blue"],
-  ["content","Experience","cream"],
-  ["content","Skills","green"],
-  ["content","Education","white"],
-  ["content","Achievements","purple"],
-  ["content","Professional Summary","dark"],
-  ["content","Career Goals","blue"],
-  ["content","My Story","pink"],
-  ["content","Introduction","gradient"],
+["content","About Me","white"],
+["content","Career Overview","blue"],
+["content","Experience","cream"],
+["content","Skills","green"],
+["content","Education","white"],
+["content","Achievements","purple"],
+["content","Professional Summary","dark"],
+["content","Career Goals","blue"],
+["content","My Story","pink"],
+["content","Introduction","gradient"],
 
-  ["cards","Three Highlights","white"],
-  ["cards","Core Skills","blue"],
-  ["cards","Services","purple"],
-  ["cards","Projects","green"],
-  ["cards","Features","dark"],
-  ["cards","Key Areas","cream"],
-  ["cards","Strengths","pink"],
-  ["cards","Portfolio","gradient"],
-  ["cards","What I Offer","white"],
-  ["cards","Career Toolkit","blue"],
+["cards","Three Highlights","white"],
+["cards","Core Skills","blue"],
+["cards","Services","purple"],
+["cards","Projects","green"],
+["cards","Features","dark"],
+["cards","Key Areas","cream"],
+["cards","Strengths","pink"],
+["cards","Portfolio","gradient"],
+["cards","What I Offer","white"],
+["cards","Career Toolkit","blue"],
 
-  ["stats","Key Statistics","purple"],
-  ["stats","Results","dark"],
-  ["stats","Impact","blue"],
-  ["stats","Performance","green"],
-  ["stats","Business Metrics","cream"],
+["stats","Key Statistics","purple"],
+["stats","Results","dark"],
+["stats","Impact","blue"],
+["stats","Performance","green"],
+["stats","Business Metrics","cream"],
 
-  ["quote","Inspirational Quote","dark"],
-  ["quote","Career Quote","purple"],
-  ["quote","Vision Quote","blue"],
-  ["quote","Mission Quote","green"],
-  ["quote","Closing Quote","pink"],
+["quote","Inspirational Quote","dark"],
+["quote","Career Quote","purple"],
+["quote","Vision Quote","blue"],
+["quote","Mission Quote","green"],
+["quote","Closing Quote","pink"],
 
-  ["columns","Two Perspectives","white"],
-  ["columns","Skills & Experience","blue"],
-  ["columns","Problem & Solution","cream"],
-  ["columns","Before & After","green"],
-  ["columns","Goals & Actions","purple"],
+["columns","Two Perspectives","white"],
+["columns","Skills & Experience","blue"],
+["columns","Problem & Solution","cream"],
+["columns","Before & After","green"],
+["columns","Goals & Actions","purple"],
 
-  ["timeline","Career Timeline","dark"],
-  ["timeline","Project Timeline","blue"],
-  ["timeline","Growth Journey","green"],
-  ["timeline","Roadmap","purple"],
-  ["timeline","Future Plan","gradient"]
+["timeline","Career Timeline","dark"],
+["timeline","Project Timeline","blue"],
+["timeline","Growth Journey","green"],
+["timeline","Roadmap","purple"],
+["timeline","Future Plan","gradient"]
+
 ];
 
 
@@ -1937,75 +1938,75 @@ const templates = [
 
 async function initialize(){
 
-  const {
-    data:{
-      session
-    }
-  } =
-  await supabaseClient.auth.getSession();
+try{
 
-  if(
-    !session ||
-    !session.user
-  ){
+const {data:{session},error:sessionError}=
+await supabaseClient.auth.getSession();
 
-    window.location.href =
-      "login.html";
+if(sessionError){
+console.error(sessionError);
+}
 
-    return;
-  }
+if(!session || !session.user){
 
-  currentUser =
-    session.user;
+window.location.href="login.html";
+return;
 
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
+}
 
-  const id =
-    params.get("id");
+currentUser=session.user;
 
-  const isNew =
-    params.get("new") === "1";
+const params=
+new URLSearchParams(
+window.location.search
+);
 
+const id=params.get("id");
+const isNew=params.get("new")==="1";
 
-  if(id){
+if(id){
 
-    if(!isValidUUID(id)){
+if(!isValidUUID(id)){
 
-      showToast(
-        "Invalid presentation ID."
-      );
+showToast("Invalid presentation ID.");
 
-      setTimeout(
-        () => goBack(),
-        1200
-      );
+setTimeout(
+()=>goBack(),
+1200
+);
 
-      return;
-    }
+return;
+}
 
-    presentationId = id;
+presentationId=id;
 
-    await loadPresentation();
+await loadPresentation();
 
-  }else if(isNew){
+}else{
 
-    createNewLocalPresentation();
+createNewLocalPresentation();
 
-  }else{
+}
 
-    createNewLocalPresentation();
-  }
+normalizeSlideOrders();
 
-  renderThumbnails();
+renderThumbnails();
+renderCanvas();
+buildTemplateGallery();
+updateSlidePosition();
+updateTransitionUI();
 
-  renderCanvas();
+}catch(error){
 
-  buildTemplateGallery();
+console.error("Initialization error:",error);
 
-  updateSlidePosition();
+showToast(
+error.message ||
+"Unable to initialize presentation."
+);
+
+}
+
 }
 
 
@@ -2015,65 +2016,109 @@ async function initialize(){
 
 function isValidUUID(value){
 
-  return typeof value === "string" &&
-    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-      .test(value);
+return typeof value==="string" &&
+/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+
 }
 
 
 /* =========================================================
-   ESCAPE HTML
+   ESCAPE
 ========================================================= */
 
 function escapeHTML(value){
 
-  if(
-    value === null ||
-    value === undefined
-  ){
-    return "";
-  }
+if(value===null || value===undefined){
+return "";
+}
 
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
 }
 
 
 /* =========================================================
-   NEW LOCAL PRESENTATION
+   NEW PRESENTATION
 ========================================================= */
 
 function createNewLocalPresentation(){
 
-  presentation = {
-    title:"My Career Presentation",
-    description:"Created with CareerCraft",
-    background:"light"
-  };
+presentation={
+title:"My Career Presentation",
+description:"Created with CareerCraft",
+background:"light"
+};
 
-  document.getElementById(
-    "presentationTitle"
-  ).value =
-    presentation.title;
+document.getElementById(
+"presentationTitle"
+).value=presentation.title;
 
-  slides = [
-    createSlideFromTemplate(
-      0
-    )
-  ];
+slides=[
+createSlideFromTemplate(0)
+];
 
-  slides[0].title =
-    "Welcome to My Presentation";
+slides[0].title=
+"Welcome to My Presentation";
 
-  slides[0].subtitle =
-    "CareerCraft Presentation Studio";
+slides[0].subtitle=
+"CareerCraft Presentation Studio";
 
-  slides[0].content =
-    "Introduce yourself, your experience, skills, achievements, or career goals here.";
+slides[0].content=
+"Introduce yourself, your experience, skills, achievements, or career goals here.";
+
+}
+
+
+/* =========================================================
+   CREATE SLIDE
+========================================================= */
+
+function createSlideFromTemplate(index){
+
+const t=
+templates[
+index % templates.length
+];
+
+return{
+
+id:null,
+
+presentation_id:
+presentationId,
+
+slide_order:
+slides.length,
+
+layout:t[0],
+
+title:t[1],
+
+subtitle:
+"CareerCraft Presentation",
+
+content:
+"Add your content here.",
+
+image_url:null,
+
+background:t[2],
+
+transition:"none",
+
+transition_duration:.5,
+
+animation:"none",
+
+theme:t[2]
+
+};
+
 }
 
 
@@ -2083,104 +2128,89 @@ function createNewLocalPresentation(){
 
 async function loadPresentation(){
 
-  setSaveStatus(
-    "Loading..."
-  );
+setSaveStatus("Loading...");
 
-  try{
+try{
 
-    const {
-      data:p,
-      error:pError
-    } =
-    await supabaseClient
-      .from("presentations")
-      .select("*")
-      .eq("id",presentationId)
-      .eq("user_id",currentUser.id)
-      .single();
+const {
+data:p,
+error:pError
+}=
+await supabaseClient
+.from("presentations")
+.select("*")
+.eq("id",presentationId)
+.eq("user_id",currentUser.id)
+.single();
 
-    if(pError){
-      throw pError;
-    }
+if(pError){
+throw pError;
+}
 
-    presentation = p;
+if(!p){
+throw new Error("Presentation not found.");
+}
 
-    document.getElementById(
-      "presentationTitle"
-    ).value =
-      p.title ||
-      "Untitled Presentation";
+presentation=p;
+
+document.getElementById(
+"presentationTitle"
+).value=
+p.title ||
+"Untitled Presentation";
 
 
-    const {
-      data:slideData,
-      error:sError
-    } =
-    await supabaseClient
-      .from("presentation_slides")
-      .select("*")
-      .eq(
-        "presentation_id",
-        presentationId
-      );
+const {
+data:slideData,
+error:sError
+}=
+await supabaseClient
+.from("presentation_slides")
+.select("*")
+.eq("presentation_id",presentationId);
 
-    if(sError){
-      throw sError;
-    }
+if(sError){
+throw sError;
+}
 
-    slides =
-      (slideData || [])
-      .sort(
-        (a,b) =>
-          Number(
-            a.slide_order ??
-            a.order ??
-            0
-          ) -
-          Number(
-            b.slide_order ??
-            b.order ??
-            0
-          )
-      );
+slides=(slideData||[])
+.sort(
+(a,b)=>
+Number(a.slide_order??a.order??0)-
+Number(b.slide_order??b.order??0)
+)
+.map(normalizeSlide);
 
-    if(!slides.length){
+if(!slides.length){
 
-      slides = [
-        createSlideFromTemplate(
-          0
-        )
-      ];
-    }
+slides=[
+createSlideFromTemplate(0)
+];
 
-    slides =
-      slides.map(
-        normalizeSlide
-      );
+}
 
-    setSaveStatus(
-      "Saved"
-    );
+setSaveStatus("Saved");
 
-  }catch(error){
+}catch(error){
 
-    console.error(
-      "Load presentation:",
-      error
-    );
+console.error(
+"Load presentation:",
+error
+);
 
-    showToast(
-      error.message ||
-      "Unable to load presentation."
-    );
+showToast(
+error.message ||
+"Unable to load presentation."
+);
 
-    createNewLocalPresentation();
+createNewLocalPresentation();
 
-    setSaveStatus(
-      "New presentation"
-    );
-  }
+setSaveStatus(
+"New presentation"
+);
+
+}
+
 }
 
 
@@ -2190,119 +2220,51 @@ async function loadPresentation(){
 
 function normalizeSlide(slide){
 
-  return {
+return{
 
-    id:
-      slide.id ||
-      null,
+id:slide.id||null,
 
-    presentation_id:
-      slide.presentation_id ||
-      presentationId ||
-      null,
+presentation_id:
+slide.presentation_id||
+presentationId||
+null,
 
-    slide_order:
-      Number(
-        slide.slide_order ??
-        0
-      ),
+slide_order:
+Number(slide.slide_order??0),
 
-    layout:
-      slide.layout ||
-      "title_content",
+layout:
+slide.layout||
+"title_content",
 
-    title:
-      slide.title ||
-      "",
+title:
+slide.title||"",
 
-    subtitle:
-      slide.subtitle ||
-      "",
+subtitle:
+slide.subtitle||"",
 
-    content:
-      slide.content ||
-      "",
+content:
+slide.content||"",
 
-    image_url:
-      slide.image_url ||
-      null,
+image_url:
+slide.image_url||null,
 
-    background:
-      slide.background ||
-      "light",
+background:
+slide.background||"light",
 
-    transition:
-      slide.transition ||
-      "none",
+transition:
+slide.transition||"none",
 
-    transition_duration:
-      Number(
-        slide.transition_duration ||
-        .5
-      ),
+transition_duration:
+Number(slide.transition_duration||.5),
 
-    animation:
-      slide.animation ||
-      "none",
+animation:
+slide.animation||"none",
 
-    theme:
-      slide.theme ||
-      ""
-  };
-}
+theme:
+slide.theme||""
 
+};
 
-/* =========================================================
-   CREATE SLIDE FROM TEMPLATE
-========================================================= */
-
-function createSlideFromTemplate(index){
-
-  const t =
-    templates[
-      index %
-      templates.length
-    ];
-
-  return {
-
-    id:null,
-
-    presentation_id:
-      presentationId,
-
-    slide_order:
-      slides.length,
-
-    layout:
-      t[0],
-
-    title:
-      t[1],
-
-    subtitle:
-      "CareerCraft Presentation",
-
-    content:
-      "Add your content here.",
-
-    image_url:null,
-
-    background:
-      t[2],
-
-    transition:
-      "none",
-
-    transition_duration:
-      .5,
-
-    animation:
-      "none",
-
-    theme:
-      t[2]
-  };
 }
 
 
@@ -2312,135 +2274,94 @@ function createSlideFromTemplate(index){
 
 function renderThumbnails(){
 
-  const container =
-    document.getElementById(
-      "thumbnails"
-    );
+const container=
+document.getElementById("thumbnails");
 
-  container.innerHTML = "";
+container.innerHTML="";
 
-  slides.forEach(
-    (slide,index) => {
+slides.forEach(
+(slide,index)=>{
 
-      const item =
-        document.createElement(
-          "div"
-        );
+const item=
+document.createElement("div");
 
-      item.className =
-        "thumbnail-item" +
-        (
-          index === currentSlideIndex
-            ? " active"
-            : ""
-        );
+item.className=
+"thumbnail-item"+
+(index===currentSlideIndex?" active":"");
 
-      item.onclick =
-        () => selectSlide(index);
+item.onclick=
+()=>selectSlide(index);
 
+const wrap=
+document.createElement("div");
 
-      const wrap =
-        document.createElement(
-          "div"
-        );
+wrap.className=
+"thumbnail-wrap";
 
-      wrap.className =
-        "thumbnail-wrap";
+const thumb=
+document.createElement("div");
 
+thumb.className="thumbnail";
 
-      const thumb =
-        document.createElement(
-          "div"
-        );
+thumb.innerHTML=
+buildSlideVisual(slide,true);
 
-      thumb.className =
-        "thumbnail";
+if(
+slide.transition &&
+slide.transition!=="none"
+){
 
-      thumb.innerHTML =
-        buildSlideVisual(
-          slide,
-          true
-        );
+const transition=
+document.createElement("div");
 
+transition.className=
+"thumbnail-transition";
 
-      if(
-        slide.transition &&
-        slide.transition !== "none"
-      ){
+transition.textContent="✦";
 
-        const transition =
-          document.createElement(
-            "div"
-          );
+thumb.appendChild(
+transition
+);
 
-        transition.className =
-          "thumbnail-transition";
+}
 
-        transition.textContent =
-          "✦";
+const deleteBtn=
+document.createElement("button");
 
-        thumb.appendChild(
-          transition
-        );
-      }
+deleteBtn.className=
+"thumbnail-delete";
 
+deleteBtn.textContent="×";
 
-      const deleteBtn =
-        document.createElement(
-          "button"
-        );
+deleteBtn.onclick=
+event=>{
 
-      deleteBtn.className =
-        "thumbnail-delete";
+event.stopPropagation();
 
-      deleteBtn.textContent =
-        "×";
+deleteSlide(index);
 
-      deleteBtn.onclick =
-        event => {
+};
 
-          event.stopPropagation();
+wrap.appendChild(thumb);
+wrap.appendChild(deleteBtn);
 
-          deleteSlide(
-            index
-          );
-        };
+const number=
+document.createElement("div");
 
+number.className=
+"thumbnail-number";
 
-      wrap.appendChild(
-        thumb
-      );
+number.textContent=
+index+1;
 
-      wrap.appendChild(
-        deleteBtn
-      );
+item.appendChild(number);
+item.appendChild(wrap);
 
+container.appendChild(item);
 
-      const number =
-        document.createElement(
-          "div"
-        );
+}
+);
 
-      number.className =
-        "thumbnail-number";
-
-      number.textContent =
-        index + 1;
-
-
-      item.appendChild(
-        number
-      );
-
-      item.appendChild(
-        wrap
-      );
-
-      container.appendChild(
-        item
-      );
-    }
-  );
 }
 
 
@@ -2450,951 +2371,915 @@ function renderThumbnails(){
 
 function selectSlide(index){
 
-  if(
-    index < 0 ||
-    index >= slides.length
-  ){
-    return;
-  }
+if(
+index<0 ||
+index>=slides.length
+){
+return;
+}
 
-  currentSlideIndex =
-    index;
+currentSlideIndex=index;
 
-  selectedElement =
-    null;
+selectedElement=null;
 
-  renderThumbnails();
+renderThumbnails();
+renderCanvas();
+updateSlidePosition();
+updateTransitionUI();
 
-  renderCanvas();
-
-  updateSlidePosition();
-
-  updateTransitionUI();
 }
 
 
 /* =========================================================
-   RENDER CANVAS
+   CANVAS
 ========================================================= */
 
 function renderCanvas(){
 
-  const canvas =
-    document.getElementById(
-      "canvas"
-    );
+const canvas=
+document.getElementById("canvas");
 
-  if(!slides.length){
+if(!slides.length){
 
-    canvas.innerHTML =
-      `<div style="
-        width:100%;
-        height:100%;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        color:#888;
-      ">No slides</div>`;
+canvas.innerHTML=
+`
+<div style="
+width:100%;
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#888;
+">
+No slides
+</div>
+`;
 
-    return;
-  }
+return;
 
-  const slide =
-    slides[
-      currentSlideIndex
-    ];
+}
 
-  canvas.innerHTML =
-    buildEditableSlide(
-      slide
-    );
+canvas.innerHTML=
+buildEditableSlide(
+slides[currentSlideIndex]
+);
+
 }
 
 
 /* =========================================================
-   BUILD EDITABLE SLIDE
+   EDITABLE SLIDE
 ========================================================= */
 
 function buildEditableSlide(slide){
 
-  const bg =
-    backgroundCSS(
-      slide.background
-    );
-
-  const text =
-    textColor(
-      slide.background
-    );
-
-  const title =
-    escapeHTML(
-      slide.title
-    );
-
-  const subtitle =
-    escapeHTML(
-      slide.subtitle
-    );
-
-  const content =
-    escapeHTML(
-      slide.content
-    );
-
-
-  if(
-    slide.layout === "stats"
-  ){
-
-    return `
-      <div
-        class="canvas-editable ${animationClass(slide)}"
-        style="${bg};color:${text};"
-      >
-
-        <div class="shape-circle"></div>
-
-        <div
-          class="slide-element"
-          style="left:8%;top:10%;width:84%;"
-        >
-          <textarea
-            class="editable-text"
-            style="
-              font-size:clamp(22px,4vw,50px);
-              font-weight:800;
-              text-align:left;
-            "
-            onchange="updateSlideField('title',this.value)"
-            oninput="updateSlideField('title',this.value)"
-          >${title}</textarea>
-        </div>
-
-        <div
-          class="mini-stat"
-          style="
-            position:absolute;
-            left:8%;
-            right:8%;
-            top:38%;
-          "
-        >
-
-          ${buildStatBox(
-            "01",
-            "Experience"
-          )}
-
-          ${buildStatBox(
-            "95%",
-            "Success"
-          )}
-
-          ${buildStatBox(
-            "24+",
-            "Projects"
-          )}
-
-        </div>
-
-        <div
-          class="slide-element"
-          style="left:8%;bottom:8%;width:84%;"
-        >
-          <textarea
-            class="editable-text"
-            style="
-              font-size:clamp(12px,1.5vw,20px);
-              opacity:.7;
-            "
-            onchange="updateSlideField('content',this.value)"
-            oninput="updateSlideField('content',this.value)"
-          >${content}</textarea>
-        </div>
-
-      </div>
-    `;
-  }
-
-
-  if(
-    slide.layout === "cards"
-  ){
-
-    return `
-      <div
-        class="canvas-editable ${animationClass(slide)}"
-        style="${bg};color:${text};"
-      >
-
-        <div
-          class="slide-element"
-          style="left:8%;top:9%;width:84%;"
-        >
-          <textarea
-            class="editable-text"
-            style="
-              font-size:clamp(22px,3.5vw,48px);
-              font-weight:800;
-            "
-            onchange="updateSlideField('title',this.value)"
-            oninput="updateSlideField('title',this.value)"
-          >${title}</textarea>
-        </div>
-
-        <div class="mini-cards"
-             style="
-               position:absolute;
-               left:8%;
-               right:8%;
-               top:38%;
-             ">
-
-          ${buildMiniCard(
-            "Skills",
-            "What I do best"
-          )}
-
-          ${buildMiniCard(
-            "Projects",
-            "Selected work"
-          )}
-
-          ${buildMiniCard(
-            "Results",
-            "What I achieved"
-          )}
-
-        </div>
-
-        <div
-          class="slide-element"
-          style="left:8%;bottom:8%;width:84%;"
-        >
-          <textarea
-            class="editable-text"
-            style="font-size:clamp(11px,1.4vw,18px);opacity:.7;"
-            onchange="updateSlideField('subtitle',this.value)"
-            oninput="updateSlideField('subtitle',this.value)"
-          >${subtitle}</textarea>
-        </div>
-
-      </div>
-    `;
-  }
-
-
-  if(
-    slide.layout === "quote"
-  ){
-
-    return `
-      <div
-        class="canvas-editable ${animationClass(slide)}"
-        style="${bg};color:${text};"
-      >
-
-        <div
-          class="slide-element"
-          style="
-            left:12%;
-            top:12%;
-            width:76%;
-          "
-        >
-
-          <textarea
-            class="editable-text"
-            style="
-              font-size:clamp(24px,4vw,54px);
-              font-weight:800;
-              text-align:center;
-            "
-            onchange="updateSlideField('title',this.value)"
-            oninput="updateSlideField('title',this.value)"
-          >${title}</textarea>
-
-        </div>
-
-        <div
-          class="slide-element"
-          style="
-            left:14%;
-            top:40%;
-            width:72%;
-          "
-        >
-
-          <textarea
-            class="editable-text"
-            style="
-              font-size:clamp(15px,2vw,30px);
-              font-style:italic;
-              text-align:center;
-              line-height:1.4;
-            "
-            onchange="updateSlideField('content',this.value)"
-            oninput="updateSlideField('content',this.value)"
-          >${content}</textarea>
-
-        </div>
-
-        <div
-          class="slide-element"
-          style="
-            left:25%;
-            bottom:12%;
-            width:50%;
-          "
-        >
-
-          <textarea
-            class="editable-text"
-            style="
-              font-size:clamp(10px,1.2vw,17px);
-              text-align:center;
-              opacity:.65;
-            "
-            onchange="updateSlideField('subtitle',this.value)"
-            oninput="updateSlideField('subtitle',this.value)"
-          >${subtitle}</textarea>
-
-        </div>
-
-      </div>
-    `;
-  }
-
-
-  if(
-    slide.layout === "columns"
-  ){
-
-    return `
-      <div
-        class="canvas-editable ${animationClass(slide)}"
-        style="${bg};color:${text};"
-      >
-
-        <div
-          class="slide-element"
-          style="
-            left:8%;
-            top:8%;
-            width:84%;
-          "
-        >
-
-          <textarea
-            class="editable-text"
-            style="
-              font-size:clamp(22px,3.5vw,48px);
-              font-weight:800;
-            "
-            onchange="updateSlideField('title',this.value)"
-            oninput="updateSlideField('title',this.value)"
-          >${title}</textarea>
-
-        </div>
-
-        <div
-          style="
-            position:absolute;
-            left:8%;
-            right:8%;
-            top:36%;
-            display:grid;
-            grid-template-columns:1fr 1fr;
-            gap:8%;
-          "
-        >
-
-          <div>
-
-            <div
-              class="mini-line"
-            ></div>
-
-            <div
-              class="slide-element"
-              style="position:relative;width:100%;"
-            >
-
-              <textarea
-                class="editable-text"
-                style="
-                  font-size:clamp(11px,1.4vw,19px);
-                  line-height:1.6;
-                "
-                onchange="updateSlideField('content',this.value)"
-                oninput="updateSlideField('content',this.value)"
-              >${content}</textarea>
-
-            </div>
-
-          </div>
-
-          <div>
-
-            <div
-              class="mini-line"
-            ></div>
-
-            <div
-              class="slide-element"
-              style="position:relative;width:100%;"
-            >
-
-              <textarea
-                class="editable-text"
-                style="
-                  font-size:clamp(11px,1.4vw,19px);
-                  line-height:1.6;
-                "
-                placeholder="Add second column..."
-              >Add more information here.</textarea>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    `;
-  }
-
-
-  if(
-    slide.layout === "timeline"
-  ){
-
-    return `
-      <div
-        class="canvas-editable ${animationClass(slide)}"
-        style="${bg};color:${text};"
-      >
-
-        <div
-          class="slide-element"
-          style="
-            left:8%;
-            top:9%;
-            width:84%;
-          "
-        >
-
-          <textarea
-            class="editable-text"
-            style="
-              font-size:clamp(22px,3.5vw,48px);
-              font-weight:800;
-            "
-            onchange="updateSlideField('title',this.value)"
-            oninput="updateSlideField('title',this.value)"
-          >${title}</textarea>
-
-        </div>
-
-        <div
-          class="mini-timeline"
-          style="
-            position:absolute;
-            left:10%;
-            right:10%;
-            top:42%;
-          "
-        >
-
-          ${buildTimelineItem(
-            "2022",
-            "Start"
-          )}
-
-          ${buildTimelineItem(
-            "2023",
-            "Growth"
-          )}
-
-          ${buildTimelineItem(
-            "2024",
-            "Progress"
-          )}
-
-          ${buildTimelineItem(
-            "2025",
-            "Success"
-          )}
-
-          ${buildTimelineItem(
-            "2026",
-            "Future"
-          )}
-
-        </div>
-
-        <div
-          class="slide-element"
-          style="
-            left:8%;
-            bottom:9%;
-            width:84%;
-          "
-        >
-
-          <textarea
-            class="editable-text"
-            style="
-              font-size:clamp(10px,1.3vw,17px);
-              opacity:.7;
-            "
-            onchange="updateSlideField('content',this.value)"
-            oninput="updateSlideField('content',this.value)"
-          >${content}</textarea>
-
-        </div>
-
-      </div>
-    `;
-  }
-
-
-  /* DEFAULT TITLE / CONTENT */
-
-  return `
-    <div
-      class="canvas-editable ${animationClass(slide)}"
-      style="${bg};color:${text};"
-    >
-
-      <div class="shape-circle"></div>
-
-      <div
-        class="slide-element"
-        style="
-          left:8%;
-          top:9%;
-          width:84%;
-        "
-      >
-
-        <textarea
-          class="editable-text"
-          style="
-            font-size:clamp(24px,4vw,54px);
-            font-weight:800;
-            line-height:1.05;
-          "
-          onchange="updateSlideField('title',this.value)"
-          oninput="updateSlideField('title',this.value)"
-        >${title}</textarea>
-
-      </div>
-
-
-      <div
-        class="slide-element"
-        style="
-          left:8%;
-          top:31%;
-          width:84%;
-        "
-      >
-
-        <textarea
-          class="editable-text"
-          style="
-            font-size:clamp(13px,1.7vw,23px);
-            opacity:.7;
-            line-height:1.4;
-          "
-          onchange="updateSlideField('subtitle',this.value)"
-          oninput="updateSlideField('subtitle',this.value)"
-        >${subtitle}</textarea>
-
-      </div>
-
-
-      <div
-        class="slide-element"
-        style="
-          left:8%;
-          top:48%;
-          width:70%;
-        "
-      >
-
-        <textarea
-          class="editable-text"
-          style="
-            font-size:clamp(12px,1.45vw,20px);
-            line-height:1.6;
-          "
-          onchange="updateSlideField('content',this.value)"
-          oninput="updateSlideField('content',this.value)"
-        >${content}</textarea>
-
-      </div>
-
-      <div
-        style="
-          position:absolute;
-          left:8%;
-          bottom:7%;
-          font-size:clamp(8px,1vw,13px);
-          opacity:.45;
-        "
-      >
-        CareerCraft
-      </div>
-
-    </div>
-  `;
+const bg=
+backgroundCSS(slide.background);
+
+const text=
+textColor(slide.background);
+
+const title=
+escapeHTML(slide.title);
+
+const subtitle=
+escapeHTML(slide.subtitle);
+
+const content=
+escapeHTML(slide.content);
+
+const animation=
+animationClass(slide);
+
+if(slide.layout==="stats"){
+
+return`
+
+<div class="canvas-editable ${animation}"
+style="${bg};color:${text};">
+
+<div class="shape-circle"></div>
+
+<div class="slide-element"
+style="left:8%;top:10%;width:84%;">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(22px,4vw,50px);
+font-weight:800;
+"
+oninput="updateSlideField('title',this.value)"
+>${title}</textarea>
+
+</div>
+
+<div
+class="mini-stat"
+style="
+position:absolute;
+left:8%;
+right:8%;
+top:38%;
+">
+
+${buildStatBox("24+","Projects")}
+${buildStatBox("95%","Success")}
+${buildStatBox("10","Skills")}
+
+</div>
+
+<div class="slide-element"
+style="left:8%;bottom:8%;width:84%;">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(12px,1.5vw,20px);
+opacity:.7;
+"
+oninput="updateSlideField('content',this.value)"
+>${content}</textarea>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(slide.layout==="cards"){
+
+return`
+
+<div class="canvas-editable ${animation}"
+style="${bg};color:${text};">
+
+<div class="slide-element"
+style="left:8%;top:9%;width:84%;">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(22px,3.5vw,48px);
+font-weight:800;
+"
+oninput="updateSlideField('title',this.value)"
+>${title}</textarea>
+
+</div>
+
+<div class="mini-cards"
+style="
+position:absolute;
+left:8%;
+right:8%;
+top:38%;
+">
+
+${buildMiniCard("Skills","What I do best")}
+${buildMiniCard("Projects","Selected work")}
+${buildMiniCard("Results","What I achieved")}
+
+</div>
+
+<div class="slide-element"
+style="left:8%;bottom:8%;width:84%;">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(11px,1.4vw,18px);
+opacity:.7;
+"
+oninput="updateSlideField('subtitle',this.value)"
+>${subtitle}</textarea>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(slide.layout==="quote"){
+
+return`
+
+<div class="canvas-editable ${animation}"
+style="${bg};color:${text};">
+
+<div class="slide-element"
+style="
+left:12%;
+top:12%;
+width:76%;
+">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(24px,4vw,54px);
+font-weight:800;
+text-align:center;
+"
+oninput="updateSlideField('title',this.value)"
+>${title}</textarea>
+
+</div>
+
+<div class="slide-element"
+style="
+left:14%;
+top:40%;
+width:72%;
+">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(15px,2vw,30px);
+font-style:italic;
+text-align:center;
+line-height:1.4;
+"
+oninput="updateSlideField('content',this.value)"
+>${content}</textarea>
+
+</div>
+
+<div class="slide-element"
+style="
+left:25%;
+bottom:12%;
+width:50%;
+">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(10px,1.2vw,17px);
+text-align:center;
+opacity:.65;
+"
+oninput="updateSlideField('subtitle',this.value)"
+>${subtitle}</textarea>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(slide.layout==="columns"){
+
+return`
+
+<div class="canvas-editable ${animation}"
+style="${bg};color:${text};">
+
+<div class="slide-element"
+style="
+left:8%;
+top:8%;
+width:84%;
+">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(22px,3.5vw,48px);
+font-weight:800;
+"
+oninput="updateSlideField('title',this.value)"
+>${title}</textarea>
+
+</div>
+
+<div
+style="
+position:absolute;
+left:8%;
+right:8%;
+top:36%;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8%;
+">
+
+<div>
+
+<div class="mini-line"></div>
+
+<div class="slide-element"
+style="position:relative;width:100%;">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(11px,1.4vw,19px);
+line-height:1.6;
+"
+oninput="updateSlideField('content',this.value)"
+>${content}</textarea>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="mini-line"></div>
+
+<div
+style="
+font-size:clamp(11px,1.4vw,19px);
+line-height:1.6;
+opacity:.75;
+">
+
+Add more information here.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(slide.layout==="timeline"){
+
+return`
+
+<div class="canvas-editable ${animation}"
+style="${bg};color:${text};">
+
+<div class="slide-element"
+style="
+left:8%;
+top:9%;
+width:84%;
+">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(22px,3.5vw,48px);
+font-weight:800;
+"
+oninput="updateSlideField('title',this.value)"
+>${title}</textarea>
+
+</div>
+
+<div
+class="mini-timeline"
+style="
+position:absolute;
+left:10%;
+right:10%;
+top:42%;
+">
+
+${buildTimelineItem("2022","Start")}
+${buildTimelineItem("2023","Growth")}
+${buildTimelineItem("2024","Progress")}
+${buildTimelineItem("2025","Success")}
+${buildTimelineItem("2026","Future")}
+
+</div>
+
+<div class="slide-element"
+style="
+left:8%;
+bottom:9%;
+width:84%;
+">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(10px,1.3vw,17px);
+opacity:.7;
+"
+oninput="updateSlideField('content',this.value)"
+>${content}</textarea>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* IMAGE LAYOUT */
+
+if(slide.layout==="image_text"){
+
+return`
+
+<div class="canvas-editable ${animation}"
+style="${bg};color:${text};">
+
+<div class="slide-element"
+style="
+left:7%;
+top:10%;
+width:45%;
+">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(20px,3.4vw,46px);
+font-weight:800;
+"
+oninput="updateSlideField('title',this.value)"
+>${title}</textarea>
+
+</div>
+
+<div class="slide-element"
+style="
+left:7%;
+top:35%;
+width:42%;
+">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(11px,1.4vw,18px);
+line-height:1.6;
+"
+oninput="updateSlideField('content',this.value)"
+>${content}</textarea>
+
+</div>
+
+${
+slide.image_url
+?
+`
+<img
+class="canvas-image"
+src="${escapeHTML(slide.image_url)}"
+style="
+right:7%;
+top:12%;
+width:42%;
+height:70%;
+"
+onerror="this.style.display='none';"
+>
+`
+:""
+}
+
+</div>
+
+`;
+
+}
+
+
+/* DEFAULT */
+
+return`
+
+<div class="canvas-editable ${animation}"
+style="${bg};color:${text};">
+
+<div class="shape-circle"></div>
+
+<div class="slide-element"
+style="
+left:8%;
+top:9%;
+width:84%;
+">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(24px,4vw,54px);
+font-weight:800;
+line-height:1.05;
+"
+oninput="updateSlideField('title',this.value)"
+>${title}</textarea>
+
+</div>
+
+<div class="slide-element"
+style="
+left:8%;
+top:31%;
+width:84%;
+">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(13px,1.7vw,23px);
+opacity:.7;
+line-height:1.4;
+"
+oninput="updateSlideField('subtitle',this.value)"
+>${subtitle}</textarea>
+
+</div>
+
+<div class="slide-element"
+style="
+left:8%;
+top:48%;
+width:70%;
+">
+
+<textarea
+class="editable-text"
+style="
+font-size:clamp(12px,1.45vw,20px);
+line-height:1.6;
+"
+oninput="updateSlideField('content',this.value)"
+>${content}</textarea>
+
+</div>
+
+${
+slide.image_url
+?
+`
+<img
+class="canvas-image"
+src="${escapeHTML(slide.image_url)}"
+style="
+right:7%;
+top:43%;
+width:22%;
+height:38%;
+"
+onerror="this.style.display='none';"
+>
+`
+:""
+}
+
+<div
+style="
+position:absolute;
+left:8%;
+bottom:7%;
+font-size:clamp(8px,1vw,13px);
+opacity:.45;
+">
+CareerCraft
+</div>
+
+</div>
+
+`;
+
 }
 
 
 /* =========================================================
-   VISUAL SLIDE FOR THUMBNAILS / PRESENTATION
+   VISUAL SLIDE
 ========================================================= */
 
-function buildSlideVisual(
-  slide,
-  miniature=false
-){
+function buildSlideVisual(slide,miniature=false){
 
-  const bg =
-    backgroundCSS(
-      slide.background
-    );
+const bg=
+backgroundCSS(slide.background);
 
-  const text =
-    textColor(
-      slide.background
-    );
+const text=
+textColor(slide.background);
 
-  const title =
-    escapeHTML(
-      slide.title ||
-      "Untitled Slide"
-    );
+const title=
+escapeHTML(
+slide.title||"Untitled Slide"
+);
 
-  const subtitle =
-    escapeHTML(
-      slide.subtitle ||
-      ""
-    );
+const subtitle=
+escapeHTML(
+slide.subtitle||""
+);
 
-  const content =
-    escapeHTML(
-      slide.content ||
-      ""
-    );
+const content=
+escapeHTML(
+slide.content||""
+);
 
+if(slide.layout==="stats"){
 
-  const small =
-    miniature
-      ? ""
-      : "";
+return`
 
+<div class="design-content"
+style="${bg};color:${text};">
 
-  if(
-    slide.layout === "stats"
-  ){
+<div class="shape-circle"></div>
 
-    return `
-      <div
-        class="design-content"
-        style="${bg};color:${text};"
-      >
+<div class="design-title">
+${title}
+</div>
 
-        <div class="shape-circle"></div>
+<div class="mini-stat">
 
-        <div class="design-title">
-          ${title}
-        </div>
+${buildStatBox("24+","Projects")}
+${buildStatBox("95%","Success")}
+${buildStatBox("10","Skills")}
 
-        <div class="mini-stat">
+</div>
 
-          ${buildStatBox(
-            "24+",
-            "Projects"
-          )}
+</div>
 
-          ${buildStatBox(
-            "95%",
-            "Success"
-          )}
+`;
 
-          ${buildStatBox(
-            "10",
-            "Skills"
-          )}
+}
 
-        </div>
+if(slide.layout==="cards"){
 
-      </div>
-    `;
-  }
+return`
 
+<div class="design-content"
+style="${bg};color:${text};">
 
-  if(
-    slide.layout === "cards"
-  ){
+<div class="design-title">
+${title}
+</div>
 
-    return `
-      <div
-        class="design-content"
-        style="${bg};color:${text};"
-      >
+<div class="mini-cards">
 
-        <div class="design-title">
-          ${title}
-        </div>
+${buildMiniCard("Skills","Professional")}
+${buildMiniCard("Projects","Portfolio")}
+${buildMiniCard("Results","Achievements")}
 
-        <div class="mini-cards">
+</div>
 
-          ${buildMiniCard(
-            "Skills",
-            "Professional"
-          )}
+</div>
 
-          ${buildMiniCard(
-            "Projects",
-            "Portfolio"
-          )}
+`;
 
-          ${buildMiniCard(
-            "Results",
-            "Achievements"
-          )}
+}
 
-        </div>
+if(slide.layout==="quote"){
 
-      </div>
-    `;
-  }
+return`
 
+<div class="design-content"
+style="${bg};color:${text};">
 
-  if(
-    slide.layout === "quote"
-  ){
+<div class="mini-quote">
+“${title}”
+</div>
 
-    return `
-      <div
-        class="design-content"
-        style="${bg};color:${text};"
-      >
+<div
+style="
+text-align:center;
+margin-top:8%;
+font-size:clamp(5px,.8vw,11px);
+opacity:.6;
+">
+${subtitle}
+</div>
 
-        <div
-          class="mini-quote"
-        >
-          “${title}”
-        </div>
+</div>
 
-        <div
-          style="
-            text-align:center;
-            margin-top:8%;
-            font-size:clamp(5px,.8vw,11px);
-            opacity:.6;
-          "
-        >
-          ${subtitle}
-        </div>
+`;
 
-      </div>
-    `;
-  }
+}
 
+if(slide.layout==="columns"){
 
-  if(
-    slide.layout === "columns"
-  ){
+return`
 
-    return `
-      <div
-        class="design-content"
-        style="${bg};color:${text};"
-      >
+<div class="design-content"
+style="${bg};color:${text};">
 
-        <div class="design-title">
-          ${title}
-        </div>
+<div class="design-title">
+${title}
+</div>
 
-        <div class="mini-columns">
+<div class="mini-columns">
 
-          <div class="mini-column">
-            <h4>Overview</h4>
-            <p>${content}</p>
-          </div>
+<div class="mini-column">
 
-          <div class="mini-column">
-            <h4>Highlights</h4>
-            <p>Experience, skills and achievements.</p>
-          </div>
+<h4>Overview</h4>
 
-        </div>
+<p>
+${content}
+</p>
 
-      </div>
-    `;
-  }
+</div>
 
+<div class="mini-column">
 
-  if(
-    slide.layout === "timeline"
-  ){
+<h4>Highlights</h4>
 
-    return `
-      <div
-        class="design-content"
-        style="${bg};color:${text};"
-      >
+<p>
+Experience, skills and achievements.
+</p>
 
-        <div class="design-title">
-          ${title}
-        </div>
+</div>
 
-        <div class="mini-timeline">
+</div>
 
-          ${buildTimelineItem(
-            "22",
-            "Start"
-          )}
+</div>
 
-          ${buildTimelineItem(
-            "23",
-            "Growth"
-          )}
+`;
 
-          ${buildTimelineItem(
-            "24",
-            "Progress"
-          )}
+}
 
-          ${buildTimelineItem(
-            "25",
-            "Success"
-          )}
+if(slide.layout==="timeline"){
 
-          ${buildTimelineItem(
-            "26",
-            "Future"
-          )}
+return`
 
-        </div>
+<div class="design-content"
+style="${bg};color:${text};">
 
-      </div>
-    `;
-  }
+<div class="design-title">
+${title}
+</div>
 
+<div class="mini-timeline">
 
-  return `
-    <div
-      class="design-content"
-      style="${bg};color:${text};"
-    >
+${buildTimelineItem("22","Start")}
+${buildTimelineItem("23","Growth")}
+${buildTimelineItem("24","Progress")}
+${buildTimelineItem("25","Success")}
+${buildTimelineItem("26","Future")}
 
-      <div class="shape-circle"></div>
+</div>
 
-      <div class="mini-number">
-        CAREERCRAFT
-      </div>
+</div>
 
-      <div
-        class="design-title"
-        style="margin-top:8%;"
-      >
-        ${title}
-      </div>
+`;
 
-      <div class="design-subtitle">
-        ${subtitle}
-      </div>
+}
 
-      ${
-        slide.layout === "content"
-          ? `
-            <div class="design-body">
-              ${content}
-            </div>
-          `
-          : ""
-      }
+if(slide.layout==="image_text"){
 
-    </div>
-  `;
+return`
+
+<div class="design-content"
+style="${bg};color:${text};">
+
+<div
+style="
+width:45%;
+">
+
+<div class="design-title">
+${title}
+</div>
+
+<div class="design-body">
+${content}
+</div>
+
+</div>
+
+${
+slide.image_url
+?
+`
+<img
+src="${escapeHTML(slide.image_url)}"
+style="
+position:absolute;
+right:7%;
+top:13%;
+width:42%;
+height:70%;
+object-fit:cover;
+border-radius:10px;
+"
+onerror="this.style.display='none';"
+>
+`
+:""
+}
+
+</div>
+
+`;
+
+}
+
+return`
+
+<div class="design-content"
+style="${bg};color:${text};">
+
+<div class="shape-circle"></div>
+
+<div class="mini-number">
+CAREERCRAFT
+</div>
+
+<div class="design-title"
+style="margin-top:8%;">
+${title}
+</div>
+
+<div class="design-subtitle">
+${subtitle}
+</div>
+
+<div class="design-body">
+${content}
+</div>
+
+</div>
+
+`;
+
 }
 
 
 /* =========================================================
-   HELPERS FOR SLIDE VISUALS
+   HELPERS
 ========================================================= */
 
-function buildStatBox(
-  number,
-  label
-){
+function buildStatBox(number,label){
 
-  return `
-    <div class="mini-stat-box">
+return`
 
-      <div class="mini-stat-number">
-        ${number}
-      </div>
+<div class="mini-stat-box">
 
-      <div class="mini-stat-label">
-        ${label}
-      </div>
+<div class="mini-stat-number">
+${escapeHTML(number)}
+</div>
 
-    </div>
-  `;
+<div class="mini-stat-label">
+${escapeHTML(label)}
+</div>
+
+</div>
+
+`;
+
 }
 
 
-function buildMiniCard(
-  title,
-  text
-){
+function buildMiniCard(title,text){
 
-  return `
-    <div class="mini-card">
+return`
 
-      <strong>
-        ${title}
-      </strong>
+<div class="mini-card">
 
-      <small>
-        ${text}
-      </small>
+<strong>
+${escapeHTML(title)}
+</strong>
 
-    </div>
-  `;
+<small>
+${escapeHTML(text)}
+</small>
+
+</div>
+
+`;
+
 }
 
 
-function buildTimelineItem(
-  year,
-  label
-){
+function buildTimelineItem(year,label){
 
-  return `
-    <div class="mini-time">
+return`
 
-      <div class="mini-time-dot"></div>
+<div class="mini-time">
 
-      <div class="mini-time-line"></div>
+<div class="mini-time-dot"></div>
 
-      <span>
-        ${year}
-      </span>
+<div class="mini-time-line"></div>
 
-      <span style="opacity:.6;">
-        ${label}
-      </span>
+<span>${escapeHTML(year)}</span>
 
-    </div>
-  `;
+<span style="opacity:.6">
+${escapeHTML(label)}
+</span>
+
+</div>
+
+`;
+
 }
 
 
@@ -3404,147 +3289,149 @@ function buildTimelineItem(
 
 function backgroundCSS(value){
 
-  const v =
-    String(
-      value ||
-      "light"
-    ).toLowerCase();
+const v=
+String(value||"light").toLowerCase();
 
-  if(v === "purple"){
-    return `
-      background:linear-gradient(
-        135deg,
-        #6c5ce7,
-        #927fff
-      );
-    `;
-  }
-
-  if(v === "dark"){
-    return `
-      background:#171821;
-    `;
-  }
-
-  if(v === "blue"){
-    return `
-      background:linear-gradient(
-        135deg,
-        #eaf2ff,
-        #cfe0ff
-      );
-    `;
-  }
-
-  if(v === "green"){
-    return `
-      background:linear-gradient(
-        135deg,
-        #eaf9f1,
-        #c9eedc
-      );
-    `;
-  }
-
-  if(v === "cream"){
-    return `
-      background:#fff8ea;
-    `;
-  }
-
-  if(v === "pink"){
-    return `
-      background:linear-gradient(
-        135deg,
-        #fff0f6,
-        #ffd9e8
-      );
-    `;
-  }
-
-  if(v === "gradient"){
-    return `
-      background:linear-gradient(
-        135deg,
-        #111827,
-        #6c5ce7
-      );
-    `;
-  }
-
-  return `
-    background:#ffffff;
-  `;
+if(v==="purple"){
+return`
+background:linear-gradient(
+135deg,#6c5ce7,#927fff
+);
+`;
 }
 
+if(v==="dark"){
+return`
+background:#171821;
+`;
+}
 
-function textColor(value){
+if(v==="blue"){
+return`
+background:linear-gradient(
+135deg,#eaf2ff,#cfe0ff
+);
+`;
+}
 
-  const v =
-    String(
-      value ||
-      "light"
-    ).toLowerCase();
+if(v==="green"){
+return`
+background:linear-gradient(
+135deg,#eaf9f1,#c9eedc
+);
+`;
+}
 
-  if(
-    v === "purple" ||
-    v === "dark" ||
-    v === "gradient"
-  ){
-    return "#ffffff";
-  }
+if(v==="cream"){
+return`
+background:#fff8ea;
+`;
+}
 
-  if(v === "blue"){
-    return "#16335c";
-  }
+if(v==="pink"){
+return`
+background:linear-gradient(
+135deg,#fff0f6,#ffd9e8
+);
+`;
+}
 
-  if(v === "green"){
-    return "#174d32";
-  }
+if(v==="gradient"){
+return`
+background:linear-gradient(
+135deg,#111827,#6c5ce7
+);
+`;
+}
 
-  if(v === "cream"){
-    return "#49351d";
-  }
+return`
+background:#fff;
+`;
 
-  if(v === "pink"){
-    return "#632c46";
-  }
-
-  return "#181820";
 }
 
 
 /* =========================================================
-   ANIMATION CLASS
+   TEXT COLOR
+========================================================= */
+
+function textColor(value){
+
+const v=
+String(value||"light").toLowerCase();
+
+if(
+v==="purple"||
+v==="dark"||
+v==="gradient"
+){
+return"#fff";
+}
+
+if(v==="blue"){
+return"#16335c";
+}
+
+if(v==="green"){
+return"#174d32";
+}
+
+if(v==="cream"){
+return"#49351d";
+}
+
+if(v==="pink"){
+return"#632c46";
+}
+
+return"#181820";
+
+}
+
+
+/* =========================================================
+   OBJECT ANIMATION
 ========================================================= */
 
 function animationClass(slide){
 
-  return "";
+if(!slide || slide.animation==="none"){
+return"";
+}
+
+if(slide.animation==="fade"){
+return"object-fade";
+}
+
+if(slide.animation==="rise"){
+return"object-rise";
+}
+
+if(slide.animation==="zoom"){
+return"object-zoom";
+}
+
+return"";
+
 }
 
 
 /* =========================================================
-   UPDATE SLIDE FIELD
+   UPDATE FIELD
 ========================================================= */
 
-function updateSlideField(
-  field,
-  value
-){
+function updateSlideField(field,value){
 
-  if(!slides[currentSlideIndex]){
-    return;
-  }
+if(!slides[currentSlideIndex]){
+return;
+}
 
-  slides[currentSlideIndex][field] =
-    value;
+slides[currentSlideIndex][field]=value;
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
+setSaveStatus("Unsaved changes");
 
-  renderThumbnails();
+renderThumbnails();
+
 }
 
 
@@ -3554,157 +3441,134 @@ function updateSlideField(
 
 function addSlide(){
 
-  saveHistory();
+saveHistory();
 
-  const newSlide =
-    createSlideFromTemplate(
-      slides.length
-    );
+const newSlide=
+createSlideFromTemplate(
+slides.length
+);
 
-  newSlide.slide_order =
-    slides.length;
+newSlide.slide_order=
+slides.length;
 
-  slides.push(
-    newSlide
-  );
+slides.push(newSlide);
 
-  currentSlideIndex =
-    slides.length - 1;
+currentSlideIndex=
+slides.length-1;
 
-  renderThumbnails();
+renderThumbnails();
+renderCanvas();
+updateSlidePosition();
 
-  renderCanvas();
+setSaveStatus("Unsaved changes");
 
-  updateSlidePosition();
+showToast("New slide added.");
 
-  showToast(
-    "New slide added."
-  );
-
-  setSaveStatus(
-    "Unsaved changes"
-  );
 }
 
 
 /* =========================================================
-   DUPLICATE SLIDE
+   DUPLICATE
 ========================================================= */
 
 function duplicateSlide(){
 
-  if(!slides.length){
-    return;
-  }
+if(!slides.length){
+return;
+}
 
-  saveHistory();
+saveHistory();
 
-  const copy =
-    JSON.parse(
-      JSON.stringify(
-        slides[
-          currentSlideIndex
-        ]
-      )
-    );
+const copy=
+JSON.parse(
+JSON.stringify(
+slides[currentSlideIndex]
+)
+);
 
-  copy.id = null;
+copy.id=null;
 
-  copy.slide_order =
-    slides.length;
+copy.slide_order=
+slides.length;
 
-  slides.splice(
-    currentSlideIndex + 1,
-    0,
-    copy
-  );
+slides.splice(
+currentSlideIndex+1,
+0,
+copy
+);
 
-  currentSlideIndex++;
+currentSlideIndex++;
 
-  normalizeSlideOrders();
+normalizeSlideOrders();
 
-  renderThumbnails();
+renderThumbnails();
+renderCanvas();
+updateSlidePosition();
 
-  renderCanvas();
+setSaveStatus("Unsaved changes");
 
-  updateSlidePosition();
+showToast("Slide duplicated.");
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
-
-  showToast(
-    "Slide duplicated."
-  );
 }
 
 
 /* =========================================================
-   DELETE CURRENT
+   DELETE
 ========================================================= */
 
 function deleteCurrentSlide(){
 
-  deleteSlide(
-    currentSlideIndex
-  );
+deleteSlide(currentSlideIndex);
+
 }
 
 
 function deleteSlide(index){
 
-  if(
-    slides.length <= 1
-  ){
+if(slides.length<=1){
 
-    showToast(
-      "A presentation needs at least one slide."
-    );
+showToast(
+"A presentation needs at least one slide."
+);
 
-    return;
-  }
+return;
 
-  saveHistory();
+}
 
-  slides.splice(
-    index,
-    1
-  );
+saveHistory();
 
-  if(
-    currentSlideIndex >=
-    slides.length
-  ){
-    currentSlideIndex =
-      slides.length - 1;
-  }
+slides.splice(index,1);
 
-  normalizeSlideOrders();
+if(currentSlideIndex>=slides.length){
 
-  renderThumbnails();
+currentSlideIndex=
+slides.length-1;
 
-  renderCanvas();
+}
 
-  updateSlidePosition();
+normalizeSlideOrders();
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
+renderThumbnails();
+renderCanvas();
+updateSlidePosition();
+
+setSaveStatus("Unsaved changes");
+
 }
 
 
 /* =========================================================
-   NORMALIZE ORDERS
+   ORDER
 ========================================================= */
 
 function normalizeSlideOrders(){
 
-  slides.forEach(
-    (slide,index) => {
-      slide.slide_order =
-        index;
-    }
-  );
+slides.forEach(
+(slide,index)=>{
+slide.slide_order=index;
+}
+);
+
 }
 
 
@@ -3714,293 +3578,232 @@ function normalizeSlideOrders(){
 
 function buildTemplateGallery(){
 
-  const grid =
-    document.getElementById(
-      "templateGrid"
-    );
+const grid=
+document.getElementById(
+"templateGrid"
+);
 
-  grid.innerHTML = "";
+grid.innerHTML="";
 
-  templates.forEach(
-    (template,index) => {
+templates.forEach(
+(template,index)=>{
 
-      const card =
-        document.createElement(
-          "div"
-        );
+const card=
+document.createElement("div");
 
-      card.className =
-        "template-card";
+card.className=
+"template-card";
 
-      const tempSlide = {
-        layout:
-          template[0],
-        title:
-          template[1],
-        subtitle:
-          "CareerCraft Professional",
-        content:
-          "Your content goes here.",
-        background:
-          template[2]
-      };
+const tempSlide={
+layout:template[0],
+title:template[1],
+subtitle:"CareerCraft Professional",
+content:"Your content goes here.",
+background:template[2]
+};
 
-      card.innerHTML = `
+card.innerHTML=`
 
-        <div
-          class="template-preview"
-        >
-          ${buildSlideVisual(
-            tempSlide,
-            true
-          )}
-        </div>
+<div class="template-preview">
+${buildSlideVisual(tempSlide,true)}
+</div>
 
-        <div class="template-info">
+<div class="template-info">
 
-          <div class="template-number">
-            DESIGN ${String(
-              index + 1
-            ).padStart(2,"0")}
-          </div>
+<div class="template-number">
+DESIGN ${String(index+1).padStart(2,"0")}
+</div>
 
-          ${escapeHTML(
-            template[1]
-          )}
+${escapeHTML(template[1])}
 
-        </div>
-      `;
+</div>
 
-      card.onclick =
-        () => applyTemplate(
-          index
-        );
+`;
 
-      grid.appendChild(
-        card
-      );
-    }
-  );
+card.onclick=
+()=>applyTemplate(index);
+
+grid.appendChild(card);
+
+}
+);
+
 }
 
 
 function openTemplates(){
 
-  document
-    .getElementById(
-      "templateOverlay"
-    )
-    .classList.add(
-      "open"
-    );
+document
+.getElementById("templateOverlay")
+.classList.add("open");
+
 }
 
 
 function closeTemplates(){
 
-  document
-    .getElementById(
-      "templateOverlay"
-    )
-    .classList.remove(
-      "open"
-    );
-}
+document
+.getElementById("templateOverlay")
+.classList.remove("open");
 
-
-function applyTemplate(index){
-
-  if(
-    !templates[index]
-  ){
-    return;
-  }
-
-  saveHistory();
-
-  const t =
-    templates[index];
-
-  const slide =
-    slides[
-      currentSlideIndex
-    ];
-
-  slide.layout =
-    t[0];
-
-  slide.title =
-    t[1];
-
-  slide.background =
-    t[2];
-
-  slide.subtitle =
-    "CareerCraft Presentation";
-
-  slide.content =
-    "Add your professional content here.";
-
-  closeTemplates();
-
-  renderThumbnails();
-
-  renderCanvas();
-
-  updateTransitionUI();
-
-  setSaveStatus(
-    "Unsaved changes"
-  );
-
-  showToast(
-    "Slide design applied."
-  );
 }
 
 
 /* =========================================================
-   ADD TEXT
+   APPLY TEMPLATE
+========================================================= */
+
+function applyTemplate(index){
+
+if(!templates[index]){
+return;
+}
+
+saveHistory();
+
+const t=
+templates[index];
+
+const slide=
+slides[currentSlideIndex];
+
+slide.layout=t[0];
+slide.title=t[1];
+slide.background=t[2];
+slide.subtitle=
+"CareerCraft Presentation";
+slide.content=
+"Add your professional content here.";
+
+if(t[0]!=="image_text"){
+slide.image_url=null;
+}
+
+closeTemplates();
+
+renderThumbnails();
+renderCanvas();
+updateTransitionUI();
+
+setSaveStatus("Unsaved changes");
+
+showToast("Slide design applied.");
+
+}
+
+
+/* =========================================================
+   INSERT
 ========================================================= */
 
 function addTextBox(){
 
-  saveHistory();
+saveHistory();
 
-  const slide =
-    slides[
-      currentSlideIndex
-    ];
+const slide=
+slides[currentSlideIndex];
 
-  slide.content +=
-    "\n\nNew text box added.";
+slide.content +=
+(slide.content ? "\n\n" : "")+
+"New text box added.";
 
-  renderCanvas();
+renderCanvas();
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
+setSaveStatus("Unsaved changes");
 
-  showToast(
-    "Text added."
-  );
+showToast("Text added.");
+
 }
 
 
 function addHeading(){
 
-  saveHistory();
+saveHistory();
 
-  slides[
-    currentSlideIndex
-  ].title =
-    "New Heading";
+slides[currentSlideIndex].title=
+"New Heading";
 
-  renderCanvas();
+renderCanvas();
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
+setSaveStatus("Unsaved changes");
+
 }
 
 
 function addQuote(){
 
-  saveHistory();
+saveHistory();
 
-  const slide =
-    slides[
-      currentSlideIndex
-    ];
+const slide=
+slides[currentSlideIndex];
 
-  slide.layout =
-    "quote";
+slide.layout="quote";
 
-  slide.title =
-    "Your Quote";
+slide.title="Your Quote";
 
-  slide.content =
-    "Add your inspirational or professional quote here.";
+slide.content=
+"Add your inspirational or professional quote here.";
 
-  renderCanvas();
+renderCanvas();
+renderThumbnails();
 
-  renderThumbnails();
+setSaveStatus("Unsaved changes");
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
 }
 
-
-/* =========================================================
-   ADD IMAGE
-========================================================= */
 
 function addImage(){
 
-  const url =
-    prompt(
-      "Paste an image URL:"
-    );
+const url=
+prompt("Paste an image URL:");
 
-  if(!url){
-    return;
-  }
+if(!url){
+return;
+}
 
-  if(
-    !/^https?:\/\//i.test(url)
-  ){
+if(!/^https?:\/\//i.test(url)){
 
-    showToast(
-      "Please enter a valid image URL."
-    );
+showToast(
+"Please enter a valid image URL."
+);
 
-    return;
-  }
+return;
 
-  saveHistory();
+}
 
-  slides[
-    currentSlideIndex
-  ].image_url =
-    url;
+saveHistory();
 
-  slides[
-    currentSlideIndex
-  ].layout =
-    "image_text";
+const slide=
+slides[currentSlideIndex];
 
-  renderCanvas();
+slide.image_url=url;
+slide.layout="image_text";
 
-  renderThumbnails();
+renderCanvas();
+renderThumbnails();
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
+setSaveStatus("Unsaved changes");
+
+showToast("Image added.");
+
 }
 
 
-/* =========================================================
-   ADD SHAPE
-========================================================= */
-
 function addShape(){
 
-  saveHistory();
+saveHistory();
 
-  const slide =
-    slides[
-      currentSlideIndex
-    ];
+const slide=
+slides[currentSlideIndex];
 
-  slide.content +=
-    "\n◆ New visual element";
+slide.content +=
+(slide.content ? "\n\n" : "")+
+"◆ New visual element";
 
-  renderCanvas();
+renderCanvas();
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
+setSaveStatus("Unsaved changes");
+
 }
 
 
@@ -4010,24 +3813,23 @@ function addShape(){
 
 function applyTheme(theme){
 
-  saveHistory();
+saveHistory();
 
-  slides[
-    currentSlideIndex
-  ].background =
-    theme;
+slides[currentSlideIndex].background=
+theme;
 
-  renderCanvas();
+slides[currentSlideIndex].theme=
+theme;
 
-  renderThumbnails();
+renderCanvas();
+renderThumbnails();
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
+setSaveStatus("Unsaved changes");
 
-  showToast(
-    `${theme} theme applied.`
-  );
+showToast(
+`${theme} theme applied.`
+);
+
 }
 
 
@@ -4037,47 +3839,38 @@ function applyTheme(theme){
 
 function switchRibbon(tab){
 
-  document
-    .querySelectorAll(
-      ".ribbon-tab"
-    )
-    .forEach(
-      btn => {
+document
+.querySelectorAll(".ribbon-tab")
+.forEach(
+btn=>{
+btn.classList.toggle(
+"active",
+btn.dataset.tab===tab
+);
+}
+);
 
-        btn.classList.toggle(
-          "active",
-          btn.dataset.tab === tab
-        );
-      }
-    );
+document
+.querySelectorAll(".ribbon-panel")
+.forEach(
+panel=>{
+panel.style.display="none";
+}
+);
 
-  document
-    .querySelectorAll(
-      ".ribbon-panel"
-    )
-    .forEach(
-      panel => {
+const panel=
+document.getElementById(
+`ribbon-${tab}`
+);
 
-        panel.style.display =
-          "none";
-      }
-    );
+if(panel){
+panel.style.display="flex";
+}
 
-  const panel =
-    document.getElementById(
-      `ribbon-${tab}`
-    );
+if(tab==="transitions"){
+updateTransitionUI();
+}
 
-  if(panel){
-    panel.style.display =
-      "flex";
-  }
-
-  if(
-    tab === "transitions"
-  ){
-    updateTransitionUI();
-  }
 }
 
 
@@ -4087,111 +3880,111 @@ function switchRibbon(tab){
 
 function getEditableText(){
 
-  const canvas =
-    document.getElementById(
-      "canvas"
-    );
+const canvas=
+document.getElementById("canvas");
 
-  return canvas.querySelector(
-    "textarea:focus"
-  ) || canvas.querySelector(
-    "textarea"
-  );
+return canvas.querySelector(
+"textarea:focus"
+)||
+canvas.querySelector(
+"textarea"
+);
+
 }
 
 
 function applyFontFamily(font){
 
-  const el =
-    getEditableText();
+const el=
+getEditableText();
 
-  if(!el){
-    return;
-  }
+if(!el){
+return;
+}
 
-  el.style.fontFamily =
-    font;
+el.style.fontFamily=font;
+
 }
 
 
 function applyFontSize(size){
 
-  const el =
-    getEditableText();
+const el=
+getEditableText();
 
-  if(!el){
-    return;
-  }
+if(!el){
+return;
+}
 
-  el.style.fontSize =
-    `${size}px`;
+el.style.fontSize=
+`${Number(size)||28}px`;
+
 }
 
 
 function toggleBold(){
 
-  const el =
-    getEditableText();
+const el=
+getEditableText();
 
-  if(!el){
-    return;
-  }
+if(!el){
+return;
+}
 
-  el.style.fontWeight =
-    el.style.fontWeight ===
-    "800"
-      ? "400"
-      : "800";
+el.style.fontWeight=
+el.style.fontWeight==="800"
+?"400"
+:"800";
+
 }
 
 
 function toggleItalic(){
 
-  const el =
-    getEditableText();
+const el=
+getEditableText();
 
-  if(!el){
-    return;
-  }
+if(!el){
+return;
+}
 
-  el.style.fontStyle =
-    el.style.fontStyle ===
-    "italic"
-      ? "normal"
-      : "italic";
+el.style.fontStyle=
+el.style.fontStyle==="italic"
+?"normal"
+:"italic";
+
 }
 
 
 function toggleUnderline(){
 
-  const el =
-    getEditableText();
+const el=
+getEditableText();
 
-  if(!el){
-    return;
-  }
+if(!el){
+return;
+}
 
-  el.style.textDecoration =
-    el.style.textDecoration ===
-    "underline"
-      ? "none"
-      : "underline";
+el.style.textDecoration=
+el.style.textDecoration==="underline"
+?"none"
+:"underline";
+
 }
 
 
-function alignText(
-  alignment
-){
+function alignText(alignment){
 
-  const el =
-    getEditableText();
+const el=
+getEditableText();
 
-  if(!el){
-    return;
-  }
+if(!el){
+return;
+}
 
-  el.style.textAlign =
-    alignment;
+el.style.textAlign=
+alignment;
+
 }
 
 
@@ -4199,145 +3992,128 @@ function alignText(
    TRANSITIONS
 ========================================================= */
 
-function setTransition(
-  transition
-){
+function setTransition(transition){
 
-  const slide =
-    slides[
-      currentSlideIndex
-    ];
+const slide=
+slides[currentSlideIndex];
 
-  if(!slide){
-    return;
-  }
+if(!slide){
+return;
+}
 
-  slide.transition =
-    transition;
+saveHistory();
 
-  const cards =
-    document.querySelectorAll(
-      ".transition-card"
-    );
+slide.transition=
+transition;
 
-  cards.forEach(
-    card => {
+document
+.querySelectorAll(".transition-card")
+.forEach(
+card=>{
+card.classList.toggle(
+"active",
+card.dataset.transition===transition
+);
+}
+);
 
-      card.classList.toggle(
-        "active",
-        card.dataset.transition ===
-        transition
-      );
-    }
-  );
+renderThumbnails();
 
-  renderThumbnails();
+setSaveStatus("Unsaved changes");
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
+showToast(
+`${transition} transition selected.`
+);
 
-  showToast(
-    `${transition} transition selected.`
-  );
 }
 
 
-function changeTransitionDuration(
-  value
-){
+function changeTransitionDuration(value){
 
-  const slide =
-    slides[
-      currentSlideIndex
-    ];
+const slide=
+slides[currentSlideIndex];
 
-  if(!slide){
-    return;
-  }
+if(!slide){
+return;
+}
 
-  slide.transition_duration =
-    Number(value);
+slide.transition_duration=
+Number(value)||.5;
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
+setSaveStatus("Unsaved changes");
+
 }
 
 
 function updateTransitionUI(){
 
-  const slide =
-    slides[
-      currentSlideIndex
-    ];
+const slide=
+slides[currentSlideIndex];
 
-  if(!slide){
-    return;
-  }
+if(!slide){
+return;
+}
 
-  document
-    .querySelectorAll(
-      ".transition-card"
-    )
-    .forEach(
-      card => {
+document
+.querySelectorAll(".transition-card")
+.forEach(
+card=>{
+card.classList.toggle(
+"active",
+card.dataset.transition===
+(slide.transition||"none")
+);
+}
+);
 
-        card.classList.toggle(
-          "active",
-          card.dataset.transition ===
-          slide.transition
-        );
-      }
-    );
+const duration=
+document.getElementById(
+"transitionDuration"
+);
 
-  const duration =
-    document.getElementById(
-      "transitionDuration"
-    );
+if(duration){
 
-  if(duration){
+duration.value=
+String(
+slide.transition_duration||.5
+);
 
-    duration.value =
-      String(
-        slide.transition_duration ||
-        .5
-      );
-  }
+}
+
 }
 
 
 function applyTransitionToAll(){
 
-  const current =
-    slides[
-      currentSlideIndex
-    ];
+const current=
+slides[currentSlideIndex];
 
-  if(!current){
-    return;
-  }
+if(!current){
+return;
+}
 
-  slides.forEach(
-    slide => {
+saveHistory();
 
-      slide.transition =
-        current.transition;
+slides.forEach(
+slide=>{
 
-      slide.transition_duration =
-        current.transition_duration;
-    }
-  );
+slide.transition=
+current.transition;
 
-  renderThumbnails();
+slide.transition_duration=
+current.transition_duration;
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
+}
+);
 
-  showToast(
-    "Transition applied to all slides."
-  );
+renderThumbnails();
+
+setSaveStatus("Unsaved changes");
+
+showToast(
+"Transition applied to all slides."
+);
+
 }
 
 
@@ -4347,218 +4123,230 @@ function applyTransitionToAll(){
 
 function previewTransition(){
 
-  startPresentation(
-    currentSlideIndex
-  );
+startPresentation(
+currentSlideIndex
+);
 
-  setTimeout(
-    () => {
-
-      presentationNext();
-
-    },
-    500
-  );
-}
+setTimeout(
+()=>{
+presentationNext();
+},
+Math.max(
+300,
+Number(
+slides[currentSlideIndex]
+?.transition_duration||.5
+)*1000
+)
+);
 
 
 /* =========================================================
    ANIMATIONS
 ========================================================= */
 
-function setAnimation(
-  animation
-){
+function setAnimation(animation){
 
-  slides[
-    currentSlideIndex
-  ].animation =
-    animation;
+saveHistory();
 
-  renderCanvas();
+slides[currentSlideIndex].animation=
+animation;
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
+renderCanvas();
 
-  showToast(
-    `${animation} animation selected.`
-  );
+setSaveStatus("Unsaved changes");
+
+showToast(
+`${animation} animation selected.`
+);
+
 }
 
 
 /* =========================================================
-   PRESENTATION MODE
+   PRESENTATION
 ========================================================= */
 
-let presentationIndex = 0;
-
-
 function startPresentation(
-  startIndex = currentSlideIndex
+startIndex=currentSlideIndex
 ){
 
-  presentationIndex =
-    Number(startIndex) || 0;
+if(!slides.length){
+return;
+}
 
-  const mode =
-    document.getElementById(
-      "presentMode"
-    );
+presentationIndex=
+Math.max(
+0,
+Math.min(
+slides.length-1,
+Number(startIndex)||0
+)
+);
 
-  mode.classList.add(
-    "open"
-  );
+const mode=
+document.getElementById(
+"presentMode"
+);
 
-  document.body.style.overflow =
-    "hidden";
+mode.classList.add("open");
 
-  renderPresentationSlide();
+document.body.style.overflow="hidden";
 
-  if(
-    isAutoPlay
-  ){
-    startAutoPlay();
-  }
+renderPresentationSlide();
+
+if(isAutoPlay){
+startAutoPlay();
+}
+
 }
 
 
 function renderPresentationSlide(){
 
-  if(
-    presentationIndex < 0
-  ){
-    presentationIndex = 0;
-  }
+if(!slides.length){
+return;
+}
 
-  if(
-    presentationIndex >=
-    slides.length
-  ){
-    presentationIndex =
-      slides.length - 1;
-  }
+presentationIndex=
+Math.max(
+0,
+Math.min(
+slides.length-1,
+presentationIndex
+)
+);
 
-  const slide =
-    slides[
-      presentationIndex
-    ];
+const slide=
+slides[presentationIndex];
 
-  const container =
-    document.getElementById(
-      "presentSlide"
-    );
+const container=
+document.getElementById(
+"presentSlide"
+);
 
-  const transition =
-    slide.transition ||
-    "none";
+const transition=
+slide.transition||"none";
 
-  container.style.animation =
-    "none";
+const duration=
+Math.max(
+.2,
+Number(
+slide.transition_duration||.5
+)
+);
 
-  void container.offsetWidth;
+container.style.animation="none";
 
-  if(
-    transition === "fade"
-  ){
+void container.offsetWidth;
 
-    container.style.animation =
-      "presentationFade .6s ease";
-  }
+container.innerHTML=
+buildSlideVisual(
+slide,
+false
+);
 
-  if(
-    transition === "slide"
-  ){
+container.style.animation=
+"none";
 
-    container.style.animation =
-      "presentationSlide .6s ease";
-  }
+void container.offsetWidth;
 
-  if(
-    transition === "zoom"
-  ){
+if(transition==="fade"){
 
-    container.style.animation =
-      "presentationZoom .6s ease";
-  }
+container.style.animation=
+`presentationFade ${duration}s ease`;
 
-  if(
-    transition === "dissolve"
-  ){
+}
 
-    container.style.animation =
-      "presentationDissolve .8s ease";
-  }
+if(transition==="slide"){
 
-  if(
-    transition === "wipe"
-  ){
+container.style.animation=
+`presentationSlide ${duration}s ease`;
 
-    container.style.animation =
-      "presentationWipe .6s ease";
-  }
+}
 
-  container.innerHTML =
-    buildSlideVisual(
-      slide,
-      false
-    );
+if(transition==="zoom"){
 
-  document.getElementById(
-    "presentCounter"
-  ).textContent =
-    `${presentationIndex + 1} / ${slides.length}`;
+container.style.animation=
+`presentationZoom ${duration}s ease`;
+
+}
+
+if(transition==="dissolve"){
+
+container.style.animation=
+`presentationDissolve ${duration}s ease`;
+
+}
+
+if(transition==="wipe"){
+
+container.style.animation=
+`presentationWipe ${duration}s ease`;
+
+}
+
+document.getElementById(
+"presentCounter"
+).textContent=
+`${presentationIndex+1} / ${slides.length}`;
+
 }
 
 
 function presentationNext(){
 
-  if(
-    presentationIndex >=
-    slides.length - 1
-  ){
+if(
+presentationIndex>=
+slides.length-1
+){
 
-    if(isAutoPlay){
-      stopAutoPlay();
-    }
+if(isAutoPlay){
+stopAutoPlay();
+}
 
-    return;
-  }
+return;
 
-  presentationIndex++;
+}
 
-  renderPresentationSlide();
+presentationIndex++;
+
+renderPresentationSlide();
+
 }
 
 
 function presentationPrevious(){
 
-  if(
-    presentationIndex <= 0
-  ){
-    return;
-  }
+if(presentationIndex<=0){
+return;
+}
 
-  presentationIndex--;
+presentationIndex--;
 
-  renderPresentationSlide();
+renderPresentationSlide();
+
 }
 
 
 function exitPresentation(){
 
-  stopAutoPlay();
+stopAutoPlay();
 
-  document
-    .getElementById(
-      "presentMode"
-    )
-    .classList.remove(
-      "open"
-    );
+document
+.getElementById("presentMode")
+.classList.remove("open");
 
-  document.body.style.overflow =
-    "hidden";
+if(document.fullscreenElement){
+
+document
+.exitFullscreen()
+.catch(()=>{});
+
+}
+
+document.body.style.overflow="hidden";
+
 }
 
 
@@ -4568,197 +4356,217 @@ function exitPresentation(){
 
 function toggleAutoPlay(){
 
-  isAutoPlay =
-    !isAutoPlay;
+isAutoPlay=!isAutoPlay;
 
-  if(isAutoPlay){
+if(isAutoPlay){
 
-    startAutoPlay();
+startAutoPlay();
 
-    showToast(
-      "Auto play enabled."
-    );
+showToast(
+"Auto play enabled."
+);
 
-  }else{
+}else{
 
-    stopAutoPlay();
+stopAutoPlay();
 
-    showToast(
-      "Auto play disabled."
-    );
-  }
+showToast(
+"Auto play disabled."
+);
+
+}
+
 }
 
 
 function startAutoPlay(){
 
-  stopAutoPlay();
+stopAutoPlay();
 
-  autoPlayTimer =
-    setInterval(
-      () => {
+autoPlayTimer=
+setInterval(
+()=>{
 
-        if(
-          !document
-            .getElementById(
-              "presentMode"
-            )
-            .classList.contains(
-              "open"
-            )
-        ){
+const mode=
+document.getElementById(
+"presentMode"
+);
 
-          stopAutoPlay();
+if(
+!mode.classList.contains("open")
+){
 
-          return;
-        }
+stopAutoPlay();
+return;
 
-        if(
-          presentationIndex >=
-          slides.length - 1
-        ){
+}
 
-          stopAutoPlay();
+if(
+presentationIndex>=
+slides.length-1
+){
 
-          return;
-        }
+stopAutoPlay();
+return;
 
-        presentationNext();
+}
 
-      },
-      5000
-    );
+presentationNext();
+
+},
+5000
+);
+
 }
 
 
 function stopAutoPlay(){
 
-  if(autoPlayTimer){
+if(autoPlayTimer){
 
-    clearInterval(
-      autoPlayTimer
-    );
+clearInterval(
+autoPlayTimer
+);
 
-    autoPlayTimer =
-      null;
-  }
+autoPlayTimer=null;
+
+}
+
 }
 
 
 /* =========================================================
-   FULLSCREEN API
+   FULLSCREEN
 ========================================================= */
 
-function toggleFullscreen(){
+async function toggleFullscreen(){
 
-  const mode =
-    document.getElementById(
-      "presentMode"
-    );
+const mode=
+document.getElementById(
+"presentMode"
+);
 
-  if(
-    !document.fullscreenElement
-  ){
+try{
 
-    if(
-      mode.requestFullscreen
-    ){
+if(!document.fullscreenElement){
 
-      mode.requestFullscreen();
-    }
+await mode.requestFullscreen();
 
-  }else{
+}else{
 
-    document.exitFullscreen();
-  }
+await document.exitFullscreen();
+
+}
+
+}catch(error){
+
+console.error(
+"Fullscreen error:",
+error
+);
+
+showToast(
+"Fullscreen is not available on this device."
+);
+
+}
+
 }
 
 
 /* =========================================================
-   KEYBOARD PRESENTATION CONTROLS
+   KEYBOARD
 ========================================================= */
 
 document.addEventListener(
-  "keydown",
-  event => {
+"keydown",
+event=>{
 
-    const mode =
-      document.getElementById(
-        "presentMode"
-      );
+const mode=
+document.getElementById(
+"presentMode"
+);
 
-    if(
-      !mode.classList.contains(
-        "open"
-      )
-    ){
+if(
+event.key==="Escape" &&
+mode.classList.contains("open")
+){
 
-      if(
-        event.key ===
-        "ArrowUp"
-      ){
-        selectSlide(
-          Math.max(
-            0,
-            currentSlideIndex - 1
-          )
-        );
-      }
+exitPresentation();
+return;
 
-      if(
-        event.key ===
-        "ArrowDown"
-      ){
-        selectSlide(
-          Math.min(
-            slides.length - 1,
-            currentSlideIndex + 1
-          )
-        );
-      }
+}
 
-      return;
-    }
+if(
+!mode.classList.contains("open")
+){
 
+if(event.key==="ArrowUp"){
 
-    if(
-      event.key ===
-      "ArrowRight" ||
-      event.key ===
-      " " ||
-      event.key ===
-      "PageDown"
-    ){
+selectSlide(
+Math.max(
+0,
+currentSlideIndex-1
+)
+);
 
-      event.preventDefault();
+}
 
-      presentationNext();
+if(event.key==="ArrowDown"){
 
-    }
+selectSlide(
+Math.min(
+slides.length-1,
+currentSlideIndex+1
+)
+);
 
+}
 
-    if(
-      event.key ===
-      "ArrowLeft" ||
-      event.key ===
-      "PageUp"
-    ){
+return;
 
-      event.preventDefault();
+}
 
-      presentationPrevious();
+if(
+event.key==="ArrowRight"||
+event.key===" "||
+event.key==="PageDown"
+){
 
-    }
+event.preventDefault();
 
+presentationNext();
 
-    if(
-      event.key ===
-      "Escape"
-    ){
+}
 
-      exitPresentation();
-    }
-  }
+if(
+event.key==="ArrowLeft"||
+event.key==="PageUp"
+){
+
+event.preventDefault();
+
+presentationPrevious();
+
+}
+
+if(event.key==="Home"){
+
+presentationIndex=0;
+renderPresentationSlide();
+
+}
+
+if(event.key==="End"){
+
+presentationIndex=
+slides.length-1;
+
+renderPresentationSlide();
+
+}
+
+}
 );
 
 
@@ -4766,87 +4574,85 @@ document.addEventListener(
    ZOOM
 ========================================================= */
 
-function changeZoom(
-  value
-){
+function changeZoom(value){
 
-  zoomLevel =
-    Number(value);
+zoomLevel=
+Number(value);
 
-  const canvas =
-    document.getElementById(
-      "canvas"
-    );
+const canvas=
+document.getElementById(
+"canvas"
+);
 
-  canvas.style.transform =
-    `scale(${zoomLevel / 100})`;
+canvas.style.transform=
+`scale(${zoomLevel/100})`;
 
-  document.getElementById(
-    "zoomValue"
-  ).textContent =
-    `${zoomLevel}%`;
+document.getElementById(
+"zoomValue"
+).textContent=
+`${zoomLevel}%`;
+
 }
 
 
 function zoomIn(){
 
-  const range =
-    document.getElementById(
-      "zoomRange"
-    );
+const range=
+document.getElementById(
+"zoomRange"
+);
 
-  range.value =
-    Math.min(
-      130,
-      Number(range.value) + 5
-    );
+range.value=
+Math.min(
+130,
+Number(range.value)+5
+);
 
-  changeZoom(
-    range.value
-  );
+changeZoom(range.value);
+
 }
 
 
 function zoomOut(){
 
-  const range =
-    document.getElementById(
-      "zoomRange"
-    );
+const range=
+document.getElementById(
+"zoomRange"
+);
 
-  range.value =
-    Math.max(
-      50,
-      Number(range.value) - 5
-    );
+range.value=
+Math.max(
+50,
+Number(range.value)-5
+);
 
-  changeZoom(
-    range.value
-  );
+changeZoom(range.value);
+
 }
 
 
 /* =========================================================
-   SLIDE POSITION
+   POSITION
 ========================================================= */
 
 function updateSlidePosition(){
 
-  document.getElementById(
-    "slidePosition"
-  ).textContent =
-    `Slide ${
-      currentSlideIndex + 1
-    } of ${
-      slides.length
-    }`;
+document.getElementById(
+"slidePosition"
+).textContent=
+`Slide ${
+currentSlideIndex+1
+} of ${
+slides.length
+}`;
 
-  document.getElementById(
-    "statusLeft"
-  ).textContent =
-    `Slide ${
-      currentSlideIndex + 1
-    }`;
+document.getElementById(
+"statusLeft"
+).textContent=
+`Slide ${
+currentSlideIndex+1
+}`;
+
 }
 
 
@@ -4856,257 +4662,273 @@ function updateSlidePosition(){
 
 async function savePresentation(){
 
-  if(
-    !currentUser ||
-    !presentation
-  ){
-    return;
-  }
+if(!currentUser || !presentation){
+showToast("Presentation is not ready.");
+return;
+}
 
-  setSaveStatus(
-    "Saving..."
-  );
+setSaveStatus("Saving...");
 
-  try{
+try{
 
-    const title =
-      document.getElementById(
-        "presentationTitle"
-      ).value.trim() ||
-      "Untitled Presentation";
+const title=
+document.getElementById(
+"presentationTitle"
+).value.trim()||
+"Untitled Presentation";
 
 
-    /* -----------------------------------------
-       CREATE PRESENTATION IF NEW
-    ----------------------------------------- */
+/* CREATE PRESENTATION */
 
-    if(!presentationId){
+if(!presentationId){
 
-      const insertData = {
-        user_id:
-          currentUser.id,
+const insertData={
+user_id:currentUser.id,
+title:title,
+description:
+presentation.description||
+"Created with CareerCraft"
+};
 
-        title:
-          title,
+const {
+data:newPresentation,
+error
+}=
+await supabaseClient
+.from("presentations")
+.insert(insertData)
+.select()
+.single();
 
-        description:
-          presentation.description ||
-          "Created with CareerCraft"
-      };
+if(error){
+throw error;
+}
 
+presentation=
+newPresentation;
 
-      if(
-        Object.prototype.hasOwnProperty.call(
-          presentation,
-          "template"
-        )
-      ){
+presentationId=
+newPresentation.id;
 
-        insertData.template =
-          presentation.template;
-      }
+window.history.replaceState(
+{},
+"",
+`presentation.html?id=${encodeURIComponent(
+presentationId
+)}`
+);
 
-
-      if(
-        Object.prototype.hasOwnProperty.call(
-          presentation,
-          "is_published"
-        )
-      ){
-
-        insertData.is_published =
-          false;
-      }
-
-
-      const {
-        data:newPresentation,
-        error
-      } =
-      await supabaseClient
-        .from("presentations")
-        .insert(
-          insertData
-        )
-        .select()
-        .single();
-
-      if(error){
-        throw error;
-      }
-
-      presentation =
-        newPresentation;
-
-      presentationId =
-        newPresentation.id;
-
-      window.history.replaceState(
-        {},
-        "",
-        `presentation.html?id=${encodeURIComponent(
-          presentationId
-        )}`
-      );
-    }
+}
 
 
-    /* -----------------------------------------
-       UPDATE PRESENTATION
-    ----------------------------------------- */
+/* UPDATE PRESENTATION */
 
-    const {
-      error:updateError
-    } =
-    await supabaseClient
-      .from("presentations")
-      .update({
-        title:title
-      })
-      .eq(
-        "id",
-        presentationId
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      );
+const {
+error:updateError
+}=
+await supabaseClient
+.from("presentations")
+.update({
+title:title
+})
+.eq("id",presentationId)
+.eq("user_id",currentUser.id);
 
-    if(updateError){
-      throw updateError;
-    }
+if(updateError){
+throw updateError;
+}
 
 
-    /* -----------------------------------------
-       SAVE SLIDES
-    ----------------------------------------- */
+/* DELETE REMOVED SLIDES */
 
-    normalizeSlideOrders();
+const existingIds=
+slides
+.filter(
+slide=>
+slide.id &&
+isValidUUID(slide.id)
+)
+.map(
+slide=>slide.id
+);
 
+if(existingIds.length){
 
-    for(
-      const slide of slides
-    ){
+const {
+data:existingSlides,
+error:existingError
+}=
+await supabaseClient
+.from("presentation_slides")
+.select("id")
+.eq(
+"presentation_id",
+presentationId
+);
 
-      const payload = {
+if(existingError){
+throw existingError;
+}
 
-        presentation_id:
-          presentationId,
+const idsToDelete=
+(existingSlides||[])
+.filter(
+row=>!existingIds.includes(row.id)
+)
+.map(row=>row.id);
 
-        slide_order:
-          slide.slide_order,
+if(idsToDelete.length){
 
-        layout:
-          slide.layout,
+const {
+error:deleteError
+}=
+await supabaseClient
+.from("presentation_slides")
+.delete()
+.in("id",idsToDelete)
+.eq(
+"presentation_id",
+presentationId
+);
 
-        title:
-          slide.title,
+if(deleteError){
+throw deleteError;
+}
 
-        subtitle:
-          slide.subtitle,
+}
 
-        content:
-          slide.content,
+}else{
 
-        image_url:
-          slide.image_url ||
-          null,
+const {
+error:deleteAllError
+}=
+await supabaseClient
+.from("presentation_slides")
+.delete()
+.eq(
+"presentation_id",
+presentationId
+);
 
-        background:
-          slide.background,
+if(deleteAllError){
+throw deleteAllError;
+}
 
-        transition:
-          slide.transition ||
-          "none",
-
-        transition_duration:
-          slide.transition_duration ||
-          .5
-      };
-
-
-      if(
-        slide.id &&
-        isValidUUID(
-          slide.id
-        )
-      ){
-
-        const {
-          error
-        } =
-        await supabaseClient
-          .from(
-            "presentation_slides"
-          )
-          .update(
-            payload
-          )
-          .eq(
-            "id",
-            slide.id
-          )
-          .eq(
-            "presentation_id",
-            presentationId
-          );
-
-        if(error){
-          throw error;
-        }
-
-      }else{
-
-        const {
-          data,
-          error
-        } =
-        await supabaseClient
-          .from(
-            "presentation_slides"
-          )
-          .insert(
-            payload
-          )
-          .select()
-          .single();
-
-        if(error){
-          throw error;
-        }
-
-        if(data){
-          slide.id =
-            data.id;
-        }
-      }
-    }
+}
 
 
-    setSaveStatus(
-      "Saved"
-    );
+/* SAVE SLIDES */
 
-    showToast(
-      "Presentation saved successfully."
-    );
+normalizeSlideOrders();
 
-  }catch(error){
+for(const slide of slides){
 
-    console.error(
-      "Save error:",
-      error
-    );
+const payload={
 
-    setSaveStatus(
-      "Save failed"
-    );
+presentation_id:
+presentationId,
 
-    showToast(
-      error.message ||
-      "Unable to save presentation."
-    );
-  }
+slide_order:
+slide.slide_order,
+
+layout:
+slide.layout,
+
+title:
+slide.title,
+
+subtitle:
+slide.subtitle,
+
+content:
+slide.content,
+
+image_url:
+slide.image_url||null,
+
+background:
+slide.background||"light",
+
+transition:
+slide.transition||"none",
+
+transition_duration:
+Number(
+slide.transition_duration||.5
+)
+
+};
+
+
+/* Existing slide */
+
+if(
+slide.id &&
+isValidUUID(slide.id)
+){
+
+const {
+error
+}=
+await supabaseClient
+.from("presentation_slides")
+.update(payload)
+.eq("id",slide.id)
+.eq(
+"presentation_id",
+presentationId
+);
+
+if(error){
+throw error;
+}
+
+}else{
+
+const {
+data,
+error
+}=
+await supabaseClient
+.from("presentation_slides")
+.insert(payload)
+.select()
+.single();
+
+if(error){
+throw error;
+}
+
+if(data){
+slide.id=data.id;
+}
+
+}
+
+}
+
+setSaveStatus("Saved");
+
+showToast(
+"Presentation saved successfully."
+);
+
+}catch(error){
+
+console.error(
+"Save error:",
+error
+);
+
+setSaveStatus("Save failed");
+
+showToast(
+error.message||
+"Unable to save presentation."
+);
+
+}
+
 }
 
 
@@ -5114,22 +4936,20 @@ async function savePresentation(){
    SAVE STATUS
 ========================================================= */
 
-function setSaveStatus(
-  text
-){
+function setSaveStatus(text){
 
-  const el =
-    document.getElementById(
-      "saveStatus"
-    );
+const el=
+document.getElementById(
+"saveStatus"
+);
 
-  el.textContent =
-    text;
+el.textContent=text;
 
-  el.classList.toggle(
-    "saved",
-    text === "Saved"
-  );
+el.classList.toggle(
+"saved",
+text==="Saved"
+);
+
 }
 
 
@@ -5139,127 +4959,132 @@ function setSaveStatus(
 
 function saveHistory(){
 
-  historyStack.push(
-    JSON.stringify(
-      slides
-    )
-  );
+historyStack.push(
+JSON.stringify(slides)
+);
 
-  if(
-    historyStack.length >
-    30
-  ){
-    historyStack.shift();
-  }
+if(historyStack.length>30){
+historyStack.shift();
+}
 
-  redoStack = [];
+redoStack=[];
+
 }
 
 
 function undoAction(){
 
-  if(
-    !historyStack.length
-  ){
+if(!historyStack.length){
 
-    showToast(
-      "Nothing to undo."
-    );
+showToast(
+"Nothing to undo."
+);
 
-    return;
-  }
+return;
 
-  redoStack.push(
-    JSON.stringify(
-      slides
-    )
-  );
+}
 
-  slides =
-    JSON.parse(
-      historyStack.pop()
-    );
+redoStack.push(
+JSON.stringify(slides)
+);
 
-  if(
-    currentSlideIndex >=
-    slides.length
-  ){
+slides=
+JSON.parse(
+historyStack.pop()
+);
 
-    currentSlideIndex =
-      slides.length - 1;
-  }
+normalizeSlideOrders();
 
-  renderThumbnails();
+if(
+currentSlideIndex>=
+slides.length
+){
 
-  renderCanvas();
+currentSlideIndex=
+slides.length-1;
 
-  updateSlidePosition();
+}
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
+renderThumbnails();
+renderCanvas();
+updateSlidePosition();
+updateTransitionUI();
+
+setSaveStatus(
+"Unsaved changes"
+);
+
 }
 
 
 function redoAction(){
 
-  if(
-    !redoStack.length
-  ){
+if(!redoStack.length){
 
-    showToast(
-      "Nothing to redo."
-    );
+showToast(
+"Nothing to redo."
+);
 
-    return;
-  }
+return;
 
-  historyStack.push(
-    JSON.stringify(
-      slides
-    )
-  );
+}
 
-  slides =
-    JSON.parse(
-      redoStack.pop()
-    );
+historyStack.push(
+JSON.stringify(slides)
+);
 
-  renderThumbnails();
+slides=
+JSON.parse(
+redoStack.pop()
+);
 
-  renderCanvas();
+normalizeSlideOrders();
 
-  updateSlidePosition();
+if(
+currentSlideIndex>=
+slides.length
+){
 
-  setSaveStatus(
-    "Unsaved changes"
-  );
+currentSlideIndex=
+slides.length-1;
+
+}
+
+renderThumbnails();
+renderCanvas();
+updateSlidePosition();
+updateTransitionUI();
+
+setSaveStatus(
+"Unsaved changes"
+);
+
 }
 
 
 /* =========================================================
-   TITLE CHANGE
+   TITLE
 ========================================================= */
 
 document
-  .getElementById(
-    "presentationTitle"
-  )
-  .addEventListener(
-    "input",
-    event => {
+.getElementById("presentationTitle")
+.addEventListener(
+"input",
+event=>{
 
-      if(presentation){
+if(presentation){
 
-        presentation.title =
-          event.target.value;
-      }
+presentation.title=
+event.target.value;
 
-      setSaveStatus(
-        "Unsaved changes"
-      );
-    }
-  );
+}
+
+setSaveStatus(
+"Unsaved changes"
+);
+
+}
+);
 
 
 /* =========================================================
@@ -5268,21 +5093,9 @@ document
 
 function goBack(){
 
-  if(
-    document.referrer &&
-    document.referrer.includes(
-      "presentations"
-    )
-  ){
+window.location.href=
+"presentations.html";
 
-    window.location.href =
-      "presentations.html";
-
-  }else{
-
-    window.location.href =
-      "presentations.html";
-  }
 }
 
 
@@ -5290,130 +5103,59 @@ function goBack(){
    TOAST
 ========================================================= */
 
-function showToast(
-  message
-){
+let toastTimer=null;
 
-  const toast =
-    document.getElementById(
-      "toast"
-    );
+function showToast(message){
 
-  toast.textContent =
-    message;
+const toast=
+document.getElementById("toast");
 
-  toast.classList.add(
-    "show"
-  );
+toast.textContent=message;
 
-  setTimeout(
-    () => {
+toast.classList.add("show");
 
-      toast.classList.remove(
-        "show"
-      );
+if(toastTimer){
+clearTimeout(toastTimer);
+}
 
-    },
-    2800
-  );
+toastTimer=
+setTimeout(
+()=>{
+toast.classList.remove("show");
+},
+2800
+);
+
 }
 
 
 /* =========================================================
-   TRANSITION CSS
-========================================================= */
-
-const transitionStyle =
-document.createElement(
-  "style"
-);
-
-transitionStyle.textContent = `
-
-@keyframes presentationFade{
-  from{
-    opacity:0;
-  }
-  to{
-    opacity:1;
-  }
-}
-
-@keyframes presentationSlide{
-  from{
-    opacity:0;
-    transform:translateX(100%);
-  }
-  to{
-    opacity:1;
-    transform:translateX(0);
-  }
-}
-
-@keyframes presentationZoom{
-  from{
-    opacity:0;
-    transform:scale(.7);
-  }
-  to{
-    opacity:1;
-    transform:scale(1);
-  }
-}
-
-@keyframes presentationDissolve{
-  0%{
-    opacity:0;
-    filter:blur(12px);
-  }
-  100%{
-    opacity:1;
-    filter:blur(0);
-  }
-}
-
-@keyframes presentationWipe{
-  from{
-    clip-path:inset(0 100% 0 0);
-  }
-  to{
-    clip-path:inset(0 0 0 0);
-  }
-}
-`;
-
-document.head.appendChild(
-  transitionStyle
-);
-
-
-/* =========================================================
-   CLOSE TEMPLATE ON BACKDROP
+   TEMPLATE BACKDROP
 ========================================================= */
 
 document
-  .getElementById(
-    "templateOverlay"
-  )
-  .addEventListener(
-    "click",
-    event => {
+.getElementById("templateOverlay")
+.addEventListener(
+"click",
+event=>{
 
-      if(
-        event.target ===
-        document.getElementById(
-          "templateOverlay"
-        )
-      ){
+if(
+event.target===
+document.getElementById(
+"templateOverlay"
+)
+){
 
-        closeTemplates();
-      }
-    }
-  );
+closeTemplates();
+
+}
+
+}
+);
 
 
 /* =========================================================
-   START
+   INITIALIZE
 ========================================================= */
 
 initialize();
