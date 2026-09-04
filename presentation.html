@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Presentation Studio | CareerCraft</title>
+<title>Presentation Studio - CareerCraft</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -16,323 +15,274 @@
 }
 
 :root{
-  --bg:#f4f6f9;
-  --panel:#ffffff;
-  --border:#e5e7eb;
-  --text:#111827;
-  --muted:#6b7280;
-  --primary:#4f46e5;
-  --primary-dark:#3730a3;
-  --danger:#dc2626;
-  --sidebar:#111827;
-  --sidebar-hover:#1f2937;
-  --shadow:0 10px 30px rgba(0,0,0,.08);
+  --purple:#6c5ce7;
+  --purple2:#8175ef;
+  --purple-light:#eeeaff;
+  --bg:#f4f5f9;
+  --panel:#fff;
+  --border:#e4e5ec;
+  --text:#1d1d29;
+  --muted:#777b89;
+  --dark:#171821;
+  --green:#20a66a;
+  --danger:#e05252;
 }
 
 body{
-  font-family:Inter,Arial,sans-serif;
+  font-family:Inter,Arial,Helvetica,sans-serif;
   background:var(--bg);
   color:var(--text);
-  min-height:100vh;
+  height:100vh;
   overflow:hidden;
 }
 
-/* LOADING */
-
-#loadingScreen{
-  position:fixed;
-  inset:0;
-  z-index:99999;
-  background:#111827;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  gap:15px;
+button,
+input,
+textarea,
+select{
+  font:inherit;
 }
 
-.loader{
-  width:42px;
-  height:42px;
-  border:4px solid rgba(255,255,255,.2);
-  border-top-color:white;
-  border-radius:50%;
-  animation:spin .8s linear infinite;
+button{
+  cursor:pointer;
 }
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
-#loadingScreen.hidden{
-  display:none;
-}
-
-/* APP */
 
 .app{
   height:100vh;
   display:flex;
-}
-
-/* SIDEBAR */
-
-.sidebar{
-  width:250px;
-  background:var(--sidebar);
-  color:white;
-  display:flex;
-  flex-direction:column;
-  flex-shrink:0;
-}
-
-.brand{
-  height:70px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:0 20px;
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.brand-icon{
-  width:38px;
-  height:38px;
-  border-radius:10px;
-  background:linear-gradient(135deg,#6366f1,#8b5cf6);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-}
-
-.brand span{
-  font-size:18px;
-  font-weight:800;
-}
-
-.sidebar-content{
-  padding:20px 14px;
-  flex:1;
-  overflow-y:auto;
-}
-
-.side-label{
-  font-size:11px;
-  color:#9ca3af;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  margin:8px 10px 10px;
-}
-
-.side-btn{
-  width:100%;
-  border:0;
-  background:transparent;
-  color:#d1d5db;
-  padding:12px 13px;
-  border-radius:9px;
-  display:flex;
-  align-items:center;
-  gap:11px;
-  cursor:pointer;
-  font-size:14px;
-  text-align:left;
-  margin-bottom:4px;
-}
-
-.side-btn:hover{
-  background:var(--sidebar-hover);
-  color:white;
-}
-
-.side-btn.active{
-  background:#312e81;
-  color:white;
-}
-
-.slide-section{
-  margin-top:24px;
-}
-
-.slide-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 8px 10px;
-}
-
-.slide-header span{
-  font-size:13px;
-  font-weight:700;
-}
-
-.small-add{
-  border:0;
-  background:#374151;
-  color:white;
-  width:28px;
-  height:28px;
-  border-radius:7px;
-  cursor:pointer;
-  font-size:18px;
-}
-
-.small-add:hover{
-  background:#4f46e5;
-}
-
-.slide-list{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
-.slide-item{
-  background:#1f2937;
-  border:1px solid transparent;
-  border-radius:9px;
-  padding:10px;
-  cursor:pointer;
-}
-
-.slide-item:hover{
-  border-color:#6366f1;
-}
-
-.slide-item.active{
-  background:#312e81;
-  border-color:#818cf8;
-}
-
-.slide-number{
-  font-size:11px;
-  color:#9ca3af;
-  margin-bottom:5px;
-}
-
-.slide-item-title{
-  font-size:12px;
-  font-weight:600;
-  color:#f9fafb;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.sidebar-bottom{
-  padding:15px;
-  border-top:1px solid rgba(255,255,255,.08);
-}
-
-/* MAIN */
-
-.main{
-  flex:1;
-  min-width:0;
-  display:flex;
   flex-direction:column;
 }
 
-/* TOPBAR */
+/* =========================================================
+   TOP APPLICATION BAR
+========================================================= */
 
-.topbar{
-  height:70px;
-  background:white;
+.appbar{
+  height:58px;
+  min-height:58px;
+  background:#fff;
   border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  padding:0 20px;
-  flex-shrink:0;
+  padding:0 14px;
+  gap:14px;
+  z-index:30;
 }
 
-.top-left{
+.brand{
   display:flex;
   align-items:center;
-  gap:12px;
-  min-width:0;
+  gap:8px;
+  font-weight:800;
+  color:var(--purple);
+  min-width:170px;
+}
+
+.brand-icon{
+  width:32px;
+  height:32px;
+  border-radius:9px;
+  background:var(--purple);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .back-btn{
   border:0;
-  background:#f3f4f6;
-  width:38px;
-  height:38px;
+  background:#f3f3f7;
+  width:34px;
+  height:34px;
   border-radius:9px;
-  cursor:pointer;
-  font-size:18px;
+  color:#555;
 }
 
-.back-btn:hover{
-  background:#e5e7eb;
+.title-wrap{
+  flex:1;
+  min-width:100px;
 }
 
-.top-title{
-  min-width:0;
+.presentation-title{
+  border:1px solid transparent;
+  background:transparent;
+  font-size:14px;
+  font-weight:700;
+  width:100%;
+  max-width:420px;
+  padding:7px 9px;
+  border-radius:7px;
 }
 
-.top-title h1{
-  font-size:16px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+.presentation-title:hover,
+.presentation-title:focus{
+  border-color:var(--border);
+  outline:none;
 }
 
 .save-status{
-  font-size:11px;
+  font-size:12px;
   color:var(--muted);
-  margin-top:3px;
+  white-space:nowrap;
 }
 
-.top-actions{
+.save-status.saved{
+  color:var(--green);
+}
+
+.app-actions{
   display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.btn{
-  border:0;
-  border-radius:8px;
-  padding:10px 14px;
-  cursor:pointer;
-  font-weight:700;
-  font-size:13px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
   gap:7px;
 }
 
-.btn-primary{
-  background:var(--primary);
+.app-btn{
+  border:1px solid var(--border);
+  background:#fff;
+  color:#555;
+  padding:8px 11px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.app-btn:hover{
+  background:#f6f6fa;
+}
+
+.present-btn{
+  background:var(--purple);
+  border-color:var(--purple);
   color:white;
 }
 
-.btn-primary:hover{
-  background:var(--primary-dark);
+.present-btn:hover{
+  background:#5849d8;
 }
 
-.btn-secondary{
-  background:#f3f4f6;
-  color:#374151;
+/* =========================================================
+   RIBBON TABS
+========================================================= */
+
+.ribbon{
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  z-index:20;
 }
 
-.btn-secondary:hover{
-  background:#e5e7eb;
+.ribbon-tabs{
+  height:38px;
+  display:flex;
+  align-items:center;
+  padding:0 14px;
+  gap:3px;
 }
 
-.btn-danger{
-  background:#fee2e2;
-  color:#b91c1c;
+.ribbon-tab{
+  height:34px;
+  border:0;
+  background:transparent;
+  padding:0 14px;
+  font-size:12px;
+  font-weight:700;
+  color:#626574;
+  border-radius:6px 6px 0 0;
 }
 
-.btn-danger:hover{
-  background:#fecaca;
+.ribbon-tab:hover{
+  background:#f5f4fa;
 }
 
-/* WORKSPACE */
+.ribbon-tab.active{
+  color:var(--purple);
+  border-bottom:2px solid var(--purple);
+}
+
+.ribbon-panel{
+  min-height:82px;
+  border-top:1px solid #f0f0f3;
+  padding:8px 14px;
+  display:flex;
+  align-items:stretch;
+  gap:18px;
+  overflow-x:auto;
+}
+
+.ribbon-group{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding-right:18px;
+  border-right:1px solid var(--border);
+  position:relative;
+}
+
+.ribbon-group:last-child{
+  border-right:0;
+}
+
+.ribbon-group-title{
+  position:absolute;
+  bottom:-1px;
+  left:0;
+  right:0;
+  text-align:center;
+  font-size:9px;
+  color:#999ca7;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+}
+
+.tool-btn{
+  min-width:48px;
+  height:53px;
+  border:0;
+  background:transparent;
+  border-radius:7px;
+  color:#555968;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  font-size:10px;
+  padding:4px;
+}
+
+.tool-btn span:first-child{
+  font-size:19px;
+}
+
+.tool-btn:hover{
+  background:#f1effd;
+  color:var(--purple);
+}
+
+.tool-btn.active{
+  background:var(--purple-light);
+  color:var(--purple);
+}
+
+.tool-select{
+  height:34px;
+  border:1px solid var(--border);
+  border-radius:7px;
+  background:white;
+  padding:0 8px;
+  font-size:11px;
+}
+
+.tool-input{
+  width:65px;
+  height:34px;
+  border:1px solid var(--border);
+  border-radius:7px;
+  padding:0 7px;
+  font-size:12px;
+}
+
+/* =========================================================
+   WORKSPACE
+========================================================= */
 
 .workspace{
   flex:1;
@@ -340,487 +290,820 @@ body{
   display:flex;
 }
 
-/* CANVAS */
+/* =========================================================
+   LEFT THUMBNAILS
+========================================================= */
+
+.sidebar{
+  width:235px;
+  min-width:235px;
+  background:#fafbfc;
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+}
+
+.sidebar-head{
+  height:45px;
+  min-height:45px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 11px;
+  border-bottom:1px solid var(--border);
+}
+
+.sidebar-head strong{
+  font-size:12px;
+}
+
+.add-slide-small{
+  border:0;
+  background:var(--purple-light);
+  color:var(--purple);
+  width:29px;
+  height:29px;
+  border-radius:7px;
+  font-size:18px;
+}
+
+.thumbnails{
+  flex:1;
+  overflow-y:auto;
+  padding:12px 10px 20px;
+}
+
+.thumbnail-item{
+  display:flex;
+  gap:7px;
+  margin-bottom:10px;
+  cursor:pointer;
+  user-select:none;
+}
+
+.thumbnail-number{
+  width:22px;
+  min-width:22px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding-top:15px;
+  font-size:10px;
+  color:#858895;
+}
+
+.thumbnail-wrap{
+  flex:1;
+  position:relative;
+}
+
+.thumbnail{
+  width:100%;
+  aspect-ratio:16/9;
+  background:white;
+  border:2px solid transparent;
+  border-radius:6px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 2px 6px rgba(0,0,0,.06);
+}
+
+.thumbnail-item:hover .thumbnail{
+  border-color:#c9c5f7;
+}
+
+.thumbnail-item.active .thumbnail{
+  border-color:var(--purple);
+  box-shadow:0 0 0 2px rgba(108,92,231,.12);
+}
+
+.thumbnail-transition{
+  position:absolute;
+  right:4px;
+  bottom:4px;
+  background:var(--purple);
+  color:#fff;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:9px;
+}
+
+.thumbnail-delete{
+  position:absolute;
+  right:4px;
+  top:4px;
+  width:20px;
+  height:20px;
+  border:0;
+  border-radius:5px;
+  background:rgba(20,20,30,.7);
+  color:#fff;
+  display:none;
+  font-size:11px;
+  z-index:4;
+}
+
+.thumbnail-wrap:hover .thumbnail-delete{
+  display:block;
+}
+
+/* =========================================================
+   CANVAS AREA
+========================================================= */
 
 .canvas-area{
   flex:1;
   min-width:0;
-  overflow:auto;
-  padding:35px;
+  background:
+    radial-gradient(#dfe1e9 1px,transparent 1px);
+  background-size:18px 18px;
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
+
+.canvas-toolbar{
+  height:43px;
+  min-height:43px;
+  background:rgba(255,255,255,.92);
+  border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
   justify-content:center;
-  background:
-    radial-gradient(circle at 20% 20%,rgba(79,70,229,.05),transparent 30%),
-    #eef1f5;
+  gap:10px;
 }
 
-.canvas-wrapper{
-  width:min(900px,90%);
+.zoom-label{
+  font-size:11px;
+  color:var(--muted);
 }
 
-.presentation-canvas{
-  width:100%;
+.zoom-range{
+  width:120px;
+}
+
+.canvas-scroll{
+  flex:1;
+  min-height:0;
+  overflow:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:35px;
+}
+
+.canvas{
+  width:min(900px,80vw);
   aspect-ratio:16/9;
   background:white;
-  border-radius:10px;
-  box-shadow:0 20px 50px rgba(0,0,0,.16);
+  position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,.18);
   overflow:hidden;
+  transition:transform .2s;
+}
+
+.canvas-editable{
+  width:100%;
+  height:100%;
   position:relative;
 }
 
-.presentation-canvas.light{
-  background:#ffffff;
-  color:#111827;
+.slide-element{
+  position:absolute;
+  outline:1px solid transparent;
+  cursor:text;
 }
 
-.presentation-canvas.dark{
-  background:#111827;
-  color:white;
+.slide-element:hover{
+  outline:1px dashed rgba(108,92,231,.6);
 }
 
-.presentation-canvas.blue{
-  background:#eff6ff;
-  color:#172554;
+.slide-element.selected{
+  outline:2px solid var(--purple);
 }
 
-.presentation-canvas.purple{
-  background:#f5f3ff;
-  color:#312e81;
-}
-
-.presentation-canvas.gradient{
-  background:linear-gradient(135deg,#4f46e5,#7c3aed);
-  color:white;
-}
-
-.slide-render{
+.editable-text{
   width:100%;
-  height:100%;
-  padding:7%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+  min-height:30px;
+  border:0;
+  outline:0;
+  background:transparent;
+  resize:none;
+  overflow:hidden;
+  font-family:Arial,sans-serif;
+  color:inherit;
 }
 
-.slide-render h2{
-  font-size:clamp(24px,4vw,52px);
-  line-height:1.08;
-  margin-bottom:15px;
+.editable-text:focus{
+  outline:0;
 }
 
-.slide-render h3{
-  font-size:clamp(17px,2vw,28px);
-  margin-bottom:12px;
-}
-
-.slide-subtitle{
-  font-size:clamp(13px,1.7vw,21px);
-  opacity:.72;
-  margin-bottom:22px;
-}
-
-.slide-content{
-  font-size:clamp(12px,1.5vw,18px);
-  line-height:1.65;
-  white-space:pre-wrap;
-  opacity:.9;
-}
-
-.title-layout{
-  justify-content:center;
-}
-
-.title-layout h2{
-  font-size:clamp(30px,5vw,68px);
-}
-
-.section-layout{
-  text-align:center;
-  align-items:center;
-}
-
-.quote-layout{
-  text-align:center;
-  align-items:center;
-}
-
-.quote-layout .slide-content{
-  font-size:clamp(18px,2.7vw,34px);
-  font-style:italic;
-  max-width:80%;
-}
-
-.two-column{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:35px;
-  align-items:center;
-}
-
-.image-layout{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:35px;
-  align-items:center;
-}
-
-.slide-image{
-  width:100%;
-  max-height:65%;
+.canvas-image{
+  position:absolute;
   object-fit:cover;
-  border-radius:12px;
+  border-radius:8px;
 }
 
-.image-placeholder{
-  border:2px dashed rgba(107,114,128,.35);
-  min-height:180px;
-  border-radius:12px;
+/* =========================================================
+   STATUS BAR
+========================================================= */
+
+.statusbar{
+  height:27px;
+  min-height:27px;
+  background:#fff;
+  border-top:1px solid var(--border);
   display:flex;
   align-items:center;
-  justify-content:center;
-  color:#9ca3af;
+  justify-content:space-between;
+  padding:0 12px;
+  font-size:10px;
+  color:#888b97;
 }
 
-/* INSPECTOR */
+/* =========================================================
+   TEMPLATE GALLERY
+========================================================= */
 
-.inspector{
-  width:330px;
-  background:white;
-  border-left:1px solid var(--border);
-  overflow-y:auto;
-  flex-shrink:0;
-}
-
-.inspector-header{
-  padding:18px 20px;
-  border-bottom:1px solid var(--border);
-}
-
-.inspector-header h2{
-  font-size:16px;
-}
-
-.inspector-header p{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:4px;
-}
-
-.form-section{
-  padding:18px 20px;
-  border-bottom:1px solid var(--border);
-}
-
-.form-section h3{
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.7px;
-  margin-bottom:14px;
-  color:#374151;
-}
-
-.field{
-  margin-bottom:14px;
-}
-
-.field:last-child{
-  margin-bottom:0;
-}
-
-.field label{
-  display:block;
-  font-size:12px;
-  font-weight:700;
-  margin-bottom:6px;
-  color:#374151;
-}
-
-.field input,
-.field textarea,
-.field select{
-  width:100%;
-  border:1px solid #d1d5db;
-  border-radius:8px;
-  padding:10px 11px;
-  font-family:inherit;
-  font-size:13px;
-  outline:none;
-  background:white;
-  color:#111827;
-}
-
-.field textarea{
-  resize:vertical;
-  min-height:100px;
-}
-
-.field input:focus,
-.field textarea:focus,
-.field select:focus{
-  border-color:#6366f1;
-  box-shadow:0 0 0 3px rgba(99,102,241,.1);
-}
-
-.layout-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-}
-
-.layout-option{
-  border:1px solid #d1d5db;
-  border-radius:8px;
-  padding:9px;
-  cursor:pointer;
-  text-align:center;
-  font-size:11px;
-  background:white;
-}
-
-.layout-option:hover{
-  border-color:#6366f1;
-}
-
-.layout-option.selected{
-  border-color:#4f46e5;
-  background:#eef2ff;
-  color:#3730a3;
-  font-weight:700;
-}
-
-.background-grid{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:7px;
-}
-
-.bg-option{
-  height:35px;
-  border-radius:7px;
-  border:2px solid transparent;
-  cursor:pointer;
-}
-
-.bg-option.selected{
-  border-color:#111827;
-}
-
-.bg-light{background:white;border:1px solid #d1d5db}
-.bg-dark{background:#111827}
-.bg-blue{background:#dbeafe}
-.bg-purple{background:#ede9fe}
-.bg-gradient{background:linear-gradient(135deg,#4f46e5,#7c3aed)}
-
-.slide-actions{
-  display:flex;
-  gap:7px;
-}
-
-.slide-actions .btn{
-  flex:1;
-}
-
-/* PREVIEW */
-
-.modal{
+.template-overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.8);
-  z-index:9000;
+  background:rgba(10,10,18,.45);
+  z-index:1000;
   display:none;
   align-items:center;
   justify-content:center;
-  padding:20px;
+  padding:25px;
 }
 
-.modal.show{
+.template-overlay.open{
   display:flex;
 }
 
-.preview-container{
-  width:min(1100px,96vw);
-  max-height:92vh;
-  position:relative;
-}
-
-.preview-canvas{
-  width:100%;
-  aspect-ratio:16/9;
-  border-radius:12px;
+.template-modal{
+  width:min(1000px,95vw);
+  height:min(720px,90vh);
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 30px 100px rgba(0,0,0,.3);
+  display:flex;
+  flex-direction:column;
   overflow:hidden;
-  box-shadow:0 30px 80px rgba(0,0,0,.4);
 }
 
-.close-preview{
-  position:absolute;
-  right:-8px;
-  top:-48px;
-  width:38px;
-  height:38px;
-  border:0;
-  border-radius:50%;
-  background:white;
-  cursor:pointer;
-  font-size:20px;
-}
-
-.preview-nav{
+.modal-head{
+  height:65px;
   display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-top:15px;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  border-bottom:1px solid var(--border);
 }
 
-.preview-nav button{
-  width:42px;
-  height:42px;
-  border:0;
-  border-radius:50%;
-  cursor:pointer;
+.modal-head h2{
   font-size:18px;
 }
 
-/* TOAST */
+.close-modal{
+  border:0;
+  background:#f1f1f5;
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  font-size:20px;
+}
 
-#toast{
+.template-grid{
+  flex:1;
+  overflow:auto;
+  padding:20px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:16px;
+}
+
+.template-card{
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  background:#fff;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.template-card:hover{
+  border-color:var(--purple);
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(0,0,0,.1);
+}
+
+.template-preview{
+  aspect-ratio:16/9;
+  position:relative;
+  overflow:hidden;
+}
+
+.template-info{
+  padding:9px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.template-number{
+  font-size:9px;
+  color:#999;
+  margin-bottom:3px;
+}
+
+/* =========================================================
+   TRANSITION PANEL
+========================================================= */
+
+.transition-panel{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+}
+
+.transition-card{
+  width:82px;
+  height:62px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  font-size:10px;
+}
+
+.transition-card:hover,
+.transition-card.active{
+  border-color:var(--purple);
+  background:var(--purple-light);
+  color:var(--purple);
+}
+
+.transition-icon{
+  font-size:20px;
+}
+
+/* =========================================================
+   FULL SCREEN PRESENTATION MODE
+========================================================= */
+
+.present-mode{
+  position:fixed;
+  inset:0;
+  background:#050509;
+  z-index:5000;
+  display:none;
+  flex-direction:column;
+}
+
+.present-mode.open{
+  display:flex;
+}
+
+.present-stage{
+  flex:1;
+  min-height:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.present-slide{
+  width:min(94vw,1400px);
+  aspect-ratio:16/9;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 30px 100px rgba(0,0,0,.5);
+}
+
+.present-controls{
+  position:absolute;
+  left:50%;
+  bottom:20px;
+  transform:translateX(-50%);
+  background:rgba(20,20,27,.85);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;
+  padding:7px;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  opacity:0;
+  transition:.2s;
+  z-index:10;
+}
+
+.present-stage:hover .present-controls,
+.present-controls:hover{
+  opacity:1;
+}
+
+.present-control-btn{
+  border:0;
+  background:transparent;
+  color:white;
+  width:39px;
+  height:36px;
+  border-radius:8px;
+  font-size:17px;
+}
+
+.present-control-btn:hover{
+  background:rgba(255,255,255,.12);
+}
+
+.present-counter{
+  color:#ddd;
+  font-size:11px;
+  padding:0 8px;
+}
+
+.present-exit{
+  position:absolute;
+  right:20px;
+  top:20px;
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:10px;
+  background:rgba(255,255,255,.1);
+  color:white;
+  font-size:22px;
+  z-index:20;
+}
+
+.present-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:50px;
+  height:50px;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.09);
+  color:white;
+  font-size:35px;
+  z-index:15;
+  opacity:.35;
+}
+
+.present-nav:hover{
+  opacity:1;
+  background:rgba(255,255,255,.16);
+}
+
+.present-nav.left{
+  left:20px;
+}
+
+.present-nav.right{
+  right:20px;
+}
+
+/* =========================================================
+   SLIDE DESIGNS
+========================================================= */
+
+.design-purple{
+  background:linear-gradient(135deg,#6c5ce7,#927fff);
+  color:#fff;
+}
+
+.design-dark{
+  background:#171821;
+  color:#fff;
+}
+
+.design-blue{
+  background:linear-gradient(135deg,#eaf2ff,#cfe0ff);
+  color:#16335c;
+}
+
+.design-green{
+  background:linear-gradient(135deg,#eaf9f1,#c9eedc);
+  color:#174d32;
+}
+
+.design-cream{
+  background:#fff8ea;
+  color:#49351d;
+}
+
+.design-pink{
+  background:linear-gradient(135deg,#fff0f6,#ffd9e8);
+  color:#632c46;
+}
+
+.design-white{
+  background:#fff;
+  color:#181820;
+}
+
+.design-gradient{
+  background:linear-gradient(135deg,#111827,#6c5ce7);
+  color:#fff;
+}
+
+.shape-circle{
+  position:absolute;
+  width:32%;
+  aspect-ratio:1;
+  border-radius:50%;
+  background:rgba(255,255,255,.13);
+  right:-8%;
+  top:-20%;
+}
+
+.shape-circle2{
+  position:absolute;
+  width:20%;
+  aspect-ratio:1;
+  border-radius:50%;
+  background:rgba(108,92,231,.14);
+  left:-7%;
+  bottom:-12%;
+}
+
+.design-content{
+  position:absolute;
+  inset:0;
+  padding:8%;
+}
+
+.design-title{
+  font-size:clamp(18px,4vw,54px);
+  font-weight:800;
+  line-height:1.05;
+}
+
+.design-subtitle{
+  font-size:clamp(8px,1.5vw,22px);
+  opacity:.72;
+  margin-top:13px;
+  line-height:1.4;
+}
+
+.design-body{
+  font-size:clamp(7px,1.3vw,19px);
+  line-height:1.55;
+  margin-top:16px;
+}
+
+.mini-line{
+  width:18%;
+  height:3px;
+  background:currentColor;
+  margin-bottom:15px;
+  border-radius:4px;
+}
+
+.mini-number{
+  font-size:clamp(8px,1vw,14px);
+  opacity:.55;
+}
+
+.mini-stat{
+  display:flex;
+  gap:4%;
+  margin-top:12%;
+}
+
+.mini-stat-box{
+  flex:1;
+  padding:6%;
+  border-radius:8px;
+  background:rgba(255,255,255,.45);
+}
+
+.mini-stat-number{
+  font-size:clamp(14px,2.5vw,35px);
+  font-weight:800;
+}
+
+.mini-stat-label{
+  font-size:clamp(6px,1vw,12px);
+  opacity:.65;
+  margin-top:3px;
+}
+
+.mini-cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:4%;
+  margin-top:9%;
+}
+
+.mini-card{
+  background:rgba(255,255,255,.55);
+  border-radius:7px;
+  padding:8%;
+  min-height:45px;
+}
+
+.mini-card strong{
+  display:block;
+  font-size:clamp(7px,1.1vw,15px);
+}
+
+.mini-card small{
+  display:block;
+  font-size:clamp(5px,.8vw,10px);
+  opacity:.6;
+  margin-top:5px;
+}
+
+.mini-quote{
+  font-size:clamp(12px,2vw,29px);
+  font-weight:700;
+  font-style:italic;
+  line-height:1.3;
+  text-align:center;
+  max-width:75%;
+  margin:10% auto 0;
+}
+
+.mini-columns{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8%;
+  margin-top:8%;
+}
+
+.mini-column{
+  min-width:0;
+}
+
+.mini-column h4{
+  font-size:clamp(8px,1.2vw,17px);
+  margin-bottom:7px;
+}
+
+.mini-column p{
+  font-size:clamp(6px,1vw,12px);
+  line-height:1.5;
+  opacity:.72;
+}
+
+.mini-image{
+  position:absolute;
+  right:8%;
+  top:15%;
+  width:38%;
+  height:70%;
+  border-radius:10px;
+  background:linear-gradient(135deg,#ddd,#aaa);
+}
+
+.mini-image-text{
+  width:45%;
+}
+
+.mini-timeline{
+  display:flex;
+  align-items:center;
+  gap:0;
+  margin-top:15%;
+}
+
+.mini-time{
+  flex:1;
+  position:relative;
+  text-align:center;
+}
+
+.mini-time-dot{
+  width:10px;
+  height:10px;
+  background:currentColor;
+  border-radius:50%;
+  margin:auto;
+  position:relative;
+  z-index:2;
+}
+
+.mini-time-line{
+  position:absolute;
+  top:5px;
+  left:50%;
+  width:100%;
+  height:2px;
+  background:currentColor;
+  opacity:.3;
+}
+
+.mini-time:last-child .mini-time-line{
+  display:none;
+}
+
+.mini-time span{
+  display:block;
+  margin-top:5px;
+  font-size:clamp(5px,.8vw,10px);
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
   position:fixed;
   right:20px;
   bottom:20px;
-  background:#111827;
+  background:#20212b;
   color:white;
   padding:12px 16px;
-  border-radius:9px;
-  box-shadow:var(--shadow);
-  font-size:13px;
-  z-index:99999;
-  transform:translateY(120px);
+  border-radius:10px;
+  font-size:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  transform:translateY(80px);
   opacity:0;
   transition:.25s;
+  z-index:10000;
 }
 
-#toast.show{
+.toast.show{
   transform:translateY(0);
   opacity:1;
 }
 
-#debugError{
-  position:fixed;
-  inset:0;
-  z-index:100000;
-  background:#111827;
-  color:#fff;
-  padding:25px;
-  font-family:monospace;
-  font-size:14px;
-  overflow:auto;
-  display:none;
-  white-space:pre-wrap;
-}
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
-/* MOBILE */
-
-@media(max-width:1050px){
-  .inspector{
-    width:290px;
-  }
-
-  .sidebar{
-    width:220px;
-  }
-}
-
-@media(max-width:800px){
-  body{
-    overflow:auto;
-  }
-
-  .app{
-    min-height:100vh;
-    height:auto;
-  }
-
-  .sidebar{
-    width:65px;
-  }
+@media(max-width:900px){
 
   .brand{
-    justify-content:center;
-    padding:0;
+    min-width:auto;
   }
 
-  .brand span,
-  .side-label,
-  .side-btn span,
-  .slide-section{
+  .brand span{
     display:none;
   }
 
-  .side-btn{
-    justify-content:center;
+  .sidebar{
+    width:180px;
+    min-width:180px;
   }
 
-  .sidebar-bottom{
-    padding:8px;
+  .template-grid{
+    grid-template-columns:repeat(3,1fr);
   }
 
-  .workspace{
-    flex-direction:column;
-  }
-
-  .canvas-area{
-    padding:20px 12px;
-    min-height:50vh;
-  }
-
-  .canvas-wrapper{
-    width:100%;
-  }
-
-  .inspector{
-    width:100%;
-    border-left:0;
-    border-top:1px solid var(--border);
-    max-height:none;
-  }
-
-  .topbar{
-    padding:0 10px;
-  }
-
-  .top-actions .btn{
-    padding:9px;
-  }
-
-  .top-actions .btn span{
+  .app-actions .optional-btn{
     display:none;
-  }
-
-  .top-title h1{
-    max-width:150px;
   }
 }
 
-@media(max-width:520px){
-  .topbar{
-    height:60px;
+@media(max-width:650px){
+
+  .sidebar{
+    display:none;
   }
 
-  .top-actions{
-    gap:4px;
+  .save-status{
+    display:none;
   }
 
-  .btn{
-    padding:9px 10px;
+  .app-actions .app-btn{
+    padding:7px 8px;
   }
 
-  .canvas-area{
-    min-height:42vh;
+  .ribbon-panel{
+    min-height:70px;
   }
 
-  .two-column,
-  .image-layout{
-    gap:15px;
+  .canvas-scroll{
+    padding:15px;
+  }
+
+  .canvas{
+    width:95vw;
+  }
+
+  .template-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .presentation-title{
+    max-width:180px;
+  }
+
+  .ribbon-tab{
+    padding:0 8px;
   }
 }
 </style>
@@ -828,311 +1111,704 @@ body{
 
 <body>
 
-<!-- DEBUG ERROR -->
-<div id="debugError"></div>
-
-<!-- LOADING -->
-<div id="loadingScreen">
-  <div class="loader"></div>
-  <strong>Loading Presentation Studio...</strong>
-  <small>Please wait</small>
-</div>
-
 <div class="app">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
+  <!-- =====================================================
+       APPLICATION BAR
+  ====================================================== -->
+
+  <header class="appbar">
+
+    <button class="back-btn" onclick="goBack()" title="Back">
+      ←
+    </button>
 
     <div class="brand">
       <div class="brand-icon">C</div>
-      <span>CareerCraft</span>
+      <span>CareerCraft Studio</span>
     </div>
 
-    <div class="sidebar-content">
+    <div class="title-wrap">
+      <input
+        id="presentationTitle"
+        class="presentation-title"
+        value="Untitled Presentation"
+        aria-label="Presentation title"
+      >
+    </div>
 
-      <div class="side-label">Studio</div>
+    <div id="saveStatus" class="save-status">
+      Ready
+    </div>
 
-      <button class="side-btn active" onclick="showEditor()">
-        <b>▣</b>
-        <span>Editor</span>
+    <div class="app-actions">
+
+      <button class="app-btn optional-btn" onclick="undoAction()">
+        ↶ Undo
       </button>
 
-      <button class="side-btn" onclick="openPreview()">
-        <b>▶</b>
-        <span>Preview</span>
+      <button class="app-btn optional-btn" onclick="redoAction()">
+        ↷ Redo
       </button>
 
-      <button class="side-btn" onclick="savePresentation()">
-        <b>✓</b>
-        <span>Save</span>
+      <button class="app-btn" onclick="savePresentation()">
+        💾 Save
       </button>
 
-      <div class="slide-section">
+      <button
+        class="app-btn present-btn"
+        onclick="startPresentation()"
+      >
+        ▶ Present
+      </button>
 
-        <div class="slide-header">
-          <span>Slides</span>
-          <button class="small-add" onclick="addSlide()">+</button>
-        </div>
+    </div>
 
-        <div id="slideList" class="slide-list"></div>
+  </header>
+
+
+  <!-- =====================================================
+       RIBBON
+  ====================================================== -->
+
+  <section class="ribbon">
+
+    <div class="ribbon-tabs">
+
+      <button
+        class="ribbon-tab active"
+        data-tab="home"
+        onclick="switchRibbon('home')"
+      >
+        Home
+      </button>
+
+      <button
+        class="ribbon-tab"
+        data-tab="insert"
+        onclick="switchRibbon('insert')"
+      >
+        Insert
+      </button>
+
+      <button
+        class="ribbon-tab"
+        data-tab="design"
+        onclick="switchRibbon('design')"
+      >
+        Design
+      </button>
+
+      <button
+        class="ribbon-tab"
+        data-tab="transitions"
+        onclick="switchRibbon('transitions')"
+      >
+        Transitions
+      </button>
+
+      <button
+        class="ribbon-tab"
+        data-tab="animations"
+        onclick="switchRibbon('animations')"
+      >
+        Animations
+      </button>
+
+      <button
+        class="ribbon-tab"
+        data-tab="slideshow"
+        onclick="switchRibbon('slideshow')"
+      >
+        Slide Show
+      </button>
+
+    </div>
+
+
+    <!-- HOME -->
+    <div class="ribbon-panel" id="ribbon-home">
+
+      <div class="ribbon-group">
+
+        <button class="tool-btn" onclick="addSlide()">
+          <span>＋</span>
+          <span>New Slide</span>
+        </button>
+
+        <button class="tool-btn" onclick="duplicateSlide()">
+          <span>▣</span>
+          <span>Duplicate</span>
+        </button>
+
+        <button class="tool-btn" onclick="deleteCurrentSlide()">
+          <span>⌫</span>
+          <span>Delete</span>
+        </button>
+
+        <div class="ribbon-group-title">Slides</div>
+      </div>
+
+
+      <div class="ribbon-group">
+
+        <select
+          class="tool-select"
+          id="fontFamily"
+          onchange="applyFontFamily(this.value)"
+        >
+          <option>Arial</option>
+          <option>Georgia</option>
+          <option>Verdana</option>
+          <option>Trebuchet MS</option>
+          <option>Times New Roman</option>
+        </select>
+
+        <input
+          id="fontSize"
+          class="tool-input"
+          type="number"
+          value="28"
+          min="8"
+          max="100"
+          onchange="applyFontSize(this.value)"
+        >
+
+        <button class="tool-btn" onclick="toggleBold()">
+          <span>𝐁</span>
+          <span>Bold</span>
+        </button>
+
+        <button class="tool-btn" onclick="toggleItalic()">
+          <span>𝘐</span>
+          <span>Italic</span>
+        </button>
+
+        <button class="tool-btn" onclick="toggleUnderline()">
+          <span>U̲</span>
+          <span>Underline</span>
+        </button>
+
+        <div class="ribbon-group-title">Font</div>
+      </div>
+
+
+      <div class="ribbon-group">
+
+        <button class="tool-btn" onclick="alignText('left')">
+          <span>≡</span>
+          <span>Left</span>
+        </button>
+
+        <button class="tool-btn" onclick="alignText('center')">
+          <span>≡</span>
+          <span>Center</span>
+        </button>
+
+        <button class="tool-btn" onclick="alignText('right')">
+          <span>≡</span>
+          <span>Right</span>
+        </button>
+
+        <div class="ribbon-group-title">Paragraph</div>
+      </div>
+
+
+      <div class="ribbon-group">
+
+        <button class="tool-btn" onclick="openTemplates()">
+          <span>▦</span>
+          <span>Layouts</span>
+        </button>
+
+        <button class="tool-btn" onclick="switchRibbon('design')">
+          <span>🎨</span>
+          <span>Theme</span>
+        </button>
+
+        <div class="ribbon-group-title">Design</div>
+      </div>
+
+    </div>
+
+
+    <!-- INSERT -->
+    <div class="ribbon-panel" id="ribbon-insert" style="display:none;">
+
+      <div class="ribbon-group">
+
+        <button class="tool-btn" onclick="addTextBox()">
+          <span>Ｔ</span>
+          <span>Text Box</span>
+        </button>
+
+        <button class="tool-btn" onclick="addHeading()">
+          <span>H</span>
+          <span>Heading</span>
+        </button>
+
+        <button class="tool-btn" onclick="addQuote()">
+          <span>❝</span>
+          <span>Quote</span>
+        </button>
+
+        <div class="ribbon-group-title">Text</div>
+      </div>
+
+
+      <div class="ribbon-group">
+
+        <button class="tool-btn" onclick="addImage()">
+          <span>▧</span>
+          <span>Image URL</span>
+        </button>
+
+        <button class="tool-btn" onclick="addShape()">
+          <span>◇</span>
+          <span>Shape</span>
+        </button>
+
+        <div class="ribbon-group-title">Elements</div>
+      </div>
+
+
+      <div class="ribbon-group">
+
+        <button class="tool-btn" onclick="openTemplates()">
+          <span>▦</span>
+          <span>50 Designs</span>
+        </button>
+
+        <div class="ribbon-group-title">Templates</div>
+      </div>
+
+    </div>
+
+
+    <!-- DESIGN -->
+    <div class="ribbon-panel" id="ribbon-design" style="display:none;">
+
+      <div class="ribbon-group">
+
+        <button class="tool-btn" onclick="applyTheme('purple')">
+          <span>●</span>
+          <span>Purple</span>
+        </button>
+
+        <button class="tool-btn" onclick="applyTheme('dark')">
+          <span>●</span>
+          <span>Dark</span>
+        </button>
+
+        <button class="tool-btn" onclick="applyTheme('blue')">
+          <span>●</span>
+          <span>Blue</span>
+        </button>
+
+        <button class="tool-btn" onclick="applyTheme('green')">
+          <span>●</span>
+          <span>Green</span>
+        </button>
+
+        <button class="tool-btn" onclick="applyTheme('cream')">
+          <span>●</span>
+          <span>Cream</span>
+        </button>
+
+        <div class="ribbon-group-title">Themes</div>
+      </div>
+
+
+      <div class="ribbon-group">
+
+        <button class="tool-btn" onclick="openTemplates()">
+          <span>▦</span>
+          <span>All Designs</span>
+        </button>
+
+        <div class="ribbon-group-title">Templates</div>
+      </div>
+
+    </div>
+
+
+    <!-- TRANSITIONS -->
+    <div class="ribbon-panel" id="ribbon-transitions" style="display:none;">
+
+      <div class="transition-panel">
+
+        <button
+          class="transition-card active"
+          data-transition="none"
+          onclick="setTransition('none')"
+        >
+          <span class="transition-icon">—</span>
+          None
+        </button>
+
+        <button
+          class="transition-card"
+          data-transition="fade"
+          onclick="setTransition('fade')"
+        >
+          <span class="transition-icon">◐</span>
+          Fade
+        </button>
+
+        <button
+          class="transition-card"
+          data-transition="slide"
+          onclick="setTransition('slide')"
+        >
+          <span class="transition-icon">→</span>
+          Slide
+        </button>
+
+        <button
+          class="transition-card"
+          data-transition="wipe"
+          onclick="setTransition('wipe')"
+        >
+          <span class="transition-icon">◧</span>
+          Wipe
+        </button>
+
+        <button
+          class="transition-card"
+          data-transition="zoom"
+          onclick="setTransition('zoom')"
+        >
+          <span class="transition-icon">⌕</span>
+          Zoom
+        </button>
+
+        <button
+          class="transition-card"
+          data-transition="dissolve"
+          onclick="setTransition('dissolve')"
+        >
+          <span class="transition-icon">✦</span>
+          Dissolve
+        </button>
+
+        <select
+          class="tool-select"
+          id="transitionDuration"
+          onchange="changeTransitionDuration(this.value)"
+        >
+          <option value="0.3">0.3 sec</option>
+          <option value="0.5" selected>0.5 sec</option>
+          <option value="0.8">0.8 sec</option>
+          <option value="1">1 sec</option>
+          <option value="1.5">1.5 sec</option>
+          <option value="2">2 sec</option>
+        </select>
+
+        <button
+          class="app-btn"
+          onclick="applyTransitionToAll()"
+        >
+          Apply to All
+        </button>
+
+        <button
+          class="app-btn"
+          onclick="previewTransition()"
+        >
+          ▶ Preview
+        </button>
 
       </div>
 
     </div>
 
-    <div class="sidebar-bottom">
-      <button class="side-btn" onclick="goBack()">
-        <b>←</b>
-        <span>Back</span>
-      </button>
+
+    <!-- ANIMATIONS -->
+    <div class="ribbon-panel" id="ribbon-animations" style="display:none;">
+
+      <div class="ribbon-group">
+
+        <button class="tool-btn" onclick="setAnimation('none')">
+          <span>—</span>
+          <span>None</span>
+        </button>
+
+        <button class="tool-btn" onclick="setAnimation('fade')">
+          <span>◐</span>
+          <span>Fade In</span>
+        </button>
+
+        <button class="tool-btn" onclick="setAnimation('rise')">
+          <span>↑</span>
+          <span>Rise</span>
+        </button>
+
+        <button class="tool-btn" onclick="setAnimation('zoom')">
+          <span>⌕</span>
+          <span>Zoom</span>
+        </button>
+
+        <div class="ribbon-group-title">Object Animations</div>
+      </div>
+
     </div>
 
-  </aside>
 
-  <!-- MAIN -->
-  <main class="main">
+    <!-- SLIDE SHOW -->
+    <div class="ribbon-panel" id="ribbon-slideshow" style="display:none;">
 
-    <header class="topbar">
+      <div class="ribbon-group">
 
-      <div class="top-left">
+        <button class="tool-btn" onclick="startPresentation(0)">
+          <span>▶</span>
+          <span>From Start</span>
+        </button>
 
-        <button class="back-btn" onclick="goBack()">←</button>
+        <button class="tool-btn" onclick="startPresentation(currentSlideIndex)">
+          <span>▷</span>
+          <span>From Current</span>
+        </button>
 
-        <div class="top-title">
-          <h1 id="topTitle">Untitled Presentation</h1>
-          <div class="save-status" id="saveStatus">
-            Not saved
-          </div>
-        </div>
+        <div class="ribbon-group-title">Start Slide Show</div>
+      </div>
+
+
+      <div class="ribbon-group">
+
+        <button class="tool-btn" onclick="toggleAutoPlay()">
+          <span>⏱</span>
+          <span>Auto Play</span>
+        </button>
+
+        <button class="tool-btn" onclick="toggleFullscreen()">
+          <span>⛶</span>
+          <span>Fullscreen</span>
+        </button>
+
+        <div class="ribbon-group-title">Presentation</div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       WORKSPACE
+  ====================================================== -->
+
+  <main class="workspace">
+
+    <aside class="sidebar">
+
+      <div class="sidebar-head">
+
+        <strong>Slides</strong>
+
+        <button
+          class="add-slide-small"
+          onclick="addSlide()"
+          title="New slide"
+        >
+          +
+        </button>
 
       </div>
 
-      <div class="top-actions">
+      <div id="thumbnails" class="thumbnails"></div>
 
-        <button class="btn btn-secondary" onclick="openPreview()">
-          ▶ <span>Preview</span>
+    </aside>
+
+
+    <section class="canvas-area">
+
+      <div class="canvas-toolbar">
+
+        <span id="slidePosition" class="zoom-label">
+          Slide 1 of 1
+        </span>
+
+        <span style="color:#ddd;">|</span>
+
+        <button
+          class="app-btn"
+          onclick="zoomOut()"
+        >
+          −
         </button>
 
-        <button class="btn btn-secondary" onclick="savePresentation()">
-          ✓ <span>Save</span>
+        <input
+          id="zoomRange"
+          class="zoom-range"
+          type="range"
+          min="50"
+          max="130"
+          value="85"
+          oninput="changeZoom(this.value)"
+        >
+
+        <button
+          class="app-btn"
+          onclick="zoomIn()"
+        >
+          +
         </button>
 
-        <button class="btn btn-primary" onclick="togglePublish()">
-          🚀 <span id="publishText">Publish</span>
-        </button>
+        <span id="zoomValue" class="zoom-label">
+          85%
+        </span>
 
       </div>
 
-    </header>
 
-    <div class="workspace">
+      <div class="canvas-scroll">
 
-      <!-- CANVAS -->
-      <section class="canvas-area">
+        <div
+          id="canvas"
+          class="canvas"
+          style="transform:scale(.85);transform-origin:center center;"
+        ></div>
 
-        <div class="canvas-wrapper">
+      </div>
 
-          <div id="presentationCanvas" class="presentation-canvas light">
-            <div id="slideRender"></div>
-          </div>
 
-        </div>
+      <div class="statusbar">
 
-      </section>
+        <span id="statusLeft">
+          Ready
+        </span>
 
-      <!-- INSPECTOR -->
-      <aside class="inspector">
+        <span>
+          CareerCraft Presentation Studio
+        </span>
 
-        <div class="inspector-header">
-          <h2>Presentation Editor</h2>
-          <p>Edit your presentation content and design.</p>
-        </div>
+      </div>
 
-        <!-- PRESENTATION -->
-        <div class="form-section">
-
-          <h3>Presentation</h3>
-
-          <div class="field">
-            <label>Title</label>
-            <input
-              id="presentationTitle"
-              type="text"
-              placeholder="My Career Presentation"
-            >
-          </div>
-
-          <div class="field">
-            <label>Description</label>
-            <textarea
-              id="presentationDescription"
-              placeholder="Describe your presentation..."
-            ></textarea>
-          </div>
-
-        </div>
-
-        <!-- SLIDE -->
-        <div class="form-section">
-
-          <h3>Current Slide</h3>
-
-          <div class="field">
-            <label>Slide Title</label>
-            <input
-              id="slideTitle"
-              type="text"
-              placeholder="Slide title"
-            >
-          </div>
-
-          <div class="field">
-            <label>Subtitle</label>
-            <input
-              id="slideSubtitle"
-              type="text"
-              placeholder="Optional subtitle"
-            >
-          </div>
-
-          <div class="field">
-            <label>Content</label>
-            <textarea
-              id="slideContent"
-              placeholder="Write your slide content..."
-            ></textarea>
-          </div>
-
-          <div class="field">
-            <label>Image URL</label>
-            <input
-              id="slideImage"
-              type="url"
-              placeholder="https://example.com/image.jpg"
-            >
-          </div>
-
-        </div>
-
-        <!-- LAYOUT -->
-        <div class="form-section">
-
-          <h3>Layout</h3>
-
-          <div class="layout-grid">
-
-            <div class="layout-option" data-layout="title_content">
-              Title + Content
-            </div>
-
-            <div class="layout-option" data-layout="title">
-              Title Only
-            </div>
-
-            <div class="layout-option" data-layout="two_column">
-              Two Columns
-            </div>
-
-            <div class="layout-option" data-layout="image_text">
-              Image + Text
-            </div>
-
-            <div class="layout-option" data-layout="quote">
-              Quote
-            </div>
-
-            <div class="layout-option" data-layout="section">
-              Section
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- BACKGROUND -->
-        <div class="form-section">
-
-          <h3>Background</h3>
-
-          <div class="background-grid">
-
-            <div class="bg-option bg-light"
-                 data-bg="light"
-                 title="Light"></div>
-
-            <div class="bg-option bg-dark"
-                 data-bg="dark"
-                 title="Dark"></div>
-
-            <div class="bg-option bg-blue"
-                 data-bg="blue"
-                 title="Blue"></div>
-
-            <div class="bg-option bg-purple"
-                 data-bg="purple"
-                 title="Purple"></div>
-
-            <div class="bg-option bg-gradient"
-                 data-bg="gradient"
-                 title="Gradient"></div>
-
-          </div>
-
-        </div>
-
-        <!-- SLIDE ACTIONS -->
-        <div class="form-section">
-
-          <h3>Slide Actions</h3>
-
-          <div class="slide-actions">
-
-            <button
-              class="btn btn-secondary"
-              onclick="duplicateSlide()">
-              Duplicate
-            </button>
-
-            <button
-              class="btn btn-danger"
-              onclick="deleteCurrentSlide()">
-              Delete
-            </button>
-
-          </div>
-
-        </div>
-
-      </aside>
-
-    </div>
+    </section>
 
   </main>
 
 </div>
 
-<!-- PREVIEW MODAL -->
 
-<div id="previewModal" class="modal">
+<!-- =========================================================
+     TEMPLATE MODAL
+========================================================= -->
 
-  <div class="preview-container">
+<div
+  id="templateOverlay"
+  class="template-overlay"
+>
+
+  <div class="template-modal">
+
+    <div class="modal-head">
+
+      <div>
+        <h2>Choose a Slide Design</h2>
+        <div
+          style="font-size:11px;color:#888;margin-top:3px;"
+        >
+          50 professional CareerCraft slide designs
+        </div>
+      </div>
+
+      <button
+        class="close-modal"
+        onclick="closeTemplates()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div
+      id="templateGrid"
+      class="template-grid"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     FULL SCREEN PRESENTATION
+========================================================= -->
+
+<div
+  id="presentMode"
+  class="present-mode"
+>
+
+  <button
+    class="present-exit"
+    onclick="exitPresentation()"
+  >
+    ×
+  </button>
+
+  <div
+    id="presentStage"
+    class="present-stage"
+  >
 
     <button
-      class="close-preview"
-      onclick="closePreview()">
-      ×
+      class="present-nav left"
+      onclick="presentationPrevious()"
+    >
+      ‹
     </button>
 
     <div
-      id="previewCanvas"
-      class="preview-canvas light">
-    </div>
+      id="presentSlide"
+      class="present-slide"
+    ></div>
 
-    <div class="preview-nav">
+    <button
+      class="present-nav right"
+      onclick="presentationNext()"
+    >
+      ›
+    </button>
 
-      <button onclick="previousPreview()">‹</button>
 
-      <button onclick="nextPreview()">›</button>
+    <div class="present-controls">
+
+      <button
+        class="present-control-btn"
+        onclick="presentationPrevious()"
+      >
+        ‹
+      </button>
+
+      <span
+        id="presentCounter"
+        class="present-counter"
+      >
+        1 / 1
+      </span>
+
+      <button
+        class="present-control-btn"
+        onclick="presentationNext()"
+      >
+        ›
+      </button>
+
+      <button
+        class="present-control-btn"
+        onclick="toggleAutoPlay()"
+      >
+        ⏱
+      </button>
+
+      <button
+        class="present-control-btn"
+        onclick="toggleFullscreen()"
+      >
+        ⛶
+      </button>
 
     </div>
 
@@ -1140,14 +1816,15 @@ body{
 
 </div>
 
-<div id="toast"></div>
+
+<div id="toast" class="toast"></div>
+
 
 <script>
-/* =========================================================
-   CAREERCRAFT PRESENTATION STUDIO
-   ========================================================= */
 
-/* SUPABASE */
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
   "https://upcxmlbgmqhaqieldmyk.supabase.co";
@@ -1156,83 +1833,204 @@ const SUPABASE_KEY =
   "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
 
 const supabaseClient =
-  supabase.createClient(
+  window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
 
 
-/* APP STATE */
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
 
 let currentUser = null;
-let currentPresentation = null;
+
+let presentationId = null;
+
+let presentation = null;
+
 let slides = [];
+
 let currentSlideIndex = 0;
-let previewIndex = 0;
-let autoSaveTimer = null;
-let isSaving = false;
+
+let selectedElement = null;
+
+let zoomLevel = 85;
+
+let autoPlayTimer = null;
+
+let isAutoPlay = false;
+
+let historyStack = [];
+
+let redoStack = [];
 
 
 /* =========================================================
-   DEBUG
-   ========================================================= */
+   50 REAL SLIDE DESIGNS
+========================================================= */
 
-window.addEventListener("error", function(event){
+const templates = [
 
-  const box =
-    document.getElementById("debugError");
+  ["title","Executive Title","purple"],
+  ["title","Minimal Title","white"],
+  ["title","Dark Title","dark"],
+  ["title","Blue Title","blue"],
+  ["title","Green Title","green"],
+  ["title","Cream Title","cream"],
+  ["title","Pink Title","pink"],
+  ["title","Gradient Title","gradient"],
+  ["title","Modern Title","dark"],
+  ["title","Creative Title","purple"],
 
-  if(!box) return;
+  ["content","About Me","white"],
+  ["content","Career Overview","blue"],
+  ["content","Experience","cream"],
+  ["content","Skills","green"],
+  ["content","Education","white"],
+  ["content","Achievements","purple"],
+  ["content","Professional Summary","dark"],
+  ["content","Career Goals","blue"],
+  ["content","My Story","pink"],
+  ["content","Introduction","gradient"],
 
-  box.style.display = "block";
+  ["cards","Three Highlights","white"],
+  ["cards","Core Skills","blue"],
+  ["cards","Services","purple"],
+  ["cards","Projects","green"],
+  ["cards","Features","dark"],
+  ["cards","Key Areas","cream"],
+  ["cards","Strengths","pink"],
+  ["cards","Portfolio","gradient"],
+  ["cards","What I Offer","white"],
+  ["cards","Career Toolkit","blue"],
 
-  box.textContent =
-    "JAVASCRIPT ERROR\n\n" +
-    event.message +
-    "\n\nFile: " +
-    event.filename +
-    "\nLine: " +
-    event.lineno +
-    "\nColumn: " +
-    event.colno;
-});
+  ["stats","Key Statistics","purple"],
+  ["stats","Results","dark"],
+  ["stats","Impact","blue"],
+  ["stats","Performance","green"],
+  ["stats","Business Metrics","cream"],
 
+  ["quote","Inspirational Quote","dark"],
+  ["quote","Career Quote","purple"],
+  ["quote","Vision Quote","blue"],
+  ["quote","Mission Quote","green"],
+  ["quote","Closing Quote","pink"],
 
-window.addEventListener(
-  "unhandledrejection",
-  function(event){
+  ["columns","Two Perspectives","white"],
+  ["columns","Skills & Experience","blue"],
+  ["columns","Problem & Solution","cream"],
+  ["columns","Before & After","green"],
+  ["columns","Goals & Actions","purple"],
 
-    const box =
-      document.getElementById("debugError");
-
-    if(!box) return;
-
-    box.style.display = "block";
-
-    box.textContent =
-      "PROMISE ERROR\n\n" +
-      String(event.reason);
-  }
-);
+  ["timeline","Career Timeline","dark"],
+  ["timeline","Project Timeline","blue"],
+  ["timeline","Growth Journey","green"],
+  ["timeline","Roadmap","purple"],
+  ["timeline","Future Plan","gradient"]
+];
 
 
 /* =========================================================
-   HELPERS
-   ========================================================= */
+   INITIALIZE
+========================================================= */
 
-function isValidUUID(value){
+async function initialize(){
 
-  if(typeof value !== "string"){
-    return false;
+  const {
+    data:{
+      session
+    }
+  } =
+  await supabaseClient.auth.getSession();
+
+  if(
+    !session ||
+    !session.user
+  ){
+
+    window.location.href =
+      "login.html";
+
+    return;
   }
 
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+  currentUser =
+    session.user;
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  const id =
+    params.get("id");
+
+  const isNew =
+    params.get("new") === "1";
+
+
+  if(id){
+
+    if(!isValidUUID(id)){
+
+      showToast(
+        "Invalid presentation ID."
+      );
+
+      setTimeout(
+        () => goBack(),
+        1200
+      );
+
+      return;
+    }
+
+    presentationId = id;
+
+    await loadPresentation();
+
+  }else if(isNew){
+
+    createNewLocalPresentation();
+
+  }else{
+
+    createNewLocalPresentation();
+  }
+
+  renderThumbnails();
+
+  renderCanvas();
+
+  buildTemplateGallery();
+
+  updateSlidePosition();
 }
 
 
+/* =========================================================
+   UUID
+========================================================= */
+
+function isValidUUID(value){
+
+  return typeof value === "string" &&
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+      .test(value);
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
 function escapeHTML(value){
 
-  if(value === null || value === undefined){
+  if(
+    value === null ||
+    value === undefined
+  ){
     return "";
   }
 
@@ -1245,1120 +2043,410 @@ function escapeHTML(value){
 }
 
 
-function safeImageURL(value){
-
-  if(!value){
-    return "";
-  }
-
-  try{
-
-    const url = new URL(value);
-
-    if(
-      url.protocol !== "http:" &&
-      url.protocol !== "https:"
-    ){
-      return "";
-    }
-
-    return url.href;
-
-  }catch(error){
-
-    return "";
-  }
-}
-
-
-function showToast(message){
-
-  const toast =
-    document.getElementById("toast");
-
-  toast.textContent = message;
-
-  toast.classList.add("show");
-
-  setTimeout(function(){
-    toast.classList.remove("show");
-  },2500);
-}
-
-
-function setSaveStatus(message){
-
-  const element =
-    document.getElementById("saveStatus");
-
-  if(element){
-    element.textContent = message;
-  }
-}
-
-
-function hideLoading(){
-
-  const loading =
-    document.getElementById("loadingScreen");
-
-  if(loading){
-    loading.classList.add("hidden");
-  }
-}
-
-
 /* =========================================================
-   INITIALIZATION
-   ========================================================= */
+   NEW LOCAL PRESENTATION
+========================================================= */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  initialize
-);
+function createNewLocalPresentation(){
 
+  presentation = {
+    title:"My Career Presentation",
+    description:"Created with CareerCraft",
+    background:"light"
+  };
 
-async function initialize(){
+  document.getElementById(
+    "presentationTitle"
+  ).value =
+    presentation.title;
 
-  try{
+  slides = [
+    createSlideFromTemplate(
+      0
+    )
+  ];
 
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.auth.getSession();
+  slides[0].title =
+    "Welcome to My Presentation";
 
-    if(error){
-      throw error;
-    }
+  slides[0].subtitle =
+    "CareerCraft Presentation Studio";
 
-    currentUser =
-      data.session
-        ? data.session.user
-        : null;
-
-    if(!currentUser){
-
-      window.location.href =
-        "login.html";
-
-      return;
-    }
-
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
-
-    const presentationId =
-      params.get("id");
-
-    const isNew =
-      params.get("new") === "1";
-
-    if(
-      presentationId &&
-      isValidUUID(presentationId)
-    ){
-
-      await loadPresentation(
-        presentationId
-      );
-
-    }else if(isNew){
-
-      await createPresentation();
-
-    }else{
-
-      window.location.href =
-        "presentations.html";
-
-      return;
-    }
-
-    setupInputs();
-
-    hideLoading();
-
-  }catch(error){
-
-    console.error(
-      "INITIALIZATION ERROR:",
-      error
-    );
-
-    hideLoading();
-
-    showToast(
-      "Unable to load Presentation Studio."
-    );
-
-    alert(
-      "Presentation Studio error:\n\n" +
-      error.message
-    );
-  }
-}
-
-
-/* =========================================================
-   CREATE PRESENTATION
-   ========================================================= */
-
-async function createPresentation(){
-
-  if(!currentUser){
-    window.location.href =
-      "login.html";
-    return;
-  }
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("presentations")
-      .insert({
-
-        user_id:
-          currentUser.id,
-
-        title:
-          "My Career Presentation",
-
-        description:
-          "A professional presentation created with CareerCraft.",
-
-        template:
-          "modern",
-
-        is_published:
-          false
-
-      })
-      .select()
-      .single();
-
-  if(error){
-    console.error(
-      "CREATE PRESENTATION ERROR:",
-      error
-    );
-
-    throw error;
-  }
-
-  if(
-    !data ||
-    !isValidUUID(data.id)
-  ){
-
-    throw new Error(
-      "Supabase did not return a valid presentation ID."
-    );
-  }
-
-  currentPresentation =
-    data;
-
-
-  const {
-    data: slideData,
-    error: slideError
-  } =
-    await supabaseClient
-      .from("presentation_slides")
-      .insert({
-
-        presentation_id:
-          data.id,
-
-        slide_order:
-          0,
-
-        layout:
-          "title_content",
-
-        title:
-          "Welcome to My Presentation",
-
-        subtitle:
-          "CareerCraft Presentation Studio",
-
-        content:
-          "Introduce yourself, your experience, skills, achievements, or career goals here.",
-
-        image_url:
-          null,
-
-        background:
-          "light"
-
-      })
-      .select()
-      .single();
-
-
-  if(slideError){
-
-    console.error(
-      "CREATE SLIDE ERROR:",
-      slideError
-    );
-
-    throw slideError;
-  }
-
-
-  slides =
-    slideData
-      ? [slideData]
-      : [];
-
-  currentSlideIndex =
-    0;
-
-  history.replaceState(
-    {},
-    "",
-    "presentation.html?id=" +
-    encodeURIComponent(data.id)
-  );
-
-  renderEverything();
+  slides[0].content =
+    "Introduce yourself, your experience, skills, achievements, or career goals here.";
 }
 
 
 /* =========================================================
    LOAD PRESENTATION
-   ========================================================= */
+========================================================= */
 
-async function loadPresentation(id){
+async function loadPresentation(){
 
-  if(!isValidUUID(id)){
+  setSaveStatus(
+    "Loading..."
+  );
 
-    throw new Error(
-      "Invalid presentation ID."
-    );
-  }
+  try{
 
-  if(!currentUser){
-
-    throw new Error(
-      "You are not signed in."
-    );
-  }
-
-
-  const {
-    data,
-    error
-  } =
+    const {
+      data:p,
+      error:pError
+    } =
     await supabaseClient
       .from("presentations")
       .select("*")
-      .eq("id",id)
+      .eq("id",presentationId)
       .eq("user_id",currentUser.id)
       .single();
 
+    if(pError){
+      throw pError;
+    }
 
-  if(error){
+    presentation = p;
 
-    console.error(
-      "LOAD PRESENTATION ERROR:",
-      error
-    );
-
-    throw error;
-  }
-
-
-  if(!data){
-
-    throw new Error(
-      "Presentation not found."
-    );
-  }
+    document.getElementById(
+      "presentationTitle"
+    ).value =
+      p.title ||
+      "Untitled Presentation";
 
 
-  currentPresentation =
-    data;
-
-
-  const {
-    data: slideData,
-    error: slideError
-  } =
+    const {
+      data:slideData,
+      error:sError
+    } =
     await supabaseClient
       .from("presentation_slides")
       .select("*")
       .eq(
         "presentation_id",
-        id
-      )
-      .order(
-        "slide_order",
-        {
-          ascending:true
-        }
+        presentationId
+      );
+
+    if(sError){
+      throw sError;
+    }
+
+    slides =
+      (slideData || [])
+      .sort(
+        (a,b) =>
+          Number(
+            a.slide_order ??
+            a.order ??
+            0
+          ) -
+          Number(
+            b.slide_order ??
+            b.order ??
+            0
+          )
+      );
+
+    if(!slides.length){
+
+      slides = [
+        createSlideFromTemplate(
+          0
+        )
+      ];
+    }
+
+    slides =
+      slides.map(
+        normalizeSlide
+      );
+
+    setSaveStatus(
+      "Saved"
+    );
+
+  }catch(error){
+
+    console.error(
+      "Load presentation:",
+      error
+    );
+
+    showToast(
+      error.message ||
+      "Unable to load presentation."
+    );
+
+    createNewLocalPresentation();
+
+    setSaveStatus(
+      "New presentation"
+    );
+  }
+}
+
+
+/* =========================================================
+   NORMALIZE SLIDE
+========================================================= */
+
+function normalizeSlide(slide){
+
+  return {
+
+    id:
+      slide.id ||
+      null,
+
+    presentation_id:
+      slide.presentation_id ||
+      presentationId ||
+      null,
+
+    slide_order:
+      Number(
+        slide.slide_order ??
+        0
+      ),
+
+    layout:
+      slide.layout ||
+      "title_content",
+
+    title:
+      slide.title ||
+      "",
+
+    subtitle:
+      slide.subtitle ||
+      "",
+
+    content:
+      slide.content ||
+      "",
+
+    image_url:
+      slide.image_url ||
+      null,
+
+    background:
+      slide.background ||
+      "light",
+
+    transition:
+      slide.transition ||
+      "none",
+
+    transition_duration:
+      Number(
+        slide.transition_duration ||
+        .5
+      ),
+
+    animation:
+      slide.animation ||
+      "none",
+
+    theme:
+      slide.theme ||
+      ""
+  };
+}
+
+
+/* =========================================================
+   CREATE SLIDE FROM TEMPLATE
+========================================================= */
+
+function createSlideFromTemplate(index){
+
+  const t =
+    templates[
+      index %
+      templates.length
+    ];
+
+  return {
+
+    id:null,
+
+    presentation_id:
+      presentationId,
+
+    slide_order:
+      slides.length,
+
+    layout:
+      t[0],
+
+    title:
+      t[1],
+
+    subtitle:
+      "CareerCraft Presentation",
+
+    content:
+      "Add your content here.",
+
+    image_url:null,
+
+    background:
+      t[2],
+
+    transition:
+      "none",
+
+    transition_duration:
+      .5,
+
+    animation:
+      "none",
+
+    theme:
+      t[2]
+  };
+}
+
+
+/* =========================================================
+   THUMBNAILS
+========================================================= */
+
+function renderThumbnails(){
+
+  const container =
+    document.getElementById(
+      "thumbnails"
+    );
+
+  container.innerHTML = "";
+
+  slides.forEach(
+    (slide,index) => {
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+      item.className =
+        "thumbnail-item" +
+        (
+          index === currentSlideIndex
+            ? " active"
+            : ""
+        );
+
+      item.onclick =
+        () => selectSlide(index);
+
+
+      const wrap =
+        document.createElement(
+          "div"
+        );
+
+      wrap.className =
+        "thumbnail-wrap";
+
+
+      const thumb =
+        document.createElement(
+          "div"
+        );
+
+      thumb.className =
+        "thumbnail";
+
+      thumb.innerHTML =
+        buildSlideVisual(
+          slide,
+          true
+        );
+
+
+      if(
+        slide.transition &&
+        slide.transition !== "none"
+      ){
+
+        const transition =
+          document.createElement(
+            "div"
+          );
+
+        transition.className =
+          "thumbnail-transition";
+
+        transition.textContent =
+          "✦";
+
+        thumb.appendChild(
+          transition
+        );
+      }
+
+
+      const deleteBtn =
+        document.createElement(
+          "button"
+        );
+
+      deleteBtn.className =
+        "thumbnail-delete";
+
+      deleteBtn.textContent =
+        "×";
+
+      deleteBtn.onclick =
+        event => {
+
+          event.stopPropagation();
+
+          deleteSlide(
+            index
+          );
+        };
+
+
+      wrap.appendChild(
+        thumb
+      );
+
+      wrap.appendChild(
+        deleteBtn
       );
 
 
-  if(slideError){
-
-    console.error(
-      "LOAD SLIDES ERROR:",
-      slideError
-    );
-
-    throw slideError;
-  }
-
-
-  slides =
-    Array.isArray(slideData)
-      ? slideData
-      : [];
-
-
-  if(slides.length === 0){
-
-    await createFirstSlide(id);
-  }
-
-
-  currentSlideIndex =
-    Math.min(
-      currentSlideIndex,
-      slides.length - 1
-    );
-
-
-  renderEverything();
-}
-
-
-/* =========================================================
-   FIRST SLIDE FALLBACK
-   ========================================================= */
-
-async function createFirstSlide(
-  presentationId
-){
-
-  if(!isValidUUID(presentationId)){
-    throw new Error(
-      "Invalid presentation ID."
-    );
-  }
-
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("presentation_slides")
-      .insert({
-
-        presentation_id:
-          presentationId,
-
-        slide_order:
-          0,
-
-        layout:
-          "title_content",
-
-        title:
-          "Welcome to My Presentation",
-
-        subtitle:
-          "CareerCraft Presentation Studio",
-
-        content:
-          "Start building your professional presentation.",
-
-        image_url:
-          null,
-
-        background:
-          "light"
-
-      })
-      .select()
-      .single();
-
-
-  if(error){
-    throw error;
-  }
-
-
-  if(data){
-    slides = [data];
-  }
-}
-
-
-/* =========================================================
-   RENDER
-   ========================================================= */
-
-function renderEverything(){
-
-  renderSlideList();
-
-  renderCurrentSlide();
-
-  updatePresentationInfo();
-
-  updateInspector();
-
-  updatePublishButton();
-}
-
-
-function renderSlideList(){
-
-  const list =
-    document.getElementById(
-      "slideList"
-    );
-
-  if(!list) return;
-
-
-  if(slides.length === 0){
-
-    list.innerHTML =
-      '<div style="color:#9ca3af;font-size:12px;padding:10px;">No slides</div>';
-
-    return;
-  }
-
-
-  list.innerHTML =
-    slides.map(
-      function(slide,index){
-
-        return `
-          <div
-            class="slide-item ${index === currentSlideIndex ? "active" : ""}"
-            onclick="selectSlide(${index})"
-          >
-
-            <div class="slide-number">
-              Slide ${index + 1}
-            </div>
-
-            <div class="slide-item-title">
-              ${escapeHTML(
-                slide.title ||
-                "Untitled Slide"
-              )}
-            </div>
-
-          </div>
-        `;
-      }
-    ).join("");
-}
-
-
-function updatePresentationInfo(){
-
-  if(!currentPresentation){
-    return;
-  }
-
-
-  document.getElementById(
-    "topTitle"
-  ).textContent =
-    currentPresentation.title ||
-    "Untitled Presentation";
-
-
-  document.getElementById(
-    "presentationTitle"
-  ).value =
-    currentPresentation.title ||
-    "";
-
-
-  document.getElementById(
-    "presentationDescription"
-  ).value =
-    currentPresentation.description ||
-    "";
-}
-
-
-function updateInspector(){
-
-  const slide =
-    slides[currentSlideIndex];
-
-
-  if(!slide){
-
-    document.getElementById(
-      "slideTitle"
-    ).value = "";
-
-    document.getElementById(
-      "slideSubtitle"
-    ).value = "";
-
-    document.getElementById(
-      "slideContent"
-    ).value = "";
-
-    document.getElementById(
-      "slideImage"
-    ).value = "";
-
-    return;
-  }
-
-
-  document.getElementById(
-    "slideTitle"
-  ).value =
-    slide.title || "";
-
-
-  document.getElementById(
-    "slideSubtitle"
-  ).value =
-    slide.subtitle || "";
-
-
-  document.getElementById(
-    "slideContent"
-  ).value =
-    slide.content || "";
-
-
-  document.getElementById(
-    "slideImage"
-  ).value =
-    slide.image_url || "";
-
-
-  document
-    .querySelectorAll(
-      ".layout-option"
-    )
-    .forEach(
-      function(option){
-
-        option.classList.toggle(
-          "selected",
-          option.dataset.layout ===
-          (slide.layout || "title_content")
+      const number =
+        document.createElement(
+          "div"
         );
-      }
-    );
+
+      number.className =
+        "thumbnail-number";
+
+      number.textContent =
+        index + 1;
 
 
-  document
-    .querySelectorAll(
-      ".bg-option"
-    )
-    .forEach(
-      function(option){
+      item.appendChild(
+        number
+      );
 
-        option.classList.toggle(
-          "selected",
-          option.dataset.bg ===
-          (slide.background || "light")
-        );
-      }
-    );
+      item.appendChild(
+        wrap
+      );
+
+      container.appendChild(
+        item
+      );
+    }
+  );
 }
 
 
 /* =========================================================
-   SLIDE RENDERING
-   ========================================================= */
-
-function renderCurrentSlide(){
-
-  const slide =
-    slides[currentSlideIndex];
-
-  const canvas =
-    document.getElementById(
-      "presentationCanvas"
-    );
-
-  const render =
-    document.getElementById(
-      "slideRender"
-    );
-
-
-  if(!slide){
-
-    render.innerHTML = `
-      <div class="slide-render">
-        <h2>No slide selected</h2>
-      </div>
-    `;
-
-    return;
-  }
-
-
-  const background =
-    slide.background ||
-    "light";
-
-
-  canvas.className =
-    "presentation-canvas " +
-    background;
-
-
-  const title =
-    escapeHTML(
-      slide.title ||
-      "Untitled Slide"
-    );
-
-
-  const subtitle =
-    escapeHTML(
-      slide.subtitle ||
-      ""
-    );
-
-
-  const content =
-    escapeHTML(
-      slide.content ||
-      ""
-    );
-
-
-  const imageURL =
-    safeImageURL(
-      slide.image_url
-    );
-
-
-  let html = "";
-
-
-  switch(
-    slide.layout ||
-    "title_content"
-  ){
-
-    case "title":
-
-      html = `
-        <div class="slide-render title-layout">
-          <h2>${title}</h2>
-        </div>
-      `;
-
-      break;
-
-
-    case "two_column":
-
-      html = `
-        <div class="slide-render">
-
-          <h3>${title}</h3>
-
-          <div class="two-column">
-
-            <div>
-              <div class="slide-subtitle">
-                ${subtitle}
-              </div>
-            </div>
-
-            <div>
-              <div class="slide-content">
-                ${content}
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      `;
-
-      break;
-
-
-    case "image_text":
-
-      html = `
-        <div class="slide-render image-layout">
-
-          <div>
-
-            ${
-              imageURL
-              ?
-              `<img
-                class="slide-image"
-                src="${escapeHTML(imageURL)}"
-                alt=""
-              >`
-              :
-              `<div class="image-placeholder">
-                Add an image URL
-              </div>`
-            }
-
-          </div>
-
-          <div>
-
-            <h2>${title}</h2>
-
-            ${
-              subtitle
-              ?
-              `<div class="slide-subtitle">
-                ${subtitle}
-              </div>`
-              :
-              ""
-            }
-
-            <div class="slide-content">
-              ${content}
-            </div>
-
-          </div>
-
-        </div>
-      `;
-
-      break;
-
-
-    case "quote":
-
-      html = `
-        <div class="slide-render quote-layout">
-
-          <h3>${title}</h3>
-
-          <div class="slide-content">
-            “${content}”
-          </div>
-
-          ${
-            subtitle
-            ?
-            `<div class="slide-subtitle">
-              — ${subtitle}
-            </div>`
-            :
-            ""
-          }
-
-        </div>
-      `;
-
-      break;
-
-
-    case "section":
-
-      html = `
-        <div class="slide-render section-layout">
-
-          <h2>${title}</h2>
-
-          ${
-            subtitle
-            ?
-            `<div class="slide-subtitle">
-              ${subtitle}
-            </div>`
-            :
-            ""
-          }
-
-          ${
-            content
-            ?
-            `<div class="slide-content">
-              ${content}
-            </div>`
-            :
-            ""
-          }
-
-        </div>
-      `;
-
-      break;
-
-
-    default:
-
-      html = `
-        <div class="slide-render">
-
-          <h2>${title}</h2>
-
-          ${
-            subtitle
-            ?
-            `<div class="slide-subtitle">
-              ${subtitle}
-            </div>`
-            :
-            ""
-          }
-
-          <div class="slide-content">
-            ${content}
-          </div>
-
-        </div>
-      `;
-
-      break;
-  }
-
-
-  render.innerHTML =
-    html;
-}
-
-
-/* =========================================================
-   INPUTS
-   ========================================================= */
-
-function setupInputs(){
-
-  const titleInput =
-    document.getElementById(
-      "presentationTitle"
-    );
-
-  const descriptionInput =
-    document.getElementById(
-      "presentationDescription"
-    );
-
-  const slideTitle =
-    document.getElementById(
-      "slideTitle"
-    );
-
-  const slideSubtitle =
-    document.getElementById(
-      "slideSubtitle"
-    );
-
-  const slideContent =
-    document.getElementById(
-      "slideContent"
-    );
-
-  const slideImage =
-    document.getElementById(
-      "slideImage"
-    );
-
-
-  titleInput.addEventListener(
-    "input",
-    function(){
-
-      if(!currentPresentation)
-        return;
-
-      currentPresentation.title =
-        this.value;
-
-      document.getElementById(
-        "topTitle"
-      ).textContent =
-        this.value ||
-        "Untitled Presentation";
-
-      scheduleAutoSave();
-    }
-  );
-
-
-  descriptionInput.addEventListener(
-    "input",
-    function(){
-
-      if(!currentPresentation)
-        return;
-
-      currentPresentation.description =
-        this.value;
-
-      scheduleAutoSave();
-    }
-  );
-
-
-  slideTitle.addEventListener(
-    "input",
-    function(){
-
-      const slide =
-        slides[currentSlideIndex];
-
-      if(!slide)
-        return;
-
-      slide.title =
-        this.value;
-
-      renderSlideList();
-      renderCurrentSlide();
-
-      scheduleAutoSave();
-    }
-  );
-
-
-  slideSubtitle.addEventListener(
-    "input",
-    function(){
-
-      const slide =
-        slides[currentSlideIndex];
-
-      if(!slide)
-        return;
-
-      slide.subtitle =
-        this.value;
-
-      renderCurrentSlide();
-
-      scheduleAutoSave();
-    }
-  );
-
-
-  slideContent.addEventListener(
-    "input",
-    function(){
-
-      const slide =
-        slides[currentSlideIndex];
-
-      if(!slide)
-        return;
-
-      slide.content =
-        this.value;
-
-      renderCurrentSlide();
-
-      scheduleAutoSave();
-    }
-  );
-
-
-  slideImage.addEventListener(
-    "input",
-    function(){
-
-      const slide =
-        slides[currentSlideIndex];
-
-      if(!slide)
-        return;
-
-      slide.image_url =
-        this.value || null;
-
-      renderCurrentSlide();
-
-      scheduleAutoSave();
-    }
-  );
-
-
-  document
-    .querySelectorAll(
-      ".layout-option"
-    )
-    .forEach(
-      function(option){
-
-        option.addEventListener(
-          "click",
-          function(){
-
-            const slide =
-              slides[currentSlideIndex];
-
-            if(!slide)
-              return;
-
-            slide.layout =
-              this.dataset.layout;
-
-            updateInspector();
-            renderCurrentSlide();
-
-            scheduleAutoSave();
-          }
-        );
-      }
-    );
-
-
-  document
-    .querySelectorAll(
-      ".bg-option"
-    )
-    .forEach(
-      function(option){
-
-        option.addEventListener(
-          "click",
-          function(){
-
-            const slide =
-              slides[currentSlideIndex];
-
-            if(!slide)
-              return;
-
-            slide.background =
-              this.dataset.bg;
-
-            updateInspector();
-            renderCurrentSlide();
-
-            scheduleAutoSave();
-          }
-        );
-      }
-    );
-}
-
-
-/* =========================================================
-   SLIDE SELECTION
-   ========================================================= */
+   SELECT SLIDE
+========================================================= */
 
 function selectSlide(index){
 
@@ -2372,205 +2460,1178 @@ function selectSlide(index){
   currentSlideIndex =
     index;
 
-  renderSlideList();
-  renderCurrentSlide();
-  updateInspector();
+  selectedElement =
+    null;
+
+  renderThumbnails();
+
+  renderCanvas();
+
+  updateSlidePosition();
+
+  updateTransitionUI();
+}
+
+
+/* =========================================================
+   RENDER CANVAS
+========================================================= */
+
+function renderCanvas(){
+
+  const canvas =
+    document.getElementById(
+      "canvas"
+    );
+
+  if(!slides.length){
+
+    canvas.innerHTML =
+      `<div style="
+        width:100%;
+        height:100%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        color:#888;
+      ">No slides</div>`;
+
+    return;
+  }
+
+  const slide =
+    slides[
+      currentSlideIndex
+    ];
+
+  canvas.innerHTML =
+    buildEditableSlide(
+      slide
+    );
+}
+
+
+/* =========================================================
+   BUILD EDITABLE SLIDE
+========================================================= */
+
+function buildEditableSlide(slide){
+
+  const bg =
+    backgroundCSS(
+      slide.background
+    );
+
+  const text =
+    textColor(
+      slide.background
+    );
+
+  const title =
+    escapeHTML(
+      slide.title
+    );
+
+  const subtitle =
+    escapeHTML(
+      slide.subtitle
+    );
+
+  const content =
+    escapeHTML(
+      slide.content
+    );
+
+
+  if(
+    slide.layout === "stats"
+  ){
+
+    return `
+      <div
+        class="canvas-editable ${animationClass(slide)}"
+        style="${bg};color:${text};"
+      >
+
+        <div class="shape-circle"></div>
+
+        <div
+          class="slide-element"
+          style="left:8%;top:10%;width:84%;"
+        >
+          <textarea
+            class="editable-text"
+            style="
+              font-size:clamp(22px,4vw,50px);
+              font-weight:800;
+              text-align:left;
+            "
+            onchange="updateSlideField('title',this.value)"
+            oninput="updateSlideField('title',this.value)"
+          >${title}</textarea>
+        </div>
+
+        <div
+          class="mini-stat"
+          style="
+            position:absolute;
+            left:8%;
+            right:8%;
+            top:38%;
+          "
+        >
+
+          ${buildStatBox(
+            "01",
+            "Experience"
+          )}
+
+          ${buildStatBox(
+            "95%",
+            "Success"
+          )}
+
+          ${buildStatBox(
+            "24+",
+            "Projects"
+          )}
+
+        </div>
+
+        <div
+          class="slide-element"
+          style="left:8%;bottom:8%;width:84%;"
+        >
+          <textarea
+            class="editable-text"
+            style="
+              font-size:clamp(12px,1.5vw,20px);
+              opacity:.7;
+            "
+            onchange="updateSlideField('content',this.value)"
+            oninput="updateSlideField('content',this.value)"
+          >${content}</textarea>
+        </div>
+
+      </div>
+    `;
+  }
+
+
+  if(
+    slide.layout === "cards"
+  ){
+
+    return `
+      <div
+        class="canvas-editable ${animationClass(slide)}"
+        style="${bg};color:${text};"
+      >
+
+        <div
+          class="slide-element"
+          style="left:8%;top:9%;width:84%;"
+        >
+          <textarea
+            class="editable-text"
+            style="
+              font-size:clamp(22px,3.5vw,48px);
+              font-weight:800;
+            "
+            onchange="updateSlideField('title',this.value)"
+            oninput="updateSlideField('title',this.value)"
+          >${title}</textarea>
+        </div>
+
+        <div class="mini-cards"
+             style="
+               position:absolute;
+               left:8%;
+               right:8%;
+               top:38%;
+             ">
+
+          ${buildMiniCard(
+            "Skills",
+            "What I do best"
+          )}
+
+          ${buildMiniCard(
+            "Projects",
+            "Selected work"
+          )}
+
+          ${buildMiniCard(
+            "Results",
+            "What I achieved"
+          )}
+
+        </div>
+
+        <div
+          class="slide-element"
+          style="left:8%;bottom:8%;width:84%;"
+        >
+          <textarea
+            class="editable-text"
+            style="font-size:clamp(11px,1.4vw,18px);opacity:.7;"
+            onchange="updateSlideField('subtitle',this.value)"
+            oninput="updateSlideField('subtitle',this.value)"
+          >${subtitle}</textarea>
+        </div>
+
+      </div>
+    `;
+  }
+
+
+  if(
+    slide.layout === "quote"
+  ){
+
+    return `
+      <div
+        class="canvas-editable ${animationClass(slide)}"
+        style="${bg};color:${text};"
+      >
+
+        <div
+          class="slide-element"
+          style="
+            left:12%;
+            top:12%;
+            width:76%;
+          "
+        >
+
+          <textarea
+            class="editable-text"
+            style="
+              font-size:clamp(24px,4vw,54px);
+              font-weight:800;
+              text-align:center;
+            "
+            onchange="updateSlideField('title',this.value)"
+            oninput="updateSlideField('title',this.value)"
+          >${title}</textarea>
+
+        </div>
+
+        <div
+          class="slide-element"
+          style="
+            left:14%;
+            top:40%;
+            width:72%;
+          "
+        >
+
+          <textarea
+            class="editable-text"
+            style="
+              font-size:clamp(15px,2vw,30px);
+              font-style:italic;
+              text-align:center;
+              line-height:1.4;
+            "
+            onchange="updateSlideField('content',this.value)"
+            oninput="updateSlideField('content',this.value)"
+          >${content}</textarea>
+
+        </div>
+
+        <div
+          class="slide-element"
+          style="
+            left:25%;
+            bottom:12%;
+            width:50%;
+          "
+        >
+
+          <textarea
+            class="editable-text"
+            style="
+              font-size:clamp(10px,1.2vw,17px);
+              text-align:center;
+              opacity:.65;
+            "
+            onchange="updateSlideField('subtitle',this.value)"
+            oninput="updateSlideField('subtitle',this.value)"
+          >${subtitle}</textarea>
+
+        </div>
+
+      </div>
+    `;
+  }
+
+
+  if(
+    slide.layout === "columns"
+  ){
+
+    return `
+      <div
+        class="canvas-editable ${animationClass(slide)}"
+        style="${bg};color:${text};"
+      >
+
+        <div
+          class="slide-element"
+          style="
+            left:8%;
+            top:8%;
+            width:84%;
+          "
+        >
+
+          <textarea
+            class="editable-text"
+            style="
+              font-size:clamp(22px,3.5vw,48px);
+              font-weight:800;
+            "
+            onchange="updateSlideField('title',this.value)"
+            oninput="updateSlideField('title',this.value)"
+          >${title}</textarea>
+
+        </div>
+
+        <div
+          style="
+            position:absolute;
+            left:8%;
+            right:8%;
+            top:36%;
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:8%;
+          "
+        >
+
+          <div>
+
+            <div
+              class="mini-line"
+            ></div>
+
+            <div
+              class="slide-element"
+              style="position:relative;width:100%;"
+            >
+
+              <textarea
+                class="editable-text"
+                style="
+                  font-size:clamp(11px,1.4vw,19px);
+                  line-height:1.6;
+                "
+                onchange="updateSlideField('content',this.value)"
+                oninput="updateSlideField('content',this.value)"
+              >${content}</textarea>
+
+            </div>
+
+          </div>
+
+          <div>
+
+            <div
+              class="mini-line"
+            ></div>
+
+            <div
+              class="slide-element"
+              style="position:relative;width:100%;"
+            >
+
+              <textarea
+                class="editable-text"
+                style="
+                  font-size:clamp(11px,1.4vw,19px);
+                  line-height:1.6;
+                "
+                placeholder="Add second column..."
+              >Add more information here.</textarea>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    `;
+  }
+
+
+  if(
+    slide.layout === "timeline"
+  ){
+
+    return `
+      <div
+        class="canvas-editable ${animationClass(slide)}"
+        style="${bg};color:${text};"
+      >
+
+        <div
+          class="slide-element"
+          style="
+            left:8%;
+            top:9%;
+            width:84%;
+          "
+        >
+
+          <textarea
+            class="editable-text"
+            style="
+              font-size:clamp(22px,3.5vw,48px);
+              font-weight:800;
+            "
+            onchange="updateSlideField('title',this.value)"
+            oninput="updateSlideField('title',this.value)"
+          >${title}</textarea>
+
+        </div>
+
+        <div
+          class="mini-timeline"
+          style="
+            position:absolute;
+            left:10%;
+            right:10%;
+            top:42%;
+          "
+        >
+
+          ${buildTimelineItem(
+            "2022",
+            "Start"
+          )}
+
+          ${buildTimelineItem(
+            "2023",
+            "Growth"
+          )}
+
+          ${buildTimelineItem(
+            "2024",
+            "Progress"
+          )}
+
+          ${buildTimelineItem(
+            "2025",
+            "Success"
+          )}
+
+          ${buildTimelineItem(
+            "2026",
+            "Future"
+          )}
+
+        </div>
+
+        <div
+          class="slide-element"
+          style="
+            left:8%;
+            bottom:9%;
+            width:84%;
+          "
+        >
+
+          <textarea
+            class="editable-text"
+            style="
+              font-size:clamp(10px,1.3vw,17px);
+              opacity:.7;
+            "
+            onchange="updateSlideField('content',this.value)"
+            oninput="updateSlideField('content',this.value)"
+          >${content}</textarea>
+
+        </div>
+
+      </div>
+    `;
+  }
+
+
+  /* DEFAULT TITLE / CONTENT */
+
+  return `
+    <div
+      class="canvas-editable ${animationClass(slide)}"
+      style="${bg};color:${text};"
+    >
+
+      <div class="shape-circle"></div>
+
+      <div
+        class="slide-element"
+        style="
+          left:8%;
+          top:9%;
+          width:84%;
+        "
+      >
+
+        <textarea
+          class="editable-text"
+          style="
+            font-size:clamp(24px,4vw,54px);
+            font-weight:800;
+            line-height:1.05;
+          "
+          onchange="updateSlideField('title',this.value)"
+          oninput="updateSlideField('title',this.value)"
+        >${title}</textarea>
+
+      </div>
+
+
+      <div
+        class="slide-element"
+        style="
+          left:8%;
+          top:31%;
+          width:84%;
+        "
+      >
+
+        <textarea
+          class="editable-text"
+          style="
+            font-size:clamp(13px,1.7vw,23px);
+            opacity:.7;
+            line-height:1.4;
+          "
+          onchange="updateSlideField('subtitle',this.value)"
+          oninput="updateSlideField('subtitle',this.value)"
+        >${subtitle}</textarea>
+
+      </div>
+
+
+      <div
+        class="slide-element"
+        style="
+          left:8%;
+          top:48%;
+          width:70%;
+        "
+      >
+
+        <textarea
+          class="editable-text"
+          style="
+            font-size:clamp(12px,1.45vw,20px);
+            line-height:1.6;
+          "
+          onchange="updateSlideField('content',this.value)"
+          oninput="updateSlideField('content',this.value)"
+        >${content}</textarea>
+
+      </div>
+
+      <div
+        style="
+          position:absolute;
+          left:8%;
+          bottom:7%;
+          font-size:clamp(8px,1vw,13px);
+          opacity:.45;
+        "
+      >
+        CareerCraft
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   VISUAL SLIDE FOR THUMBNAILS / PRESENTATION
+========================================================= */
+
+function buildSlideVisual(
+  slide,
+  miniature=false
+){
+
+  const bg =
+    backgroundCSS(
+      slide.background
+    );
+
+  const text =
+    textColor(
+      slide.background
+    );
+
+  const title =
+    escapeHTML(
+      slide.title ||
+      "Untitled Slide"
+    );
+
+  const subtitle =
+    escapeHTML(
+      slide.subtitle ||
+      ""
+    );
+
+  const content =
+    escapeHTML(
+      slide.content ||
+      ""
+    );
+
+
+  const small =
+    miniature
+      ? ""
+      : "";
+
+
+  if(
+    slide.layout === "stats"
+  ){
+
+    return `
+      <div
+        class="design-content"
+        style="${bg};color:${text};"
+      >
+
+        <div class="shape-circle"></div>
+
+        <div class="design-title">
+          ${title}
+        </div>
+
+        <div class="mini-stat">
+
+          ${buildStatBox(
+            "24+",
+            "Projects"
+          )}
+
+          ${buildStatBox(
+            "95%",
+            "Success"
+          )}
+
+          ${buildStatBox(
+            "10",
+            "Skills"
+          )}
+
+        </div>
+
+      </div>
+    `;
+  }
+
+
+  if(
+    slide.layout === "cards"
+  ){
+
+    return `
+      <div
+        class="design-content"
+        style="${bg};color:${text};"
+      >
+
+        <div class="design-title">
+          ${title}
+        </div>
+
+        <div class="mini-cards">
+
+          ${buildMiniCard(
+            "Skills",
+            "Professional"
+          )}
+
+          ${buildMiniCard(
+            "Projects",
+            "Portfolio"
+          )}
+
+          ${buildMiniCard(
+            "Results",
+            "Achievements"
+          )}
+
+        </div>
+
+      </div>
+    `;
+  }
+
+
+  if(
+    slide.layout === "quote"
+  ){
+
+    return `
+      <div
+        class="design-content"
+        style="${bg};color:${text};"
+      >
+
+        <div
+          class="mini-quote"
+        >
+          “${title}”
+        </div>
+
+        <div
+          style="
+            text-align:center;
+            margin-top:8%;
+            font-size:clamp(5px,.8vw,11px);
+            opacity:.6;
+          "
+        >
+          ${subtitle}
+        </div>
+
+      </div>
+    `;
+  }
+
+
+  if(
+    slide.layout === "columns"
+  ){
+
+    return `
+      <div
+        class="design-content"
+        style="${bg};color:${text};"
+      >
+
+        <div class="design-title">
+          ${title}
+        </div>
+
+        <div class="mini-columns">
+
+          <div class="mini-column">
+            <h4>Overview</h4>
+            <p>${content}</p>
+          </div>
+
+          <div class="mini-column">
+            <h4>Highlights</h4>
+            <p>Experience, skills and achievements.</p>
+          </div>
+
+        </div>
+
+      </div>
+    `;
+  }
+
+
+  if(
+    slide.layout === "timeline"
+  ){
+
+    return `
+      <div
+        class="design-content"
+        style="${bg};color:${text};"
+      >
+
+        <div class="design-title">
+          ${title}
+        </div>
+
+        <div class="mini-timeline">
+
+          ${buildTimelineItem(
+            "22",
+            "Start"
+          )}
+
+          ${buildTimelineItem(
+            "23",
+            "Growth"
+          )}
+
+          ${buildTimelineItem(
+            "24",
+            "Progress"
+          )}
+
+          ${buildTimelineItem(
+            "25",
+            "Success"
+          )}
+
+          ${buildTimelineItem(
+            "26",
+            "Future"
+          )}
+
+        </div>
+
+      </div>
+    `;
+  }
+
+
+  return `
+    <div
+      class="design-content"
+      style="${bg};color:${text};"
+    >
+
+      <div class="shape-circle"></div>
+
+      <div class="mini-number">
+        CAREERCRAFT
+      </div>
+
+      <div
+        class="design-title"
+        style="margin-top:8%;"
+      >
+        ${title}
+      </div>
+
+      <div class="design-subtitle">
+        ${subtitle}
+      </div>
+
+      ${
+        slide.layout === "content"
+          ? `
+            <div class="design-body">
+              ${content}
+            </div>
+          `
+          : ""
+      }
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   HELPERS FOR SLIDE VISUALS
+========================================================= */
+
+function buildStatBox(
+  number,
+  label
+){
+
+  return `
+    <div class="mini-stat-box">
+
+      <div class="mini-stat-number">
+        ${number}
+      </div>
+
+      <div class="mini-stat-label">
+        ${label}
+      </div>
+
+    </div>
+  `;
+}
+
+
+function buildMiniCard(
+  title,
+  text
+){
+
+  return `
+    <div class="mini-card">
+
+      <strong>
+        ${title}
+      </strong>
+
+      <small>
+        ${text}
+      </small>
+
+    </div>
+  `;
+}
+
+
+function buildTimelineItem(
+  year,
+  label
+){
+
+  return `
+    <div class="mini-time">
+
+      <div class="mini-time-dot"></div>
+
+      <div class="mini-time-line"></div>
+
+      <span>
+        ${year}
+      </span>
+
+      <span style="opacity:.6;">
+        ${label}
+      </span>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+function backgroundCSS(value){
+
+  const v =
+    String(
+      value ||
+      "light"
+    ).toLowerCase();
+
+  if(v === "purple"){
+    return `
+      background:linear-gradient(
+        135deg,
+        #6c5ce7,
+        #927fff
+      );
+    `;
+  }
+
+  if(v === "dark"){
+    return `
+      background:#171821;
+    `;
+  }
+
+  if(v === "blue"){
+    return `
+      background:linear-gradient(
+        135deg,
+        #eaf2ff,
+        #cfe0ff
+      );
+    `;
+  }
+
+  if(v === "green"){
+    return `
+      background:linear-gradient(
+        135deg,
+        #eaf9f1,
+        #c9eedc
+      );
+    `;
+  }
+
+  if(v === "cream"){
+    return `
+      background:#fff8ea;
+    `;
+  }
+
+  if(v === "pink"){
+    return `
+      background:linear-gradient(
+        135deg,
+        #fff0f6,
+        #ffd9e8
+      );
+    `;
+  }
+
+  if(v === "gradient"){
+    return `
+      background:linear-gradient(
+        135deg,
+        #111827,
+        #6c5ce7
+      );
+    `;
+  }
+
+  return `
+    background:#ffffff;
+  `;
+}
+
+
+function textColor(value){
+
+  const v =
+    String(
+      value ||
+      "light"
+    ).toLowerCase();
+
+  if(
+    v === "purple" ||
+    v === "dark" ||
+    v === "gradient"
+  ){
+    return "#ffffff";
+  }
+
+  if(v === "blue"){
+    return "#16335c";
+  }
+
+  if(v === "green"){
+    return "#174d32";
+  }
+
+  if(v === "cream"){
+    return "#49351d";
+  }
+
+  if(v === "pink"){
+    return "#632c46";
+  }
+
+  return "#181820";
+}
+
+
+/* =========================================================
+   ANIMATION CLASS
+========================================================= */
+
+function animationClass(slide){
+
+  return "";
+}
+
+
+/* =========================================================
+   UPDATE SLIDE FIELD
+========================================================= */
+
+function updateSlideField(
+  field,
+  value
+){
+
+  if(!slides[currentSlideIndex]){
+    return;
+  }
+
+  slides[currentSlideIndex][field] =
+    value;
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
+
+  renderThumbnails();
 }
 
 
 /* =========================================================
    ADD SLIDE
-   ========================================================= */
+========================================================= */
 
-async function addSlide(){
+function addSlide(){
 
-  if(!currentPresentation){
-    return;
-  }
+  saveHistory();
 
-  if(
-    !isValidUUID(
-      currentPresentation.id
-    )
-  ){
-    alert(
-      "Invalid presentation ID."
+  const newSlide =
+    createSlideFromTemplate(
+      slides.length
     );
-    return;
-  }
 
-
-  const nextOrder =
+  newSlide.slide_order =
     slides.length;
 
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("presentation_slides")
-      .insert({
-
-        presentation_id:
-          currentPresentation.id,
-
-        slide_order:
-          nextOrder,
-
-        layout:
-          "title_content",
-
-        title:
-          "New Slide",
-
-        subtitle:
-          "",
-
-        content:
-          "Add your content here.",
-
-        image_url:
-          null,
-
-        background:
-          "light"
-
-      })
-      .select()
-      .single();
-
-
-  if(error){
-
-    console.error(
-      "ADD SLIDE ERROR:",
-      error
-    );
-
-    alert(
-      "Could not add slide:\n\n" +
-      error.message
-    );
-
-    return;
-  }
-
-
-  if(!data){
-    return;
-  }
-
-
-  slides.push(data);
+  slides.push(
+    newSlide
+  );
 
   currentSlideIndex =
     slides.length - 1;
 
-  renderEverything();
+  renderThumbnails();
+
+  renderCanvas();
+
+  updateSlidePosition();
 
   showToast(
-    "Slide added."
+    "New slide added."
+  );
+
+  setSaveStatus(
+    "Unsaved changes"
   );
 }
 
 
 /* =========================================================
    DUPLICATE SLIDE
-   ========================================================= */
+========================================================= */
 
-async function duplicateSlide(){
+function duplicateSlide(){
 
-  const source =
-    slides[currentSlideIndex];
-
-
-  if(!source){
+  if(!slides.length){
     return;
   }
 
+  saveHistory();
 
-  if(
-    !currentPresentation ||
-    !isValidUUID(
-      currentPresentation.id
-    )
-  ){
-    alert(
-      "Invalid presentation."
-    );
-    return;
-  }
-
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("presentation_slides")
-      .insert({
-
-        presentation_id:
-          currentPresentation.id,
-
-        slide_order:
-          currentSlideIndex + 1,
-
-        layout:
-          source.layout ||
-          "title_content",
-
-        title:
-          (source.title || "Untitled") +
-          " Copy",
-
-        subtitle:
-          source.subtitle || "",
-
-        content:
-          source.content || "",
-
-        image_url:
-          source.image_url || null,
-
-        background:
-          source.background ||
-          "light"
-
-      })
-      .select()
-      .single();
-
-
-  if(error){
-
-    console.error(
-      "DUPLICATE ERROR:",
-      error
+  const copy =
+    JSON.parse(
+      JSON.stringify(
+        slides[
+          currentSlideIndex
+        ]
+      )
     );
 
-    alert(
-      error.message
-    );
+  copy.id = null;
 
-    return;
-  }
-
+  copy.slide_order =
+    slides.length;
 
   slides.splice(
     currentSlideIndex + 1,
     0,
-    data
+    copy
   );
-
-
-  await normalizeSlideOrders();
 
   currentSlideIndex++;
 
+  normalizeSlideOrders();
 
-  renderEverything();
+  renderThumbnails();
+
+  renderCanvas();
+
+  updateSlidePosition();
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
 
   showToast(
     "Slide duplicated."
@@ -2579,88 +3640,36 @@ async function duplicateSlide(){
 
 
 /* =========================================================
-   DELETE CURRENT SLIDE
-   ========================================================= */
+   DELETE CURRENT
+========================================================= */
 
-async function deleteCurrentSlide(){
+function deleteCurrentSlide(){
 
-  const slide =
-    slides[currentSlideIndex];
-
-
-  if(!slide){
-    return;
-  }
+  deleteSlide(
+    currentSlideIndex
+  );
+}
 
 
-  if(!isValidUUID(slide.id)){
+function deleteSlide(index){
 
-    alert(
-      "This slide has an invalid ID."
+  if(
+    slides.length <= 1
+  ){
+
+    showToast(
+      "A presentation needs at least one slide."
     );
 
     return;
   }
 
-
-  if(slides.length === 1){
-
-    alert(
-      "A presentation must contain at least one slide."
-    );
-
-    return;
-  }
-
-
-  const confirmed =
-    confirm(
-      "Delete this slide?"
-    );
-
-
-  if(!confirmed){
-    return;
-  }
-
-
-  const {
-    error
-  } =
-    await supabaseClient
-      .from("presentation_slides")
-      .delete()
-      .eq(
-        "id",
-        slide.id
-      )
-      .eq(
-        "presentation_id",
-        currentPresentation.id
-      );
-
-
-  if(error){
-
-    console.error(
-      "DELETE SLIDE ERROR:",
-      error
-    );
-
-    alert(
-      "Could not delete slide:\n\n" +
-      error.message
-    );
-
-    return;
-  }
-
+  saveHistory();
 
   slides.splice(
-    currentSlideIndex,
+    index,
     1
   );
-
 
   if(
     currentSlideIndex >=
@@ -2670,244 +3679,1422 @@ async function deleteCurrentSlide(){
       slides.length - 1;
   }
 
+  normalizeSlideOrders();
 
-  await normalizeSlideOrders();
+  renderThumbnails();
 
-  renderEverything();
+  renderCanvas();
 
-  showToast(
-    "Slide deleted."
+  updateSlidePosition();
+
+  setSaveStatus(
+    "Unsaved changes"
   );
 }
 
 
 /* =========================================================
-   NORMALIZE SLIDE ORDERS
-   ========================================================= */
+   NORMALIZE ORDERS
+========================================================= */
 
-async function normalizeSlideOrders(){
+function normalizeSlideOrders(){
 
-  for(
-    let i = 0;
-    i < slides.length;
-    i++
-  ){
-
-    slides[i].slide_order =
-      i;
-
-
-    if(
-      !isValidUUID(
-        slides[i].id
-      )
-    ){
-      continue;
+  slides.forEach(
+    (slide,index) => {
+      slide.slide_order =
+        index;
     }
-
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("presentation_slides")
-        .update({
-          slide_order:i
-        })
-        .eq(
-          "id",
-          slides[i].id
-        )
-        .eq(
-          "presentation_id",
-          currentPresentation.id
-        );
-
-
-    if(error){
-
-      console.error(
-        "ORDER UPDATE ERROR:",
-        error
-      );
-
-      throw error;
-    }
-  }
+  );
 }
 
 
 /* =========================================================
-   SAVE PRESENTATION
-   ========================================================= */
+   TEMPLATE GALLERY
+========================================================= */
 
-async function savePresentation(){
+function buildTemplateGallery(){
 
-  if(isSaving){
-    return;
-  }
+  const grid =
+    document.getElementById(
+      "templateGrid"
+    );
+
+  grid.innerHTML = "";
+
+  templates.forEach(
+    (template,index) => {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+      card.className =
+        "template-card";
+
+      const tempSlide = {
+        layout:
+          template[0],
+        title:
+          template[1],
+        subtitle:
+          "CareerCraft Professional",
+        content:
+          "Your content goes here.",
+        background:
+          template[2]
+      };
+
+      card.innerHTML = `
+
+        <div
+          class="template-preview"
+        >
+          ${buildSlideVisual(
+            tempSlide,
+            true
+          )}
+        </div>
+
+        <div class="template-info">
+
+          <div class="template-number">
+            DESIGN ${String(
+              index + 1
+            ).padStart(2,"0")}
+          </div>
+
+          ${escapeHTML(
+            template[1]
+          )}
+
+        </div>
+      `;
+
+      card.onclick =
+        () => applyTemplate(
+          index
+        );
+
+      grid.appendChild(
+        card
+      );
+    }
+  );
+}
 
 
-  if(
-    !currentPresentation ||
-    !currentUser
-  ){
-    return;
-  }
+function openTemplates(){
 
-
-  if(
-    !isValidUUID(
-      currentPresentation.id
+  document
+    .getElementById(
+      "templateOverlay"
     )
+    .classList.add(
+      "open"
+    );
+}
+
+
+function closeTemplates(){
+
+  document
+    .getElementById(
+      "templateOverlay"
+    )
+    .classList.remove(
+      "open"
+    );
+}
+
+
+function applyTemplate(index){
+
+  if(
+    !templates[index]
+  ){
+    return;
+  }
+
+  saveHistory();
+
+  const t =
+    templates[index];
+
+  const slide =
+    slides[
+      currentSlideIndex
+    ];
+
+  slide.layout =
+    t[0];
+
+  slide.title =
+    t[1];
+
+  slide.background =
+    t[2];
+
+  slide.subtitle =
+    "CareerCraft Presentation";
+
+  slide.content =
+    "Add your professional content here.";
+
+  closeTemplates();
+
+  renderThumbnails();
+
+  renderCanvas();
+
+  updateTransitionUI();
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
+
+  showToast(
+    "Slide design applied."
+  );
+}
+
+
+/* =========================================================
+   ADD TEXT
+========================================================= */
+
+function addTextBox(){
+
+  saveHistory();
+
+  const slide =
+    slides[
+      currentSlideIndex
+    ];
+
+  slide.content +=
+    "\n\nNew text box added.";
+
+  renderCanvas();
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
+
+  showToast(
+    "Text added."
+  );
+}
+
+
+function addHeading(){
+
+  saveHistory();
+
+  slides[
+    currentSlideIndex
+  ].title =
+    "New Heading";
+
+  renderCanvas();
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
+}
+
+
+function addQuote(){
+
+  saveHistory();
+
+  const slide =
+    slides[
+      currentSlideIndex
+    ];
+
+  slide.layout =
+    "quote";
+
+  slide.title =
+    "Your Quote";
+
+  slide.content =
+    "Add your inspirational or professional quote here.";
+
+  renderCanvas();
+
+  renderThumbnails();
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
+}
+
+
+/* =========================================================
+   ADD IMAGE
+========================================================= */
+
+function addImage(){
+
+  const url =
+    prompt(
+      "Paste an image URL:"
+    );
+
+  if(!url){
+    return;
+  }
+
+  if(
+    !/^https?:\/\//i.test(url)
   ){
 
-    alert(
-      "Invalid presentation ID."
+    showToast(
+      "Please enter a valid image URL."
     );
 
     return;
   }
 
+  saveHistory();
 
-  isSaving = true;
+  slides[
+    currentSlideIndex
+  ].image_url =
+    url;
+
+  slides[
+    currentSlideIndex
+  ].layout =
+    "image_text";
+
+  renderCanvas();
+
+  renderThumbnails();
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
+}
+
+
+/* =========================================================
+   ADD SHAPE
+========================================================= */
+
+function addShape(){
+
+  saveHistory();
+
+  const slide =
+    slides[
+      currentSlideIndex
+    ];
+
+  slide.content +=
+    "\n◆ New visual element";
+
+  renderCanvas();
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
+}
+
+
+/* =========================================================
+   THEMES
+========================================================= */
+
+function applyTheme(theme){
+
+  saveHistory();
+
+  slides[
+    currentSlideIndex
+  ].background =
+    theme;
+
+  renderCanvas();
+
+  renderThumbnails();
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
+
+  showToast(
+    `${theme} theme applied.`
+  );
+}
+
+
+/* =========================================================
+   RIBBON
+========================================================= */
+
+function switchRibbon(tab){
+
+  document
+    .querySelectorAll(
+      ".ribbon-tab"
+    )
+    .forEach(
+      btn => {
+
+        btn.classList.toggle(
+          "active",
+          btn.dataset.tab === tab
+        );
+      }
+    );
+
+  document
+    .querySelectorAll(
+      ".ribbon-panel"
+    )
+    .forEach(
+      panel => {
+
+        panel.style.display =
+          "none";
+      }
+    );
+
+  const panel =
+    document.getElementById(
+      `ribbon-${tab}`
+    );
+
+  if(panel){
+    panel.style.display =
+      "flex";
+  }
+
+  if(
+    tab === "transitions"
+  ){
+    updateTransitionUI();
+  }
+}
+
+
+/* =========================================================
+   TEXT FORMATTING
+========================================================= */
+
+function getEditableText(){
+
+  const canvas =
+    document.getElementById(
+      "canvas"
+    );
+
+  return canvas.querySelector(
+    "textarea:focus"
+  ) || canvas.querySelector(
+    "textarea"
+  );
+}
+
+
+function applyFontFamily(font){
+
+  const el =
+    getEditableText();
+
+  if(!el){
+    return;
+  }
+
+  el.style.fontFamily =
+    font;
+}
+
+
+function applyFontSize(size){
+
+  const el =
+    getEditableText();
+
+  if(!el){
+    return;
+  }
+
+  el.style.fontSize =
+    `${size}px`;
+}
+
+
+function toggleBold(){
+
+  const el =
+    getEditableText();
+
+  if(!el){
+    return;
+  }
+
+  el.style.fontWeight =
+    el.style.fontWeight ===
+    "800"
+      ? "400"
+      : "800";
+}
+
+
+function toggleItalic(){
+
+  const el =
+    getEditableText();
+
+  if(!el){
+    return;
+  }
+
+  el.style.fontStyle =
+    el.style.fontStyle ===
+    "italic"
+      ? "normal"
+      : "italic";
+}
+
+
+function toggleUnderline(){
+
+  const el =
+    getEditableText();
+
+  if(!el){
+    return;
+  }
+
+  el.style.textDecoration =
+    el.style.textDecoration ===
+    "underline"
+      ? "none"
+      : "underline";
+}
+
+
+function alignText(
+  alignment
+){
+
+  const el =
+    getEditableText();
+
+  if(!el){
+    return;
+  }
+
+  el.style.textAlign =
+    alignment;
+}
+
+
+/* =========================================================
+   TRANSITIONS
+========================================================= */
+
+function setTransition(
+  transition
+){
+
+  const slide =
+    slides[
+      currentSlideIndex
+    ];
+
+  if(!slide){
+    return;
+  }
+
+  slide.transition =
+    transition;
+
+  const cards =
+    document.querySelectorAll(
+      ".transition-card"
+    );
+
+  cards.forEach(
+    card => {
+
+      card.classList.toggle(
+        "active",
+        card.dataset.transition ===
+        transition
+      );
+    }
+  );
+
+  renderThumbnails();
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
+
+  showToast(
+    `${transition} transition selected.`
+  );
+}
+
+
+function changeTransitionDuration(
+  value
+){
+
+  const slide =
+    slides[
+      currentSlideIndex
+    ];
+
+  if(!slide){
+    return;
+  }
+
+  slide.transition_duration =
+    Number(value);
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
+}
+
+
+function updateTransitionUI(){
+
+  const slide =
+    slides[
+      currentSlideIndex
+    ];
+
+  if(!slide){
+    return;
+  }
+
+  document
+    .querySelectorAll(
+      ".transition-card"
+    )
+    .forEach(
+      card => {
+
+        card.classList.toggle(
+          "active",
+          card.dataset.transition ===
+          slide.transition
+        );
+      }
+    );
+
+  const duration =
+    document.getElementById(
+      "transitionDuration"
+    );
+
+  if(duration){
+
+    duration.value =
+      String(
+        slide.transition_duration ||
+        .5
+      );
+  }
+}
+
+
+function applyTransitionToAll(){
+
+  const current =
+    slides[
+      currentSlideIndex
+    ];
+
+  if(!current){
+    return;
+  }
+
+  slides.forEach(
+    slide => {
+
+      slide.transition =
+        current.transition;
+
+      slide.transition_duration =
+        current.transition_duration;
+    }
+  );
+
+  renderThumbnails();
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
+
+  showToast(
+    "Transition applied to all slides."
+  );
+}
+
+
+/* =========================================================
+   TRANSITION PREVIEW
+========================================================= */
+
+function previewTransition(){
+
+  startPresentation(
+    currentSlideIndex
+  );
+
+  setTimeout(
+    () => {
+
+      presentationNext();
+
+    },
+    500
+  );
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+function setAnimation(
+  animation
+){
+
+  slides[
+    currentSlideIndex
+  ].animation =
+    animation;
+
+  renderCanvas();
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
+
+  showToast(
+    `${animation} animation selected.`
+  );
+}
+
+
+/* =========================================================
+   PRESENTATION MODE
+========================================================= */
+
+let presentationIndex = 0;
+
+
+function startPresentation(
+  startIndex = currentSlideIndex
+){
+
+  presentationIndex =
+    Number(startIndex) || 0;
+
+  const mode =
+    document.getElementById(
+      "presentMode"
+    );
+
+  mode.classList.add(
+    "open"
+  );
+
+  document.body.style.overflow =
+    "hidden";
+
+  renderPresentationSlide();
+
+  if(
+    isAutoPlay
+  ){
+    startAutoPlay();
+  }
+}
+
+
+function renderPresentationSlide(){
+
+  if(
+    presentationIndex < 0
+  ){
+    presentationIndex = 0;
+  }
+
+  if(
+    presentationIndex >=
+    slides.length
+  ){
+    presentationIndex =
+      slides.length - 1;
+  }
+
+  const slide =
+    slides[
+      presentationIndex
+    ];
+
+  const container =
+    document.getElementById(
+      "presentSlide"
+    );
+
+  const transition =
+    slide.transition ||
+    "none";
+
+  container.style.animation =
+    "none";
+
+  void container.offsetWidth;
+
+  if(
+    transition === "fade"
+  ){
+
+    container.style.animation =
+      "presentationFade .6s ease";
+  }
+
+  if(
+    transition === "slide"
+  ){
+
+    container.style.animation =
+      "presentationSlide .6s ease";
+  }
+
+  if(
+    transition === "zoom"
+  ){
+
+    container.style.animation =
+      "presentationZoom .6s ease";
+  }
+
+  if(
+    transition === "dissolve"
+  ){
+
+    container.style.animation =
+      "presentationDissolve .8s ease";
+  }
+
+  if(
+    transition === "wipe"
+  ){
+
+    container.style.animation =
+      "presentationWipe .6s ease";
+  }
+
+  container.innerHTML =
+    buildSlideVisual(
+      slide,
+      false
+    );
+
+  document.getElementById(
+    "presentCounter"
+  ).textContent =
+    `${presentationIndex + 1} / ${slides.length}`;
+}
+
+
+function presentationNext(){
+
+  if(
+    presentationIndex >=
+    slides.length - 1
+  ){
+
+    if(isAutoPlay){
+      stopAutoPlay();
+    }
+
+    return;
+  }
+
+  presentationIndex++;
+
+  renderPresentationSlide();
+}
+
+
+function presentationPrevious(){
+
+  if(
+    presentationIndex <= 0
+  ){
+    return;
+  }
+
+  presentationIndex--;
+
+  renderPresentationSlide();
+}
+
+
+function exitPresentation(){
+
+  stopAutoPlay();
+
+  document
+    .getElementById(
+      "presentMode"
+    )
+    .classList.remove(
+      "open"
+    );
+
+  document.body.style.overflow =
+    "hidden";
+}
+
+
+/* =========================================================
+   AUTO PLAY
+========================================================= */
+
+function toggleAutoPlay(){
+
+  isAutoPlay =
+    !isAutoPlay;
+
+  if(isAutoPlay){
+
+    startAutoPlay();
+
+    showToast(
+      "Auto play enabled."
+    );
+
+  }else{
+
+    stopAutoPlay();
+
+    showToast(
+      "Auto play disabled."
+    );
+  }
+}
+
+
+function startAutoPlay(){
+
+  stopAutoPlay();
+
+  autoPlayTimer =
+    setInterval(
+      () => {
+
+        if(
+          !document
+            .getElementById(
+              "presentMode"
+            )
+            .classList.contains(
+              "open"
+            )
+        ){
+
+          stopAutoPlay();
+
+          return;
+        }
+
+        if(
+          presentationIndex >=
+          slides.length - 1
+        ){
+
+          stopAutoPlay();
+
+          return;
+        }
+
+        presentationNext();
+
+      },
+      5000
+    );
+}
+
+
+function stopAutoPlay(){
+
+  if(autoPlayTimer){
+
+    clearInterval(
+      autoPlayTimer
+    );
+
+    autoPlayTimer =
+      null;
+  }
+}
+
+
+/* =========================================================
+   FULLSCREEN API
+========================================================= */
+
+function toggleFullscreen(){
+
+  const mode =
+    document.getElementById(
+      "presentMode"
+    );
+
+  if(
+    !document.fullscreenElement
+  ){
+
+    if(
+      mode.requestFullscreen
+    ){
+
+      mode.requestFullscreen();
+    }
+
+  }else{
+
+    document.exitFullscreen();
+  }
+}
+
+
+/* =========================================================
+   KEYBOARD PRESENTATION CONTROLS
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    const mode =
+      document.getElementById(
+        "presentMode"
+      );
+
+    if(
+      !mode.classList.contains(
+        "open"
+      )
+    ){
+
+      if(
+        event.key ===
+        "ArrowUp"
+      ){
+        selectSlide(
+          Math.max(
+            0,
+            currentSlideIndex - 1
+          )
+        );
+      }
+
+      if(
+        event.key ===
+        "ArrowDown"
+      ){
+        selectSlide(
+          Math.min(
+            slides.length - 1,
+            currentSlideIndex + 1
+          )
+        );
+      }
+
+      return;
+    }
+
+
+    if(
+      event.key ===
+      "ArrowRight" ||
+      event.key ===
+      " " ||
+      event.key ===
+      "PageDown"
+    ){
+
+      event.preventDefault();
+
+      presentationNext();
+
+    }
+
+
+    if(
+      event.key ===
+      "ArrowLeft" ||
+      event.key ===
+      "PageUp"
+    ){
+
+      event.preventDefault();
+
+      presentationPrevious();
+
+    }
+
+
+    if(
+      event.key ===
+      "Escape"
+    ){
+
+      exitPresentation();
+    }
+  }
+);
+
+
+/* =========================================================
+   ZOOM
+========================================================= */
+
+function changeZoom(
+  value
+){
+
+  zoomLevel =
+    Number(value);
+
+  const canvas =
+    document.getElementById(
+      "canvas"
+    );
+
+  canvas.style.transform =
+    `scale(${zoomLevel / 100})`;
+
+  document.getElementById(
+    "zoomValue"
+  ).textContent =
+    `${zoomLevel}%`;
+}
+
+
+function zoomIn(){
+
+  const range =
+    document.getElementById(
+      "zoomRange"
+    );
+
+  range.value =
+    Math.min(
+      130,
+      Number(range.value) + 5
+    );
+
+  changeZoom(
+    range.value
+  );
+}
+
+
+function zoomOut(){
+
+  const range =
+    document.getElementById(
+      "zoomRange"
+    );
+
+  range.value =
+    Math.max(
+      50,
+      Number(range.value) - 5
+    );
+
+  changeZoom(
+    range.value
+  );
+}
+
+
+/* =========================================================
+   SLIDE POSITION
+========================================================= */
+
+function updateSlidePosition(){
+
+  document.getElementById(
+    "slidePosition"
+  ).textContent =
+    `Slide ${
+      currentSlideIndex + 1
+    } of ${
+      slides.length
+    }`;
+
+  document.getElementById(
+    "statusLeft"
+  ).textContent =
+    `Slide ${
+      currentSlideIndex + 1
+    }`;
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+async function savePresentation(){
+
+  if(
+    !currentUser ||
+    !presentation
+  ){
+    return;
+  }
 
   setSaveStatus(
     "Saving..."
   );
 
-
   try{
 
-    const {
-      error: presentationError
-    } =
-      await supabaseClient
-        .from("presentations")
-        .update({
-
-          title:
-            currentPresentation.title ||
-            "Untitled Presentation",
-
-          description:
-            currentPresentation.description ||
-            "",
-
-          template:
-            currentPresentation.template ||
-            "modern",
-
-          is_published:
-            !!currentPresentation.is_published
-
-        })
-        .eq(
-          "id",
-          currentPresentation.id
-        )
-        .eq(
-          "user_id",
-          currentUser.id
-        );
+    const title =
+      document.getElementById(
+        "presentationTitle"
+      ).value.trim() ||
+      "Untitled Presentation";
 
 
-    if(presentationError){
-      throw presentationError;
-    }
+    /* -----------------------------------------
+       CREATE PRESENTATION IF NEW
+    ----------------------------------------- */
 
+    if(!presentationId){
 
-    for(
-      let i = 0;
-      i < slides.length;
-      i++
-    ){
+      const insertData = {
+        user_id:
+          currentUser.id,
 
-      const slide =
-        slides[i];
+        title:
+          title,
+
+        description:
+          presentation.description ||
+          "Created with CareerCraft"
+      };
 
 
       if(
-        !isValidUUID(slide.id)
+        Object.prototype.hasOwnProperty.call(
+          presentation,
+          "template"
+        )
       ){
 
-        throw new Error(
-          "Slide " +
-          (i + 1) +
-          " has an invalid UUID."
-        );
+        insertData.template =
+          presentation.template;
+      }
+
+
+      if(
+        Object.prototype.hasOwnProperty.call(
+          presentation,
+          "is_published"
+        )
+      ){
+
+        insertData.is_published =
+          false;
       }
 
 
       const {
+        data:newPresentation,
         error
       } =
+      await supabaseClient
+        .from("presentations")
+        .insert(
+          insertData
+        )
+        .select()
+        .single();
+
+      if(error){
+        throw error;
+      }
+
+      presentation =
+        newPresentation;
+
+      presentationId =
+        newPresentation.id;
+
+      window.history.replaceState(
+        {},
+        "",
+        `presentation.html?id=${encodeURIComponent(
+          presentationId
+        )}`
+      );
+    }
+
+
+    /* -----------------------------------------
+       UPDATE PRESENTATION
+    ----------------------------------------- */
+
+    const {
+      error:updateError
+    } =
+    await supabaseClient
+      .from("presentations")
+      .update({
+        title:title
+      })
+      .eq(
+        "id",
+        presentationId
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      );
+
+    if(updateError){
+      throw updateError;
+    }
+
+
+    /* -----------------------------------------
+       SAVE SLIDES
+    ----------------------------------------- */
+
+    normalizeSlideOrders();
+
+
+    for(
+      const slide of slides
+    ){
+
+      const payload = {
+
+        presentation_id:
+          presentationId,
+
+        slide_order:
+          slide.slide_order,
+
+        layout:
+          slide.layout,
+
+        title:
+          slide.title,
+
+        subtitle:
+          slide.subtitle,
+
+        content:
+          slide.content,
+
+        image_url:
+          slide.image_url ||
+          null,
+
+        background:
+          slide.background,
+
+        transition:
+          slide.transition ||
+          "none",
+
+        transition_duration:
+          slide.transition_duration ||
+          .5
+      };
+
+
+      if(
+        slide.id &&
+        isValidUUID(
+          slide.id
+        )
+      ){
+
+        const {
+          error
+        } =
         await supabaseClient
-          .from("presentation_slides")
-          .update({
-
-            slide_order:
-              i,
-
-            layout:
-              slide.layout ||
-              "title_content",
-
-            title:
-              slide.title ||
-              "",
-
-            subtitle:
-              slide.subtitle ||
-              "",
-
-            content:
-              slide.content ||
-              "",
-
-            image_url:
-              slide.image_url ||
-              null,
-
-            background:
-              slide.background ||
-              "light"
-
-          })
+          .from(
+            "presentation_slides"
+          )
+          .update(
+            payload
+          )
           .eq(
             "id",
             slide.id
           )
           .eq(
             "presentation_id",
-            currentPresentation.id
+            presentationId
           );
 
+        if(error){
+          throw error;
+        }
 
-      if(error){
-        throw error;
+      }else{
+
+        const {
+          data,
+          error
+        } =
+        await supabaseClient
+          .from(
+            "presentation_slides"
+          )
+          .insert(
+            payload
+          )
+          .select()
+          .single();
+
+        if(error){
+          throw error;
+        }
+
+        if(data){
+          slide.id =
+            data.id;
+        }
       }
     }
 
 
-    currentPresentation.title =
-      currentPresentation.title ||
-      "Untitled Presentation";
-
-
     setSaveStatus(
-      "Saved just now"
+      "Saved"
     );
 
     showToast(
-      "Presentation saved."
+      "Presentation saved successfully."
     );
-
 
   }catch(error){
 
     console.error(
-      "SAVE ERROR:",
+      "Save error:",
       error
     );
 
@@ -2915,570 +5102,322 @@ async function savePresentation(){
       "Save failed"
     );
 
-    alert(
-      "Could not save presentation:\n\n" +
-      error.message
+    showToast(
+      error.message ||
+      "Unable to save presentation."
     );
-
-  }finally{
-
-    isSaving = false;
   }
 }
 
 
 /* =========================================================
-   AUTO SAVE
-   ========================================================= */
+   SAVE STATUS
+========================================================= */
 
-function scheduleAutoSave(){
+function setSaveStatus(
+  text
+){
+
+  const el =
+    document.getElementById(
+      "saveStatus"
+    );
+
+  el.textContent =
+    text;
+
+  el.classList.toggle(
+    "saved",
+    text === "Saved"
+  );
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function saveHistory(){
+
+  historyStack.push(
+    JSON.stringify(
+      slides
+    )
+  );
+
+  if(
+    historyStack.length >
+    30
+  ){
+    historyStack.shift();
+  }
+
+  redoStack = [];
+}
+
+
+function undoAction(){
+
+  if(
+    !historyStack.length
+  ){
+
+    showToast(
+      "Nothing to undo."
+    );
+
+    return;
+  }
+
+  redoStack.push(
+    JSON.stringify(
+      slides
+    )
+  );
+
+  slides =
+    JSON.parse(
+      historyStack.pop()
+    );
+
+  if(
+    currentSlideIndex >=
+    slides.length
+  ){
+
+    currentSlideIndex =
+      slides.length - 1;
+  }
+
+  renderThumbnails();
+
+  renderCanvas();
+
+  updateSlidePosition();
 
   setSaveStatus(
     "Unsaved changes"
   );
+}
 
 
-  clearTimeout(
-    autoSaveTimer
+function redoAction(){
+
+  if(
+    !redoStack.length
+  ){
+
+    showToast(
+      "Nothing to redo."
+    );
+
+    return;
+  }
+
+  historyStack.push(
+    JSON.stringify(
+      slides
+    )
+  );
+
+  slides =
+    JSON.parse(
+      redoStack.pop()
+    );
+
+  renderThumbnails();
+
+  renderCanvas();
+
+  updateSlidePosition();
+
+  setSaveStatus(
+    "Unsaved changes"
+  );
+}
+
+
+/* =========================================================
+   TITLE CHANGE
+========================================================= */
+
+document
+  .getElementById(
+    "presentationTitle"
+  )
+  .addEventListener(
+    "input",
+    event => {
+
+      if(presentation){
+
+        presentation.title =
+          event.target.value;
+      }
+
+      setSaveStatus(
+        "Unsaved changes"
+      );
+    }
   );
 
 
-  autoSaveTimer =
-    setTimeout(
-      async function(){
-
-        if(!isSaving){
-          await savePresentation();
-        }
-
-      },
-      1500
-    );
-}
-
-
 /* =========================================================
-   PUBLISH
-   ========================================================= */
-
-async function togglePublish(){
-
-  if(
-    !currentPresentation ||
-    !currentUser
-  ){
-    return;
-  }
-
-
-  if(
-    !isValidUUID(
-      currentPresentation.id
-    )
-  ){
-
-    alert(
-      "Invalid presentation ID."
-    );
-
-    return;
-  }
-
-
-  const newStatus =
-    !currentPresentation.is_published;
-
-
-  try{
-
-    if(
-      !isSaving
-    ){
-      await savePresentation();
-    }
-
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("presentations")
-        .update({
-
-          is_published:
-            newStatus,
-
-          published_at:
-            newStatus
-              ? new Date().toISOString()
-              : null
-
-        })
-        .eq(
-          "id",
-          currentPresentation.id
-        )
-        .eq(
-          "user_id",
-          currentUser.id
-        );
-
-
-    if(error){
-      throw error;
-    }
-
-
-    currentPresentation.is_published =
-      newStatus;
-
-
-    currentPresentation.published_at =
-      newStatus
-        ? new Date().toISOString()
-        : null;
-
-
-    updatePublishButton();
-
-
-    showToast(
-      newStatus
-        ? "Presentation published."
-        : "Presentation unpublished."
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "PUBLISH ERROR:",
-      error
-    );
-
-    alert(
-      "Could not update publish status:\n\n" +
-      error.message
-    );
-  }
-}
-
-
-function updatePublishButton(){
-
-  const buttonText =
-    document.getElementById(
-      "publishText"
-    );
-
-
-  if(!buttonText){
-    return;
-  }
-
-
-  if(
-    currentPresentation &&
-    currentPresentation.is_published
-  ){
-
-    buttonText.textContent =
-      "Unpublish";
-
-  }else{
-
-    buttonText.textContent =
-      "Publish";
-  }
-}
-
-
-/* =========================================================
-   PREVIEW
-   ========================================================= */
-
-function openPreview(){
-
-  if(slides.length === 0){
-    return;
-  }
-
-
-  previewIndex =
-    currentSlideIndex;
-
-
-  renderPreview();
-
-
-  document
-    .getElementById(
-      "previewModal"
-    )
-    .classList.add("show");
-}
-
-
-function closePreview(){
-
-  document
-    .getElementById(
-      "previewModal"
-    )
-    .classList.remove("show");
-}
-
-
-function renderPreview(){
-
-  const slide =
-    slides[previewIndex];
-
-
-  if(!slide){
-    return;
-  }
-
-
-  const canvas =
-    document.getElementById(
-      "previewCanvas"
-    );
-
-
-  canvas.className =
-    "preview-canvas " +
-    (
-      slide.background ||
-      "light"
-    );
-
-
-  const title =
-    escapeHTML(
-      slide.title ||
-      "Untitled Slide"
-    );
-
-
-  const subtitle =
-    escapeHTML(
-      slide.subtitle ||
-      ""
-    );
-
-
-  const content =
-    escapeHTML(
-      slide.content ||
-      ""
-    );
-
-
-  const imageURL =
-    safeImageURL(
-      slide.image_url
-    );
-
-
-  let html = "";
-
-
-  switch(
-    slide.layout ||
-    "title_content"
-  ){
-
-    case "title":
-
-      html = `
-        <div class="slide-render title-layout">
-          <h2>${title}</h2>
-        </div>
-      `;
-
-      break;
-
-
-    case "two_column":
-
-      html = `
-        <div class="slide-render">
-
-          <h3>${title}</h3>
-
-          <div class="two-column">
-
-            <div>
-              <div class="slide-subtitle">
-                ${subtitle}
-              </div>
-            </div>
-
-            <div>
-              <div class="slide-content">
-                ${content}
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      `;
-
-      break;
-
-
-    case "image_text":
-
-      html = `
-        <div class="slide-render image-layout">
-
-          <div>
-
-            ${
-              imageURL
-              ?
-              `<img
-                class="slide-image"
-                src="${escapeHTML(imageURL)}"
-                alt=""
-              >`
-              :
-              `<div class="image-placeholder">
-                No image
-              </div>`
-            }
-
-          </div>
-
-          <div>
-
-            <h2>${title}</h2>
-
-            <div class="slide-subtitle">
-              ${subtitle}
-            </div>
-
-            <div class="slide-content">
-              ${content}
-            </div>
-
-          </div>
-
-        </div>
-      `;
-
-      break;
-
-
-    case "quote":
-
-      html = `
-        <div class="slide-render quote-layout">
-
-          <h3>${title}</h3>
-
-          <div class="slide-content">
-            “${content}”
-          </div>
-
-          <div class="slide-subtitle">
-            ${subtitle}
-          </div>
-
-        </div>
-      `;
-
-      break;
-
-
-    case "section":
-
-      html = `
-        <div class="slide-render section-layout">
-
-          <h2>${title}</h2>
-
-          <div class="slide-subtitle">
-            ${subtitle}
-          </div>
-
-          <div class="slide-content">
-            ${content}
-          </div>
-
-        </div>
-      `;
-
-      break;
-
-
-    default:
-
-      html = `
-        <div class="slide-render">
-
-          <h2>${title}</h2>
-
-          <div class="slide-subtitle">
-            ${subtitle}
-          </div>
-
-          <div class="slide-content">
-            ${content}
-          </div>
-
-        </div>
-      `;
-
-      break;
-  }
-
-
-  canvas.innerHTML =
-    html;
-}
-
-
-function previousPreview(){
-
-  if(slides.length === 0){
-    return;
-  }
-
-
-  previewIndex--;
-
-  if(previewIndex < 0){
-    previewIndex =
-      slides.length - 1;
-  }
-
-
-  renderPreview();
-}
-
-
-function nextPreview(){
-
-  if(slides.length === 0){
-    return;
-  }
-
-
-  previewIndex++;
-
-
-  if(
-    previewIndex >=
-    slides.length
-  ){
-
-    previewIndex = 0;
-  }
-
-
-  renderPreview();
-}
-
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-function showEditor(){
-
-  closePreview();
-}
-
+   BACK
+========================================================= */
 
 function goBack(){
 
-  window.location.href =
-    "presentations.html";
+  if(
+    document.referrer &&
+    document.referrer.includes(
+      "presentations"
+    )
+  ){
+
+    window.location.href =
+      "presentations.html";
+
+  }else{
+
+    window.location.href =
+      "presentations.html";
+  }
 }
 
 
 /* =========================================================
-   KEYBOARD SHORTCUTS
-   ========================================================= */
+   TOAST
+========================================================= */
 
-document.addEventListener(
-  "keydown",
-  function(event){
+function showToast(
+  message
+){
 
-    if(
-      event.key === "Escape"
-    ){
+  const toast =
+    document.getElementById(
+      "toast"
+    );
 
-      closePreview();
+  toast.textContent =
+    message;
 
-      return;
-    }
+  toast.classList.add(
+    "show"
+  );
 
+  setTimeout(
+    () => {
 
-    if(
-      event.ctrlKey &&
-      event.key.toLowerCase() === "s"
-    ){
+      toast.classList.remove(
+        "show"
+      );
 
-      event.preventDefault();
-
-      savePresentation();
-
-      return;
-    }
-
-
-    if(
-      document.activeElement &&
-      (
-        document.activeElement.tagName ===
-        "INPUT" ||
-        document.activeElement.tagName ===
-        "TEXTAREA"
-      )
-    ){
-      return;
-    }
+    },
+    2800
+  );
+}
 
 
-    if(
-      document.getElementById(
-        "previewModal"
-      ).classList.contains("show")
-    ){
+/* =========================================================
+   TRANSITION CSS
+========================================================= */
 
-      if(event.key === "ArrowLeft"){
-        previousPreview();
-      }
+const transitionStyle =
+document.createElement(
+  "style"
+);
 
-      if(event.key === "ArrowRight"){
-        nextPreview();
-      }
-    }
+transitionStyle.textContent = `
+
+@keyframes presentationFade{
+  from{
+    opacity:0;
   }
+  to{
+    opacity:1;
+  }
+}
+
+@keyframes presentationSlide{
+  from{
+    opacity:0;
+    transform:translateX(100%);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+@keyframes presentationZoom{
+  from{
+    opacity:0;
+    transform:scale(.7);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+@keyframes presentationDissolve{
+  0%{
+    opacity:0;
+    filter:blur(12px);
+  }
+  100%{
+    opacity:1;
+    filter:blur(0);
+  }
+}
+
+@keyframes presentationWipe{
+  from{
+    clip-path:inset(0 100% 0 0);
+  }
+  to{
+    clip-path:inset(0 0 0 0);
+  }
+}
+`;
+
+document.head.appendChild(
+  transitionStyle
 );
 
 
 /* =========================================================
-   AUTH STATE
-   ========================================================= */
+   CLOSE TEMPLATE ON BACKDROP
+========================================================= */
 
-supabaseClient.auth.onAuthStateChange(
-  function(event, session){
+document
+  .getElementById(
+    "templateOverlay"
+  )
+  .addEventListener(
+    "click",
+    event => {
 
-    if(
-      event === "SIGNED_OUT"
-    ){
+      if(
+        event.target ===
+        document.getElementById(
+          "templateOverlay"
+        )
+      ){
 
-      window.location.href =
-        "login.html";
+        closeTemplates();
+      }
     }
+  );
 
-  }
-);
+
+/* =========================================================
+   START
+========================================================= */
+
+initialize();
+
 </script>
 
 </body>
