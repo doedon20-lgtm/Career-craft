@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Certificates | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+    min-height:100vh;
+}
+
+header{
+    background:#ffffff;
+    border-bottom:1px solid #e6e9ef;
+    padding:16px 20px;
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:800;
+    color:#2563eb;
+}
+
+.logo span{
+    color:#111827;
+}
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.home-btn{
+    text-decoration:none;
+    color:#374151;
+    font-size:14px;
+    font-weight:600;
+}
+
+.create-btn{
+    border:0;
+    background:#2563eb;
+    color:white;
+    padding:11px 16px;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+main{
+    max-width:1100px;
+    margin:auto;
+    padding:35px 20px 60px;
+}
+
+.hero{
+    margin-bottom:30px;
+}
+
+.hero h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    color:#6b7280;
+    line-height:1.6;
+}
+
+.loading{
+    text-align:center;
+    padding:50px 20px;
+    color:#6b7280;
+}
+
+.certificates-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:22px;
+}
+
+.certificate-card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.certificate-preview{
+    height:185px;
+    padding:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:linear-gradient(135deg,#eff6ff,#ffffff);
+    border-bottom:1px solid #e5e7eb;
+}
+
+.certificate-preview h2{
+    font-size:20px;
+    color:#1d4ed8;
+    margin-bottom:8px;
+}
+
+.certificate-preview p{
+    font-size:13px;
+    color:#6b7280;
+}
+
+.card-content{
+    padding:18px;
+}
+
+.card-content h3{
+    font-size:17px;
+    margin-bottom:7px;
+}
+
+.organization{
+    font-size:13px;
+    color:#6b7280;
+    margin-bottom:14px;
+}
+
+.card-actions{
+    display:flex;
+    gap:8px;
+}
+
+.card-actions button{
+    flex:1;
+    padding:10px;
+    border-radius:9px;
+    border:1px solid #e5e7eb;
+    background:white;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.card-actions .edit{
+    color:#2563eb;
+}
+
+.card-actions .delete{
+    color:#dc2626;
+}
+
+.empty{
+    background:white;
+    border:2px dashed #d9dee8;
+    border-radius:18px;
+    padding:55px 25px;
+    text-align:center;
+}
+
+.empty-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.empty h2{
+    margin-bottom:8px;
+}
+
+.empty p{
+    color:#6b7280;
+    margin-bottom:20px;
+}
+
+.empty button{
+    border:0;
+    background:#2563eb;
+    color:white;
+    padding:12px 20px;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.toast{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#111827;
+    color:white;
+    padding:12px 18px;
+    border-radius:10px;
+    display:none;
+    z-index:100;
+}
+
+@media(max-width:600px){
+
+    header{
+        padding:14px;
+    }
+
+    .header-inner{
+        flex-wrap:wrap;
+    }
+
+    .logo{
+        font-size:20px;
+    }
+
+    .home-btn{
+        display:none;
+    }
+
+    .create-btn{
+        padding:10px 13px;
+        font-size:13px;
+    }
+
+    main{
+        padding:25px 14px 50px;
+    }
+
+    .hero h1{
+        font-size:27px;
+    }
+
+    .certificates-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+
+        <div class="logo">
+            Career<span>Craft</span>
+        </div>
+
+        <div class="header-actions">
+            <a href="index.html" class="home-btn">Home</a>
+
+            <button class="create-btn" onclick="createCertificate()">
+                + Create Certificate
+            </button>
+        </div>
+
+    </div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <h1>My Certificates</h1>
+        <p>
+            Create, manage and download professional certificates
+            with CareerCraft.
+        </p>
+    </section>
+
+    <div id="content">
+        <div class="loading">
+            Loading your certificates...
+        </div>
+    </div>
+
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script>
+
+const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+
+const { createClient } =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+async function checkUser(){
+
+    const {
+        data:{
+            user
+        },
+        error
+    } = await supabase.auth.getUser();
+
+    if(error || !user){
+
+        window.location.href = "login.html";
+        return null;
+    }
+
+    return user;
+}
+
+function createCertificate(){
+
+    window.location.href = "certificate-editor.html";
+}
+
+async function loadCertificates(){
+
+    const user = await checkUser();
+
+    if(!user) return;
+
+    const {
+        data,
+        error
+    } = await supabase
+        .from("certificates")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", {
+            ascending:false
+        });
+
+    if(error){
+
+        console.error(error);
+
+        document.getElementById("content").innerHTML = `
+            <div class="empty">
+                <div class="empty-icon">⚠️</div>
+                <h2>Unable to load certificates</h2>
+                <p>${escapeHtml(error.message)}</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    if(!data || data.length === 0){
+
+        document.getElementById("content").innerHTML = `
+            <div class="empty">
+
+                <div class="empty-icon">📜</div>
+
+                <h2>No certificates yet</h2>
+
+                <p>
+                    Create your first professional certificate
+                    and it will appear here.
+                </p>
+
+                <button onclick="createCertificate()">
+                    Create Your First Certificate
+                </button>
+
+            </div>
+        `;
+
+        return;
+    }
+
+    document.getElementById("content").innerHTML = `
+
+        <div class="certificates-grid">
+
+            ${data.map(cert => `
+
+                <div class="certificate-card">
+
+                    <div class="certificate-preview">
+
+                        <div>
+
+                            <h2>
+                                ${escapeHtml(
+                                    cert.certificate_title ||
+                                    "Certificate"
+                                )}
+                            </h2>
+
+                            <p>
+                                ${escapeHtml(
+                                    cert.recipient_name ||
+                                    "Recipient"
+                                )}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-content">
+
+                        <h3>
+                            ${escapeHtml(
+                                cert.recipient_name ||
+                                "Untitled Certificate"
+                            )}
+                        </h3>
+
+                        <div class="organization">
+                            ${escapeHtml(
+                                cert.issuing_organization ||
+                                "No organization specified"
+                            )}
+                        </div>
+
+                        <div class="card-actions">
+
+                            <button
+                                onclick="viewCertificate('${cert.id}')">
+                                View
+                            </button>
+
+                            <button
+                                class="edit"
+                                onclick="editCertificate('${cert.id}')">
+                                Edit
+                            </button>
+
+                            <button
+                                class="delete"
+                                onclick="deleteCertificate('${cert.id}')">
+                                Delete
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `).join("")}
+
+        </div>
+    `;
+}
+
+function viewCertificate(id){
+
+    window.location.href =
+        "certificate-preview.html?id=" +
+        encodeURIComponent(id);
+}
+
+function editCertificate(id){
+
+    window.location.href =
+        "certificate-editor.html?id=" +
+        encodeURIComponent(id);
+}
+
+async function deleteCertificate(id){
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this certificate?"
+        );
+
+    if(!confirmed) return;
+
+    const user = await checkUser();
+
+    if(!user) return;
+
+    const {
+        error
+    } = await supabase
+        .from("certificates")
+        .delete()
+        .eq("id", id)
+        .eq("user_id", user.id);
+
+    if(error){
+
+        showToast(
+            "Unable to delete certificate"
+        );
+
+        console.error(error);
+
+        return;
+    }
+
+    showToast(
+        "Certificate deleted"
+    );
+
+    loadCertificates();
+}
+
+function escapeHtml(value){
+
+    if(value === null || value === undefined){
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.style.display = "block";
+
+    setTimeout(() => {
+
+        toast.style.display = "none";
+
+    },2500);
+}
+
+loadCertificates();
+
+</script>
+
+</body>
+  </html>
