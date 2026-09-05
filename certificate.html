@@ -22,17 +22,19 @@ body{
     min-height:100vh;
 }
 
+/* HEADER */
+
 header{
     background:#ffffff;
-    border-bottom:1px solid #e6e9ef;
-    padding:16px 20px;
+    border-bottom:1px solid #e5e7eb;
+    padding:15px 20px;
     position:sticky;
     top:0;
-    z-index:20;
+    z-index:50;
 }
 
 .header-inner{
-    max-width:1100px;
+    max-width:1150px;
     margin:auto;
     display:flex;
     align-items:center;
@@ -41,7 +43,7 @@ header{
 }
 
 .logo{
-    font-size:22px;
+    font-size:23px;
     font-weight:800;
     color:#2563eb;
 }
@@ -50,36 +52,48 @@ header{
     color:#111827;
 }
 
-.header-actions{
+.header-right{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:15px;
 }
 
-.home-btn{
+.home-link{
+    color:#4b5563;
     text-decoration:none;
-    color:#374151;
     font-size:14px;
     font-weight:600;
 }
 
 .create-btn{
-    border:0;
+    border:none;
     background:#2563eb;
     color:white;
-    padding:11px 16px;
+    padding:11px 17px;
     border-radius:10px;
+    font-size:14px;
     font-weight:700;
     cursor:pointer;
+    transition:.2s;
 }
 
+.create-btn:hover{
+    background:#1d4ed8;
+}
+
+/* MAIN */
+
 main{
-    max-width:1100px;
+    max-width:1150px;
     margin:auto;
     padding:35px 20px 60px;
 }
 
 .hero{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    gap:20px;
     margin-bottom:30px;
 }
 
@@ -93,110 +107,201 @@ main{
     line-height:1.6;
 }
 
-.loading{
-    text-align:center;
-    padding:50px 20px;
+/* LOADING */
+
+.loading-box{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:18px;
+    min-height:280px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:15px;
     color:#6b7280;
 }
 
+.spinner{
+    width:36px;
+    height:36px;
+    border:4px solid #e5e7eb;
+    border-top-color:#2563eb;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* GRID */
+
 .certificates-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    grid-template-columns:repeat(auto-fill,minmax(285px,1fr));
     gap:22px;
 }
+
+/* CARD */
 
 .certificate-card{
     background:white;
     border:1px solid #e5e7eb;
-    border-radius:16px;
+    border-radius:17px;
     overflow:hidden;
-    box-shadow:0 6px 20px rgba(0,0,0,.05);
+    box-shadow:0 7px 24px rgba(0,0,0,.05);
+    transition:transform .2s,box-shadow .2s;
+}
+
+.certificate-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
 }
 
 .certificate-preview{
-    height:185px;
-    padding:22px;
+    height:190px;
+    padding:25px;
     display:flex;
     align-items:center;
     justify-content:center;
     text-align:center;
-    background:linear-gradient(135deg,#eff6ff,#ffffff);
-    border-bottom:1px solid #e5e7eb;
+    position:relative;
+    overflow:hidden;
 }
 
-.certificate-preview h2{
-    font-size:20px;
-    color:#1d4ed8;
+.certificate-preview.classic{
+    background:#f8fbff;
+    border:9px solid #1e3a8a;
+    margin:0;
+}
+
+.certificate-preview.modern{
+    background:linear-gradient(135deg,#eff6ff,#ffffff);
+    border-left:10px solid #2563eb;
+    border-right:10px solid #2563eb;
+}
+
+.certificate-preview.elegant{
+    background:#fffdf5;
+    border:2px solid #c9a227;
+    box-shadow:inset 0 0 0 8px #fff;
+}
+
+.certificate-preview.achievement{
+    background:linear-gradient(135deg,#ffffff,#f3f4f6);
+    border:9px solid #111827;
+}
+
+.preview-inner{
+    max-width:90%;
+}
+
+.preview-label{
+    font-size:9px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:#6b7280;
     margin-bottom:8px;
 }
 
-.certificate-preview p{
-    font-size:13px;
-    color:#6b7280;
+.preview-title{
+    font-family:Georgia,serif;
+    color:#1e3a8a;
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:8px;
 }
 
-.card-content{
-    padding:18px;
+.achievement .preview-title{
+    color:#111827;
 }
 
-.card-content h3{
+.preview-name{
+    font-family:Georgia,serif;
     font-size:17px;
+    font-weight:bold;
     margin-bottom:7px;
 }
 
-.organization{
-    font-size:13px;
+.preview-org{
+    font-size:11px;
     color:#6b7280;
-    margin-bottom:14px;
+}
+
+.card-body{
+    padding:18px;
+}
+
+.card-body h3{
+    font-size:17px;
+    margin-bottom:6px;
+}
+
+.card-description{
+    color:#6b7280;
+    font-size:13px;
+    margin-bottom:15px;
+    line-height:1.4;
 }
 
 .card-actions{
-    display:flex;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
     gap:8px;
 }
 
 .card-actions button{
-    flex:1;
-    padding:10px;
-    border-radius:9px;
     border:1px solid #e5e7eb;
     background:white;
+    padding:10px 5px;
+    border-radius:9px;
+    font-size:12px;
+    font-weight:700;
     cursor:pointer;
-    font-weight:600;
 }
 
-.card-actions .edit{
+.view-btn{
     color:#2563eb;
 }
 
-.card-actions .delete{
+.edit-btn{
+    color:#374151;
+}
+
+.delete-btn{
     color:#dc2626;
 }
+
+/* EMPTY */
 
 .empty{
     background:white;
     border:2px dashed #d9dee8;
     border-radius:18px;
-    padding:55px 25px;
+    padding:65px 25px;
     text-align:center;
 }
 
 .empty-icon{
-    font-size:45px;
+    font-size:50px;
     margin-bottom:15px;
 }
 
 .empty h2{
+    font-size:21px;
     margin-bottom:8px;
 }
 
 .empty p{
     color:#6b7280;
-    margin-bottom:20px;
+    margin-bottom:22px;
 }
 
 .empty button{
-    border:0;
+    border:none;
     background:#2563eb;
     color:white;
     padding:12px 20px;
@@ -205,20 +310,61 @@ main{
     cursor:pointer;
 }
 
+/* ERROR */
+
+.error-box{
+    background:white;
+    border:1px solid #fecaca;
+    border-radius:18px;
+    padding:35px 25px;
+    text-align:center;
+}
+
+.error-icon{
+    font-size:40px;
+    margin-bottom:12px;
+}
+
+.error-box h2{
+    margin-bottom:8px;
+}
+
+.error-box p{
+    color:#6b7280;
+    font-size:14px;
+    margin-bottom:18px;
+    word-break:break-word;
+}
+
+.retry-btn{
+    border:none;
+    background:#2563eb;
+    color:white;
+    padding:11px 18px;
+    border-radius:9px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* TOAST */
+
 .toast{
     position:fixed;
-    bottom:20px;
+    bottom:22px;
     left:50%;
     transform:translateX(-50%);
     background:#111827;
     color:white;
     padding:12px 18px;
     border-radius:10px;
+    font-size:14px;
     display:none;
     z-index:100;
 }
 
-@media(max-width:600px){
+/* MOBILE */
+
+@media(max-width:650px){
 
     header{
         padding:14px;
@@ -232,7 +378,7 @@ main{
         font-size:20px;
     }
 
-    .home-btn{
+    .home-link{
         display:none;
     }
 
@@ -245,12 +391,21 @@ main{
         padding:25px 14px 50px;
     }
 
+    .hero{
+        align-items:start;
+        flex-direction:column;
+    }
+
     .hero h1{
         font-size:27px;
     }
 
     .certificates-grid{
         grid-template-columns:1fr;
+    }
+
+    .card-actions button{
+        padding:10px 3px;
     }
 }
 </style>
@@ -259,223 +414,477 @@ main{
 <body>
 
 <header>
+
     <div class="header-inner">
 
         <div class="logo">
             Career<span>Craft</span>
         </div>
 
-        <div class="header-actions">
-            <a href="index.html" class="home-btn">Home</a>
+        <div class="header-right">
 
-            <button class="create-btn" onclick="createCertificate()">
+            <a
+                href="index.html"
+                class="home-link">
+                Home
+            </a>
+
+            <button
+                class="create-btn"
+                onclick="createCertificate()">
                 + Create Certificate
             </button>
+
         </div>
 
     </div>
+
 </header>
+
 
 <main>
 
     <section class="hero">
-        <h1>My Certificates</h1>
-        <p>
-            Create, manage and download professional certificates
-            with CareerCraft.
-        </p>
+
+        <div>
+            <h1>My Certificates</h1>
+
+            <p>
+                Create, manage and download your professional
+                certificates in one place.
+            </p>
+        </div>
+
     </section>
 
+
     <div id="content">
-        <div class="loading">
-            Loading your certificates...
+
+        <div class="loading-box">
+
+            <div class="spinner"></div>
+
+            <div>
+                Loading your certificates...
+            </div>
+
         </div>
+
     </div>
 
 </main>
 
-<div id="toast" class="toast"></div>
+
+<div
+    id="toast"
+    class="toast">
+</div>
+
 
 <script>
 
-const SUPABASE_URL = "https://upcxmlbgmqhaqieldmyk.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+/* =====================================================
+   SUPABASE
+   ===================================================== */
 
-const { createClient } =
-    supabase.createClient(
+const SUPABASE_URL =
+    "https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+
+const supabaseClient =
+    window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_ANON_KEY
     );
 
-async function checkUser(){
 
-    const {
-        data:{
-            user
-        },
-        error
-    } = await supabase.auth.getUser();
-
-    if(error || !user){
-
-        window.location.href = "login.html";
-        return null;
-    }
-
-    return user;
-}
+/* =====================================================
+   CREATE CERTIFICATE
+   ===================================================== */
 
 function createCertificate(){
 
-    window.location.href = "certificate-editor.html";
+    window.location.href =
+        "certificate-editor.html";
+
 }
 
-async function loadCertificates(){
 
-    const user = await checkUser();
+/* =====================================================
+   CHECK LOGIN
+   ===================================================== */
 
-    if(!user) return;
+async function getCurrentUser(){
 
     const {
         data,
         error
-    } = await supabase
-        .from("certificates")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("created_at", {
-            ascending:false
-        });
+    } = await supabaseClient.auth.getUser();
+
 
     if(error){
 
-        console.error(error);
+        console.error(
+            "Authentication error:",
+            error
+        );
 
-        document.getElementById("content").innerHTML = `
-            <div class="empty">
-                <div class="empty-icon">⚠️</div>
-                <h2>Unable to load certificates</h2>
-                <p>${escapeHtml(error.message)}</p>
-            </div>
-        `;
-
-        return;
+        return null;
     }
 
-    if(!data || data.length === 0){
 
-        document.getElementById("content").innerHTML = `
-            <div class="empty">
+    return data.user || null;
 
-                <div class="empty-icon">📜</div>
+}
 
-                <h2>No certificates yet</h2>
+
+/* =====================================================
+   LOAD CERTIFICATES
+   ===================================================== */
+
+async function loadCertificates(){
+
+    const content =
+        document.getElementById(
+            "content"
+        );
+
+
+    content.innerHTML = `
+        <div class="loading-box">
+            <div class="spinner"></div>
+            <div>Loading your certificates...</div>
+        </div>
+    `;
+
+
+    try{
+
+        const user =
+            await getCurrentUser();
+
+
+        if(!user){
+
+            content.innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🔐
+                    </div>
+
+                    <h2>
+                        Please log in
+                    </h2>
+
+                    <p>
+                        You need to be logged in
+                        to view your certificates.
+                    </p>
+
+                    <button
+                        onclick="window.location.href='login.html'">
+                        Go to Login
+                    </button>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("certificates")
+            .select("*")
+            .eq("user_id", user.id)
+            .order(
+                "created_at",
+                {
+                    ascending:false
+                }
+            );
+
+
+        if(error){
+
+            console.error(
+                "Certificate query error:",
+                error
+            );
+
+            content.innerHTML = `
+
+                <div class="error-box">
+
+                    <div class="error-icon">
+                        ⚠️
+                    </div>
+
+                    <h2>
+                        Unable to load certificates
+                    </h2>
+
+                    <p>
+                        ${escapeHtml(error.message)}
+                    </p>
+
+                    <button
+                        class="retry-btn"
+                        onclick="loadCertificates()">
+                        Try Again
+                    </button>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        if(!data || data.length === 0){
+
+            content.innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        📜
+                    </div>
+
+                    <h2>
+                        No certificates yet
+                    </h2>
+
+                    <p>
+                        Create your first professional
+                        certificate and it will appear here.
+                    </p>
+
+                    <button
+                        onclick="createCertificate()">
+                        Create Your First Certificate
+                    </button>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        renderCertificates(data);
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Unexpected error:",
+            error
+        );
+
+
+        content.innerHTML = `
+
+            <div class="error-box">
+
+                <div class="error-icon">
+                    ⚠️
+                </div>
+
+                <h2>
+                    Something went wrong
+                </h2>
 
                 <p>
-                    Create your first professional certificate
-                    and it will appear here.
+                    ${escapeHtml(error.message)}
                 </p>
 
-                <button onclick="createCertificate()">
-                    Create Your First Certificate
+                <button
+                    class="retry-btn"
+                    onclick="loadCertificates()">
+                    Try Again
                 </button>
 
             </div>
+
         `;
 
-        return;
     }
 
-    document.getElementById("content").innerHTML = `
+}
+
+
+/* =====================================================
+   RENDER CERTIFICATES
+   ===================================================== */
+
+function renderCertificates(certificates){
+
+    const content =
+        document.getElementById(
+            "content"
+        );
+
+
+    content.innerHTML = `
 
         <div class="certificates-grid">
 
-            ${data.map(cert => `
+            ${certificates.map(
+                certificateCard
+            ).join("")}
 
-                <div class="certificate-card">
+        </div>
 
-                    <div class="certificate-preview">
+    `;
 
-                        <div>
+}
 
-                            <h2>
-                                ${escapeHtml(
-                                    cert.certificate_title ||
-                                    "Certificate"
-                                )}
-                            </h2>
 
-                            <p>
-                                ${escapeHtml(
-                                    cert.recipient_name ||
-                                    "Recipient"
-                                )}
-                            </p>
+/* =====================================================
+   CERTIFICATE CARD
+   ===================================================== */
 
-                        </div>
+function certificateCard(cert){
 
+    const template =
+        cert.template ||
+        "classic";
+
+
+    const title =
+        cert.certificate_title ||
+        "Certificate";
+
+
+    const recipient =
+        cert.recipient_name ||
+        "Recipient";
+
+
+    const organization =
+        cert.issuing_organization ||
+        "Issuing Organization";
+
+
+    const description =
+        cert.description ||
+        "Professional certificate";
+
+
+    return `
+
+        <article class="certificate-card">
+
+            <div
+                class="certificate-preview ${escapeHtml(template)}">
+
+                <div class="preview-inner">
+
+                    <div class="preview-label">
+                        Certificate
                     </div>
 
-                    <div class="card-content">
+                    <div class="preview-title">
+                        ${escapeHtml(title)}
+                    </div>
 
-                        <h3>
-                            ${escapeHtml(
-                                cert.recipient_name ||
-                                "Untitled Certificate"
-                            )}
-                        </h3>
+                    <div class="preview-name">
+                        ${escapeHtml(recipient)}
+                    </div>
 
-                        <div class="organization">
-                            ${escapeHtml(
-                                cert.issuing_organization ||
-                                "No organization specified"
-                            )}
-                        </div>
-
-                        <div class="card-actions">
-
-                            <button
-                                onclick="viewCertificate('${cert.id}')">
-                                View
-                            </button>
-
-                            <button
-                                class="edit"
-                                onclick="editCertificate('${cert.id}')">
-                                Edit
-                            </button>
-
-                            <button
-                                class="delete"
-                                onclick="deleteCertificate('${cert.id}')">
-                                Delete
-                            </button>
-
-                        </div>
-
+                    <div class="preview-org">
+                        ${escapeHtml(organization)}
                     </div>
 
                 </div>
 
-            `).join("")}
+            </div>
 
-        </div>
+
+            <div class="card-body">
+
+                <h3>
+                    ${escapeHtml(recipient)}
+                </h3>
+
+                <div class="card-description">
+                    ${escapeHtml(description)}
+                </div>
+
+
+                <div class="card-actions">
+
+                    <button
+                        class="view-btn"
+                        onclick="viewCertificate('${escapeAttribute(cert.id)}')">
+                        View
+                    </button>
+
+                    <button
+                        class="edit-btn"
+                        onclick="editCertificate('${escapeAttribute(cert.id)}')">
+                        Edit
+                    </button>
+
+                    <button
+                        class="delete-btn"
+                        onclick="deleteCertificate('${escapeAttribute(cert.id)}')">
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
     `;
+
 }
+
+
+/* =====================================================
+   VIEW
+   ===================================================== */
 
 function viewCertificate(id){
 
     window.location.href =
         "certificate-preview.html?id=" +
         encodeURIComponent(id);
+
 }
+
+
+/* =====================================================
+   EDIT
+   ===================================================== */
 
 function editCertificate(id){
 
     window.location.href =
         "certificate-editor.html?id=" +
         encodeURIComponent(id);
+
 }
+
+
+/* =====================================================
+   DELETE
+   ===================================================== */
 
 async function deleteCertificate(id){
 
@@ -484,71 +893,173 @@ async function deleteCertificate(id){
             "Are you sure you want to delete this certificate?"
         );
 
-    if(!confirmed) return;
 
-    const user = await checkUser();
-
-    if(!user) return;
-
-    const {
-        error
-    } = await supabase
-        .from("certificates")
-        .delete()
-        .eq("id", id)
-        .eq("user_id", user.id);
-
-    if(error){
-
-        showToast(
-            "Unable to delete certificate"
-        );
-
-        console.error(error);
+    if(!confirmed){
 
         return;
     }
 
+
+    const user =
+        await getCurrentUser();
+
+
+    if(!user){
+
+        showToast(
+            "Please log in again."
+        );
+
+        return;
+    }
+
+
+    const {
+        error
+    } = await supabaseClient
+        .from("certificates")
+        .delete()
+        .eq("id", id)
+        .eq(
+            "user_id",
+            user.id
+        );
+
+
+    if(error){
+
+        console.error(
+            error
+        );
+
+        showToast(
+            "Unable to delete certificate."
+        );
+
+        return;
+    }
+
+
     showToast(
-        "Certificate deleted"
+        "Certificate deleted."
     );
 
+
     loadCertificates();
+
 }
+
+
+/* =====================================================
+   ESCAPE HTML
+   ===================================================== */
 
 function escapeHtml(value){
 
-    if(value === null || value === undefined){
+    if(
+        value === null ||
+        value === undefined
+    ){
+
         return "";
+
     }
 
+
     return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
 }
+
+
+/* =====================================================
+   ESCAPE ATTRIBUTE
+   ===================================================== */
+
+function escapeAttribute(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(
+            /\\/g,
+            "\\\\"
+        )
+        .replace(
+            /'/g,
+            "\\'"
+        );
+
+}
+
+
+/* =====================================================
+   TOAST
+   ===================================================== */
 
 function showToast(message){
 
     const toast =
-        document.getElementById("toast");
+        document.getElementById(
+            "toast"
+        );
 
-    toast.textContent = message;
 
-    toast.style.display = "block";
+    toast.textContent =
+        message;
 
-    setTimeout(() => {
 
-        toast.style.display = "none";
+    toast.style.display =
+        "block";
 
-    },2500);
+
+    setTimeout(
+        () => {
+
+            toast.style.display =
+                "none";
+
+        },
+        2500
+    );
+
 }
+
+
+/* =====================================================
+   START
+   ===================================================== */
 
 loadCertificates();
 
 </script>
 
 </body>
-  </html>
+    </html>
