@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Certificate Editor | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:#f4f7fb;
+    color:#172033;
+}
+
+header{
+    height:70px;
+    background:#ffffff;
+    border-bottom:1px solid #e5e9f0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    position:sticky;
+    top:0;
+    z-index:50;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:800;
+    color:#2563eb;
+}
+
+.back-btn{
+    text-decoration:none;
+    color:#475569;
+    font-weight:600;
+    padding:10px 16px;
+    border-radius:10px;
+    background:#f1f5f9;
+}
+
+.back-btn:hover{
+    background:#e2e8f0;
+}
+
+.container{
+    max-width:1400px;
+    margin:auto;
+    padding:28px;
+}
+
+.page-title{
+    margin-bottom:24px;
+}
+
+.page-title h1{
+    font-size:30px;
+    margin-bottom:6px;
+}
+
+.page-title p{
+    color:#64748b;
+}
+
+.editor-grid{
+    display:grid;
+    grid-template-columns:430px 1fr;
+    gap:28px;
+    align-items:start;
+}
+
+.panel{
+    background:white;
+    border:1px solid #e5e9f0;
+    border-radius:18px;
+    padding:24px;
+    box-shadow:0 8px 30px rgba(15,23,42,.05);
+}
+
+.panel h2{
+    font-size:19px;
+    margin-bottom:20px;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group textarea{
+    width:100%;
+    border:1px solid #dbe1ea;
+    border-radius:10px;
+    padding:12px 13px;
+    font-size:14px;
+    outline:none;
+    background:#fff;
+    transition:.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.1);
+}
+
+.form-group textarea{
+    min-height:95px;
+    resize:vertical;
+}
+
+.templates{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:8px;
+}
+
+.template-btn{
+    border:2px solid #e2e8f0;
+    background:#fff;
+    border-radius:11px;
+    padding:13px 10px;
+    cursor:pointer;
+    font-weight:700;
+    color:#475569;
+    transition:.2s;
+}
+
+.template-btn:hover{
+    border-color:#94a3b8;
+}
+
+.template-btn.active{
+    border-color:#2563eb;
+    background:#eff6ff;
+    color:#2563eb;
+}
+
+.file-box{
+    border:1px dashed #cbd5e1;
+    border-radius:12px;
+    padding:14px;
+    background:#f8fafc;
+}
+
+.file-box input{
+    border:0;
+    padding:0;
+    background:transparent;
+}
+
+.save-btn{
+    width:100%;
+    border:0;
+    background:#2563eb;
+    color:white;
+    padding:14px;
+    border-radius:11px;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+    margin-top:8px;
+}
+
+.save-btn:hover{
+    background:#1d4ed8;
+}
+
+.save-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.message{
+    display:none;
+    margin-top:14px;
+    padding:12px;
+    border-radius:10px;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.message.success{
+    display:block;
+    background:#ecfdf5;
+    color:#047857;
+}
+
+.message.error{
+    display:block;
+    background:#fef2f2;
+    color:#b91c1c;
+}
+
+/* PREVIEW */
+
+.preview-panel{
+    min-width:0;
+}
+
+.preview-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:16px;
+}
+
+.preview-title h2{
+    margin:0;
+}
+
+.preview-wrapper{
+    width:100%;
+    overflow:auto;
+    padding:10px;
+    background:#e9eef5;
+    border-radius:15px;
+}
+
+.certificate{
+    width:900px;
+    min-height:640px;
+    margin:auto;
+    position:relative;
+    padding:60px;
+    overflow:hidden;
+    background:#fff;
+    box-shadow:0 10px 35px rgba(0,0,0,.12);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
+
+.certificate-logo{
+    width:75px;
+    height:75px;
+    object-fit:contain;
+    margin-bottom:20px;
+    display:none;
+}
+
+.certificate-logo.show{
+    display:block;
+}
+
+.cert-small{
+    font-size:15px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:18px;
+}
+
+.cert-title{
+    font-size:42px;
+    line-height:1.1;
+    margin-bottom:20px;
+}
+
+.cert-recipient{
+    font-size:34px;
+    font-weight:800;
+    margin-bottom:18px;
+}
+
+.cert-description{
+    max-width:680px;
+    font-size:17px;
+    line-height:1.7;
+    color:#475569;
+    min-height:50px;
+}
+
+.cert-org{
+    font-size:18px;
+    font-weight:700;
+    margin-top:24px;
+}
+
+.cert-date{
+    font-size:14px;
+    color:#64748b;
+    margin-top:8px;
+}
+
+.cert-bottom{
+    width:100%;
+    margin-top:auto;
+    padding-top:35px;
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    gap:30px;
+}
+
+.signature-area{
+    width:220px;
+    text-align:center;
+}
+
+.signature-image{
+    width:150px;
+    height:55px;
+    object-fit:contain;
+    display:none;
+    margin:auto;
+}
+
+.signature-image.show{
+    display:block;
+}
+
+.signature-line{
+    border-top:1px solid #475569;
+    margin-top:5px;
+    padding-top:7px;
+}
+
+.signature-name{
+    font-weight:800;
+}
+
+.signature-title{
+    font-size:13px;
+    color:#64748b;
+    margin-top:3px;
+}
+
+.cert-id{
+    font-size:12px;
+    color:#64748b;
+}
+
+/* CLASSIC */
+
+.certificate.classic{
+    border:12px double #c7a84b;
+}
+
+.certificate.classic .cert-small{
+    color:#a67c00;
+}
+
+.certificate.classic .cert-title{
+    font-family:Georgia,serif;
+    color:#172033;
+}
+
+.certificate.classic .cert-recipient{
+    font-family:Georgia,serif;
+    color:#8a6500;
+}
+
+/* MODERN */
+
+.certificate.modern{
+    border-left:18px solid #2563eb;
+    border-right:4px solid #2563eb;
+}
+
+.certificate.modern .cert-small{
+    color:#2563eb;
+    font-weight:800;
+}
+
+.certificate.modern .cert-title{
+    color:#0f172a;
+    font-weight:900;
+}
+
+.certificate.modern .cert-recipient{
+    color:#2563eb;
+}
+
+.certificate.modern .cert-description{
+    color:#475569;
+}
+
+/* ELEGANT */
+
+.certificate.elegant{
+    border:1px solid #cbd5e1;
+    outline:5px solid #f1f5f9;
+    outline-offset:-18px;
+}
+
+.certificate.elegant .cert-small{
+    font-family:Georgia,serif;
+    color:#7c5c25;
+}
+
+.certificate.elegant .cert-title{
+    font-family:Georgia,serif;
+    font-weight:500;
+    color:#334155;
+}
+
+.certificate.elegant .cert-recipient{
+    font-family:Georgia,serif;
+    font-weight:600;
+    color:#7c5c25;
+}
+
+/* ACHIEVEMENT */
+
+.certificate.achievement{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+    border:8px solid #f59e0b;
+}
+
+.certificate.achievement .cert-small{
+    color:#fbbf24;
+}
+
+.certificate.achievement .cert-title{
+    color:white;
+}
+
+.certificate.achievement .cert-recipient{
+    color:#fbbf24;
+}
+
+.certificate.achievement .cert-description{
+    color:#cbd5e1;
+}
+
+.certificate.achievement .cert-org{
+    color:#fff;
+}
+
+.certificate.achievement .cert-date,
+.certificate.achievement .cert-id{
+    color:#cbd5e1;
+}
+
+.certificate.achievement .signature-line{
+    border-color:#cbd5e1;
+}
+
+.certificate.achievement .signature-title{
+    color:#cbd5e1;
+}
+
+@media(max-width:950px){
+
+    .editor-grid{
+        grid-template-columns:1fr;
+    }
+
+    .preview-panel{
+        overflow:hidden;
+    }
+
+}
+
+@media(max-width:600px){
+
+    header{
+        padding:0 15px;
+    }
+
+    .container{
+        padding:16px;
+    }
+
+    .page-title h1{
+        font-size:25px;
+    }
+
+    .panel{
+        padding:18px;
+    }
+
+    .preview-wrapper{
+        padding:0;
+    }
+
+    .certificate{
+        transform-origin:top left;
+        width:900px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">CareerCraft</div>
+
+    <a href="certificates.html" class="back-btn">
+        ← Certificates
+    </a>
+</header>
+
+<main class="container">
+
+    <div class="page-title">
+        <h1 id="pageHeading">Create Certificate</h1>
+        <p>Design a professional certificate and save it to your CareerCraft account.</p>
+    </div>
+
+    <div class="editor-grid">
+
+        <!-- FORM -->
+
+        <section class="panel">
+
+            <h2>Certificate Details</h2>
+
+            <div class="form-group">
+                <label>Recipient Name *</label>
+                <input
+                    type="text"
+                    id="recipientName"
+                    placeholder="e.g. Nnenna Rosemary Chima"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Certificate Title *</label>
+                <input
+                    type="text"
+                    id="certificateTitle"
+                    placeholder="e.g. Certificate of Excellence"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea
+                    id="description"
+                    placeholder="This certificate is proudly presented in recognition of..."
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Issuing Organization</label>
+                <input
+                    type="text"
+                    id="issuingOrganization"
+                    placeholder="e.g. CareerCraft Academy"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Issue Date</label>
+                <input
+                    type="date"
+                    id="issueDate"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Certificate ID</label>
+                <input
+                    type="text"
+                    id="certificateId"
+                    placeholder="e.g. CC-2026-001"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Signature Name</label>
+                <input
+                    type="text"
+                    id="signatureName"
+                    placeholder="e.g. John Smith"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Signature Title</label>
+                <input
+                    type="text"
+                    id="signatureTitle"
+                    placeholder="e.g. Director"
+                >
+            </div>
+
+            <div class="form-group">
+
+                <label>Certificate Logo</label>
+
+                <div class="file-box">
+                    <input
+                        type="file"
+                        id="logoFile"
+                        accept="image/*"
+                    >
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Signature Image</label>
+
+                <div class="file-box">
+                    <input
+                        type="file"
+                        id="signatureFile"
+                        accept="image/*"
+                    >
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Choose Template</label>
+
+                <div class="templates">
+
+                    <button
+                        type="button"
+                        class="template-btn active"
+                        data-template="classic"
+                    >
+                        Classic
+                    </button>
+
+                    <button
+                        type="button"
+                        class="template-btn"
+                        data-template="modern"
+                    >
+                        Modern
+                    </button>
+
+                    <button
+                        type="button"
+                        class="template-btn"
+                        data-template="elegant"
+                    >
+                        Elegant
+                    </button>
+
+                    <button
+                        type="button"
+                        class="template-btn"
+                        data-template="achievement"
+                    >
+                        Achievement
+                    </button>
+
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                id="saveBtn"
+                class="save-btn"
+            >
+                Save Certificate
+            </button>
+
+            <div id="message" class="message"></div>
+
+        </section>
+
+
+        <!-- PREVIEW -->
+
+        <section class="panel preview-panel">
+
+            <div class="preview-title">
+                <h2>Live Preview</h2>
+            </div>
+
+            <div class="preview-wrapper">
+
+                <div
+                    id="certificatePreview"
+                    class="certificate classic"
+                >
+
+                    <img
+                        id="previewLogo"
+                        class="certificate-logo"
+                        alt="Logo"
+                    >
+
+                    <div class="cert-small">
+                        Certificate of Achievement
+                    </div>
+
+                    <div
+                        id="previewTitle"
+                        class="cert-title"
+                    >
+                        Certificate Title
+                    </div>
+
+                    <div
+                        id="previewRecipient"
+                        class="cert-recipient"
+                    >
+                        Recipient Name
+                    </div>
+
+                    <div
+                        id="previewDescription"
+                        class="cert-description"
+                    >
+                        This certificate is presented in recognition of outstanding achievement and dedication.
+                    </div>
+
+                    <div
+                        id="previewOrganization"
+                        class="cert-org"
+                    >
+                        Issuing Organization
+                    </div>
+
+                    <div
+                        id="previewDate"
+                        class="cert-date"
+                    >
+                    </div>
+
+                    <div class="cert-bottom">
+
+                        <div class="signature-area">
+
+                            <img
+                                id="previewSignature"
+                                class="signature-image"
+                                alt="Signature"
+                            >
+
+                            <div class="signature-line">
+
+                                <div
+                                    id="previewSignatureName"
+                                    class="signature-name"
+                                >
+                                    Signature Name
+                                </div>
+
+                                <div
+                                    id="previewSignatureTitle"
+                                    class="signature-title"
+                                >
+                                    Signature Title
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div
+                            id="previewCertificateId"
+                            class="cert-id"
+                        >
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL = "https://upcxmlbgmqhaqieldmyk.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let currentUser = null;
+
+let editingId =
+    new URLSearchParams(window.location.search).get("id");
+
+let selectedTemplate = "classic";
+
+let logoData = "";
+let signatureData = "";
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const recipientName =
+    document.getElementById("recipientName");
+
+const certificateTitle =
+    document.getElementById("certificateTitle");
+
+const description =
+    document.getElementById("description");
+
+const issuingOrganization =
+    document.getElementById("issuingOrganization");
+
+const issueDate =
+    document.getElementById("issueDate");
+
+const certificateId =
+    document.getElementById("certificateId");
+
+const signatureName =
+    document.getElementById("signatureName");
+
+const signatureTitle =
+    document.getElementById("signatureTitle");
+
+const logoFile =
+    document.getElementById("logoFile");
+
+const signatureFile =
+    document.getElementById("signatureFile");
+
+const certificatePreview =
+    document.getElementById("certificatePreview");
+
+const saveBtn =
+    document.getElementById("saveBtn");
+
+const message =
+    document.getElementById("message");
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+async function init(){
+
+    try{
+
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.getUser();
+
+        if(error){
+            throw error;
+        }
+
+        currentUser = data.user;
+
+        if(!currentUser){
+
+            window.location.href = "login.html";
+
+            return;
+        }
+
+        if(editingId){
+
+            document.getElementById("pageHeading").textContent =
+                "Edit Certificate";
+
+            saveBtn.textContent =
+                "Update Certificate";
+
+            await loadCertificate();
+
+        }
+
+        setupTemplateButtons();
+
+        setupInputs();
+
+        updatePreview();
+
+    }catch(error){
+
+        console.error(error);
+
+        showMessage(
+            "error",
+            "Unable to load the certificate editor: " +
+            error.message
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD EXISTING CERTIFICATE
+========================================================= */
+
+async function loadCertificate(){
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("certificates")
+        .select("*")
+        .eq("id", editingId)
+        .eq("user_id", currentUser.id)
+        .single();
+
+    if(error){
+
+        throw error;
+
+    }
+
+    if(!data){
+
+        throw new Error(
+            "Certificate not found."
+        );
+
+    }
+
+    recipientName.value =
+        data.recipient_name || "";
+
+    certificateTitle.value =
+        data.certificate_title || "";
+
+    description.value =
+        data.description || "";
+
+    issuingOrganization.value =
+        data.issuing_organization || "";
+
+    issueDate.value =
+        data.issue_date || "";
+
+    certificateId.value =
+        data.certificate_id || "";
+
+    signatureName.value =
+        data.signature_name || "";
+
+    signatureTitle.value =
+        data.signature_title || "";
+
+    selectedTemplate =
+        data.template || "classic";
+
+    logoData =
+        data.logo_url || "";
+
+    signatureData =
+        data.signature_url || "";
+
+    document
+        .querySelectorAll(".template-btn")
+        .forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.template === selectedTemplate
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   TEMPLATE BUTTONS
+========================================================= */
+
+function setupTemplateButtons(){
+
+    document
+        .querySelectorAll(".template-btn")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    selectedTemplate =
+                        this.dataset.template;
+
+                    document
+                        .querySelectorAll(".template-btn")
+                        .forEach(btn => {
+
+                            btn.classList.remove("active");
+
+                        });
+
+                    this.classList.add("active");
+
+                    updatePreview();
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   INPUT LISTENERS
+========================================================= */
+
+function setupInputs(){
+
+    const inputs = [
+
+        recipientName,
+        certificateTitle,
+        description,
+        issuingOrganization,
+        issueDate,
+        certificateId,
+        signatureName,
+        signatureTitle
+
+    ];
+
+    inputs.forEach(input => {
+
+        input.addEventListener(
+            "input",
+            updatePreview
+        );
+
+        input.addEventListener(
+            "change",
+            updatePreview
+        );
+
+    });
+
+
+    logoFile.addEventListener(
+        "change",
+        function(){
+
+            const file = this.files[0];
+
+            if(!file) return;
+
+            readImage(file, function(data){
+
+                logoData = data;
+
+                updatePreview();
+
+            });
+
+        }
+    );
+
+
+    signatureFile.addEventListener(
+        "change",
+        function(){
+
+            const file = this.files[0];
+
+            if(!file) return;
+
+            readImage(file, function(data){
+
+                signatureData = data;
+
+                updatePreview();
+
+            });
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   READ IMAGE
+========================================================= */
+
+function readImage(file, callback){
+
+    const reader = new FileReader();
+
+    reader.onload = function(){
+
+        callback(reader.result);
+
+    };
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =========================================================
+   UPDATE PREVIEW
+========================================================= */
+
+function updatePreview(){
+
+    certificatePreview.classList.remove(
+        "classic",
+        "modern",
+        "elegant",
+        "achievement"
+    );
+
+    certificatePreview.classList.add(
+        selectedTemplate
+    );
+
+
+    document.getElementById(
+        "previewRecipient"
+    ).textContent =
+        recipientName.value.trim() ||
+        "Recipient Name";
+
+
+    document.getElementById(
+        "previewTitle"
+    ).textContent =
+        certificateTitle.value.trim() ||
+        "Certificate Title";
+
+
+    document.getElementById(
+        "previewDescription"
+    ).textContent =
+        description.value.trim() ||
+        "This certificate is presented in recognition of outstanding achievement and dedication.";
+
+
+    document.getElementById(
+        "previewOrganization"
+    ).textContent =
+        issuingOrganization.value.trim() ||
+        "Issuing Organization";
+
+
+    document.getElementById(
+        "previewSignatureName"
+    ).textContent =
+        signatureName.value.trim() ||
+        "Signature Name";
+
+
+    document.getElementById(
+        "previewSignatureTitle"
+    ).textContent =
+        signatureTitle.value.trim() ||
+        "Signature Title";
+
+
+    document.getElementById(
+        "previewCertificateId"
+    ).textContent =
+        certificateId.value.trim()
+        ? "ID: " + certificateId.value.trim()
+        : "";
+
+
+    const dateElement =
+        document.getElementById("previewDate");
+
+    if(issueDate.value){
+
+        const date =
+            new Date(
+                issueDate.value + "T00:00:00"
+            );
+
+        dateElement.textContent =
+            date.toLocaleDateString(
+                "en-US",
+                {
+                    year:"numeric",
+                    month:"long",
+                    day:"numeric"
+                }
+            );
+
+    }else{
+
+        dateElement.textContent = "";
+
+    }
+
+
+    const logo =
+        document.getElementById("previewLogo");
+
+    if(logoData){
+
+        logo.src = logoData;
+
+        logo.classList.add("show");
+
+    }else{
+
+        logo.removeAttribute("src");
+
+        logo.classList.remove("show");
+
+    }
+
+
+    const signature =
+        document.getElementById("previewSignature");
+
+    if(signatureData){
+
+        signature.src = signatureData;
+
+        signature.classList.add("show");
+
+    }else{
+
+        signature.removeAttribute("src");
+
+        signature.classList.remove("show");
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE CERTIFICATE
+========================================================= */
+
+saveBtn.addEventListener(
+    "click",
+    saveCertificate
+);
+
+
+async function saveCertificate(){
+
+    const recipient =
+        recipientName.value.trim();
+
+    const title =
+        certificateTitle.value.trim();
+
+    if(!recipient){
+
+        showMessage(
+            "error",
+            "Please enter the recipient name."
+        );
+
+        recipientName.focus();
+
+        return;
+    }
+
+    if(!title){
+
+        showMessage(
+            "error",
+            "Please enter the certificate title."
+        );
+
+        certificateTitle.focus();
+
+        return;
+    }
+
+
+    saveBtn.disabled = true;
+
+    saveBtn.textContent =
+        editingId
+        ? "Updating..."
+        : "Saving...";
+
+
+    hideMessage();
+
+
+    try{
+
+        const certificateData = {
+
+            recipient_name:
+                recipient,
+
+            certificate_title:
+                title,
+
+            description:
+                description.value.trim() || null,
+
+            issuing_organization:
+                issuingOrganization.value.trim() || null,
+
+            issue_date:
+                issueDate.value || null,
+
+            certificate_id:
+                certificateId.value.trim() || null,
+
+            signature_name:
+                signatureName.value.trim() || null,
+
+            signature_title:
+                signatureTitle.value.trim() || null,
+
+            logo_url:
+                logoData || null,
+
+            signature_url:
+                signatureData || null,
+
+            template:
+                selectedTemplate
+
+        };
+
+
+        if(editingId){
+
+            const {
+                error
+            } = await supabaseClient
+                .from("certificates")
+                .update(certificateData)
+                .eq("id", editingId)
+                .eq("user_id", currentUser.id);
+
+            if(error){
+
+                throw error;
+
+            }
+
+            showMessage(
+                "success",
+                "Certificate updated successfully!"
+            );
+
+        }else{
+
+            certificateData.user_id =
+                currentUser.id;
+
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .from("certificates")
+                .insert([
+                    certificateData
+                ])
+                .select()
+                .single();
+
+            if(error){
+
+                throw error;
+
+            }
+
+            showMessage(
+                "success",
+                "Certificate saved successfully!"
+            );
+
+        }
+
+
+        setTimeout(
+            function(){
+
+                window.location.href =
+                    "certificates.html";
+
+            },
+            1000
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Certificate save error:",
+            error
+        );
+
+        showMessage(
+            "error",
+            "Could not save certificate: " +
+            error.message
+        );
+
+        saveBtn.disabled = false;
+
+        saveBtn.textContent =
+            editingId
+            ? "Update Certificate"
+            : "Save Certificate";
+
+    }
+
+}
+
+
+/* =========================================================
+   MESSAGES
+========================================================= */
+
+function showMessage(type,text){
+
+    message.className =
+        "message " + type;
+
+    message.textContent =
+        text;
+
+    message.style.display =
+        "block";
+
+}
+
+
+function hideMessage(){
+
+    message.style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+init();
+
+</script>
+
+</body>
+  </html>
