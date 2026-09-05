@@ -1,0 +1,2266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CareerCraft | Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+}
+
+button,
+input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:245px;
+    background:#fff;
+    border-right:1px solid #e5e9f0;
+    padding:25px 15px;
+    z-index:100;
+    overflow-y:auto;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:800;
+    padding:0 12px;
+    margin-bottom:30px;
+}
+
+.logo span{
+    color:#2563eb;
+}
+
+.nav-title{
+    font-size:11px;
+    color:#9ca3af;
+    text-transform:uppercase;
+    font-weight:700;
+    padding:0 12px;
+    margin:20px 0 8px;
+}
+
+.nav-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    margin:4px 0;
+    border-radius:10px;
+    color:#4b5563;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.nav-item:hover{
+    background:#f3f6fb;
+}
+
+.nav-item.active{
+    background:#eaf1ff;
+    color:#2563eb;
+}
+
+.create-nav{
+    background:#2563eb;
+    color:#fff !important;
+    justify-content:center;
+    margin-top:15px;
+}
+
+.create-nav:hover{
+    background:#1d4ed8 !important;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:245px;
+    min-height:100vh;
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar{
+    height:72px;
+    background:#fff;
+    border-bottom:1px solid #e5e9f0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 30px;
+    position:sticky;
+    top:0;
+    z-index:90;
+}
+
+.search{
+    width:350px;
+    background:#f3f5f8;
+    border:1px solid #e7ebf0;
+    border-radius:10px;
+    padding:11px 14px;
+    outline:none;
+    font-size:14px;
+}
+
+.search:focus{
+    border-color:#2563eb;
+    background:#fff;
+}
+
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.icon-btn{
+    border:0;
+    background:#f3f5f8;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    font-size:17px;
+}
+
+.profile-mini{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+}
+
+.profile-mini img{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#e5e7eb;
+}
+
+.profile-mini strong{
+    font-size:13px;
+}
+
+.profile-mini small{
+    display:block;
+    color:#9ca3af;
+    margin-top:2px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    padding:30px;
+    max-width:1500px;
+    margin:auto;
+}
+
+.welcome{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    margin-bottom:25px;
+}
+
+.welcome h1{
+    font-size:28px;
+    margin-bottom:7px;
+}
+
+.welcome p{
+    color:#6b7280;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.primary-btn{
+    border:0;
+    background:#2563eb;
+    color:#fff;
+    padding:12px 18px;
+    border-radius:10px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.primary-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-1px);
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:28px;
+}
+
+.stat-card{
+    background:#fff;
+    border:1px solid #e5e9f0;
+    border-radius:15px;
+    padding:20px;
+}
+
+.stat-icon{
+    width:40px;
+    height:40px;
+    border-radius:10px;
+    background:#edf3ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:14px;
+}
+
+.stat-card h3{
+    font-size:25px;
+    margin-bottom:5px;
+}
+
+.stat-card p{
+    color:#6b7280;
+    font-size:13px;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    margin-top:30px;
+}
+
+.section-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.section-heading h2{
+    font-size:20px;
+}
+
+.view-all{
+    color:#2563eb;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* =========================
+   CV GRID
+========================= */
+
+.cv-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.cv-card{
+    background:#fff;
+    border:1px solid #e3e8ef;
+    border-radius:16px;
+    overflow:hidden;
+    transition:.2s;
+}
+
+.cv-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 30px rgba(0,0,0,.07);
+}
+
+/* =========================
+   CV PREVIEW
+========================= */
+
+.cv-preview{
+    height:250px;
+    background:linear-gradient(
+        135deg,
+        #eef3fa,
+        #f7f9fc
+    );
+    padding:18px;
+    display:flex;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.cv-paper-mini{
+    background:#fff;
+    width:175px;
+    min-height:225px;
+    box-shadow:0 6px 20px rgba(0,0,0,.12);
+    padding:17px;
+    font-size:6px;
+    color:#374151;
+    border-radius:2px;
+}
+
+.mini-name{
+    font-size:13px;
+    font-weight:800;
+    color:#111827;
+    margin-bottom:5px;
+}
+
+.mini-title{
+    color:#6b7280;
+    font-size:7px;
+    margin-bottom:11px;
+}
+
+.mini-section{
+    font-weight:800;
+    color:#2563eb;
+    font-size:7px;
+    margin-top:10px;
+    margin-bottom:5px;
+}
+
+.mini-text{
+    line-height:1.5;
+    color:#6b7280;
+}
+
+.mini-line{
+    height:4px;
+    background:#e5e7eb;
+    margin:5px 0;
+    border-radius:3px;
+}
+
+/* =========================
+   CV INFORMATION
+========================= */
+
+.cv-info{
+    padding:17px;
+}
+
+.cv-info h3{
+    font-size:16px;
+    margin-bottom:6px;
+    color:#111827;
+}
+
+.cv-description{
+    color:#6b7280;
+    font-size:12px;
+    line-height:1.5;
+    margin-bottom:10px;
+}
+
+.cv-meta{
+    color:#9ca3af;
+    font-size:11px;
+    margin-bottom:14px;
+}
+
+.cv-actions{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+}
+
+.cv-action{
+    border:0;
+    background:#f1f4f8;
+    color:#374151;
+    padding:8px 11px;
+    border-radius:7px;
+    font-size:11px;
+    font-weight:700;
+}
+
+.cv-action:hover{
+    background:#e5eaf1;
+}
+
+.cv-action.open{
+    background:#2563eb;
+    color:#fff;
+}
+
+.cv-action.delete{
+    color:#dc2626;
+}
+
+.cv-action.delete:hover{
+    background:#fee2e2;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty{
+    background:#fff;
+    border:1px dashed #cfd7e3;
+    border-radius:15px;
+    padding:55px 20px;
+    text-align:center;
+}
+
+.empty-icon{
+    width:60px;
+    height:60px;
+    border-radius:15px;
+    background:#edf3ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 15px;
+    font-size:27px;
+}
+
+.empty h3{
+    margin-bottom:7px;
+}
+
+.empty p{
+    color:#6b7280;
+    font-size:13px;
+    margin-bottom:18px;
+    line-height:1.6;
+}
+
+/* =========================
+   QUICK CREATE
+========================= */
+
+.create-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.create-card{
+    background:#fff;
+    border:1px solid #e4e9f0;
+    border-radius:13px;
+    padding:20px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.create-card:hover{
+    border-color:#2563eb;
+    transform:translateY(-2px);
+    box-shadow:0 8px 22px rgba(0,0,0,.05);
+}
+
+.create-card .big-icon{
+    font-size:27px;
+    margin-bottom:12px;
+}
+
+.create-card h3{
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.create-card p{
+    color:#6b7280;
+    font-size:11px;
+    line-height:1.5;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+    padding:60px;
+    text-align:center;
+    color:#6b7280;
+}
+
+.spinner{
+    width:35px;
+    height:35px;
+    border:4px solid #e5e7eb;
+    border-top-color:#2563eb;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    margin:0 auto 12px;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-bottom{
+    display:none;
+}
+
+@media(max-width:1100px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .cv-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .create-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:800px){
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+        padding-bottom:75px;
+    }
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .search{
+        width:180px;
+    }
+
+    .profile-mini strong,
+    .profile-mini small{
+        display:none;
+    }
+
+    .content{
+        padding:20px 14px;
+    }
+
+    .welcome{
+        display:block;
+    }
+
+    .welcome h1{
+        font-size:24px;
+    }
+
+    .welcome .primary-btn{
+        margin-top:15px;
+        width:100%;
+    }
+
+    .cv-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+    }
+
+    .stat-card{
+        padding:15px;
+    }
+
+    .stat-card h3{
+        font-size:22px;
+    }
+
+    .create-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .create-card{
+        padding:15px;
+    }
+
+    .mobile-bottom{
+        display:flex;
+        position:fixed;
+        bottom:0;
+        left:0;
+        right:0;
+        height:68px;
+        background:#fff;
+        border-top:1px solid #e5e9f0;
+        z-index:200;
+        justify-content:space-around;
+        align-items:center;
+    }
+
+    .mobile-nav{
+        text-align:center;
+        font-size:10px;
+        color:#6b7280;
+        cursor:pointer;
+        min-width:55px;
+    }
+
+    .mobile-nav div{
+        font-size:20px;
+        margin-bottom:3px;
+    }
+
+    .mobile-nav.active{
+        color:#2563eb;
+        font-weight:700;
+    }
+}
+
+@media(max-width:430px){
+
+    .search{
+        width:150px;
+    }
+
+    .top-right{
+        gap:8px;
+    }
+
+    .icon-btn{
+        width:36px;
+        height:36px;
+    }
+
+    .content{
+        padding:18px 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        Career<span>Craft</span>
+    </div>
+
+    <div class="nav-title">
+        Workspace
+    </div>
+
+    <div class="nav-item active" onclick="goHome()">
+        🏠
+        Home
+    </div>
+
+    <div class="nav-item" onclick="goJobs()">
+        💼
+        Jobs
+    </div>
+
+    <div class="nav-item" onclick="go('network.html')">
+        👥
+        Network
+    </div>
+
+    <div class="nav-item" onclick="go('communities.html')">
+        🌐
+        Communities
+    </div>
+
+    <div class="nav-item" onclick="go('messages.html')">
+        💬
+        Messages
+    </div>
+
+    <div class="nav-item create-nav" onclick="openCreateStudio()">
+        ＋ Create
+    </div>
+
+    <div class="nav-title">
+        Career Tools
+    </div>
+
+    <div class="nav-item" onclick="openCreateStudio()">
+        📄
+        CV Builder
+    </div>
+
+    <div class="nav-item" onclick="go('templates.html')">
+        🎨
+        Templates
+    </div>
+
+    <div class="nav-item" onclick="go('saved-jobs.html')">
+        ⭐
+        Saved Jobs
+    </div>
+
+    <div class="nav-item" onclick="go('applications.html')">
+        📋
+        Applications
+    </div>
+
+    <div class="nav-title">
+        Account
+    </div>
+
+    <div class="nav-item" onclick="go('profile.html')">
+        👤
+        Profile
+    </div>
+
+    <div class="nav-item" onclick="logout()">
+        🚪
+        Log out
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<div class="main">
+
+    <header class="topbar">
+
+        <input
+            id="searchInput"
+            class="search"
+            type="search"
+            placeholder="Search your CVs..."
+            oninput="searchCVs()"
+        >
+
+        <div class="top-right">
+
+            <button
+                class="icon-btn"
+                onclick="go('notifications.html')"
+                title="Notifications"
+            >
+                🔔
+            </button>
+
+            <div
+                class="profile-mini"
+                onclick="go('profile.html')"
+            >
+
+                <img
+                    id="profileImage"
+                    src=""
+                    alt="Profile"
+                >
+
+                <div>
+
+                    <strong id="profileName">
+                        Loading...
+                    </strong>
+
+                    <small>
+                        CareerCraft
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main class="content">
+
+        <!-- =========================
+             WELCOME
+        ========================= -->
+
+        <section class="welcome">
+
+            <div>
+
+                <h1 id="welcomeTitle">
+                    Welcome to CareerCraft
+                </h1>
+
+                <p>
+                    Build your professional career, discover opportunities,
+                    and create work that gets noticed.
+                </p>
+
+            </div>
+
+            <button
+                class="primary-btn"
+                onclick="openCreateStudio()"
+            >
+                ＋ Create
+            </button>
+
+        </section>
+
+
+        <!-- =========================
+             STATS
+        ========================= -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📄
+                </div>
+
+                <h3 id="cvCount">
+                    0
+                </h3>
+
+                <p>
+                    My CVs
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    💼
+                </div>
+
+                <h3>
+                    0
+                </h3>
+
+                <p>
+                    Saved Jobs
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📋
+                </div>
+
+                <h3>
+                    0
+                </h3>
+
+                <p>
+                    Applications
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👥
+                </div>
+
+                <h3>
+                    0
+                </h3>
+
+                <p>
+                    Connections
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             MY CVS
+        ========================= -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <h2>
+                    My CVs
+                </h2>
+
+                <span
+                    class="view-all"
+                    onclick="showAllCVs()"
+                >
+                    View all
+                </span>
+
+            </div>
+
+            <div id="cvContainer">
+
+                <div class="loading">
+
+                    <div class="spinner"></div>
+
+                    Loading your CVs...
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             QUICK CREATE
+        ========================= -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <h2>
+                    Create something
+                </h2>
+
+                <span
+                    class="view-all"
+                    onclick="openCreateStudio()"
+                >
+                    View all
+                </span>
+
+            </div>
+
+            <div class="create-grid">
+
+                <div
+                    class="create-card"
+                    onclick="openCreateStudio()"
+                >
+
+                    <div class="big-icon">
+                        📄
+                    </div>
+
+                    <h3>
+                        CV / Resume
+                    </h3>
+
+                    <p>
+                        Build a professional CV for your next opportunity.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="create-card"
+                    onclick="openCreateStudio()"
+                >
+
+                    <div class="big-icon">
+                        ✉️
+                    </div>
+
+                    <h3>
+                        Cover Letter
+                    </h3>
+
+                    <p>
+                        Create a targeted cover letter for a job application.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="create-card"
+                    onclick="openCreateStudio()"
+                >
+
+                    <div class="big-icon">
+                        🖥️
+                    </div>
+
+                    <h3>
+                        Portfolio
+                    </h3>
+
+                    <p>
+                        Showcase your projects, experience and achievements.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="create-card"
+                    onclick="openCreateStudio()"
+                >
+
+                    <div class="big-icon">
+                        💳
+                    </div>
+
+                    <h3>
+                        Business Card
+                    </h3>
+
+                    <p>
+                        Create a professional personal or business card.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================
+     MOBILE NAVIGATION
+========================= -->
+
+<nav class="mobile-bottom">
+
+    <div
+        class="mobile-nav active"
+        onclick="goHome()"
+    >
+        <div>🏠</div>
+        Home
+    </div>
+
+    <div
+        class="mobile-nav"
+        onclick="goJobs()"
+    >
+        <div>💼</div>
+        Jobs
+    </div>
+
+    <div
+        class="mobile-nav"
+        onclick="openCreateStudio()"
+    >
+        <div>＋</div>
+        Create
+    </div>
+
+    <div
+        class="mobile-nav"
+        onclick="go('messages.html')"
+    >
+        <div>💬</div>
+        Messages
+    </div>
+
+    <div
+        class="mobile-nav"
+        onclick="go('profile.html')"
+    >
+        <div>👤</div>
+        Profile
+    </div>
+
+</nav>
+
+
+<script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+    "https://upcxmlbgmqhaqieldmyk.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+/* =========================================
+   STATE
+========================================= */
+
+let currentUser = null;
+let allCVs = [];
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+function go(page){
+    window.location.href = page;
+}
+
+
+function goHome(){
+    window.location.href = "index.html";
+}
+
+
+function goJobs(){
+    window.location.href = "job-finder.html";
+}
+
+
+function openCreateStudio(){
+    window.location.href = "create.html";
+}
+
+
+/* =========================================
+   AUTHENTICATION
+========================================= */
+
+async function checkAuthentication(){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.getSession();
+
+    if(
+        error ||
+        !data ||
+        !data.session ||
+        !data.session.user
+    ){
+
+        window.location.href = "login.html";
+
+        return false;
+    }
+
+    currentUser = data.session.user;
+
+    return true;
+}
+
+
+/* =========================================
+   PROFILE
+========================================= */
+
+async function loadProfile(){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq(
+                "ID",
+                currentUser.id
+            )
+            .maybeSingle();
+
+    if(error){
+
+        console.error(
+            "Profile error:",
+            error
+        );
+
+    }
+
+    const name =
+        data?.["FULL NAME"] ||
+        data?.full_name ||
+        currentUser.user_metadata?.full_name ||
+        currentUser.user_metadata?.name ||
+        currentUser.email?.split("@")[0] ||
+        "CareerCraft User";
+
+    document.getElementById(
+        "profileName"
+    ).textContent = name;
+
+    document.getElementById(
+        "welcomeTitle"
+    ).textContent =
+        "Welcome back, " +
+        name.split(" ")[0] +
+        "!";
+
+    const image =
+        document.getElementById(
+            "profileImage"
+        );
+
+    if(data?.avatar_url){
+
+        image.src = data.avatar_url;
+
+    }else{
+
+        image.src = createAvatar(name);
+
+    }
+}
+
+
+/* =========================================
+   AVATAR
+========================================= */
+
+function createAvatar(name){
+
+    const letter =
+        encodeURIComponent(
+            (name || "U")
+                .charAt(0)
+                .toUpperCase()
+        );
+
+    return `
+        https://ui-avatars.com/api/?name=${letter}&background=2563eb&color=ffffff&size=100
+    `;
+}
+
+
+/* =========================================
+   LOAD CVS
+========================================= */
+
+async function loadCVs(){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("cvs")
+            .select("*")
+            .eq(
+                "user_id",
+                String(currentUser.id)
+            )
+            .order(
+                "updated_at",
+                {
+                    ascending:false
+                }
+            );
+
+    if(error){
+
+        console.error(
+            "CV loading error:",
+            error
+        );
+
+        document.getElementById(
+            "cvContainer"
+        ).innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    ⚠️
+                </div>
+
+                <h3>
+                    Couldn't load your CVs
+                </h3>
+
+                <p>
+                    ${escapeHTML(error.message)}
+                </p>
+
+                <button
+                    class="primary-btn"
+                    onclick="loadCVs()"
+                >
+                    Try again
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+    allCVs = data || [];
+
+    document.getElementById(
+        "cvCount"
+    ).textContent = allCVs.length;
+
+    renderCVs(allCVs);
+}
+
+
+/* =========================================
+   RENDER CVS
+========================================= */
+
+function renderCVs(cvs){
+
+    const container =
+        document.getElementById(
+            "cvContainer"
+        );
+
+    if(!cvs.length){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📄
+                </div>
+
+                <h3>
+                    Create your first CV
+                </h3>
+
+                <p>
+                    Build a professional CV that showcases your
+                    skills, experience and achievements.
+                </p>
+
+                <button
+                    class="primary-btn"
+                    onclick="openCreateStudio()"
+                >
+                    ＋ Start Creating
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+    container.innerHTML = `
+
+        <div class="cv-grid">
+
+            ${cvs.map(
+                cv => renderCVCard(cv)
+            ).join("")}
+
+        </div>
+
+    `;
+}
+
+
+/* =========================================
+   PROFESSIONAL CV CARD
+========================================= */
+
+function renderCVCard(cv){
+
+    const content =
+        cv.content &&
+        typeof cv.content === "object"
+        ? cv.content
+        : {};
+
+
+    /*
+       Get the actual professional information.
+       We don't expose random placeholder-looking
+       text as the main dashboard description.
+    */
+
+    const name =
+        cleanValue(
+            content.fullName ||
+            cv.full_name
+        ) ||
+        "Your Name";
+
+
+    const title =
+        cleanValue(
+            content.professionalTitle
+        ) ||
+        "Professional Profile";
+
+
+    const summary =
+        cleanValue(
+            content.summary ||
+            cv.professional_summary
+        );
+
+
+    const template =
+        cleanValue(
+            cv.template
+        ) ||
+        "executive";
+
+
+    const updated =
+        formatDate(
+            cv.updated_at ||
+            cv.created_at
+        );
+
+
+    /*
+       Professional title for the card.
+       If the saved title looks like a temporary
+       test value, use a clean fallback.
+    */
+
+    let displayTitle =
+        cleanValue(cv.title);
+
+
+    if(
+        !isProfessionalText(displayTitle)
+    ){
+
+        displayTitle =
+            "Professional CV";
+
+    }
+
+
+    let displayDescription =
+        getProfessionalDescription(
+            summary,
+            title
+        );
+
+
+    return `
+
+        <div class="cv-card">
+
+            <div class="cv-preview">
+
+                <div class="cv-paper-mini">
+
+                    <div class="mini-name">
+                        ${escapeHTML(name)}
+                    </div>
+
+                    <div class="mini-title">
+                        ${escapeHTML(title)}
+                    </div>
+
+
+                    <div class="mini-section">
+                        PROFILE
+                    </div>
+
+                    <div class="mini-text">
+
+                        ${escapeHTML(
+                            shorten(
+                                summary ||
+                                "Professional profile and career information.",
+                                120
+                            )
+                        )}
+
+                    </div>
+
+
+                    <div class="mini-section">
+                        EXPERIENCE
+                    </div>
+
+                    <div class="mini-line"></div>
+                    <div class="mini-line"></div>
+                    <div class="mini-line"></div>
+
+
+                    <div class="mini-section">
+                        SKILLS
+                    </div>
+
+                    <div class="mini-text">
+
+                        ${escapeHTML(
+                            getSkillPreview(content)
+                        )}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="cv-info">
+
+                <h3>
+                    ${escapeHTML(displayTitle)}
+                </h3>
+
+
+                <div class="cv-description">
+                    ${escapeHTML(displayDescription)}
+                </div>
+
+
+                <div class="cv-meta">
+
+                    ${capitalize(template)}
+                    · Updated ${escapeHTML(updated)}
+
+                </div>
+
+
+                <div class="cv-actions">
+
+                    <button
+                        class="cv-action open"
+                        onclick="openCV('${escapeJS(cv.id)}')"
+                    >
+                        Open
+                    </button>
+
+
+                    <button
+                        class="cv-action"
+                        onclick="editCV('${escapeJS(cv.id)}')"
+                    >
+                        Edit
+                    </button>
+
+
+                    <button
+                        class="cv-action"
+                        onclick="duplicateCV('${escapeJS(cv.id)}')"
+                    >
+                        Duplicate
+                    </button>
+
+
+                    <button
+                        class="cv-action delete"
+                        onclick="deleteCV('${escapeJS(cv.id)}')"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+
+/* =========================================
+   CLEAN TEXT
+========================================= */
+
+function cleanValue(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+    return String(value)
+        .trim();
+}
+
+
+/* =========================================
+   CHECK FOR PROFESSIONAL TEXT
+========================================= */
+
+function isProfessionalText(value){
+
+    value =
+        cleanValue(value);
+
+    if(!value){
+        return false;
+    }
+
+    /*
+       Reject obvious temporary/test values such as:
+       sacvb
+       jjjki
+       test
+       test cv
+       abc
+       qqqq
+    */
+
+    const lower =
+        value.toLowerCase();
+
+    const blocked = [
+        "test",
+        "testing",
+        "sample",
+        "sacve",
+        "sacvb",
+        "jjjki",
+        "jjjj",
+        "qqqq",
+        "aaaa",
+        "asdf",
+        "abc",
+        "xyz"
+    ];
+
+    if(
+        blocked.includes(lower)
+    ){
+
+        return false;
+
+    }
+
+    /*
+       Very short random-looking text
+    */
+
+    if(
+        value.length < 4
+    ){
+
+        return false;
+
+    }
+
+    return true;
+}
+
+
+/* =========================================
+   PROFESSIONAL DESCRIPTION
+========================================= */
+
+function getProfessionalDescription(
+    summary,
+    title
+){
+
+    if(
+        isProfessionalText(summary)
+    ){
+
+        return shorten(
+            summary,
+            95
+        );
+
+    }
+
+    if(
+        isProfessionalText(title)
+    ){
+
+        return title;
+
+    }
+
+    return "Professional CV ready for your next opportunity.";
+}
+
+
+/* =========================================
+   OPEN CV
+========================================= */
+
+function openCV(id){
+
+    if(!id){
+        return;
+    }
+
+    window.location.href =
+        "cv-preview.html?id=" +
+        encodeURIComponent(id);
+}
+
+
+/* =========================================
+   EDIT CV
+========================================= */
+
+function editCV(id){
+
+    if(!id){
+        return;
+    }
+
+    window.location.href =
+        "cv-builder.html?id=" +
+        encodeURIComponent(id);
+}
+
+
+/* =========================================
+   DUPLICATE CV
+========================================= */
+
+async function duplicateCV(id){
+
+    const original =
+        allCVs.find(
+            cv =>
+                String(cv.id) ===
+                String(id)
+        );
+
+    if(!original){
+        return;
+    }
+
+
+    const duplicate = {
+
+        user_id:
+            String(currentUser.id),
+
+        title:
+            getDuplicateTitle(
+                original.title
+            ),
+
+        full_name:
+            original.full_name,
+
+        email:
+            original.email,
+
+        phone:
+            original.phone,
+
+        location:
+            original.location,
+
+        professional_summary:
+            original.professional_summary,
+
+        education:
+            original.education,
+
+        experience:
+            original.experience,
+
+        skills:
+            original.skills,
+
+        certifications:
+            original.certifications,
+
+        projects:
+            original.projects,
+
+        languages:
+            original.languages,
+
+        content:
+            original.content || {},
+
+        template:
+            original.template ||
+            "executive",
+
+        updated_at:
+            new Date().toISOString()
+
+    };
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("cvs")
+            .insert(duplicate);
+
+
+    if(error){
+
+        alert(
+            "Could not duplicate CV: " +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    await loadCVs();
+}
+
+
+/* =========================================
+   DUPLICATE TITLE
+========================================= */
+
+function getDuplicateTitle(title){
+
+    if(
+        !isProfessionalText(title)
+    ){
+
+        return "Professional CV Copy";
+
+    }
+
+    return title + " Copy";
+}
+
+
+/* =========================================
+   DELETE CV
+========================================= */
+
+async function deleteCV(id){
+
+    const cv =
+        allCVs.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+    if(!cv){
+        return;
+    }
+
+
+    const displayTitle =
+        isProfessionalText(cv.title)
+        ? cv.title
+        : "Professional CV";
+
+
+    const confirmed =
+        confirm(
+            `Delete "${displayTitle}"?\n\nThis cannot be undone.`
+        );
+
+
+    if(!confirmed){
+        return;
+    }
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("cvs")
+            .delete()
+            .eq(
+                "id",
+                id
+            )
+            .eq(
+                "user_id",
+                String(currentUser.id)
+            );
+
+
+    if(error){
+
+        alert(
+            "Could not delete CV: " +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    await loadCVs();
+}
+
+
+/* =========================================
+   SEARCH CVS
+========================================= */
+
+function searchCVs(){
+
+    const query =
+        document.getElementById(
+            "searchInput"
+        ).value
+        .trim()
+        .toLowerCase();
+
+
+    if(!query){
+
+        renderCVs(allCVs);
+
+        return;
+
+    }
+
+
+    const filtered =
+        allCVs.filter(cv => {
+
+            const content =
+                cv.content || {};
+
+
+            const text = [
+
+                cv.title,
+
+                cv.full_name,
+
+                cv.email,
+
+                cv.phone,
+
+                cv.location,
+
+                cv.professional_summary,
+
+                content.fullName,
+
+                content.professionalTitle,
+
+                content.summary
+
+            ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+
+            return text.includes(query);
+
+        });
+
+
+    renderCVs(filtered);
+}
+
+
+/* =========================================
+   VIEW ALL
+========================================= */
+
+function showAllCVs(){
+
+    document.getElementById(
+        "searchInput"
+    ).value = "";
+
+
+    renderCVs(allCVs);
+
+
+    window.scrollTo({
+
+        top:350,
+
+        behavior:"smooth"
+
+    });
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+async function logout(){
+
+    const {
+        error
+    } =
+        await supabaseClient.auth.signOut();
+
+
+    if(error){
+
+        alert(
+            "Could not log out: " +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "login.html";
+}
+
+
+/* =========================================
+   FORMAT DATE
+========================================= */
+
+function formatDate(value){
+
+    if(!value){
+        return "recently";
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "recently";
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-US",
+        {
+            month:"short",
+            day:"numeric",
+            year:"numeric"
+        }
+    );
+}
+
+
+/* =========================================
+   CAPITALIZE
+========================================= */
+
+function capitalize(value){
+
+    if(!value){
+        return "";
+    }
+
+    return value.charAt(0).toUpperCase() +
+           value.slice(1);
+}
+
+
+/* =========================================
+   SHORTEN
+========================================= */
+
+function shorten(text,length){
+
+    text =
+        String(text || "");
+
+
+    if(text.length <= length){
+        return text;
+    }
+
+
+    return text.substring(
+        0,
+        length
+    ) + "...";
+}
+
+
+/* =========================================
+   SKILL PREVIEW
+========================================= */
+
+function getSkillPreview(content){
+
+    if(
+        !content.skills ||
+        !Array.isArray(content.skills)
+    ){
+
+        return "Professional skills";
+
+    }
+
+
+    const names =
+        content.skills
+            .map(skill => {
+
+                if(
+                    typeof skill === "string"
+                ){
+
+                    return skill;
+
+                }
+
+                return skill.name ||
+                       skill.skill ||
+                       "";
+
+            })
+            .filter(Boolean);
+
+
+    return names.length
+        ? names.slice(0,5).join(" · ")
+        : "Professional skills";
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* =========================================
+   ESCAPE JS
+========================================= */
+
+function escapeJS(value){
+
+    return String(value)
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'");
+}
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+async function init(){
+
+    const authenticated =
+        await checkAuthentication();
+
+
+    if(!authenticated){
+        return;
+    }
+
+
+    await loadProfile();
+
+    await loadCVs();
+
+}
+
+
+init();
+
+</script>
+
+</body>
+  </html>
