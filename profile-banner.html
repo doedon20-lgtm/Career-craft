@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Profile Banner | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #172033;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --danger: #dc2626;
+    --shadow: 0 15px 40px rgba(15, 23, 42, .08);
+}
+
+body.dark {
+    --bg: #0f172a;
+    --card: #172033;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --border: #293548;
+    --shadow: 0 15px 40px rgba(0, 0, 0, .25);
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    transition: .25s;
+}
+
+.container {
+    width: min(1100px, 94%);
+    margin: auto;
+    padding: 25px 0 50px;
+}
+
+/* HEADER */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    gap: 15px;
+}
+
+.brand {
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.brand span {
+    color: var(--text);
+}
+
+.top-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-btn {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* TITLE */
+
+.page-title {
+    margin-bottom: 20px;
+}
+
+.page-title h1 {
+    font-size: 30px;
+    margin-bottom: 7px;
+}
+
+.page-title p {
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+/* MAIN */
+
+.grid {
+    display: grid;
+    grid-template-columns: 390px 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+}
+
+.card h2 {
+    font-size: 19px;
+    margin-bottom: 7px;
+}
+
+.card-description {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* UPLOAD */
+
+.upload-box {
+    border: 2px dashed var(--border);
+    border-radius: 17px;
+    padding: 30px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: .2s;
+    background: rgba(37, 99, 235, .02);
+}
+
+.upload-box:hover {
+    border-color: var(--primary);
+    background: rgba(37, 99, 235, .05);
+}
+
+.upload-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.upload-box strong {
+    display: block;
+    margin-bottom: 7px;
+}
+
+.upload-box small {
+    color: var(--muted);
+}
+
+#bannerInput {
+    display: none;
+}
+
+/* FILE INFO */
+
+.file-info {
+    display: none;
+    margin-top: 15px;
+    padding: 13px;
+    background: rgba(37, 99, 235, .08);
+    border-radius: 12px;
+    font-size: 13px;
+    color: var(--text);
+    word-break: break-word;
+}
+
+/* BUTTONS */
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+button.action {
+    border: none;
+    border-radius: 12px;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+
+button.action:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+.primary {
+    background: var(--primary);
+    color: white;
+}
+
+.primary:hover:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+.secondary {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border) !important;
+}
+
+.danger {
+    background: #fee2e2;
+    color: var(--danger);
+}
+
+body.dark .danger {
+    background: rgba(220, 38, 38, .15);
+}
+
+/* PREVIEW */
+
+.preview-card {
+    overflow: hidden;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.preview-header span {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* BANNER */
+
+.banner-preview {
+    width: 100%;
+    aspect-ratio: 3 / 1;
+    min-height: 180px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background:
+        linear-gradient(135deg, #2563eb, #7c3aed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.banner-placeholder {
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.banner-placeholder .big {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.banner-placeholder h3 {
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.banner-placeholder p {
+    opacity: .85;
+    font-size: 13px;
+}
+
+/* OVERLAY */
+
+.banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,.45),
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+.preview-profile {
+    position: relative;
+    margin-top: -42px;
+    margin-left: 25px;
+    z-index: 3;
+}
+
+.avatar {
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 5px solid var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 28px;
+    font-weight: 800;
+    box-shadow: 0 8px 25px rgba(0,0,0,.15);
+}
+
+.profile-text {
+    margin: 10px 0 0 4px;
+}
+
+.profile-text strong {
+    display: block;
+    font-size: 17px;
+}
+
+.profile-text span {
+    display: block;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+/* STATUS */
+
+.status {
+    display: none;
+    margin-top: 15px;
+    padding: 12px 14px;
+    border-radius: 11px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.status.success {
+    display: block;
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status.loading {
+    display: block;
+    background: rgba(37, 99, 235, .1);
+    color: var(--primary);
+}
+
+/* SAVED */
+
+.saved-banner {
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.saved-banner h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.saved-preview {
+    width: 100%;
+    aspect-ratio: 3 / 1;
+    border-radius: 12px;
+    object-fit: cover;
+    display: none;
+}
+
+/* TIP */
+
+.tip {
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 13px;
+    background: rgba(37, 99, 235, .07);
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* LOADING */
+
+.page-loading {
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,.9);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+}
+
+body.dark .page-loading {
+    background: rgba(15,23,42,.95);
+}
+
+.spinner {
+    width: 38px;
+    height: 38px;
+    border: 4px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-title h1 {
+        font-size: 25px;
+    }
+
+    .preview-card {
+        order: -1;
+    }
+
+    .banner-preview {
+        min-height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 92%;
+        padding-top: 18px;
+    }
+
+    .brand {
+        font-size: 21px;
+    }
+
+    .topbar {
+        margin-bottom: 20px;
+    }
+
+    .card {
+        padding: 17px;
+        border-radius: 16px;
+    }
+
+    .banner-preview {
+        min-height: 120px;
+    }
+
+    .preview-profile {
+        margin-left: 15px;
+    }
+
+    .avatar {
+        width: 70px;
+        height: 70px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page-loading" id="pageLoading">
+    <div class="spinner"></div>
+    <div>Loading Profile Banner...</div>
+</div>
+
+<div class="container">
+
+    <div class="topbar">
+        <div class="brand">
+            Career<span>Craft</span>
+        </div>
+
+        <div class="top-actions">
+            <button class="icon-btn" id="themeBtn" title="Toggle dark mode">🌙</button>
+        </div>
+    </div>
+
+    <div class="page-title">
+        <h1>Profile Banner</h1>
+        <p>
+            Create a professional banner for your CareerCraft profile.
+            Upload your own image and save it to your profile.
+        </p>
+    </div>
+
+    <div class="grid">
+
+        <!-- LEFT CONTROL PANEL -->
+
+        <div class="card">
+
+            <h2>Customize Banner</h2>
+
+            <p class="card-description">
+                Choose a professional image that represents you,
+                your career, skills, or personal brand.
+            </p>
+
+            <label class="upload-box" for="bannerInput">
+                <div class="upload-icon">🖼️</div>
+
+                <strong>Upload Banner Image</strong>
+
+                <small>
+                    JPG, PNG or WEBP • Recommended: 1500 × 500px
+                </small>
+            </label>
+
+            <input
+                type="file"
+                id="bannerInput"
+                accept="image/jpeg,image/png,image/webp"
+            >
+
+            <div class="file-info" id="fileInfo"></div>
+
+            <div class="buttons">
+
+                <button
+                    class="action primary"
+                    id="saveBtn"
+                    disabled
+                >
+                    💾 Save Banner
+                </button>
+
+                <button
+                    class="action secondary"
+                    id="phoneBtn"
+                    disabled
+                >
+                    📱 Save to Phone
+                </button>
+
+                <button
+                    class="action secondary"
+                    id="changeBtn"
+                >
+                    🔄 Choose Another Image
+                </button>
+
+                <button
+                    class="action danger"
+                    id="removeBtn"
+                    disabled
+                >
+                    🗑️ Remove Banner
+                </button>
+
+            </div>
+
+            <div class="status" id="status"></div>
+
+            <div class="tip">
+                <strong>💡 Tip:</strong><br>
+                Use a clean, high-quality landscape image.
+                Professional workspace photos, abstract backgrounds,
+                technology images, or personal branding images work well.
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT PREVIEW -->
+
+        <div class="card preview-card">
+
+            <div class="preview-header">
+                <div>
+                    <h2>Live Preview</h2>
+                </div>
+
+                <span>Profile appearance</span>
+            </div>
+
+            <div id="bannerCanvas" class="banner-preview">
+
+                <img id="previewImage" alt="Banner preview">
+
+                <div class="banner-placeholder" id="placeholder">
+
+                    <div class="big">✨</div>
+
+                    <h3>Your Profile Banner</h3>
+
+                    <p>
+                        Upload an image to see it here
+                    </p>
+
+                </div>
+
+                <div class="banner-overlay"></div>
+
+            </div>
+
+            <div class="preview-profile">
+
+                <div class="avatar">
+                    CC
+                </div>
+
+                <div class="profile-text">
+                    <strong>Your CareerCraft Profile</strong>
+                    <span>Professional Profile</span>
+                </div>
+
+            </div>
+
+            <div class="saved-banner">
+
+                <h3>Currently Saved Banner</h3>
+
+                <img
+                    id="savedPreview"
+                    class="saved-preview"
+                    alt="Saved profile banner"
+                >
+
+                <p
+                    id="noSavedBanner"
+                    style="color:var(--muted);font-size:13px;"
+                >
+                    No banner has been saved yet.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+/* =========================================================
+   CAREERCRAFT PROFILE BANNER
+   ========================================================= */
+
+const SUPABASE_URL = "https://upcxmlbgmqhaqieldmyk.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+
+/* ELEMENTS */
+
+const pageLoading = document.getElementById("pageLoading");
+
+const bannerInput = document.getElementById("bannerInput");
+const fileInfo = document.getElementById("fileInfo");
+
+const previewImage = document.getElementById("previewImage");
+const placeholder = document.getElementById("placeholder");
+
+const saveBtn = document.getElementById("saveBtn");
+const phoneBtn = document.getElementById("phoneBtn");
+const changeBtn = document.getElementById("changeBtn");
+const removeBtn = document.getElementById("removeBtn");
+
+const statusBox = document.getElementById("status");
+
+const savedPreview = document.getElementById("savedPreview");
+const noSavedBanner = document.getElementById("noSavedBanner");
+
+const bannerCanvas = document.getElementById("bannerCanvas");
+
+const themeBtn = document.getElementById("themeBtn");
+
+
+/* STATE */
+
+let currentUser = null;
+let selectedFile = null;
+let currentBannerUrl = null;
+let temporaryPreviewUrl = null;
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+function showStatus(message, type = "success") {
+
+    statusBox.className = "status " + type;
+    statusBox.textContent = message;
+
+}
+
+function clearStatus() {
+
+    statusBox.className = "status";
+    statusBox.textContent = "";
+
+}
+
+
+/* =========================================================
+   THEME
+   ========================================================= */
+
+themeBtn.addEventListener("click", () => {
+
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+        themeBtn.textContent = "☀️";
+    } else {
+        themeBtn.textContent = "🌙";
+    }
+
+});
+
+
+/* =========================================================
+   FILE SELECTION
+   ========================================================= */
+
+bannerInput.addEventListener("change", handleFile);
+
+
+function handleFile(event) {
+
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    clearStatus();
+
+    /* Validate type */
+
+    const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+
+        showStatus(
+            "Please choose a JPG, PNG, or WEBP image.",
+            "error"
+        );
+
+        bannerInput.value = "";
+        return;
+    }
+
+
+    /* Validate size - 10MB */
+
+    if (file.size > 10 * 1024 * 1024) {
+
+        showStatus(
+            "Image is too large. Please choose an image below 10MB.",
+            "error"
+        );
+
+        bannerInput.value = "";
+        return;
+    }
+
+
+    selectedFile = file;
+
+
+    /* File information */
+
+    const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+
+    fileInfo.style.display = "block";
+
+    fileInfo.innerHTML =
+        "<strong>Selected:</strong> " +
+        escapeHtml(file.name) +
+        "<br>" +
+        "<strong>Size:</strong> " +
+        sizeMB +
+        " MB";
+
+
+    /* Create preview */
+
+    if (temporaryPreviewUrl) {
+        URL.revokeObjectURL(temporaryPreviewUrl);
+    }
+
+    temporaryPreviewUrl = URL.createObjectURL(file);
+
+    previewImage.src = temporaryPreviewUrl;
+    previewImage.style.display = "block";
+
+    placeholder.style.display = "none";
+
+
+    saveBtn.disabled = false;
+    phoneBtn.disabled = false;
+
+}
+
+
+/* =========================================================
+   CHANGE IMAGE
+   ========================================================= */
+
+changeBtn.addEventListener("click", () => {
+
+    bannerInput.click();
+
+});
+
+
+/* =========================================================
+   SAVE BANNER
+   ========================================================= */
+
+saveBtn.addEventListener("click", saveBanner);
+
+
+async function saveBanner() {
+
+    if (!currentUser) {
+
+        showStatus(
+            "Please log in before saving your banner.",
+            "error"
+        );
+
+        return;
+    }
+
+    if (!selectedFile) {
+
+        showStatus(
+            "Please choose a banner image first.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    saveBtn.disabled = true;
+    removeBtn.disabled = true;
+
+    showStatus(
+        "Uploading your banner...",
+        "loading"
+    );
+
+
+    try {
+
+        /*
+         * Each user gets their own folder:
+         *
+         * profile-banners/
+         *     USER-ID/
+         *         banner-timestamp.jpg
+         */
+
+        const extension =
+            selectedFile.name.split(".").pop().toLowerCase();
+
+        const fileName =
+            "banner-" +
+            Date.now() +
+            "." +
+            extension;
+
+        const filePath =
+            currentUser.id +
+            "/" +
+            fileName;
+
+
+        /* Upload */
+
+        const { error: uploadError } =
+            await supabaseClient.storage
+                .from("profile-banners")
+                .upload(
+                    filePath,
+                    selectedFile,
+                    {
+                        cacheControl: "3600",
+                        upsert: false,
+                        contentType: selectedFile.type
+                    }
+                );
+
+
+        if (uploadError) {
+            throw uploadError;
+        }
+
+
+        /* Get public URL */
+
+        const { data: publicData } =
+            supabaseClient.storage
+                .from("profile-banners")
+                .getPublicUrl(filePath);
+
+
+        const publicUrl =
+            publicData.publicUrl;
+
+
+        /*
+         * Check if user already has a banner.
+         */
+
+        const { data: existingBanner, error: existingError } =
+            await supabaseClient
+                .from("profile_banners")
+                .select("*")
+                .eq("user_id", currentUser.id)
+                .maybeSingle();
+
+
+        if (existingError) {
+            throw existingError;
+        }
+
+
+        /*
+         * Save URL to database.
+         */
+
+        let databaseError = null;
+
+
+        if (existingBanner) {
+
+            const { error } =
+                await supabaseClient
+                    .from("profile_banners")
+                    .update({
+                        banner_url: publicUrl,
+                        banner_type: "image",
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq("user_id", currentUser.id);
+
+            databaseError = error;
+
+        } else {
+
+            const { error } =
+                await supabaseClient
+                    .from("profile_banners")
+                    .insert({
+                        user_id: currentUser.id,
+                        banner_url: publicUrl,
+                        banner_type: "image"
+                    });
+
+            databaseError = error;
+
+        }
+
+
+        if (databaseError) {
+
+            /*
+             * If database save failed, remove uploaded file
+             * so we don't leave an unused file behind.
+             */
+
+            await supabaseClient.storage
+                .from("profile-banners")
+                .remove([filePath]);
+
+            throw databaseError;
+        }
+
+
+        /*
+         * Delete old file if there was one.
+         *
+         * We only try this when the previous URL belongs
+         * to our profile-banners bucket.
+         */
+
+        if (
+            existingBanner &&
+            existingBanner.banner_url &&
+            existingBanner.banner_url !== publicUrl
+        ) {
+
+            await deleteOldBannerFile(
+                existingBanner.banner_url
+            );
+
+        }
+
+
+        currentBannerUrl = publicUrl;
+
+        savedPreview.src =
+            publicUrl + "?t=" + Date.now();
+
+        savedPreview.style.display = "block";
+
+        noSavedBanner.style.display = "none";
+
+        removeBtn.disabled = false;
+
+
+        showStatus(
+            "✅ Banner saved successfully to your CareerCraft profile!",
+            "success"
+        );
+
+
+    } catch (error) {
+
+        console.error("Banner save error:", error);
+
+        showStatus(
+            "Unable to save banner: " +
+            (error.message || "Unknown error"),
+            "error"
+        );
+
+    } finally {
+
+        saveBtn.disabled = false;
+
+    }
+
+}
+
+
+/* =========================================================
+   DELETE OLD STORAGE FILE
+   ========================================================= */
+
+async function deleteOldBannerFile(url) {
+
+    try {
+
+        const marker =
+            "/storage/v1/object/public/profile-banners/";
+
+        const index = url.indexOf(marker);
+
+        if (index === -1) return;
+
+        const path =
+            decodeURIComponent(
+                url.substring(index + marker.length)
+            );
+
+        await supabaseClient.storage
+            .from("profile-banners")
+            .remove([path]);
+
+    } catch (error) {
+
+        console.warn(
+            "Could not remove old banner file:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   REMOVE CURRENT BANNER
+   ========================================================= */
+
+removeBtn.addEventListener("click", removeBanner);
+
+
+async function removeBanner() {
+
+    if (!currentUser) return;
+
+    const confirmed = confirm(
+        "Are you sure you want to remove your profile banner?"
+    );
+
+    if (!confirmed) return;
+
+
+    removeBtn.disabled = true;
+
+    showStatus(
+        "Removing your banner...",
+        "loading"
+    );
+
+
+    try {
+
+        /*
+         * Get current database record.
+         */
+
+        const { data: banner, error: fetchError } =
+            await supabaseClient
+                .from("profile_banners")
+                .select("*")
+                .eq("user_id", currentUser.id)
+                .maybeSingle();
+
+
+        if (fetchError) {
+            throw fetchError;
+        }
+
+
+        if (banner) {
+
+            /*
+             * Remove storage file.
+             */
+
+            if (banner.banner_url) {
+                await deleteOldBannerFile(
+                    banner.banner_url
+                );
+            }
+
+
+            /*
+             * Remove database record.
+             */
+
+            const { error: deleteError } =
+                await supabaseClient
+                    .from("profile_banners")
+                    .delete()
+                    .eq("user_id", currentUser.id);
+
+            if (deleteError) {
+                throw deleteError;
+            }
+
+        }
+
+
+        currentBannerUrl = null;
+        selectedFile = null;
+
+
+        previewImage.style.display = "none";
+        previewImage.removeAttribute("src");
+
+        placeholder.style.display = "block";
+
+        savedPreview.style.display = "none";
+        savedPreview.removeAttribute("src");
+
+        noSavedBanner.style.display = "block";
+
+        fileInfo.style.display = "none";
+
+        bannerInput.value = "";
+
+        saveBtn.disabled = true;
+        phoneBtn.disabled = true;
+
+
+        showStatus(
+            "Banner removed successfully.",
+            "success"
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showStatus(
+            "Unable to remove banner: " +
+            (error.message || "Unknown error"),
+            "error"
+        );
+
+        removeBtn.disabled = false;
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE TO PHONE
+   ========================================================= */
+
+phoneBtn.addEventListener("click", saveToPhone);
+
+
+async function saveToPhone() {
+
+    try {
+
+        phoneBtn.disabled = true;
+
+        showStatus(
+            "Preparing your banner for your phone...",
+            "loading"
+        );
+
+
+        /*
+         * If an image has been uploaded, create a clean
+         * downloadable version from the preview.
+         */
+
+        const canvas = await html2canvas(
+            bannerCanvas,
+            {
+                backgroundColor: null,
+                scale: 2,
+                useCORS: true,
+                allowTaint: false
+            }
+        );
+
+
+        canvas.toBlob(function(blob) {
+
+            if (!blob) {
+
+                showStatus(
+                    "Could not create the image.",
+                    "error"
+                );
+
+                phoneBtn.disabled = false;
+                return;
+            }
+
+
+            const url =
+                URL.createObjectURL(blob);
+
+
+            const link =
+                document.createElement("a");
+
+            link.href = url;
+
+            link.download =
+                "CareerCraft-Profile-Banner.png";
+
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            link.remove();
+
+
+            setTimeout(() => {
+                URL.revokeObjectURL(url);
+            }, 1000);
+
+
+            showStatus(
+                "📱 Your banner has been saved. Check your Downloads/Gallery.",
+                "success"
+            );
+
+
+            phoneBtn.disabled = false;
+
+        }, "image/png");
+
+
+    } catch (error) {
+
+        console.error(
+            "Save to phone error:",
+            error
+        );
+
+        showStatus(
+            "Unable to save the banner to your phone.",
+            "error"
+        );
+
+        phoneBtn.disabled = false;
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD EXISTING BANNER
+   ========================================================= */
+
+async function loadBanner() {
+
+    if (!currentUser) return;
+
+
+    try {
+
+        const { data, error } =
+            await supabaseClient
+                .from("profile_banners")
+                .select("*")
+                .eq("user_id", currentUser.id)
+                .maybeSingle();
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (data && data.banner_url) {
+
+            currentBannerUrl =
+                data.banner_url;
+
+
+            savedPreview.src =
+                data.banner_url +
+                "?t=" +
+                Date.now();
+
+            savedPreview.style.display =
+                "block";
+
+            noSavedBanner.style.display =
+                "none";
+
+
+            /*
+             * Also display saved banner
+             * in the live preview.
+             */
+
+            previewImage.src =
+                data.banner_url +
+                "?t=" +
+                Date.now();
+
+            previewImage.style.display =
+                "block";
+
+            placeholder.style.display =
+                "none";
+
+
+            removeBtn.disabled = false;
+
+            phoneBtn.disabled = false;
+
+        } else {
+
+            removeBtn.disabled = true;
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Load banner error:",
+            error
+        );
+
+        showStatus(
+            "Could not load your saved banner.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   AUTHENTICATION
+   ========================================================= */
+
+async function initializePage() {
+
+    try {
+
+        const {
+            data: {
+                session
+            }
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (!session) {
+
+            pageLoading.classList.add("hidden");
+
+            showStatus(
+                "Please log in to manage your profile banner.",
+                "error"
+            );
+
+            saveBtn.disabled = true;
+            removeBtn.disabled = true;
+            phoneBtn.disabled = true;
+
+            return;
+        }
+
+
+        currentUser =
+            session.user;
+
+
+        await loadBanner();
+
+
+    } catch (error) {
+
+        console.error(
+            "Initialization error:",
+            error
+        );
+
+        showStatus(
+            "Unable to load your profile.",
+            "error"
+        );
+
+    } finally {
+
+        pageLoading.classList.add("hidden");
+
+    }
+
+}
+
+
+/* =========================================================
+   AUTH STATE LISTENER
+   ========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    async (event, session) => {
+
+        if (session) {
+
+            currentUser =
+                session.user;
+
+        } else {
+
+            currentUser = null;
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   HTML ESCAPE
+   ========================================================= */
+
+function escapeHtml(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+initializePage();
+
+</script>
+
+</body>
+  </html>
