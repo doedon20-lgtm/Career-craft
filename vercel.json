@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/create-account.html",
+      "permanent": false
+    }
+  ]
+}
