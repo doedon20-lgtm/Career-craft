@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Business Card Studio | CareerCraft</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f5f7fb;
+ color:#172033;
+ transition:.25s
+}
+
+body.dark{
+ background:#0f141c;
+ color:#f8fafc
+}
+
+header{
+ background:#fff;
+ border-bottom:1px solid #e5e7eb;
+ padding:16px 4%;
+ display:flex;
+ align-items:center;
+ justify-content:space-between
+}
+
+body.dark header{
+ background:#171d27;
+ border-color:#293241
+}
+
+.logo{
+ font-size:24px;
+ font-weight:800;
+ color:#2563eb
+}
+
+.back{
+ border:1px solid #d9dee7;
+ background:#fff;
+ color:#172033;
+ padding:11px 16px;
+ border-radius:9px;
+ font-weight:700;
+ cursor:pointer
+}
+
+body.dark .back{
+ background:#222b38;
+ color:white;
+ border-color:#394555
+}
+
+main{
+ max-width:1250px;
+ margin:auto;
+ padding:30px 4%
+}
+
+.heading{
+ margin-bottom:25px
+}
+
+.heading h1{
+ margin:0 0 7px;
+ font-size:30px
+}
+
+.heading p{
+ margin:0;
+ color:#667085
+}
+
+body.dark .heading p{
+ color:#aab4c3
+}
+
+.layout{
+ display:grid;
+ grid-template-columns:405px 1fr;
+ gap:22px;
+ align-items:start
+}
+
+.panel{
+ background:#fff;
+ border:1px solid #e5e7eb;
+ border-radius:15px;
+ padding:20px;
+ box-shadow:0 5px 25px #00000008
+}
+
+body.dark .panel{
+ background:#171d27;
+ border-color:#293241;
+ box-shadow:none
+}
+
+.panel h2{
+ margin:0 0 17px;
+ font-size:19px
+}
+
+label{
+ display:block;
+ font-size:13px;
+ font-weight:700;
+ margin:13px 0 6px
+}
+
+input{
+ width:100%;
+ padding:12px;
+ border:1px solid #d8dee9;
+ border-radius:8px;
+ font-size:14px;
+ outline:none;
+ background:#fff;
+ color:#172033
+}
+
+body.dark input{
+ background:#202936;
+ border-color:#3a4656;
+ color:#fff
+}
+
+input:focus{
+ border-color:#2563eb
+}
+
+.row{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px
+}
+
+.mode{
+ display:flex;
+ gap:8px
+}
+
+.mode button{
+ flex:1;
+ padding:11px;
+ border:1px solid #d8dee9;
+ border-radius:8px;
+ background:#f4f6f9;
+ cursor:pointer;
+ font-weight:700
+}
+
+body.dark .mode button{
+ background:#222b38;
+ color:white;
+ border-color:#394555
+}
+
+.mode button.active{
+ background:#2563eb;
+ color:white;
+ border-color:#2563eb
+}
+
+.colors{
+ display:flex;
+ gap:11px;
+ flex-wrap:wrap
+}
+
+.colors button{
+ width:32px;
+ height:32px;
+ border-radius:50%;
+ border:3px solid white;
+ padding:0;
+ cursor:pointer;
+ box-shadow:0 0 0 1px #b8bec8
+}
+
+.upload{
+ border:2px dashed #d4dbe5;
+ border-radius:10px;
+ padding:18px;
+ text-align:center;
+ cursor:pointer;
+ color:#667085;
+ margin-top:5px
+}
+
+body.dark .upload{
+ border-color:#3b4656;
+ color:#aab4c3
+}
+
+.upload input{
+ display:none
+}
+
+.upload strong{
+ display:block;
+ color:#2563eb;
+ margin-bottom:4px
+}
+
+.file-name{
+ font-size:12px;
+ margin-top:7px;
+ word-break:break-word
+}
+
+.save{
+ width:100%;
+ margin-top:20px;
+ padding:14px;
+ border:0;
+ border-radius:9px;
+ background:#2563eb;
+ color:white;
+ font-weight:800;
+ cursor:pointer
+}
+
+.save:disabled{
+ opacity:.6
+}
+
+.status{
+ text-align:center;
+ margin-top:11px;
+ font-size:13px
+}
+
+.preview-panel{
+ min-width:0
+}
+
+.preview-title{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:15px
+}
+
+.preview-title h2{
+ margin:0
+}
+
+.card-wrap{
+ padding:20px 0 5px;
+ display:flex;
+ justify-content:center
+}
+
+.business-card{
+ width:100%;
+ max-width:650px;
+ aspect-ratio:1.7;
+ border-radius:18px;
+ padding:35px;
+ position:relative;
+ overflow:hidden;
+ color:white;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ box-shadow:0 18px 45px #0003;
+ background:#2563eb
+}
+
+.business-card:after{
+ content:"";
+ position:absolute;
+ width:360px;
+ height:160px;
+ right:-90px;
+ bottom:-75px;
+ border-radius:50%;
+ background:#ffffff18;
+ transform:rotate(-10deg)
+}
+
+.business-card.light{
+ color:#172033;
+ background:#fff!important;
+ border:1px solid #dce1e8;
+ box-shadow:0 18px 45px #0002
+}
+
+.business-card.dark{
+ color:white;
+ background:#111827!important
+}
+
+.card-content{
+ position:relative;
+ z-index:2;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:25px
+}
+
+.left{
+ display:flex;
+ flex-direction:column;
+ justify-content:center
+}
+
+.right{
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ border-left:1px solid #ffffff55;
+ padding-left:25px
+}
+
+.business-card.light .right{
+ border-color:#17203333
+}
+
+.logo-preview{
+ width:58px;
+ height:58px;
+ border-radius:50%;
+ border:2px solid #ffffffaa;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ overflow:hidden;
+ margin-bottom:17px;
+ background:#ffffff18;
+ font-size:25px;
+ font-weight:800
+}
+
+.business-card.light .logo-preview{
+ border-color:#17203355;
+ background:#f3f5f8
+}
+
+.logo-preview img{
+ width:100%;
+ height:100%;
+ object-fit:cover
+}
+
+.card-name{
+ font-size:28px;
+ font-weight:800;
+ line-height:1.1
+}
+
+.card-role{
+ margin-top:8px;
+ font-size:15px;
+ opacity:.9
+}
+
+.card-company{
+ margin-top:6px;
+ font-weight:700;
+ font-size:16px
+}
+
+.card-tagline{
+ margin-top:10px;
+ font-size:12px;
+ opacity:.8
+}
+
+.contact{
+ font-size:12px;
+ line-height:1.9;
+ word-break:break-word
+}
+
+.qr{
+ margin-top:12px;
+ width:55px;
+ height:55px;
+ background:white;
+ border-radius:5px;
+ padding:4px;
+ display:none
+}
+
+.qr img{
+ width:100%;
+ height:100%;
+ object-fit:contain
+}
+
+.actions{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:9px;
+ margin-top:20px
+}
+
+.action{
+ padding:13px 8px;
+ border:1px solid #d8dee9;
+ border-radius:9px;
+ background:#fff;
+ color:#172033;
+ font-weight:700;
+ cursor:pointer
+}
+
+body.dark .action{
+ background:#222b38;
+ color:white;
+ border-color:#394555
+}
+
+.action:first-child{
+ background:#059669;
+ color:white;
+ border-color:#059669
+}
+
+.tips{
+ margin-top:20px
+}
+
+.tip{
+ display:flex;
+ gap:10px;
+ margin:13px 0;
+ font-size:13px;
+ color:#667085
+}
+
+body.dark .tip{
+ color:#aab4c3
+}
+
+.check{
+ width:20px;
+ height:20px;
+ flex:none;
+ border-radius:50%;
+ background:#2563eb;
+ color:white;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:12px
+}
+
+@media(max-width:900px){
+ .layout{
+  grid-template-columns:1fr
+ }
+ .panel{
+  width:100%
+ }
+}
+
+@media(max-width:600px){
+ main{
+  padding:22px 4%
+ }
+
+ .heading h1{
+  font-size:25px
+ }
+
+ .business-card{
+  padding:22px;
+  border-radius:14px
+ }
+
+ .card-content{
+  gap:12px
+ }
+
+ .right{
+  padding-left:12px
+ }
+
+ .card-name{
+  font-size:20px
+ }
+
+ .card-role,
+ .card-company{
+  font-size:12px
+ }
+
+ .contact{
+  font-size:9px;
+  line-height:1.7
+ }
+
+ .logo-preview{
+  width:42px;
+  height:42px;
+  font-size:18px;
+  margin-bottom:10px
+ }
+
+ .actions{
+  grid-template-columns:1fr
+ }
+
+ .row{
+  grid-template-columns:1fr
+ }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">CareerCraft</div>
+ <button class="back" onclick="goBack()">← My Cards</button>
+</header>
+
+<main>
+
+<div class="heading">
+ <h1 id="pageTitle">Create Business Card</h1>
+ <p>Design your professional business card and save it to your phone.</p>
+</div>
+
+<div class="layout">
+
+<!-- FORM -->
+
+<div>
+
+<div class="panel">
+
+<h2>Personal & Business Details</h2>
+
+<label>Full Name</label>
+<input id="name" placeholder="Enter your full name">
+
+<label>Job Title / Role</label>
+<input id="role" placeholder="Enter your job title or role">
+
+<label>Company</label>
+<input id="company" placeholder="Enter your company name">
+
+<label>Tagline</label>
+<input id="tagline" placeholder="Optional tagline">
+
+<label>Phone</label>
+<input id="phone" placeholder="Enter your phone number">
+
+<label>Email</label>
+<input id="email" placeholder="Enter your email address">
+
+<label>Website</label>
+<input id="website" placeholder="Enter your website">
+
+<label>Address</label>
+<input id="address" placeholder="Enter your address">
+
+<div class="row">
+
+<div>
+<label>City</label>
+<input id="city" placeholder="Enter your city">
+</div>
+
+<div>
+<label>State / Province</label>
+<input id="state" placeholder="Optional">
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>Postal Code</label>
+<input id="postal" placeholder="Optional">
+</div>
+
+<div>
+<label>Country</label>
+<input id="country" placeholder="Enter your country">
+</div>
+
+</div>
+
+<label>LinkedIn</label>
+<input id="linkedin" placeholder="Optional LinkedIn profile">
+
+<label>Social Media</label>
+<input id="social" placeholder="Optional social media">
+
+<label>Appearance</label>
+
+<div class="mode">
+ <button id="lightBtn" onclick="setMode('light')">☀️ Light</button>
+ <button id="darkBtn" onclick="setMode('dark')">🌙 Dark</button>
+</div>
+
+<label>Color Theme</label>
+
+<div class="colors">
+ <button style="background:#2563eb" onclick="setColor('#2563eb')"></button>
+ <button style="background:#111827" onclick="setColor('#111827')"></button>
+ <button style="background:#7c3aed" onclick="setColor('#7c3aed')"></button>
+ <button style="background:#059669" onclick="setColor('#059669')"></button>
+ <button style="background:#dc2626" onclick="setColor('#dc2626')"></button>
+ <button style="background:#ea580c" onclick="setColor('#ea580c')"></button>
+ <button style="background:#0891b2" onclick="setColor('#0891b2')"></button>
+</div>
+
+<label>Upload Logo</label>
+
+<label class="upload">
+ <input type="file" id="logoInput" accept="image/png,image/jpeg,image/webp">
+ <strong>＋ Upload Logo</strong>
+ <span>PNG, JPG or WebP</span>
+ <div class="file-name" id="logoName"></div>
+</label>
+
+<label>Upload QR Code</label>
+
+<label class="upload">
+ <input type="file" id="qrInput" accept="image/png,image/jpeg,image/webp">
+ <strong>＋ Upload QR Code</strong>
+ <span>PNG, JPG or WebP</span>
+ <div class="file-name" id="qrName"></div>
+</label>
+
+<button class="save" id="saveBtn" onclick="saveCard()">
+ Save Card
+</button>
+
+<div class="status" id="status"></div>
+
+</div>
+
+</div>
+
+<!-- PREVIEW -->
+
+<div class="preview-panel">
+
+<div class="panel">
+
+<div class="preview-title">
+ <h2>Live Preview</h2>
+</div>
+
+<div class="card-wrap">
+
+<div id="businessCard" class="business-card">
+
+<div class="card-content">
+
+<div class="left">
+
+<div class="logo-preview" id="logoPreview">
+ <span id="logoLetter">C</span>
+ <img id="logoImage" style="display:none">
+</div>
+
+<div class="card-name" id="pName">
+ Your Name
+</div>
+
+<div class="card-role" id="pRole">
+ Your Job Title
+</div>
+
+<div class="card-company" id="pCompany">
+ Your Company
+</div>
+
+<div class="card-tagline" id="pTagline"></div>
+
+</div>
+
+<div class="right">
+
+<div class="contact" id="pPhone">📞 Phone</div>
+<div class="contact" id="pEmail">✉ Email</div>
+<div class="contact" id="pWebsite">🌐 Website</div>
+<div class="contact" id="pAddress">📍 Location</div>
+
+<div class="qr" id="qrPreview">
+ <img id="qrImage">
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="panel tips">
+
+<h2>Actions</h2>
+
+<div class="actions">
+
+<button class="action" onclick="saveToPhone()">
+ 📱 Save to Phone
+</button>
+
+<button class="action" onclick="shareCard()">
+ 🔗 Share Card
+</button>
+
+<button class="action" onclick="printCard()">
+ 🖨️ Print Card
+</button>
+
+</div>
+
+</div>
+
+<div class="panel tips">
+
+<h2>Tips</h2>
+
+<div class="tip">
+ <span class="check">✓</span>
+ <span>Fill in as much information as possible for a professional result.</span>
+</div>
+
+<div class="tip">
+ <span class="check">✓</span>
+ <span>Upload your logo and QR code for a professional touch.</span>
+</div>
+
+<div class="tip">
+ <span class="check">✓</span>
+ <span>Choose Light or Dark mode to match your style.</span>
+</div>
+
+<div class="tip">
+ <span class="check">✓</span>
+ <span>Use Save to Phone to download your card as an image.</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+<script>
+
+const db=supabase.createClient(
+ "https://upcxmlbgmqhaqieldmyk.supabase.co",
+ "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj"
+);
+
+let user=null;
+let cardId=null;
+let color="#2563eb";
+let mode="light";
+let logoData="";
+let qrData="";
+
+const params=new URLSearchParams(location.search);
+cardId=params.get("id");
+
+const ids=[
+ "name","role","company","tagline","phone","email",
+ "website","address","city","state","postal","country",
+ "linkedin","social"
+];
+
+async function start(){
+
+ const {data,error}=await db.auth.getUser();
+
+ if(error || !data.user){
+  location.href="login.html";
+  return;
+ }
+
+ user=data.user;
+
+ if(cardId){
+  await loadCard();
+ }else{
+  setMode("light");
+  updatePreview();
+ }
+}
+
+async function loadCard(){
+
+ const {data,error}=await db
+  .from("business_cards")
+  .select("*")
+  .eq("id",cardId)
+  .eq("user_id",user.id)
+  .maybeSingle();
+
+ if(error || !data){
+  alert("Business card not found.");
+  location.href="business-cards.html";
+  return;
+ }
+
+ document.getElementById("pageTitle").textContent=
+  "Edit Business Card";
+
+ document.getElementById("saveBtn").textContent=
+  "Update Card";
+
+ document.getElementById("name").value=data.name||"";
+ document.getElementById("role").value=data.role||"";
+ document.getElementById("company").value=data.company||"";
+ document.getElementById("tagline").value=data.tagline||"";
+ document.getElementById("phone").value=data.phone||"";
+ document.getElementById("email").value=data.email||"";
+ document.getElementById("website").value=data.website||"";
+ document.getElementById("linkedin").value=data.linkedin||"";
+ document.getElementById("social").value=data.social||"";
+
+ if(data.location){
+  try{
+   const location=JSON.parse(data.location);
+
+   document.getElementById("address").value=location.address||"";
+   document.getElementById("city").value=location.city||"";
+   document.getElementById("state").value=location.state||"";
+   document.getElementById("postal").value=location.postal||"";
+   document.getElementById("country").value=location.country||"";
+  }catch(e){
+   document.getElementById("address").value=data.location;
+  }
+ }
+
+ color=data.color||"#2563eb";
+ mode=data.theme||"light";
+
+ if(data.qr_url){
+  try{
+   const files=JSON.parse(data.qr_url);
+   logoData=files.logo||"";
+   qrData=files.qr||"";
+  }catch(e){}
+ }
+
+ if(logoData){
+  document.getElementById("logoImage").src=logoData;
+  document.getElementById("logoImage").style.display="block";
+  document.getElementById("logoLetter").style.display="none";
+  document.getElementById("logoName").textContent="Logo loaded";
+ }
+
+ if(qrData){
+  document.getElementById("qrImage").src=qrData;
+  document.getElementById("qrPreview").style.display="block";
+  document.getElementById("qrName").textContent="QR code loaded";
+ }
+
+ setMode(mode);
+ updatePreview();
+}
+
+ids.forEach(id=>{
+ document.getElementById(id).addEventListener(
+  "input",
+  updatePreview
+ );
+});
+
+document.getElementById("logoInput").addEventListener(
+ "change",
+ function(){
+  const file=this.files[0];
+
+  if(!file)return;
+
+  if(file.size>700000){
+   alert("Please choose a logo smaller than 700KB.");
+   this.value="";
+   return;
+  }
+
+  const reader=new FileReader();
+
+  reader.onload=e=>{
+   logoData=e.target.result;
+
+   document.getElementById("logoImage").src=logoData;
+   document.getElementById("logoImage").style.display="block";
+   document.getElementById("logoLetter").style.display="none";
+   document.getElementById("logoName").textContent=file.name;
+  };
+
+  reader.readAsDataURL(file);
+ }
+);
+
+document.getElementById("qrInput").addEventListener(
+ "change",
+ function(){
+  const file=this.files[0];
+
+  if(!file)return;
+
+  if(file.size>700000){
+   alert("Please choose a QR image smaller than 700KB.");
+   this.value="";
+   return;
+  }
+
+  const reader=new FileReader();
+
+  reader.onload=e=>{
+   qrData=e.target.result;
+
+   document.getElementById("qrImage").src=qrData;
+   document.getElementById("qrPreview").style.display="block";
+   document.getElementById("qrName").textContent=file.name;
+  };
+
+  reader.readAsDataURL(file);
+ }
+);
+
+function setMode(value){
+
+ mode=value;
+
+ const card=document.getElementById("businessCard");
+
+ card.classList.remove("light","dark");
+ card.classList.add(value);
+
+ document.getElementById("lightBtn")
+  .classList.toggle("active",value==="light");
+
+ document.getElementById("darkBtn")
+  .classList.toggle("active",value==="dark");
+
+ document.body.classList.toggle(
+  "dark",
+  value==="dark"
+ );
+
+ if(value==="dark"){
+  card.style.background="#111827";
+ }else{
+  card.style.background="#fff";
+ }
+
+ updatePreview();
+}
+
+function setColor(value){
+
+ color=value;
+
+ if(mode==="light"){
+  document.getElementById("businessCard").style.background="#fff";
+ }else{
+  document.getElementById("businessCard").style.background="#111827";
+ }
+}
+
+function updatePreview(){
+
+ const name=document.getElementById("name").value;
+ const role=document.getElementById("role").value;
+ const company=document.getElementById("company").value;
+ const tagline=document.getElementById("tagline").value;
+ const phone=document.getElementById("phone").value;
+ const email=document.getElementById("email").value;
+ const website=document.getElementById("website").value;
+
+ const address=document.getElementById("address").value;
+ const city=document.getElementById("city").value;
+ const state=document.getElementById("state").value;
+ const postal=document.getElementById("postal").value;
+ const country=document.getElementById("country").value;
+
+ document.getElementById("pName").textContent=
+  name||"Your Name";
+
+ document.getElementById("pRole").textContent=
+  role||"Your Job Title";
+
+ document.getElementById("pCompany").textContent=
+  company||"Your Company";
+
+ document.getElementById("pTagline").textContent=
+  tagline||"";
+
+ document.getElementById("pPhone").textContent=
+  "📞 "+(phone||"Phone");
+
+ document.getElementById("pEmail").textContent=
+  "✉ "+(email||"Email");
+
+ document.getElementById("pWebsite").textContent=
+  "🌐 "+(website||"Website");
+
+ let location=[];
+
+ if(address)location.push(address);
+ if(city)location.push(city);
+ if(state)location.push(state);
+ if(postal)location.push(postal);
+ if(country)location.push(country);
+
+ document.getElementById("pAddress").textContent=
+  "📍 "+(location.join(", ")||"Location");
+
+}
+
+async function saveCard(){
+
+ if(!user){
+  alert("Please log in first.");
+  return;
+ }
+
+ const name=document.getElementById("name").value.trim();
+
+ if(!name){
+  alert("Please enter your full name.");
+  return;
+ }
+
+ const locationData={
+  address:document.getElementById("address").value.trim(),
+  city:document.getElementById("city").value.trim(),
+  state:document.getElementById("state").value.trim(),
+  postal:document.getElementById("postal").value.trim(),
+  country:document.getElementById("country").value.trim()
+ };
+
+ const payload={
+  user_id:user.id,
+  title:document.getElementById("company").value.trim()||
+        "Business Card",
+  name:name,
+  role:document.getElementById("role").value.trim(),
+  company:document.getElementById("company").value.trim(),
+  tagline:document.getElementById("tagline").value.trim(),
+  phone:document.getElementById("phone").value.trim(),
+  email:document.getElementById("email").value.trim(),
+  website:document.getElementById("website").value.trim(),
+  location:JSON.stringify(locationData),
+  linkedin:document.getElementById("linkedin").value.trim(),
+  social:document.getElementById("social").value.trim(),
+  color:color,
+  theme:mode,
+  qr_url:JSON.stringify({
+   logo:logoData,
+   qr:qrData
+  })
+ };
+
+ const button=document.getElementById("saveBtn");
+ const status=document.getElementById("status");
+
+ button.disabled=true;
+ button.textContent="Saving...";
+
+ let result;
+
+ if(cardId){
+
+  result=await db
+   .from("business_cards")
+   .update(payload)
+   .eq("id",cardId)
+   .eq("user_id",user.id)
+   .select()
+   .maybeSingle();
+
+ }else{
+
+  result=await db
+   .from("business_cards")
+   .insert(payload)
+   .select()
+   .single();
+ }
+
+ if(result.error){
+
+  console.error(result.error);
+
+  status.textContent=
+   "Save failed: "+result.error.message;
+
+  status.style.color="#dc2626";
+
+  button.disabled=false;
+  button.textContent=
+   cardId?"Update Card":"Save Card";
+
+  return;
+ }
+
+ if(result.data){
+  cardId=result.data.id;
+ }
+
+ status.textContent="Card saved successfully!";
+ status.style.color="#059669";
+
+ button.textContent="Saved ✓";
+
+ setTimeout(()=>{
+  location.href="business-cards.html";
+ },900);
+}
+
+async function saveToPhone(){
+
+ const card=document.getElementById("businessCard");
+
+ try{
+
+  const canvas=await html2canvas(card,{
+   scale:3,
+   useCORS:true,
+   backgroundColor:null,
+   logging:false
+  });
+
+  canvas.toBlob(blob=>{
+
+   const url=URL.createObjectURL(blob);
+
+   const link=document.createElement("a");
+
+   link.href=url;
+   link.download="CareerCraft-Business-Card.png";
+
+   document.body.appendChild(link);
+   link.click();
+   link.remove();
+
+   setTimeout(()=>{
+    URL.revokeObjectURL(url);
+   },1000);
+
+  },"image/png");
+
+ }catch(error){
+
+  console.error(error);
+
+  alert(
+   "Unable to save the card. Please try again."
+  );
+
+ }
+}
+
+async function shareCard(){
+
+ if(!navigator.share){
+
+  alert(
+   "Sharing is not supported on this device. Use Save to Phone instead."
+  );
+
+  return;
+ }
+
+ try{
+
+  await navigator.share({
+   title:"CareerCraft Business Card",
+   text:"My professional business card"
+  });
+
+ }catch(e){}
+}
+
+function printCard(){
+
+ const card=document.getElementById("businessCard");
+
+ const win=window.open("","_blank");
+
+ if(!win){
+  alert("Please allow pop-ups to print your card.");
+  return;
+ }
+
+ win.document.write(`
+ <!DOCTYPE html>
+ <html>
+ <head>
+ <title>CareerCraft Business Card</title>
+ <style>
+ body{
+  margin:0;
+  padding:30px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+ }
+ </style>
+ </head>
+ <body>
+ ${card.outerHTML}
+ </body>
+ </html>
+ `);
+
+ win.document.close();
+
+ setTimeout(()=>{
+  win.focus();
+  win.print();
+ },500);
+}
+
+function goBack(){
+ location.href="business-cards.html";
+}
+
+start();
+
+</script>
+
+</body>
+  </html>
