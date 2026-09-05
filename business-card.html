@@ -3,39 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>My Business Cards | CareerCraft</title>
+<title>Business Card Studio | CareerCraft</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}
-header{background:#fff;border-bottom:1px solid #e5e7eb;padding:16px 5%;display:flex;align-items:center;justify-content:space-between;gap:15px}
+body{
+  font-family:Arial,sans-serif;
+  background:#f5f7fb;
+  color:#172033
+}
+header{
+  background:white;
+  padding:15px 5%;
+  border-bottom:1px solid #e5e7eb;
+  display:flex;
+  align-items:center;
+  justify-content:space-between
+}
 .logo{font-size:21px;font-weight:800;color:#2563eb}
-button{border:0;border-radius:10px;padding:11px 16px;font-weight:700;cursor:pointer}
-.new{background:#2563eb;color:white}
-main{max-width:1100px;margin:auto;padding:35px 5%}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;gap:15px}
-h1{font-size:30px}
-.sub{color:#667085;margin-top:6px}
-.search{width:100%;padding:13px;border:1px solid #d8dee9;border-radius:10px;margin-bottom:25px;font-size:15px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
-.card{background:white;border-radius:16px;padding:20px;box-shadow:0 5px 20px #0000000d;border:1px solid #e8ebf0}
-.preview{height:145px;border-radius:12px;padding:20px;color:white;display:flex;flex-direction:column;justify-content:center;margin-bottom:16px}
-.preview b{font-size:20px}
-.preview small{margin-top:6px;opacity:.9}
-.info h3{margin-bottom:5px}
-.info p{color:#667085;font-size:14px}
-.actions{display:flex;gap:8px;margin-top:16px}
-.edit{background:#eef4ff;color:#2563eb}
-.del{background:#fff0f0;color:#dc2626}
-.empty{text-align:center;padding:60px 20px;color:#667085}
-@media(max-width:600px){
- header{padding:14px 4%}
- main{padding:25px 4%}
- .top{align-items:flex-start;flex-direction:column}
- h1{font-size:25px}
- .new{width:100%}
+.back{
+  background:#eef2f7;
+  color:#172033
+}
+main{
+  max-width:1050px;
+  margin:auto;
+  padding:30px 5%
+}
+h1{font-size:28px;margin-bottom:7px}
+.sub{color:#667085;margin-bottom:25px}
+
+.layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px
+}
+.panel{
+  background:white;
+  padding:22px;
+  border-radius:16px;
+  box-shadow:0 5px 20px #0000000d
+}
+h2{font-size:18px;margin-bottom:18px}
+
+label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin:13px 0 6px
+}
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  border:1px solid #d8dee9;
+  border-radius:9px;
+  font-size:14px;
+  outline:none
+}
+textarea{resize:vertical;min-height:70px}
+input:focus,textarea:focus,select:focus{
+  border-color:#2563eb
+}
+
+.colors{
+  display:flex;
+  gap:10px;
+  margin-top:8px
+}
+.colors button{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  border:3px solid white;
+  box-shadow:0 0 0 1px #ddd;
+  padding:0
+}
+
+.save{
+  width:100%;
+  margin-top:20px;
+  background:#2563eb;
+  color:white;
+  padding:14px
+}
+.status{
+  text-align:center;
+  margin-top:12px;
+  font-size:14px
+}
+
+.preview{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:320px
+}
+.business-card{
+  width:100%;
+  max-width:450px;
+  aspect-ratio:1.65;
+  border-radius:18px;
+  padding:30px;
+  color:white;
+  background:#2563eb;
+  box-shadow:0 15px 35px #0003;
+  display:flex;
+  flex-direction:column;
+  justify-content:center
+}
+.business-card .name{
+  font-size:27px;
+  font-weight:800
+}
+.business-card .role{
+  margin-top:7px;
+  font-size:15px;
+  opacity:.9
+}
+.business-card .company{
+  margin-top:3px;
+  font-weight:700
+}
+.details{
+  margin-top:22px;
+  font-size:12px;
+  line-height:1.8;
+  opacity:.9
+}
+
+@media(max-width:750px){
+  .layout{grid-template-columns:1fr}
+  main{padding:25px 4%}
+  .preview{min-height:250px}
 }
 </style>
 </head>
@@ -43,125 +144,277 @@ h1{font-size:30px}
 <body>
 
 <header>
-<div class="logo">CareerCraft</div>
-<button class="new" onclick="createCard()">+ New Card</button>
+  <div class="logo">CareerCraft</div>
+  <button class="back" onclick="goBack()">← My Cards</button>
 </header>
 
 <main>
-<div class="top">
-<div>
-<h1>My Business Cards</h1>
-<p class="sub">Create and manage your professional cards.</p>
-</div>
+
+<h1 id="heading">Create Business Card</h1>
+<p class="sub">Build your professional digital business card.</p>
+
+<div class="layout">
+
+<div class="panel">
+
+<h2>Your Information</h2>
+
+<label>Card Title</label>
+<input id="title" placeholder="e.g. My Professional Card">
+
+<label>Full Name</label>
+<input id="name" placeholder="Your name">
+
+<label>Job Title / Role</label>
+<input id="role" placeholder="e.g. Graphic Designer">
+
+<label>Company</label>
+<input id="company" placeholder="Company name">
+
+<label>Tagline</label>
+<input id="tagline" placeholder="Your professional tagline">
+
+<label>Phone</label>
+<input id="phone" placeholder="+234...">
+
+<label>Email</label>
+<input id="email" type="email" placeholder="you@example.com">
+
+<label>Website</label>
+<input id="website" placeholder="https://example.com">
+
+<label>Location</label>
+<input id="location" placeholder="Abuja, Nigeria">
+
+<label>LinkedIn</label>
+<input id="linkedin" placeholder="LinkedIn profile">
+
+<label>Social Media</label>
+<input id="social" placeholder="@username">
+
+<label>Card Color</label>
+
+<div class="colors">
+<button style="background:#2563eb" onclick="setColor('#2563eb')"></button>
+<button style="background:#111827" onclick="setColor('#111827')"></button>
+<button style="background:#7c3aed" onclick="setColor('#7c3aed')"></button>
+<button style="background:#059669" onclick="setColor('#059669')"></button>
+<button style="background:#dc2626" onclick="setColor('#dc2626')"></button>
 </div>
 
-<input id="search" class="search" placeholder="Search your cards..." oninput="showCards()">
+<button class="save" id="saveBtn" onclick="saveCard()">Save Business Card</button>
 
-<div id="cards" class="grid"></div>
+<div class="status" id="status"></div>
+
+</div>
+
+<div class="panel">
+
+<h2>Live Preview</h2>
+
+<div class="preview">
+
+<div class="business-card" id="preview">
+
+<div class="name" id="pName">Your Name</div>
+<div class="role" id="pRole">Professional Role</div>
+<div class="company" id="pCompany">Your Company</div>
+
+<div class="details">
+<div id="pPhone">📞 Phone</div>
+<div id="pEmail">✉ Email</div>
+<div id="pWebsite">🌐 Website</div>
+<div id="pLocation">📍 Location</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </main>
 
 <script>
 const {createClient}=supabase;
+
 const db=createClient(
 "https://upcxmlbgmqhaqieldmyk.supabase.co",
 "sb_publishable_9IvHKSA89WshqhmrKI4neQ_zaiBXGCj"
 );
 
-let cards=[];
+let user=null;
+let cardId=null;
+let color="#2563eb";
 
-async function load(){
- const {data:{user}}=await db.auth.getUser();
+const fields=[
+"title","name","role","company","tagline",
+"phone","email","website","location","linkedin","social"
+];
+
+const params=new URLSearchParams(location.search);
+cardId=params.get("id");
+
+async function start(){
+
+ const result=await db.auth.getUser();
+ user=result.data.user;
 
  if(!user){
    location.href="login.html";
    return;
  }
 
- const {data,error}=await db.from("business_cards")
+ if(cardId){
+
+   const {data,error}=await db
+   .from("business_cards")
    .select("*")
+   .eq("id",cardId)
    .eq("user_id",user.id)
-   .order("created_at",{ascending:false});
+   .maybeSingle();
 
- if(error){
-   document.getElementById("cards").innerHTML=
-   "<div class='empty'>Unable to load your business cards.</div>";
-   console.error(error);
+   if(error||!data){
+     alert("Business card not found.");
+     location.href="business-cards.html";
+     return;
+   }
+
+   fields.forEach(x=>{
+     const el=document.getElementById(x);
+     if(el) el.value=data[x]||"";
+   });
+
+   color=data.color||"#2563eb";
+   document.getElementById("preview").style.background=color;
+   document.getElementById("heading").textContent="Edit Business Card";
+   document.getElementById("saveBtn").textContent="Update Business Card";
+
+   updatePreview();
+ }
+}
+
+fields.forEach(id=>{
+ const el=document.getElementById(id);
+ if(el) el.addEventListener("input",updatePreview);
+});
+
+function setColor(c){
+ color=c;
+ document.getElementById("preview").style.background=c;
+}
+
+function updatePreview(){
+
+ document.getElementById("pName").textContent=
+ document.getElementById("name").value||"Your Name";
+
+ document.getElementById("pRole").textContent=
+ document.getElementById("role").value||"Professional Role";
+
+ document.getElementById("pCompany").textContent=
+ document.getElementById("company").value||"Your Company";
+
+ document.getElementById("pPhone").textContent=
+ "📞 "+(document.getElementById("phone").value||"Phone");
+
+ document.getElementById("pEmail").textContent=
+ "✉ "+(document.getElementById("email").value||"Email");
+
+ document.getElementById("pWebsite").textContent=
+ "🌐 "+(document.getElementById("website").value||"Website");
+
+ document.getElementById("pLocation").textContent=
+ "📍 "+(document.getElementById("location").value||"Location");
+}
+
+async function saveCard(){
+
+ if(!user){
+   alert("Please log in first.");
    return;
  }
 
- cards=data||[];
- showCards();
-}
+ const name=document.getElementById("name").value.trim();
 
-function showCards(){
- const box=document.getElementById("cards");
- const q=document.getElementById("search").value.toLowerCase();
-
- const list=cards.filter(c=>
-   (c.name||"").toLowerCase().includes(q) ||
-   (c.company||"").toLowerCase().includes(q) ||
-   (c.title||"").toLowerCase().includes(q)
- );
-
- if(!list.length){
-   box.innerHTML="<div class='empty'>No business cards found.<br><br><button class='new' onclick='createCard()'>Create your first card</button></div>";
+ if(!name){
+   alert("Please enter your full name.");
    return;
  }
 
- box.innerHTML=list.map(c=>`
- <div class="card">
-   <div class="preview" style="background:${c.color||"#2563eb"}">
-     <b>${esc(c.name||"Your Name")}</b>
-     <small>${esc(c.role||c.title||"Professional")}</small>
-     <small>${esc(c.company||"Your Company")}</small>
-   </div>
+ const payload={
+   user_id:user.id,
+   title:document.getElementById("title").value.trim(),
+   name:name,
+   role:document.getElementById("role").value.trim(),
+   company:document.getElementById("company").value.trim(),
+   tagline:document.getElementById("tagline").value.trim(),
+   phone:document.getElementById("phone").value.trim(),
+   email:document.getElementById("email").value.trim(),
+   website:document.getElementById("website").value.trim(),
+   location:document.getElementById("location").value.trim(),
+   linkedin:document.getElementById("linkedin").value.trim(),
+   social:document.getElementById("social").value.trim(),
+   color:color
+ };
 
-   <div class="info">
-     <h3>${esc(c.title||c.company||"Business Card")}</h3>
-     <p>${esc(c.email||c.phone||"No contact information")}</p>
-   </div>
+ const btn=document.getElementById("saveBtn");
+ const status=document.getElementById("status");
 
-   <div class="actions">
-     <button class="edit" onclick="editCard('${c.id}')">Edit</button>
-     <button class="del" onclick="deleteCard('${c.id}')">Delete</button>
-   </div>
- </div>
- `).join("");
-}
+ btn.disabled=true;
+ btn.textContent="Saving...";
 
-function esc(x){
- return String(x).replace(/[&<>"']/g,m=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",
- '"':"&quot;","'":"&#039;"
- }[m]));
-}
+ let result;
 
-function createCard(){
- location.href="business-card.html?new=1";
-}
+ if(cardId){
 
-function editCard(id){
- location.href="business-card.html?id="+encodeURIComponent(id);
-}
+   result=await db
+   .from("business_cards")
+   .update(payload)
+   .eq("id",cardId)
+   .eq("user_id",user.id)
+   .select()
+   .maybeSingle();
 
-async function deleteCard(id){
- if(!confirm("Delete this business card?"))return;
+ }else{
 
- const {error}=await db.from("business_cards")
-   .delete().eq("id",id);
+   result=await db
+   .from("business_cards")
+   .insert(payload)
+   .select()
+   .single();
+ }
 
- if(error){
-   alert("Unable to delete card.");
-   console.error(error);
+ if(result.error){
+
+   console.error(result.error);
+   status.textContent="Could not save: "+result.error.message;
+   status.style.color="#dc2626";
+
+   btn.disabled=false;
+   btn.textContent=cardId?
+   "Update Business Card":
+   "Save Business Card";
+
    return;
  }
 
- cards=cards.filter(c=>c.id!==id);
- showCards();
+ status.textContent="Business card saved successfully!";
+ status.style.color="#059669";
+
+ setTimeout(()=>{
+   location.href="business-cards.html";
+ },800);
 }
 
-load();
+function goBack(){
+ location.href="business-cards.html";
+}
+
+start();
 </script>
 
 </body>
-  </html>
+ </html>
